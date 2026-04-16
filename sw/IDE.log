@@ -1,0 +1,12 @@
+18:02:01 INFO  : Launching XSCT server: xsct.bat -n  -interactive C:\Temp\sa2-final\sw\temp_xsdb_launch_script.tcl
+18:02:01 INFO  : Registering command handlers for Vitis TCF services
+18:02:03 INFO  : XSCT server has started successfully.
+18:02:04 INFO  : Platform repository initialization has completed.
+18:02:05 INFO  : plnx-install-location is set to ''
+18:02:05 INFO  : Successfully done setting XSCT server connection channel  
+18:02:05 INFO  : Successfully done query RDI_DATADIR 
+18:02:05 INFO  : Successfully done setting workspace for the tool. 
+18:02:42 INFO  : Result from executing command 'getProjects': final_proj_wrapper
+18:02:42 INFO  : Result from executing command 'getPlatforms': 
+18:02:42 INFO  : Platform 'final_proj_wrapper' is added to custom repositories.
+18:02:46 INFO  : Platform 'final_proj_wrapper' is added to custom repositories.
