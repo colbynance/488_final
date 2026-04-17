@@ -1,8 +1,8 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
---Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Thu Apr 16 17:57:57 2026
---Host        : CO2041-10 running 64-bit major release  (build 9200)
+--Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
+--Date        : Thu Apr 16 23:15:55 2026
+--Host        : comparch-dev02.ece.iastate.edu running 64-bit Red Hat Enterprise Linux release 8.8 (Ootpa)
 --Command     : generate_target final_proj_wrapper.bd
 --Design      : final_proj_wrapper
 --Purpose     : IP block netlist
@@ -64,9 +64,9 @@ architecture STRUCTURE of final_proj_wrapper is
     FIXED_IO_ps_srstb : inout STD_LOGIC;
     FIXED_IO_ps_clk : inout STD_LOGIC;
     FIXED_IO_ps_porb : inout STD_LOGIC;
-    btns_5bits_tri_i : in STD_LOGIC_VECTOR ( 4 downto 0 );
     sws_8bits_tri_i : in STD_LOGIC_VECTOR ( 7 downto 0 );
-    leds_8bits_tri_o : out STD_LOGIC_VECTOR ( 7 downto 0 )
+    leds_8bits_tri_o : out STD_LOGIC_VECTOR ( 7 downto 0 );
+    btns_5bits_tri_i : in STD_LOGIC_VECTOR ( 4 downto 0 )
   );
   end component final_proj;
 begin

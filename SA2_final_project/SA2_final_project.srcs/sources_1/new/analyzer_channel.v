@@ -40,7 +40,7 @@ module analyzer_channel (
     input wire         buf_we_i,
     input wire  [9:0]  buf_addr_i,
     input wire  [31:0] buf_di_i,
-    output wire [31:0] buf_do_o,
+    output wire [31:0] buf_do_o
 );
 
 wire downsamp_sig;
@@ -81,7 +81,7 @@ trigger trig (
     .trig_o(trig_trig)
 );
 
-streamer stream (
+sig_streamer stream (
     .clk_i(clk_i),
     .rst_i(rst_i),
     .sync_rst_i(!enable_i),
@@ -104,13 +104,5 @@ buffer buff (
     .di(buffer_di),
     .do(buf_do_o),
 );
-
-always @(posedge clk_i, posedge rst_i) begin
-    if (rst_i) begin
-    end
-    else if (clk_i) begin
-
-    end
-end
 
 endmodule

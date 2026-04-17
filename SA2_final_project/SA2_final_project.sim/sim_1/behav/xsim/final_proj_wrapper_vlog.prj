@@ -1,0 +1,11 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/ec67/hdl" --include "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/6b56/hdl" --include "/remote/Xilinx/2020.1/Vivado/2020.1/data/xilinx_vip/include" \
+"../../../../SA2_final_project.ip_user_files/bd/final_proj/ip/final_proj_processing_system7_0_0/sim/final_proj_processing_system7_0_0.v" \
+"../../../../SA2_final_project.ip_user_files/bd/final_proj/ip/final_proj_xbar_0/sim/final_proj_xbar_0.v" \
+"../../../../SA2_final_project.ip_user_files/bd/final_proj/ip/final_proj_auto_pc_0/sim/final_proj_auto_pc_0.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

@@ -1,0 +1,8 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/mdrobot7/cpre488-final/SA2_final_project/SA2_final_project.ip_user_files/bd/final_proj/ip/final_proj_processing_system7_0_0/sim/final_proj_processing_system7_0_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module final_proj_processing_system7_0_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/mdrobot7/cpre488-final/SA2_final_project/SA2_final_project.ip_user_files/bd/final_proj/ip/final_proj_xbar_0/sim/final_proj_xbar_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module final_proj_xbar_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/mdrobot7/cpre488-final/SA2_final_project/SA2_final_project.ip_user_files/bd/final_proj/ip/final_proj_auto_pc_0/sim/final_proj_auto_pc_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module final_proj_auto_pc_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/mdrobot7/cpre488-final/SA2_final_project/SA2_final_project.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
