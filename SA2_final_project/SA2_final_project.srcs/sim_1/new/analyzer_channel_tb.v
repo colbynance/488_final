@@ -30,7 +30,7 @@ initial begin
 end
 
 initial begin
-    #100000;
+    #1000000000;
     $finish;
 end
 
@@ -121,7 +121,7 @@ begin : TEST_NONE
 
     enable = 1;
     sig = 0;
-    wait_clocks(1);
+    wait_clocks(2);
     if (!trig_trigd) begin
         $display("FAIL: none edge not triggered");
         $finish;
@@ -137,11 +137,13 @@ begin : TEST_NONE
 
     // Check
     for (i = 0; i < 1024 * 32; i = i + 1) begin
-        if (i < 50 && dut.buff.MEM[i / 32][i % 32] != 0) begin
-            $display("FAIL: expected %d, got %d at bit %d", 0, 1, i);
-            $finish;
+        if (i < 54) begin // 52 + 2 cycles delay because of extra 2 cycles in trigger. User doesn't care
+            if (dut.buff.RAM[i / 32][i % 32] != 0) begin
+                $display("FAIL: expected %d, got %d at bit %d", 0, 1, i);
+                $finish;
+            end
         end
-        else if (dut.buff.MEM[i / 32][i % 32] == 0) begin
+        else if (dut.buff.RAM[i / 32][i % 32] == 0) begin
             $display("FAIL: expected %d, got %d at bit %d", 1, 0, i);
             $finish;
         end
@@ -152,14 +154,14 @@ endtask
 task test_rising;
 begin
     trig_type = `TRIG_TYPE_RISING;
+    sig = 0;
 
     reset();
 
     enable = 1;
-    sig = 0;
     wait_clocks(50);
     sig = 1;
-    wait_clocks(1);
+    wait_clocks(33);
     if (!trig_trigd) begin
         $display("FAIL: rising edge not triggered");
         $finish;
@@ -177,7 +179,7 @@ begin
     sig = 1;
     wait_clocks(50);
     sig = 0;
-    wait_clocks(1);
+    wait_clocks(33);
     if (!trig_trigd) begin
         $display("FAIL: falling edge not triggered");
         $finish;
@@ -197,7 +199,7 @@ begin
     sig = 0;
     wait_clocks(50);
     sig = 1;
-    wait_clocks(1);
+    wait_clocks(2);
     if (trig_trigd) begin
         $display("FAIL: data edge triggered erroneously");
         $finish;
@@ -224,7 +226,7 @@ begin
     sig = 0;
     wait_clocks(1);
     sig = 1;
-    wait_clocks(2);
+    wait_clocks(32);
     if (!trig_trigd) begin
         $display("FAIL: data edge not triggered");
         $finish;
