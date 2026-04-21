@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="synth_1" LaunchPart="xc7z020clg484-1" LaunchTime="1776380288">
-  <File Type="REPORTS-TCL" Name="final_proj_wrapper_reports.tcl"/>
   <File Type="PA-TCL" Name="final_proj_wrapper.tcl"/>
-  <File Type="RDS-DCP" Name="final_proj_wrapper.dcp"/>
+  <File Type="REPORTS-TCL" Name="final_proj_wrapper_reports.tcl"/>
   <File Type="RDS-RDS" Name="final_proj_wrapper.vds"/>
   <File Type="RDS-UTIL" Name="final_proj_wrapper_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="final_proj_wrapper_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="final_proj_wrapper.dcp"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/bd/final_proj/final_proj.bd">

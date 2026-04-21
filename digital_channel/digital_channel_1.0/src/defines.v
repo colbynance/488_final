@@ -1,0 +1,4 @@
+`define TRIG_TYPE_NONE (0)
+`define TRIG_TYPE_RISING (1)
+`define TRIG_TYPE_FALLING (2)
+`define TRIG_TYPE_VALUE (3)
