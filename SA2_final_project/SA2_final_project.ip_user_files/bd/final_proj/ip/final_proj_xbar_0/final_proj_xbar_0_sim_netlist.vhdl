@@ -3,8 +3,8 @@
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
 -- Date        : Thu Apr 23 18:01:08 2026
 -- Host        : CO2041-10 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xbar_0/final_proj_xbar_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top final_proj_xbar_0 -prefix
+--               final_proj_xbar_0_ final_proj_xbar_0_sim_netlist.vhdl
 -- Design      : final_proj_xbar_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -79,8 +79,6 @@ entity final_proj_xbar_0_axi_crossbar_v2_1_22_addr_arbiter_sasd is
     mi_wready : in STD_LOGIC_VECTOR ( 0 to 0 );
     mi_bvalid : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of final_proj_xbar_0_axi_crossbar_v2_1_22_addr_arbiter_sasd : entity is "axi_crossbar_v2_1_22_addr_arbiter_sasd";
 end final_proj_xbar_0_axi_crossbar_v2_1_22_addr_arbiter_sasd;
 
 architecture STRUCTURE of final_proj_xbar_0_axi_crossbar_v2_1_22_addr_arbiter_sasd is
@@ -1590,8 +1588,6 @@ entity final_proj_xbar_0_axi_crossbar_v2_1_22_decerr_slave is
     m_axi_wready : in STD_LOGIC_VECTOR ( 3 downto 0 );
     aa_rready : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of final_proj_xbar_0_axi_crossbar_v2_1_22_decerr_slave : entity is "axi_crossbar_v2_1_22_decerr_slave";
 end final_proj_xbar_0_axi_crossbar_v2_1_22_decerr_slave;
 
 architecture STRUCTURE of final_proj_xbar_0_axi_crossbar_v2_1_22_decerr_slave is
@@ -1790,8 +1786,6 @@ entity final_proj_xbar_0_axi_crossbar_v2_1_22_splitter is
     \m_ready_d_reg[0]_1\ : in STD_LOGIC;
     aclk : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of final_proj_xbar_0_axi_crossbar_v2_1_22_splitter : entity is "axi_crossbar_v2_1_22_splitter";
 end final_proj_xbar_0_axi_crossbar_v2_1_22_splitter;
 
 architecture STRUCTURE of final_proj_xbar_0_axi_crossbar_v2_1_22_splitter is
@@ -2058,8 +2052,6 @@ entity final_proj_xbar_0_axi_register_slice_v2_1_21_axic_register_slice is
     SR : in STD_LOGIC_VECTOR ( 0 to 0 );
     E : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of final_proj_xbar_0_axi_register_slice_v2_1_21_axic_register_slice : entity is "axi_register_slice_v2_1_21_axic_register_slice";
 end final_proj_xbar_0_axi_register_slice_v2_1_21_axic_register_slice;
 
 architecture STRUCTURE of final_proj_xbar_0_axi_register_slice_v2_1_21_axic_register_slice is
@@ -3806,8 +3798,6 @@ entity final_proj_xbar_0_axi_crossbar_v2_1_22_crossbar_sasd is
     s_axi_araddr : in STD_LOGIC_VECTOR ( 31 downto 0 );
     s_axi_awaddr : in STD_LOGIC_VECTOR ( 31 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of final_proj_xbar_0_axi_crossbar_v2_1_22_crossbar_sasd : entity is "axi_crossbar_v2_1_22_crossbar_sasd";
 end final_proj_xbar_0_axi_crossbar_v2_1_22_crossbar_sasd;
 
 architecture STRUCTURE of final_proj_xbar_0_axi_crossbar_v2_1_22_crossbar_sasd is
@@ -4359,8 +4349,6 @@ entity final_proj_xbar_0_axi_crossbar_v2_1_22_axi_crossbar is
   attribute C_S_AXI_WRITE_ACCEPTANCE of final_proj_xbar_0_axi_crossbar_v2_1_22_axi_crossbar : entity is 1;
   attribute DowngradeIPIdentifiedWarnings : string;
   attribute DowngradeIPIdentifiedWarnings of final_proj_xbar_0_axi_crossbar_v2_1_22_axi_crossbar : entity is "yes";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of final_proj_xbar_0_axi_crossbar_v2_1_22_axi_crossbar : entity is "axi_crossbar_v2_1_22_axi_crossbar";
   attribute P_ADDR_DECODE : integer;
   attribute P_ADDR_DECODE of final_proj_xbar_0_axi_crossbar_v2_1_22_axi_crossbar : entity is 1;
   attribute P_AXI3 : integer;

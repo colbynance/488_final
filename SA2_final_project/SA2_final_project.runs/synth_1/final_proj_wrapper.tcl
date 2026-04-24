@@ -73,6 +73,8 @@ OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param tcl.collectionResultDisplayLimit 0
 set_param chipscope.maxJobs 5
 set_param xicom.use_bs_reader 1
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z020clg484-1
 
@@ -111,14 +113,13 @@ set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_rst_ps7_0_100M_0/final_proj_rst_ps7_0_100M_0_board.xdc]
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_rst_ps7_0_100M_0/final_proj_rst_ps7_0_100M_0.xdc]
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_rst_ps7_0_100M_0/final_proj_rst_ps7_0_100M_0_ooc.xdc]
-set_property used_in_synthesis false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
-set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
-set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc]
-set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/bd_0/ip/ip_0/bd_289d_ila_lib_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/bd_0/bd_289d_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/final_proj_system_ila_0_1_ooc.xdc]
+set_property used_in_synthesis false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_0/bd_29dd_ila_lib_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/bd_29dd_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_2/final_proj_system_ila_0_2_ooc.xdc]
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_auto_pc_0/final_proj_auto_pc_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_s00_mmu_0/final_proj_s00_mmu_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/final_proj_ooc.xdc]
 
 OPTRACE "Adding files" END { }

@@ -70,6 +70,9 @@ void init_digital_channel(){
 	Xil_Out32(DIGITAL_CHANNEL_ADDR + 0x4, 0);
 	Xil_Out32(DIGITAL_CHANNEL_ADDR + 0x8, 0);
 	Xil_Out32(DIGITAL_CHANNEL_ADDR + 0xC, 0x0);
+//	Xil_Out32(DIGITAL_CHANNEL_ADDR + 0x18, 0xFFFFFFFF);
+//	Xil_Out32(DIGITAL_CHANNEL_ADDR + 0x1C, 0xFFFFFFFF);
+//	xil_printf("0x%08X \n\r", Xil_In32(DIGITAL_CHANNEL_ADDR + 0x14));
 }
 
 

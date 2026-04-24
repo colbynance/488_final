@@ -86,28 +86,28 @@
   "../../../bd/final_proj/ip/final_proj_digital_channel_la_0_0/sim/final_proj_digital_channel_la_0_0.v" \
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
-  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/sim/bd_e85c.vhd" \
-  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_0/sim/bd_e85c_ila_lib_0.vhd" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/sim/bd_29dd.vhd" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_0/sim/bd_29dd_ila_lib_0.vhd" \
 -endlib
 -makelib xcelium_lib/gigantic_mux \
   "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/d322/hdl/gigantic_mux_v1_0_cntr.v" \
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
-  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_1/bd_e85c_g_inst_0_gigantic_mux.v" \
-  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_1/sim/bd_e85c_g_inst_0.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_1/bd_29dd_g_inst_0_gigantic_mux.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_1/sim/bd_29dd_g_inst_0.v" \
 -endlib
 -makelib xcelium_lib/xlconcat_v2_1_3 \
   "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/442e/hdl/xlconcat_v2_1_vl_rfs.v" \
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
-  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_2/sim/bd_e85c_slot_0_aw_0.v" \
-  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_3/sim/bd_e85c_slot_0_w_0.v" \
-  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_4/sim/bd_e85c_slot_0_b_0.v" \
-  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_5/sim/bd_e85c_slot_0_ar_0.v" \
-  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_6/sim/bd_e85c_slot_0_r_0.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_2/sim/bd_29dd_slot_0_aw_0.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_3/sim/bd_29dd_slot_0_w_0.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_4/sim/bd_29dd_slot_0_b_0.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_5/sim/bd_29dd_slot_0_ar_0.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_6/sim/bd_29dd_slot_0_r_0.v" \
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
-  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/sim/final_proj_system_ila_0_0.vhd" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_2/sim/final_proj_system_ila_0_2.vhd" \
 -endlib
 -makelib xcelium_lib/axi_protocol_converter_v2_1_21 \
   "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/8dfa/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \

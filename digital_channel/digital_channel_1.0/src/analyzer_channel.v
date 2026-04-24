@@ -64,6 +64,9 @@ wire [9:0]  buffer_addr = enable_i ? streamer_addr : buf_addr_i;
 wire [31:0] buffer_di   = enable_i ? streamer_di   : buf_di_i;
 
 assign trig_trigd_o = trig_trig;
+assign buffer_di_o = buffer_di;
+assign buffer_addr_o = buffer_addr;
+assign buffer_we_o = buffer_we;
 
 
 downsample downsamp (

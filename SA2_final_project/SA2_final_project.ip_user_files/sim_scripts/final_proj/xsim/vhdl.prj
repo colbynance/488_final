@@ -3,9 +3,9 @@ vhdl xil_defaultlib  \
 "../../../bd/final_proj/ip/final_proj_axi_gpio_0_1/sim/final_proj_axi_gpio_0_1.vhd" \
 "../../../bd/final_proj/ip/final_proj_axi_gpio_0_2/sim/final_proj_axi_gpio_0_2.vhd" \
 "../../../bd/final_proj/ip/final_proj_rst_ps7_0_100M_0/sim/final_proj_rst_ps7_0_100M_0.vhd" \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/sim/bd_e85c.vhd" \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_0/sim/bd_e85c_ila_lib_0.vhd" \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/sim/final_proj_system_ila_0_0.vhd" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/sim/bd_29dd.vhd" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_0/sim/bd_29dd_ila_lib_0.vhd" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/sim/final_proj_system_ila_0_2.vhd" \
 "../../../bd/final_proj/sim/final_proj.vhd" \
 
 nosort

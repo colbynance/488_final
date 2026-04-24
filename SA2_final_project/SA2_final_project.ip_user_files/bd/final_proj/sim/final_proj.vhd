@@ -1,8 +1,8 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Thu Apr 23 19:21:41 2026
---Host        : CO2041-10 running 64-bit major release  (build 9200)
+--Date        : Fri Apr 24 15:28:47 2026
+--Host        : CO2041-14 running 64-bit major release  (build 9200)
 --Command     : generate_target final_proj.bd
 --Design      : final_proj
 --Purpose     : IP block netlist
@@ -1585,7 +1585,7 @@ entity final_proj is
     sws_8bits_tri_i : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of final_proj : entity is "final_proj,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=final_proj,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=15,numReposBlks=9,numNonXlnxBlks=1,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=5,da_board_cnt=5,da_ps7_cnt=1,synth_mode=OOC_per_IP}";
+  attribute CORE_GENERATION_INFO of final_proj : entity is "final_proj,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=final_proj,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=15,numReposBlks=9,numNonXlnxBlks=1,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=9,da_board_cnt=5,da_clkrst_cnt=2,da_ps7_cnt=1,synth_mode=OOC_per_IP}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of final_proj : entity is "final_proj.hwdef";
 end final_proj;
@@ -1749,12 +1749,16 @@ architecture STRUCTURE of final_proj is
     peripheral_aresetn : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
   end component final_proj_rst_ps7_0_100M_0;
-  component final_proj_system_ila_0_0 is
+  component final_proj_system_ila_0_2 is
   port (
     clk : in STD_LOGIC;
-    probe0 : in STD_LOGIC_VECTOR ( 0 to 0 );
-    probe1 : in STD_LOGIC_VECTOR ( 0 to 0 );
-    probe2 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe0 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe1 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe2 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe3 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe4 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe5 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
     SLOT_0_AXI_awaddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
     SLOT_0_AXI_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
     SLOT_0_AXI_awvalid : in STD_LOGIC;
@@ -1776,7 +1780,7 @@ architecture STRUCTURE of final_proj is
     SLOT_0_AXI_rready : in STD_LOGIC;
     resetn : in STD_LOGIC
   );
-  end component final_proj_system_ila_0_0;
+  end component final_proj_system_ila_0_2;
   component final_proj_digital_channel_la_0_0 is
   port (
     sig_i : in STD_LOGIC;
@@ -1812,6 +1816,20 @@ architecture STRUCTURE of final_proj is
   signal axi_gpio_0_GPIO_TRI_I : STD_LOGIC_VECTOR ( 4 downto 0 );
   signal axi_gpio_1_GPIO_TRI_I : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal axi_gpio_2_GPIO_TRI_O : STD_LOGIC_VECTOR ( 7 downto 0 );
+  signal buf_do_o : STD_LOGIC_VECTOR ( 31 downto 0 );
+  attribute DEBUG : string;
+  attribute DEBUG of buf_do_o : signal is "true";
+  attribute MARK_DEBUG : boolean;
+  attribute MARK_DEBUG of buf_do_o : signal is std.standard.true;
+  signal buffer_addr_o : STD_LOGIC_VECTOR ( 31 downto 0 );
+  attribute DEBUG of buffer_addr_o : signal is "true";
+  attribute MARK_DEBUG of buffer_addr_o : signal is std.standard.true;
+  signal buffer_di_o : STD_LOGIC_VECTOR ( 31 downto 0 );
+  attribute DEBUG of buffer_di_o : signal is "true";
+  attribute MARK_DEBUG of buffer_di_o : signal is std.standard.true;
+  signal buffer_we_o : STD_LOGIC_VECTOR ( 31 downto 0 );
+  attribute DEBUG of buffer_we_o : signal is "true";
+  attribute MARK_DEBUG of buffer_we_o : signal is std.standard.true;
   signal processing_system7_0_DDR_ADDR : STD_LOGIC_VECTOR ( 14 downto 0 );
   signal processing_system7_0_DDR_BA : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal processing_system7_0_DDR_CAS_N : STD_LOGIC;
@@ -1927,9 +1945,7 @@ architecture STRUCTURE of final_proj is
   signal ps7_0_axi_periph_M03_AXI_ARADDR : STD_LOGIC_VECTOR ( 31 downto 0 );
   attribute CONN_BUS_INFO : string;
   attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_ARADDR : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE ARADDR";
-  attribute DEBUG : string;
   attribute DEBUG of ps7_0_axi_periph_M03_AXI_ARADDR : signal is "true";
-  attribute MARK_DEBUG : boolean;
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_ARADDR : signal is std.standard.true;
   signal ps7_0_axi_periph_M03_AXI_ARPROT : STD_LOGIC_VECTOR ( 2 downto 0 );
   attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_ARPROT : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE ARPROT";
@@ -2013,10 +2029,6 @@ architecture STRUCTURE of final_proj is
   signal trigd_o : STD_LOGIC;
   attribute DEBUG of trigd_o : signal is "true";
   attribute MARK_DEBUG of trigd_o : signal is std.standard.true;
-  signal NLW_digital_channel_la_0_buf_do_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal NLW_digital_channel_la_0_buffer_addr_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal NLW_digital_channel_la_0_buffer_di_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal NLW_digital_channel_la_0_buffer_we_o_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal NLW_processing_system7_0_TTC0_WAVE0_OUT_UNCONNECTED : STD_LOGIC;
   signal NLW_processing_system7_0_TTC0_WAVE1_OUT_UNCONNECTED : STD_LOGIC;
   signal NLW_processing_system7_0_TTC0_WAVE2_OUT_UNCONNECTED : STD_LOGIC;
@@ -2130,10 +2142,10 @@ axi_gpio_2: component final_proj_axi_gpio_0_2
     );
 digital_channel_la_0: component final_proj_digital_channel_la_0_0
      port map (
-      buf_do_o(31 downto 0) => NLW_digital_channel_la_0_buf_do_o_UNCONNECTED(31 downto 0),
-      buffer_addr_o(31 downto 0) => NLW_digital_channel_la_0_buffer_addr_o_UNCONNECTED(31 downto 0),
-      buffer_di_o(31 downto 0) => NLW_digital_channel_la_0_buffer_di_o_UNCONNECTED(31 downto 0),
-      buffer_we_o(31 downto 0) => NLW_digital_channel_la_0_buffer_we_o_UNCONNECTED(31 downto 0),
+      buf_do_o(31 downto 0) => buf_do_o(31 downto 0),
+      buffer_addr_o(31 downto 0) => buffer_addr_o(31 downto 0),
+      buffer_di_o(31 downto 0) => buffer_di_o(31 downto 0),
+      buffer_we_o(31 downto 0) => buffer_we_o(31 downto 0),
       s00_axi_aclk => processing_system7_0_FCLK_CLK0,
       s00_axi_araddr(4 downto 0) => ps7_0_axi_periph_M03_AXI_ARADDR(4 downto 0),
       s00_axi_aresetn => rst_ps7_0_100M_peripheral_aresetn(0),
@@ -2366,7 +2378,7 @@ rst_ps7_0_100M: component final_proj_rst_ps7_0_100M_0
       peripheral_reset(0) => NLW_rst_ps7_0_100M_peripheral_reset_UNCONNECTED(0),
       slowest_sync_clk => processing_system7_0_FCLK_CLK0
     );
-system_ila_0: component final_proj_system_ila_0_0
+system_ila_0: component final_proj_system_ila_0_2
      port map (
       SLOT_0_AXI_araddr(4 downto 0) => ps7_0_axi_periph_M03_AXI_ARADDR(4 downto 0),
       SLOT_0_AXI_arprot(2 downto 0) => ps7_0_axi_periph_M03_AXI_ARPROT(2 downto 0),
@@ -2388,9 +2400,13 @@ system_ila_0: component final_proj_system_ila_0_0
       SLOT_0_AXI_wstrb(3 downto 0) => ps7_0_axi_periph_M03_AXI_WSTRB(3 downto 0),
       SLOT_0_AXI_wvalid => ps7_0_axi_periph_M03_AXI_WVALID,
       clk => processing_system7_0_FCLK_CLK0,
-      probe0(0) => sample_done_o,
-      probe1(0) => sig_1,
-      probe2(0) => trigd_o,
+      probe0(31 downto 0) => buf_do_o(31 downto 0),
+      probe1(31 downto 0) => buffer_addr_o(31 downto 0),
+      probe2(31 downto 0) => buffer_di_o(31 downto 0),
+      probe3(31 downto 0) => buffer_we_o(31 downto 0),
+      probe4(0) => sample_done_o,
+      probe5(0) => sig_1,
+      probe6(0) => trigd_o,
       resetn => rst_ps7_0_100M_peripheral_aresetn(0)
     );
 end STRUCTURE;

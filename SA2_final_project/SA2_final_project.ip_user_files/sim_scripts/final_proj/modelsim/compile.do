@@ -129,28 +129,28 @@ vlog -work xil_defaultlib  -incr "+incdir+../../../../SA2_final_project.srcs/sou
 "../../../bd/final_proj/ip/final_proj_digital_channel_la_0_0/sim/final_proj_digital_channel_la_0_0.v" \
 
 vcom -work xil_defaultlib  -93 \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/sim/bd_e85c.vhd" \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_0/sim/bd_e85c_ila_lib_0.vhd" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/sim/bd_29dd.vhd" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_0/sim/bd_29dd_ila_lib_0.vhd" \
 
 vlog -work gigantic_mux  -incr "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/ec67/hdl" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/6b56/hdl" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/1b7e/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/122e/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/b205/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/c968/hdl/verilog" "+incdir+C:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
 "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/d322/hdl/gigantic_mux_v1_0_cntr.v" \
 
 vlog -work xil_defaultlib  -incr "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/ec67/hdl" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/6b56/hdl" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/1b7e/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/122e/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/b205/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/c968/hdl/verilog" "+incdir+C:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_1/bd_e85c_g_inst_0_gigantic_mux.v" \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_1/sim/bd_e85c_g_inst_0.v" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_1/bd_29dd_g_inst_0_gigantic_mux.v" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_1/sim/bd_29dd_g_inst_0.v" \
 
 vlog -work xlconcat_v2_1_3  -incr "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/ec67/hdl" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/6b56/hdl" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/1b7e/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/122e/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/b205/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/c968/hdl/verilog" "+incdir+C:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
 "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/442e/hdl/xlconcat_v2_1_vl_rfs.v" \
 
 vlog -work xil_defaultlib  -incr "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/ec67/hdl" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/6b56/hdl" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/1b7e/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/122e/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/b205/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/c968/hdl/verilog" "+incdir+C:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_2/sim/bd_e85c_slot_0_aw_0.v" \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_3/sim/bd_e85c_slot_0_w_0.v" \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_4/sim/bd_e85c_slot_0_b_0.v" \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_5/sim/bd_e85c_slot_0_ar_0.v" \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_6/sim/bd_e85c_slot_0_r_0.v" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_2/sim/bd_29dd_slot_0_aw_0.v" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_3/sim/bd_29dd_slot_0_w_0.v" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_4/sim/bd_29dd_slot_0_b_0.v" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_5/sim/bd_29dd_slot_0_ar_0.v" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/bd_0/ip/ip_6/sim/bd_29dd_slot_0_r_0.v" \
 
 vcom -work xil_defaultlib  -93 \
-"../../../bd/final_proj/ip/final_proj_system_ila_0_0/sim/final_proj_system_ila_0_0.vhd" \
+"../../../bd/final_proj/ip/final_proj_system_ila_0_2/sim/final_proj_system_ila_0_2.vhd" \
 
 vlog -work axi_protocol_converter_v2_1_21  -incr "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/ec67/hdl" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/6b56/hdl" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/1b7e/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/122e/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/b205/hdl/verilog" "+incdir+../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/c968/hdl/verilog" "+incdir+C:/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
 "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/8dfa/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \

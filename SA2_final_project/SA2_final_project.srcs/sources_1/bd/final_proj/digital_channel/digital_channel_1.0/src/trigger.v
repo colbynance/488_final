@@ -57,7 +57,7 @@ always @(posedge clk_i, negedge nrst_i) begin
     else if (clk_i) begin
         if (sync_rst_i) begin
             trig_o <= 0;
-            incoming <= 0;
+            incoming <= sig_i;
             valid_counter <= 0;
         end
         else begin : CAPTURE
