@@ -1,20 +1,20 @@
 -makelib ies_lib/xilinx_vip -sv \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/xilinx_vip/hdl/axi4stream_vip_axi4streampc.sv" \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/xilinx_vip/hdl/axi_vip_axi4pc.sv" \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/xilinx_vip/hdl/xil_common_vip_pkg.sv" \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/xilinx_vip/hdl/axi4stream_vip_pkg.sv" \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/xilinx_vip/hdl/axi_vip_pkg.sv" \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/xilinx_vip/hdl/axi4stream_vip_if.sv" \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/xilinx_vip/hdl/axi_vip_if.sv" \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/xilinx_vip/hdl/clk_vip_if.sv" \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/xilinx_vip/hdl/rst_vip_if.sv" \
+  "C:/Xilinx/Vivado/2020.1/data/xilinx_vip/hdl/axi4stream_vip_axi4streampc.sv" \
+  "C:/Xilinx/Vivado/2020.1/data/xilinx_vip/hdl/axi_vip_axi4pc.sv" \
+  "C:/Xilinx/Vivado/2020.1/data/xilinx_vip/hdl/xil_common_vip_pkg.sv" \
+  "C:/Xilinx/Vivado/2020.1/data/xilinx_vip/hdl/axi4stream_vip_pkg.sv" \
+  "C:/Xilinx/Vivado/2020.1/data/xilinx_vip/hdl/axi_vip_pkg.sv" \
+  "C:/Xilinx/Vivado/2020.1/data/xilinx_vip/hdl/axi4stream_vip_if.sv" \
+  "C:/Xilinx/Vivado/2020.1/data/xilinx_vip/hdl/axi_vip_if.sv" \
+  "C:/Xilinx/Vivado/2020.1/data/xilinx_vip/hdl/clk_vip_if.sv" \
+  "C:/Xilinx/Vivado/2020.1/data/xilinx_vip/hdl/rst_vip_if.sv" \
 -endlib
 -makelib ies_lib/xpm -sv \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
+  "C:/Xilinx/Vivado/2020.1/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
+  "C:/Xilinx/Vivado/2020.1/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
 -endlib
 -makelib ies_lib/xpm \
-  "/remote/Xilinx/2020.1/Vivado/2020.1/data/ip/xpm/xpm_VCOMP.vhd" \
+  "C:/Xilinx/Vivado/2020.1/data/ip/xpm/xpm_VCOMP.vhd" \
 -endlib
 -makelib ies_lib/axi_infrastructure_v1_1_0 \
   "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/ec67/hdl/axi_infrastructure_v1_1_vl_rfs.v" \
@@ -74,13 +74,49 @@
 -endlib
 -makelib ies_lib/xil_defaultlib \
   "../../../bd/final_proj/ip/final_proj_rst_ps7_0_100M_0/sim/final_proj_rst_ps7_0_100M_0.vhd" \
-  "../../../bd/final_proj/sim/final_proj.vhd" \
+-endlib
+-makelib ies_lib/xil_defaultlib \
+  "../../../bd/final_proj/digital_channel/digital_channel_1.0/src/analyzer_channel.v" \
+  "../../../bd/final_proj/digital_channel/digital_channel_1.0/src/buffer.v" \
+  "../../../bd/final_proj/ipshared/9544/hdl/digital_channel_la_v1_0_S00_AXI.v" \
+  "../../../bd/final_proj/digital_channel/digital_channel_1.0/src/downsample.v" \
+  "../../../bd/final_proj/digital_channel/digital_channel_1.0/src/sig_streamer.v" \
+  "../../../bd/final_proj/digital_channel/digital_channel_1.0/src/trigger.v" \
+  "../../../bd/final_proj/ipshared/9544/hdl/digital_channel_la_v1_0.v" \
+  "../../../bd/final_proj/ip/final_proj_digital_channel_la_0_0/sim/final_proj_digital_channel_la_0_0.v" \
+-endlib
+-makelib ies_lib/xil_defaultlib \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/sim/bd_e85c.vhd" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_0/sim/bd_e85c_ila_lib_0.vhd" \
+-endlib
+-makelib ies_lib/gigantic_mux \
+  "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/d322/hdl/gigantic_mux_v1_0_cntr.v" \
+-endlib
+-makelib ies_lib/xil_defaultlib \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_1/bd_e85c_g_inst_0_gigantic_mux.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_1/sim/bd_e85c_g_inst_0.v" \
+-endlib
+-makelib ies_lib/xlconcat_v2_1_3 \
+  "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/442e/hdl/xlconcat_v2_1_vl_rfs.v" \
+-endlib
+-makelib ies_lib/xil_defaultlib \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_2/sim/bd_e85c_slot_0_aw_0.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_3/sim/bd_e85c_slot_0_w_0.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_4/sim/bd_e85c_slot_0_b_0.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_5/sim/bd_e85c_slot_0_ar_0.v" \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/bd_0/ip/ip_6/sim/bd_e85c_slot_0_r_0.v" \
+-endlib
+-makelib ies_lib/xil_defaultlib \
+  "../../../bd/final_proj/ip/final_proj_system_ila_0_0/sim/final_proj_system_ila_0_0.vhd" \
 -endlib
 -makelib ies_lib/axi_protocol_converter_v2_1_21 \
   "../../../../SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/8dfa/hdl/axi_protocol_converter_v2_1_vl_rfs.v" \
 -endlib
 -makelib ies_lib/xil_defaultlib \
   "../../../bd/final_proj/ip/final_proj_auto_pc_0/sim/final_proj_auto_pc_0.v" \
+-endlib
+-makelib ies_lib/xil_defaultlib \
+  "../../../bd/final_proj/sim/final_proj.vhd" \
 -endlib
 -makelib ies_lib/xil_defaultlib \
   glbl.v

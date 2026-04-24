@@ -2,3 +2,21 @@ timestamp=[2026-04-16 18:02:00], mode=WORKBENCH_START, duration=0:00:03.038, dur
 timestamp=[2026-04-16 18:02:01], mode=WORKBENCH_UI_INIT, duration=0:00:00.300, duration_ms=300, data={editors_count=0, platform_editors_count=0, projects_count=0, platform_projects_count=0, active_platform_editor=false, projects=}
 timestamp=[2026-04-16 18:02:04], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:02.546, duration_ms=2546, data={}
 timestamp=[2026-04-16 18:02:46], mode=APP_CREATION, duration=0:00:10.503, duration_ms=10503, data={name=final_project, project_type=sdk, os=standalone, processor=ps7_cortexa9, runtime=cpp, platform=final_proj_wrapper, application_type=application}
+timestamp=[2026-04-23 18:05:00], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.034, duration_ms=34, data={}
+timestamp=[2026-04-23 18:05:01], mode=WORKBENCH_START, duration=0:00:06.535, duration_ms=6535, data={}
+timestamp=[2026-04-23 18:05:01], mode=WORKBENCH_UI_INIT, duration=0:00:00.551, duration_ms=551, data={editors_count=2, platform_editors_count=0, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=RemoteSystemsTempFiles,final_proj_wrapper,final_project,final_project_system}
+timestamp=[2026-04-23 18:29:09], mode=PLATFORM_GENERATION, duration=0:00:30.944, duration_ms=30944, data={name=final_proj_wrapper}
+timestamp=[2026-04-23 18:29:12], mode=BUILD, duration=0:00:00.825, duration_ms=825, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 18:29:13], mode=BUILD, duration=0:00:00.614, duration_ms=614, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 18:31:19], mode=BUILD, duration=0:00:00.522, duration_ms=522, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 18:32:31], mode=BUILD, duration=0:00:00.573, duration_ms=573, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 18:33:04], mode=BUILD, duration=0:00:00.533, duration_ms=533, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 18:40:25], mode=BUILD, duration=0:00:00.597, duration_ms=597, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 18:41:37], mode=BUILD, duration=0:00:00.551, duration_ms=551, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 18:43:41], mode=BUILD, duration=0:00:00.537, duration_ms=537, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 18:44:19], mode=BUILD, duration=0:00:00.526, duration_ms=526, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 18:55:32], mode=BUILD, duration=0:00:00.542, duration_ms=542, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 18:57:31], mode=BUILD, duration=0:00:00.540, duration_ms=540, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 19:02:45], mode=BUILD, duration=0:00:00.568, duration_ms=568, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 19:03:41], mode=BUILD, duration=0:00:00.573, duration_ms=573, data={name=final_project, configuration=Debug, clean_build=false}
+timestamp=[2026-04-23 19:08:34], mode=BUILD, duration=0:00:00.535, duration_ms=535, data={name=final_project, configuration=Debug, clean_build=false}

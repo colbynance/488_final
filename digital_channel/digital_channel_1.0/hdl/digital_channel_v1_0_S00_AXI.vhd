@@ -395,19 +395,19 @@ begin
     channel : analyzer_channel
         port map (
             clk_i => S_AXI_ACLK,
-            rst_i => clk_i,
-            enable_i => clk_i,
-            sig_i => clk_i,
-            downsample_spacing_i => clk_i,
-            trig_type_i => clk_i,
-            trig_data_i => clk_i,
-            trig_mask_i => clk_i,
-            trig_trigd_o => clk_i,
-            sample_done_o => clk_i,
-            buf_we_i => clk_i,
-            buf_addr_i => clk_i,
-            buf_di_i => clk_i,
-            buf_do_o => clk_i
+            nrst_i => S_AXI_ARESETN,
+            enable_i => slv_reg0(0),
+            sig_i => sig_i,
+            downsample_spacing_i => slv_reg0(20 downto 5),
+            trig_type_i => slv_reg0(4 downto 1),
+            trig_data_i => slv_reg1,
+            trig_mask_i => slv_reg2,
+            trig_trigd_o => trigd_o,
+            sample_done_o => slv_reg0(21),
+            buf_we_i => std_logic'('0'),
+            buf_addr_i => slv_reg0(31 downto 22),
+            buf_di_i => std_logic_vector'(others => '0'),
+            buf_do_o => slv_reg3
 		);
 
 	-- User logic ends

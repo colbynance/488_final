@@ -48,14 +48,122 @@
 #include <stdio.h>
 #include "platform.h"
 #include "xil_printf.h"
+#include <xparameters.h>
+#include "xil_printf.h"
+#include <xil_io.h>
+#include "xgpio_l.h"
 
+
+#define DIGITAL_CHANNEL_ADDR 0x43C00000
+#define BUFFER_SIZE (2 << 10)
+
+
+uint32_t curr_U, curr_D, curr_L, curr_R, curr_C;
+uint32_t prev_U, prev_D, prev_L, prev_R, prev_C;
+uint32_t pos_U, pos_D, pos_L, pos_R, pos_C;
+uint32_t switches;
+uint32_t leds;
+
+
+void init_digital_channel(){
+	Xil_Out32(DIGITAL_CHANNEL_ADDR + 0x0, (0x1 << 1) | 0);
+	Xil_Out32(DIGITAL_CHANNEL_ADDR + 0x4, 0);
+	Xil_Out32(DIGITAL_CHANNEL_ADDR + 0x8, 0);
+	Xil_Out32(DIGITAL_CHANNEL_ADDR + 0xC, 0x0);
+}
+
+
+void get_from_buffer(uint32_t * arr){
+	int i;
+	for(i = 0; i < BUFFER_SIZE; i++){
+		Xil_Out32(DIGITAL_CHANNEL_ADDR + 0x10, i);
+		arr[i] = Xil_In32(DIGITAL_CHANNEL_ADDR + 0x14);
+	}
+}
+
+void print_buffer(uint32_t * arr){
+	int i;
+	for(i=0; i < BUFFER_SIZE; i++){
+		if(i % 16 == 0){
+			xil_printf("0x%03X: 0x%08X ", i, arr[i]);
+		}
+		else if(i % 16 == 15){
+			xil_printf("0x%08X \n\r", arr[i]);
+		}
+		else{
+			xil_printf("0x%08X ", arr[i]);
+		}
+	}
+}
 
 int main()
 {
     init_platform();
+    init_digital_channel();
+
+    uint32_t buf[BUFFER_SIZE];
 
     print("Hello World\n\r");
     print("Successfully ran Hello World application");
+    while(1){
+
+    	switches =  Xil_In32(XPAR_AXI_GPIO_1_BASEADDR);
+
+    	curr_U = Xil_In32(XPAR_AXI_GPIO_0_BASEADDR) & 0b10000; // BtnU
+		curr_D = Xil_In32(XPAR_AXI_GPIO_0_BASEADDR) & 0b00010; // BtnD
+		curr_L = Xil_In32(XPAR_AXI_GPIO_0_BASEADDR) & 0b00100; // BtnL
+		curr_R = Xil_In32(XPAR_AXI_GPIO_0_BASEADDR) & 0b01000; // BtnR
+		curr_R = Xil_In32(XPAR_AXI_GPIO_0_BASEADDR) & 0b00001; // BtnC
+
+		//find positive edge of buttons
+		pos_U = (curr_U && !(prev_U));
+		pos_D = (curr_D && !(prev_D));
+		pos_L = (curr_L && !(prev_L));
+		pos_R = (curr_R && !(prev_R));
+		pos_C = (curr_C && !(prev_C));
+
+		if(pos_C){
+			break;
+		}
+
+		prev_U = curr_U;
+		prev_D = curr_D;
+		prev_L = curr_L;
+		prev_R = curr_R;
+		prev_C = curr_C;
+
+
+		if(curr_U){
+			leds = switches;
+		}
+		else{
+			leds = ~switches;
+		}
+
+		if(pos_L){
+			//enable the digital channel
+			uint32_t val = Xil_In32(DIGITAL_CHANNEL_ADDR + 0x0);
+			Xil_Out32(DIGITAL_CHANNEL_ADDR, val | 0b1);
+		}
+		if(Xil_In32(DIGITAL_CHANNEL_ADDR + 0x0) & 0x80000000){
+			print("Digital Channel Finished\n\r");
+			uint32_t val = Xil_In32(DIGITAL_CHANNEL_ADDR + 0x0);
+			Xil_Out32(DIGITAL_CHANNEL_ADDR, val & (~0b1));
+			print("\n\r");
+			get_from_buffer(buf);
+			print_buffer(buf);
+		}
+
+		Xil_Out32(XPAR_AXI_GPIO_1_BASEADDR, leds);
+
+		int i =0;
+		for(i=0; i<1000000; i++){
+			i--;
+			i++;
+		}
+
+
+    }
     cleanup_platform();
     return 0;
 }

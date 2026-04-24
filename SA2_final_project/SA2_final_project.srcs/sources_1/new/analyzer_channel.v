@@ -22,7 +22,7 @@
 
 module analyzer_channel (
     input wire clk_i,
-    input wire rst_i,
+    input wire nrst_i,
 
     input wire enable_i,
 
@@ -40,7 +40,13 @@ module analyzer_channel (
     input wire         buf_we_i,
     input wire  [9:0]  buf_addr_i,
     input wire  [31:0] buf_di_i,
-    output wire [31:0] buf_do_o
+    output wire [31:0] buf_do_o,
+    
+    output wire [31:0] buffer_we_o,
+    output wire [31:0] buffer_addr_o,
+    output wire [31:0] buffer_di_o
+    
+    
 );
 
 wire downsamp_sig;
@@ -59,9 +65,10 @@ wire [31:0] buffer_di   = enable_i ? streamer_di   : buf_di_i;
 
 assign trig_trigd_o = trig_trig;
 
+
 downsample downsamp (
     .clk_i(clk_i),
-    .rst_i(rst_i),
+    .nrst_i(nrst_i),
 
     .sig_i(sig_i),
     .sig_o(downsamp_sig),
@@ -71,7 +78,7 @@ downsample downsamp (
 
 trigger trig (
     .clk_i(clk_i),
-    .rst_i(rst_i),
+    .nrst_i(nrst_i),
     .sync_rst_i(!enable_i),
 
     .sig_i(downsamp_sig),
@@ -87,7 +94,7 @@ trigger trig (
 
 sig_streamer stream (
     .clk_i(clk_i),
-    .rst_i(rst_i),
+    .nrst_i(nrst_i),
     .sync_rst_i(!enable_i),
 
     .sig_i(trig_sig),

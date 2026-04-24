@@ -40,7 +40,13 @@ module analyzer_channel (
     input wire         buf_we_i,
     input wire  [9:0]  buf_addr_i,
     input wire  [31:0] buf_di_i,
-    output wire [31:0] buf_do_o
+    output wire [31:0] buf_do_o,
+    
+    output wire [31:0] buffer_we_o,
+    output wire [31:0] buffer_addr_o,
+    output wire [31:0] buffer_di_o
+    
+    
 );
 
 wire downsamp_sig;
@@ -58,6 +64,7 @@ wire [9:0]  buffer_addr = enable_i ? streamer_addr : buf_addr_i;
 wire [31:0] buffer_di   = enable_i ? streamer_di   : buf_di_i;
 
 assign trig_trigd_o = trig_trig;
+
 
 downsample downsamp (
     .clk_i(clk_i),

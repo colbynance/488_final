@@ -70,7 +70,9 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param tcl.collectionResultDisplayLimit 0
 set_param chipscope.maxJobs 5
+set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z020clg484-1
 
@@ -84,6 +86,11 @@ set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
 set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
+set_property ip_repo_paths {
+  c:/Temp/sa2-final/digital_channel/digital_channel_1.0
+  c:/Temp/sa2-final/ip_repo
+} [current_project]
+update_ip_catalog
 set_property ip_output_repo c:/Temp/sa2-final/SA2_final_project/SA2_final_project.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
@@ -104,7 +111,14 @@ set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_rst_ps7_0_100M_0/final_proj_rst_ps7_0_100M_0_board.xdc]
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_rst_ps7_0_100M_0/final_proj_rst_ps7_0_100M_0.xdc]
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_rst_ps7_0_100M_0/final_proj_rst_ps7_0_100M_0_ooc.xdc]
+set_property used_in_synthesis false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/bd_0/ip/ip_0/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/bd_0/ip/ip_0/ila_v6_2/constraints/ila.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/bd_0/ip/ip_0/bd_289d_ila_lib_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/bd_0/bd_289d_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_1/final_proj_system_ila_0_1_ooc.xdc]
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_auto_pc_0/final_proj_auto_pc_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_s00_mmu_0/final_proj_s00_mmu_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/final_proj_ooc.xdc]
 
 OPTRACE "Adding files" END { }
@@ -116,6 +130,9 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
+read_xdc C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc
+set_property used_in_implementation false [get_files C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc]
+
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
