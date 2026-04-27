@@ -6,6 +6,8 @@ module sig_streamer (
     input wire sig_i,
     input wire trig_i,
     input wire sig_valid_i,
+    
+    input wire new_sample_i,
 
     output reg         buffer_we_o,
     output wire [9:0]  buffer_addr_o,
@@ -37,7 +39,7 @@ always @(posedge clk_i, negedge nrst_i) begin
 
             sig_idx <= 0;
         end
-        else if (trig_i && !sample_done_o && sig_valid_i) begin
+        else if (trig_i && !sample_done_o && sig_valid_i && new_sample_i) begin
             buffer_di_o[sig_idx] <= sig_i;
             sig_idx <= sig_idx + 1;
 

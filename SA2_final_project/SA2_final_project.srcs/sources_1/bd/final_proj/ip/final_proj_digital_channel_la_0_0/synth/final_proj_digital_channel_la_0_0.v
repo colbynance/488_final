@@ -48,7 +48,7 @@
 
 
 // IP VLNV: iastate.edu:user:digital_channel_la:1.0
-// IP Revision: 5
+// IP Revision: 7
 
 (* X_CORE_INFO = "digital_channel_la_v1_0,Vivado 2020.1" *)
 (* CHECK_LICENSE_TYPE = "final_proj_digital_channel_la_0_0,digital_channel_la_v1_0,{}" *)
@@ -61,6 +61,7 @@ module final_proj_digital_channel_la_0_0 (
   buffer_we_o,
   buffer_addr_o,
   buffer_di_o,
+  sig_valid_o,
   s00_axi_aclk,
   s00_axi_aresetn,
   s00_axi_awaddr,
@@ -91,6 +92,7 @@ output wire [31 : 0] buf_do_o;
 output wire [31 : 0] buffer_we_o;
 output wire [31 : 0] buffer_addr_o;
 output wire [31 : 0] buffer_di_o;
+output wire sig_valid_o;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S00_AXI_CLK, ASSOCIATED_BUSIF S00_AXI, ASSOCIATED_RESET s00_axi_aresetn, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN final_proj_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 S00_AXI_CLK CLK" *)
 input wire s00_axi_aclk;
@@ -149,6 +151,7 @@ input wire s00_axi_rready;
     .buffer_we_o(buffer_we_o),
     .buffer_addr_o(buffer_addr_o),
     .buffer_di_o(buffer_di_o),
+    .sig_valid_o(sig_valid_o),
     .s00_axi_aclk(s00_axi_aclk),
     .s00_axi_aresetn(s00_axi_aresetn),
     .s00_axi_awaddr(s00_axi_awaddr),

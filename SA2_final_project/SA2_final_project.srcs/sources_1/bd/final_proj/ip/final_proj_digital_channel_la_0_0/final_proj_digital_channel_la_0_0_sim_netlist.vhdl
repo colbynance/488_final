@@ -1,8 +1,8 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Fri Apr 24 15:29:13 2026
--- Host        : CO2041-14 running 64-bit major release  (build 9200)
+-- Date        : Mon Apr 27 15:52:24 2026
+-- Host        : CO2041-08 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_digital_channel_la_0_0/final_proj_digital_channel_la_0_0_sim_netlist.vhdl
 -- Design      : final_proj_digital_channel_la_0_0
@@ -137,7 +137,6 @@ entity final_proj_digital_channel_la_0_0_downsample is
     s00_axi_aclk : in STD_LOGIC;
     \counter_reg[0]_0\ : in STD_LOGIC;
     \counter1_carry__1_0\ : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    Q : in STD_LOGIC_VECTOR ( 0 to 0 );
     sig_i : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -145,6 +144,7 @@ entity final_proj_digital_channel_la_0_0_downsample is
 end final_proj_digital_channel_la_0_0_downsample;
 
 architecture STRUCTURE of final_proj_digital_channel_la_0_0_downsample is
+  signal \^d\ : STD_LOGIC_VECTOR ( 0 to 0 );
   signal \counter1_carry__0_i_1_n_0\ : STD_LOGIC;
   signal \counter1_carry__0_i_2_n_0\ : STD_LOGIC;
   signal \counter1_carry__0_i_3_n_0\ : STD_LOGIC;
@@ -264,7 +264,6 @@ architecture STRUCTURE of final_proj_digital_channel_la_0_0_downsample is
   signal \counter_reg[8]_i_1_n_6\ : STD_LOGIC;
   signal \counter_reg[8]_i_1_n_7\ : STD_LOGIC;
   signal load : STD_LOGIC;
-  signal sig_o : STD_LOGIC;
   signal sig_o_i_1_n_0 : STD_LOGIC;
   signal NLW_counter1_carry_O_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal \NLW_counter1_carry__0_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
@@ -280,10 +279,8 @@ architecture STRUCTURE of final_proj_digital_channel_la_0_0_downsample is
   attribute ADDER_THRESHOLD of \counter_reg[28]_i_1\ : label is 11;
   attribute ADDER_THRESHOLD of \counter_reg[4]_i_1\ : label is 11;
   attribute ADDER_THRESHOLD of \counter_reg[8]_i_1\ : label is 11;
-  attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \incoming[0]_i_1\ : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of sig_o_i_1 : label is "soft_lutpair0";
 begin
+  D(0) <= \^d\(0);
 counter1_carry: unisim.vcomponents.CARRY4
      port map (
       CI => '0',
@@ -1168,15 +1165,6 @@ counter1_carry_i_4: unisim.vcomponents.LUT6
       D => \counter_reg[8]_i_1_n_6\,
       Q => counter_reg(9)
     );
-\incoming[0]_i_1\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => sig_o,
-      I1 => Q(0),
-      O => D(0)
-    );
 sig_o_i_1: unisim.vcomponents.LUT3
     generic map(
       INIT => X"B8"
@@ -1184,7 +1172,7 @@ sig_o_i_1: unisim.vcomponents.LUT3
         port map (
       I0 => sig_i,
       I1 => load,
-      I2 => sig_o,
+      I2 => \^d\(0),
       O => sig_o_i_1_n_0
     );
 sig_o_reg: unisim.vcomponents.FDCE
@@ -1193,7 +1181,7 @@ sig_o_reg: unisim.vcomponents.FDCE
       CE => '1',
       CLR => \counter_reg[0]_0\,
       D => sig_o_i_1_n_0,
-      Q => sig_o
+      Q => \^d\(0)
     );
 end STRUCTURE;
 library IEEE;
@@ -1321,64 +1309,64 @@ architecture STRUCTURE of final_proj_digital_channel_la_0_0_sig_streamer is
   signal sig_idx_reg : STD_LOGIC_VECTOR ( 4 downto 0 );
   signal streamer_we : STD_LOGIC;
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \buf_addr[0]_i_1\ : label is "soft_lutpair7";
-  attribute SOFT_HLUTNM of \buf_addr[10]_i_2\ : label is "soft_lutpair7";
-  attribute SOFT_HLUTNM of \buf_addr[10]_i_3\ : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of \buf_addr[1]_i_1\ : label is "soft_lutpair10";
-  attribute SOFT_HLUTNM of \buf_addr[2]_i_1\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \buf_addr[3]_i_1\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \buf_addr[5]_i_1\ : label is "soft_lutpair10";
-  attribute SOFT_HLUTNM of \buf_addr[5]_i_2\ : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of \buf_addr[6]_i_1\ : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of \buf_addr[7]_i_1\ : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of \buf_addr[8]_i_1\ : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of \buffer_di_o[10]_INST_0\ : label is "soft_lutpair25";
-  attribute SOFT_HLUTNM of \buffer_di_o[11]_INST_0\ : label is "soft_lutpair25";
-  attribute SOFT_HLUTNM of \buffer_di_o[12]_INST_0\ : label is "soft_lutpair24";
-  attribute SOFT_HLUTNM of \buffer_di_o[13]_INST_0\ : label is "soft_lutpair24";
-  attribute SOFT_HLUTNM of \buffer_di_o[14]_INST_0\ : label is "soft_lutpair23";
-  attribute SOFT_HLUTNM of \buffer_di_o[15]_INST_0\ : label is "soft_lutpair23";
-  attribute SOFT_HLUTNM of \buffer_di_o[15]_i_2\ : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of \buffer_di_o[16]_INST_0\ : label is "soft_lutpair22";
-  attribute SOFT_HLUTNM of \buffer_di_o[17]_INST_0\ : label is "soft_lutpair22";
-  attribute SOFT_HLUTNM of \buffer_di_o[18]_INST_0\ : label is "soft_lutpair21";
-  attribute SOFT_HLUTNM of \buffer_di_o[19]_INST_0\ : label is "soft_lutpair21";
-  attribute SOFT_HLUTNM of \buffer_di_o[20]_INST_0\ : label is "soft_lutpair20";
-  attribute SOFT_HLUTNM of \buffer_di_o[21]_INST_0\ : label is "soft_lutpair20";
-  attribute SOFT_HLUTNM of \buffer_di_o[22]_INST_0\ : label is "soft_lutpair19";
-  attribute SOFT_HLUTNM of \buffer_di_o[23]_INST_0\ : label is "soft_lutpair19";
-  attribute SOFT_HLUTNM of \buffer_di_o[23]_i_2\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \buffer_di_o[24]_INST_0\ : label is "soft_lutpair18";
-  attribute SOFT_HLUTNM of \buffer_di_o[24]_i_2\ : label is "soft_lutpair14";
-  attribute SOFT_HLUTNM of \buffer_di_o[25]_INST_0\ : label is "soft_lutpair18";
-  attribute SOFT_HLUTNM of \buffer_di_o[25]_i_2\ : label is "soft_lutpair9";
-  attribute SOFT_HLUTNM of \buffer_di_o[26]_INST_0\ : label is "soft_lutpair17";
-  attribute SOFT_HLUTNM of \buffer_di_o[26]_i_2\ : label is "soft_lutpair11";
-  attribute SOFT_HLUTNM of \buffer_di_o[27]_INST_0\ : label is "soft_lutpair17";
-  attribute SOFT_HLUTNM of \buffer_di_o[27]_i_2\ : label is "soft_lutpair12";
-  attribute SOFT_HLUTNM of \buffer_di_o[28]_INST_0\ : label is "soft_lutpair16";
-  attribute SOFT_HLUTNM of \buffer_di_o[28]_i_2\ : label is "soft_lutpair13";
-  attribute SOFT_HLUTNM of \buffer_di_o[29]_INST_0\ : label is "soft_lutpair16";
-  attribute SOFT_HLUTNM of \buffer_di_o[29]_i_2\ : label is "soft_lutpair11";
-  attribute SOFT_HLUTNM of \buffer_di_o[2]_INST_0\ : label is "soft_lutpair29";
-  attribute SOFT_HLUTNM of \buffer_di_o[30]_INST_0\ : label is "soft_lutpair15";
-  attribute SOFT_HLUTNM of \buffer_di_o[30]_i_2\ : label is "soft_lutpair13";
-  attribute SOFT_HLUTNM of \buffer_di_o[31]_INST_0\ : label is "soft_lutpair15";
-  attribute SOFT_HLUTNM of \buffer_di_o[31]_i_2\ : label is "soft_lutpair9";
-  attribute SOFT_HLUTNM of \buffer_di_o[31]_i_3\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \buffer_di_o[3]_INST_0\ : label is "soft_lutpair29";
-  attribute SOFT_HLUTNM of \buffer_di_o[4]_INST_0\ : label is "soft_lutpair28";
-  attribute SOFT_HLUTNM of \buffer_di_o[5]_INST_0\ : label is "soft_lutpair28";
-  attribute SOFT_HLUTNM of \buffer_di_o[6]_INST_0\ : label is "soft_lutpair27";
-  attribute SOFT_HLUTNM of \buffer_di_o[7]_INST_0\ : label is "soft_lutpair27";
-  attribute SOFT_HLUTNM of \buffer_di_o[7]_i_2\ : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of \buffer_di_o[8]_INST_0\ : label is "soft_lutpair26";
-  attribute SOFT_HLUTNM of \buffer_di_o[9]_INST_0\ : label is "soft_lutpair26";
-  attribute SOFT_HLUTNM of sample_done_o_i_3 : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of \sig_idx[0]_i_1\ : label is "soft_lutpair14";
-  attribute SOFT_HLUTNM of \sig_idx[1]_i_1\ : label is "soft_lutpair12";
-  attribute SOFT_HLUTNM of \sig_idx[2]_i_1\ : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \sig_idx[3]_i_1\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \buf_addr[0]_i_1\ : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of \buf_addr[10]_i_2\ : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of \buf_addr[10]_i_3\ : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of \buf_addr[1]_i_1\ : label is "soft_lutpair9";
+  attribute SOFT_HLUTNM of \buf_addr[2]_i_1\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \buf_addr[3]_i_1\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \buf_addr[5]_i_1\ : label is "soft_lutpair9";
+  attribute SOFT_HLUTNM of \buf_addr[5]_i_2\ : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of \buf_addr[6]_i_1\ : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of \buf_addr[7]_i_1\ : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of \buf_addr[8]_i_1\ : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of \buffer_di_o[10]_INST_0\ : label is "soft_lutpair24";
+  attribute SOFT_HLUTNM of \buffer_di_o[11]_INST_0\ : label is "soft_lutpair24";
+  attribute SOFT_HLUTNM of \buffer_di_o[12]_INST_0\ : label is "soft_lutpair23";
+  attribute SOFT_HLUTNM of \buffer_di_o[13]_INST_0\ : label is "soft_lutpair23";
+  attribute SOFT_HLUTNM of \buffer_di_o[14]_INST_0\ : label is "soft_lutpair22";
+  attribute SOFT_HLUTNM of \buffer_di_o[15]_INST_0\ : label is "soft_lutpair22";
+  attribute SOFT_HLUTNM of \buffer_di_o[15]_i_2\ : label is "soft_lutpair4";
+  attribute SOFT_HLUTNM of \buffer_di_o[16]_INST_0\ : label is "soft_lutpair21";
+  attribute SOFT_HLUTNM of \buffer_di_o[17]_INST_0\ : label is "soft_lutpair21";
+  attribute SOFT_HLUTNM of \buffer_di_o[18]_INST_0\ : label is "soft_lutpair20";
+  attribute SOFT_HLUTNM of \buffer_di_o[19]_INST_0\ : label is "soft_lutpair20";
+  attribute SOFT_HLUTNM of \buffer_di_o[20]_INST_0\ : label is "soft_lutpair19";
+  attribute SOFT_HLUTNM of \buffer_di_o[21]_INST_0\ : label is "soft_lutpair19";
+  attribute SOFT_HLUTNM of \buffer_di_o[22]_INST_0\ : label is "soft_lutpair18";
+  attribute SOFT_HLUTNM of \buffer_di_o[23]_INST_0\ : label is "soft_lutpair18";
+  attribute SOFT_HLUTNM of \buffer_di_o[23]_i_2\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \buffer_di_o[24]_INST_0\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of \buffer_di_o[24]_i_2\ : label is "soft_lutpair13";
+  attribute SOFT_HLUTNM of \buffer_di_o[25]_INST_0\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of \buffer_di_o[25]_i_2\ : label is "soft_lutpair8";
+  attribute SOFT_HLUTNM of \buffer_di_o[26]_INST_0\ : label is "soft_lutpair16";
+  attribute SOFT_HLUTNM of \buffer_di_o[26]_i_2\ : label is "soft_lutpair10";
+  attribute SOFT_HLUTNM of \buffer_di_o[27]_INST_0\ : label is "soft_lutpair16";
+  attribute SOFT_HLUTNM of \buffer_di_o[27]_i_2\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \buffer_di_o[28]_INST_0\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of \buffer_di_o[28]_i_2\ : label is "soft_lutpair12";
+  attribute SOFT_HLUTNM of \buffer_di_o[29]_INST_0\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of \buffer_di_o[29]_i_2\ : label is "soft_lutpair10";
+  attribute SOFT_HLUTNM of \buffer_di_o[2]_INST_0\ : label is "soft_lutpair28";
+  attribute SOFT_HLUTNM of \buffer_di_o[30]_INST_0\ : label is "soft_lutpair14";
+  attribute SOFT_HLUTNM of \buffer_di_o[30]_i_2\ : label is "soft_lutpair12";
+  attribute SOFT_HLUTNM of \buffer_di_o[31]_INST_0\ : label is "soft_lutpair14";
+  attribute SOFT_HLUTNM of \buffer_di_o[31]_i_2\ : label is "soft_lutpair8";
+  attribute SOFT_HLUTNM of \buffer_di_o[31]_i_3\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \buffer_di_o[3]_INST_0\ : label is "soft_lutpair28";
+  attribute SOFT_HLUTNM of \buffer_di_o[4]_INST_0\ : label is "soft_lutpair27";
+  attribute SOFT_HLUTNM of \buffer_di_o[5]_INST_0\ : label is "soft_lutpair27";
+  attribute SOFT_HLUTNM of \buffer_di_o[6]_INST_0\ : label is "soft_lutpair26";
+  attribute SOFT_HLUTNM of \buffer_di_o[7]_INST_0\ : label is "soft_lutpair26";
+  attribute SOFT_HLUTNM of \buffer_di_o[7]_i_2\ : label is "soft_lutpair4";
+  attribute SOFT_HLUTNM of \buffer_di_o[8]_INST_0\ : label is "soft_lutpair25";
+  attribute SOFT_HLUTNM of \buffer_di_o[9]_INST_0\ : label is "soft_lutpair25";
+  attribute SOFT_HLUTNM of sample_done_o_i_3 : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of \sig_idx[0]_i_1\ : label is "soft_lutpair13";
+  attribute SOFT_HLUTNM of \sig_idx[1]_i_1\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \sig_idx[2]_i_1\ : label is "soft_lutpair0";
+  attribute SOFT_HLUTNM of \sig_idx[3]_i_1\ : label is "soft_lutpair0";
 begin
   s00_axi_aresetn_0 <= \^s00_axi_aresetn_0\;
   sample_done_o_reg_0 <= \^sample_done_o_reg_0\;
@@ -3167,42 +3155,42 @@ architecture STRUCTURE of final_proj_digital_channel_la_0_0_trigger is
   signal \NLW_trig_o1_carry__1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   signal \NLW_trig_o1_carry__1_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \incoming[10]_i_1\ : label is "soft_lutpair43";
-  attribute SOFT_HLUTNM of \incoming[11]_i_1\ : label is "soft_lutpair42";
-  attribute SOFT_HLUTNM of \incoming[12]_i_1\ : label is "soft_lutpair42";
-  attribute SOFT_HLUTNM of \incoming[13]_i_1\ : label is "soft_lutpair41";
-  attribute SOFT_HLUTNM of \incoming[14]_i_1\ : label is "soft_lutpair41";
-  attribute SOFT_HLUTNM of \incoming[15]_i_1\ : label is "soft_lutpair40";
-  attribute SOFT_HLUTNM of \incoming[16]_i_1\ : label is "soft_lutpair40";
-  attribute SOFT_HLUTNM of \incoming[17]_i_1\ : label is "soft_lutpair39";
-  attribute SOFT_HLUTNM of \incoming[18]_i_1\ : label is "soft_lutpair39";
-  attribute SOFT_HLUTNM of \incoming[19]_i_1\ : label is "soft_lutpair38";
-  attribute SOFT_HLUTNM of \incoming[1]_i_1\ : label is "soft_lutpair47";
-  attribute SOFT_HLUTNM of \incoming[20]_i_1\ : label is "soft_lutpair38";
-  attribute SOFT_HLUTNM of \incoming[21]_i_1\ : label is "soft_lutpair37";
-  attribute SOFT_HLUTNM of \incoming[22]_i_1\ : label is "soft_lutpair37";
-  attribute SOFT_HLUTNM of \incoming[23]_i_1\ : label is "soft_lutpair36";
-  attribute SOFT_HLUTNM of \incoming[24]_i_1\ : label is "soft_lutpair36";
-  attribute SOFT_HLUTNM of \incoming[25]_i_1\ : label is "soft_lutpair35";
-  attribute SOFT_HLUTNM of \incoming[26]_i_1\ : label is "soft_lutpair35";
-  attribute SOFT_HLUTNM of \incoming[27]_i_1\ : label is "soft_lutpair34";
-  attribute SOFT_HLUTNM of \incoming[28]_i_1\ : label is "soft_lutpair34";
-  attribute SOFT_HLUTNM of \incoming[29]_i_1\ : label is "soft_lutpair33";
-  attribute SOFT_HLUTNM of \incoming[2]_i_1\ : label is "soft_lutpair47";
-  attribute SOFT_HLUTNM of \incoming[30]_i_1\ : label is "soft_lutpair33";
-  attribute SOFT_HLUTNM of \incoming[31]_i_1\ : label is "soft_lutpair32";
-  attribute SOFT_HLUTNM of \incoming[32]_i_1\ : label is "soft_lutpair32";
-  attribute SOFT_HLUTNM of \incoming[33]_i_1\ : label is "soft_lutpair31";
-  attribute SOFT_HLUTNM of \incoming[3]_i_1\ : label is "soft_lutpair46";
-  attribute SOFT_HLUTNM of \incoming[4]_i_1\ : label is "soft_lutpair46";
-  attribute SOFT_HLUTNM of \incoming[5]_i_1\ : label is "soft_lutpair45";
-  attribute SOFT_HLUTNM of \incoming[6]_i_1\ : label is "soft_lutpair45";
-  attribute SOFT_HLUTNM of \incoming[7]_i_1\ : label is "soft_lutpair44";
-  attribute SOFT_HLUTNM of \incoming[8]_i_1\ : label is "soft_lutpair44";
-  attribute SOFT_HLUTNM of \incoming[9]_i_1\ : label is "soft_lutpair43";
-  attribute SOFT_HLUTNM of trig_o_i_3 : label is "soft_lutpair31";
-  attribute SOFT_HLUTNM of trig_o_i_4 : label is "soft_lutpair30";
-  attribute SOFT_HLUTNM of trig_o_i_5 : label is "soft_lutpair30";
+  attribute SOFT_HLUTNM of \incoming[10]_i_1\ : label is "soft_lutpair42";
+  attribute SOFT_HLUTNM of \incoming[11]_i_1\ : label is "soft_lutpair41";
+  attribute SOFT_HLUTNM of \incoming[12]_i_1\ : label is "soft_lutpair41";
+  attribute SOFT_HLUTNM of \incoming[13]_i_1\ : label is "soft_lutpair40";
+  attribute SOFT_HLUTNM of \incoming[14]_i_1\ : label is "soft_lutpair40";
+  attribute SOFT_HLUTNM of \incoming[15]_i_1\ : label is "soft_lutpair39";
+  attribute SOFT_HLUTNM of \incoming[16]_i_1\ : label is "soft_lutpair39";
+  attribute SOFT_HLUTNM of \incoming[17]_i_1\ : label is "soft_lutpair38";
+  attribute SOFT_HLUTNM of \incoming[18]_i_1\ : label is "soft_lutpair38";
+  attribute SOFT_HLUTNM of \incoming[19]_i_1\ : label is "soft_lutpair37";
+  attribute SOFT_HLUTNM of \incoming[1]_i_1\ : label is "soft_lutpair46";
+  attribute SOFT_HLUTNM of \incoming[20]_i_1\ : label is "soft_lutpair37";
+  attribute SOFT_HLUTNM of \incoming[21]_i_1\ : label is "soft_lutpair36";
+  attribute SOFT_HLUTNM of \incoming[22]_i_1\ : label is "soft_lutpair36";
+  attribute SOFT_HLUTNM of \incoming[23]_i_1\ : label is "soft_lutpair35";
+  attribute SOFT_HLUTNM of \incoming[24]_i_1\ : label is "soft_lutpair35";
+  attribute SOFT_HLUTNM of \incoming[25]_i_1\ : label is "soft_lutpair34";
+  attribute SOFT_HLUTNM of \incoming[26]_i_1\ : label is "soft_lutpair34";
+  attribute SOFT_HLUTNM of \incoming[27]_i_1\ : label is "soft_lutpair33";
+  attribute SOFT_HLUTNM of \incoming[28]_i_1\ : label is "soft_lutpair33";
+  attribute SOFT_HLUTNM of \incoming[29]_i_1\ : label is "soft_lutpair32";
+  attribute SOFT_HLUTNM of \incoming[2]_i_1\ : label is "soft_lutpair46";
+  attribute SOFT_HLUTNM of \incoming[30]_i_1\ : label is "soft_lutpair32";
+  attribute SOFT_HLUTNM of \incoming[31]_i_1\ : label is "soft_lutpair31";
+  attribute SOFT_HLUTNM of \incoming[32]_i_1\ : label is "soft_lutpair31";
+  attribute SOFT_HLUTNM of \incoming[33]_i_1\ : label is "soft_lutpair30";
+  attribute SOFT_HLUTNM of \incoming[3]_i_1\ : label is "soft_lutpair45";
+  attribute SOFT_HLUTNM of \incoming[4]_i_1\ : label is "soft_lutpair45";
+  attribute SOFT_HLUTNM of \incoming[5]_i_1\ : label is "soft_lutpair44";
+  attribute SOFT_HLUTNM of \incoming[6]_i_1\ : label is "soft_lutpair44";
+  attribute SOFT_HLUTNM of \incoming[7]_i_1\ : label is "soft_lutpair43";
+  attribute SOFT_HLUTNM of \incoming[8]_i_1\ : label is "soft_lutpair43";
+  attribute SOFT_HLUTNM of \incoming[9]_i_1\ : label is "soft_lutpair42";
+  attribute SOFT_HLUTNM of trig_o_i_3 : label is "soft_lutpair30";
+  attribute SOFT_HLUTNM of trig_o_i_4 : label is "soft_lutpair29";
+  attribute SOFT_HLUTNM of trig_o_i_5 : label is "soft_lutpair29";
 begin
   trig_o_reg_0 <= \^trig_o_reg_0\;
 \incoming[10]_i_1\: unisim.vcomponents.LUT2
@@ -4166,9 +4154,9 @@ architecture STRUCTURE of final_proj_digital_channel_la_0_0_analyzer_channel is
   signal \^buffer_addr_o\ : STD_LOGIC_VECTOR ( 9 downto 0 );
   signal \^buffer_di_o\ : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal \^buffer_we_o\ : STD_LOGIC_VECTOR ( 0 to 0 );
-  signal downsamp_n_0 : STD_LOGIC;
   signal p_0_in0 : STD_LOGIC;
   signal \^s00_axi_aresetn_0\ : STD_LOGIC;
+  signal sig_o : STD_LOGIC;
   signal \^trig_o_reg\ : STD_LOGIC;
 begin
   buffer_addr_o(9 downto 0) <= \^buffer_addr_o\(9 downto 0);
@@ -4190,8 +4178,7 @@ buff: entity work.final_proj_digital_channel_la_0_0_buffer
     );
 downsamp: entity work.final_proj_digital_channel_la_0_0_downsample
      port map (
-      D(0) => downsamp_n_0,
-      Q(0) => Q(0),
+      D(0) => sig_o,
       \counter1_carry__1_0\(31 downto 0) => \counter1_carry__1\(31 downto 0),
       \counter_reg[0]_0\ => \^s00_axi_aresetn_0\,
       s00_axi_aclk => s00_axi_aclk,
@@ -4221,7 +4208,7 @@ stream: entity work.final_proj_digital_channel_la_0_0_sig_streamer
     );
 trig: entity work.final_proj_digital_channel_la_0_0_trigger
      port map (
-      D(0) => downsamp_n_0,
+      D(0) => sig_o,
       Q(4 downto 0) => Q(4 downto 0),
       \incoming_reg[33]_0\(0) => p_0_in0,
       \incoming_reg[33]_1\ => \^s00_axi_aresetn_0\,
@@ -4480,20 +4467,51 @@ architecture STRUCTURE of final_proj_digital_channel_la_0_0_digital_channel_la_v
   signal \slv_reg6[23]_i_1_n_0\ : STD_LOGIC;
   signal \slv_reg6[31]_i_1_n_0\ : STD_LOGIC;
   signal \slv_reg6[7]_i_1_n_0\ : STD_LOGIC;
-  signal slv_reg7 : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal slv_reg7 : STD_LOGIC_VECTOR ( 0 to 0 );
   signal \slv_reg7[15]_i_1_n_0\ : STD_LOGIC;
   signal \slv_reg7[23]_i_1_n_0\ : STD_LOGIC;
   signal \slv_reg7[31]_i_1_n_0\ : STD_LOGIC;
   signal \slv_reg7[7]_i_1_n_0\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[10]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[11]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[12]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[13]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[14]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[15]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[16]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[17]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[18]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[19]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[1]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[20]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[21]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[22]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[23]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[24]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[25]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[26]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[27]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[28]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[29]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[2]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[30]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[31]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[3]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[4]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[5]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[6]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[7]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[8]\ : STD_LOGIC;
+  signal \slv_reg7_reg_n_0_[9]\ : STD_LOGIC;
   signal \slv_reg_rden__0\ : STD_LOGIC;
   signal \slv_reg_wren__0\ : STD_LOGIC;
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \axi_araddr[4]_i_1\ : label is "soft_lutpair48";
-  attribute SOFT_HLUTNM of axi_arready_i_1 : label is "soft_lutpair48";
-  attribute SOFT_HLUTNM of axi_awready_i_1 : label is "soft_lutpair49";
-  attribute SOFT_HLUTNM of axi_wready_i_1 : label is "soft_lutpair49";
-  attribute SOFT_HLUTNM of \slv_reg0[31]_i_2\ : label is "soft_lutpair50";
-  attribute SOFT_HLUTNM of \slv_reg5[0]_i_2\ : label is "soft_lutpair50";
+  attribute SOFT_HLUTNM of \axi_araddr[4]_i_1\ : label is "soft_lutpair47";
+  attribute SOFT_HLUTNM of axi_arready_i_1 : label is "soft_lutpair47";
+  attribute SOFT_HLUTNM of axi_awready_i_1 : label is "soft_lutpair48";
+  attribute SOFT_HLUTNM of axi_wready_i_1 : label is "soft_lutpair48";
+  attribute SOFT_HLUTNM of \slv_reg0[31]_i_2\ : label is "soft_lutpair49";
+  attribute SOFT_HLUTNM of \slv_reg5[0]_i_2\ : label is "soft_lutpair49";
 begin
   S_AXI_ARREADY <= \^s_axi_arready\;
   S_AXI_AWREADY <= \^s_axi_awready\;
@@ -4743,7 +4761,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[10]\,
-      I1 => slv_reg7(10),
+      I1 => \slv_reg7_reg_n_0_[10]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(10),
@@ -4769,7 +4787,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[11]\,
-      I1 => slv_reg7(11),
+      I1 => \slv_reg7_reg_n_0_[11]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(11),
@@ -4795,7 +4813,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[12]\,
-      I1 => slv_reg7(12),
+      I1 => \slv_reg7_reg_n_0_[12]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(12),
@@ -4821,7 +4839,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[13]\,
-      I1 => slv_reg7(13),
+      I1 => \slv_reg7_reg_n_0_[13]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(13),
@@ -4847,7 +4865,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[14]\,
-      I1 => slv_reg7(14),
+      I1 => \slv_reg7_reg_n_0_[14]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(14),
@@ -4873,7 +4891,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[15]\,
-      I1 => slv_reg7(15),
+      I1 => \slv_reg7_reg_n_0_[15]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(15),
@@ -4899,7 +4917,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[16]\,
-      I1 => slv_reg7(16),
+      I1 => \slv_reg7_reg_n_0_[16]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(16),
@@ -4925,7 +4943,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[17]\,
-      I1 => slv_reg7(17),
+      I1 => \slv_reg7_reg_n_0_[17]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(17),
@@ -4951,7 +4969,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[18]\,
-      I1 => slv_reg7(18),
+      I1 => \slv_reg7_reg_n_0_[18]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(18),
@@ -4977,7 +4995,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[19]\,
-      I1 => slv_reg7(19),
+      I1 => \slv_reg7_reg_n_0_[19]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(19),
@@ -5003,7 +5021,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[1]\,
-      I1 => slv_reg7(1),
+      I1 => \slv_reg7_reg_n_0_[1]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(1),
@@ -5029,7 +5047,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[20]\,
-      I1 => slv_reg7(20),
+      I1 => \slv_reg7_reg_n_0_[20]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(20),
@@ -5055,7 +5073,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[21]\,
-      I1 => slv_reg7(21),
+      I1 => \slv_reg7_reg_n_0_[21]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(21),
@@ -5081,7 +5099,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[22]\,
-      I1 => slv_reg7(22),
+      I1 => \slv_reg7_reg_n_0_[22]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(22),
@@ -5107,7 +5125,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[23]\,
-      I1 => slv_reg7(23),
+      I1 => \slv_reg7_reg_n_0_[23]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(23),
@@ -5133,7 +5151,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[24]\,
-      I1 => slv_reg7(24),
+      I1 => \slv_reg7_reg_n_0_[24]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(24),
@@ -5159,7 +5177,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[25]\,
-      I1 => slv_reg7(25),
+      I1 => \slv_reg7_reg_n_0_[25]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(25),
@@ -5185,7 +5203,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[26]\,
-      I1 => slv_reg7(26),
+      I1 => \slv_reg7_reg_n_0_[26]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(26),
@@ -5211,7 +5229,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[27]\,
-      I1 => slv_reg7(27),
+      I1 => \slv_reg7_reg_n_0_[27]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(27),
@@ -5237,7 +5255,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[28]\,
-      I1 => slv_reg7(28),
+      I1 => \slv_reg7_reg_n_0_[28]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(28),
@@ -5263,7 +5281,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[29]\,
-      I1 => slv_reg7(29),
+      I1 => \slv_reg7_reg_n_0_[29]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(29),
@@ -5289,7 +5307,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[2]\,
-      I1 => slv_reg7(2),
+      I1 => \slv_reg7_reg_n_0_[2]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(2),
@@ -5315,7 +5333,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[30]\,
-      I1 => slv_reg7(30),
+      I1 => \slv_reg7_reg_n_0_[30]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(30),
@@ -5341,7 +5359,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[31]\,
-      I1 => slv_reg7(31),
+      I1 => \slv_reg7_reg_n_0_[31]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(31),
@@ -5367,7 +5385,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[3]\,
-      I1 => slv_reg7(3),
+      I1 => \slv_reg7_reg_n_0_[3]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(3),
@@ -5393,7 +5411,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[4]\,
-      I1 => slv_reg7(4),
+      I1 => \slv_reg7_reg_n_0_[4]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(4),
@@ -5419,7 +5437,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[5]\,
-      I1 => slv_reg7(5),
+      I1 => \slv_reg7_reg_n_0_[5]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(5),
@@ -5445,7 +5463,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[6]\,
-      I1 => slv_reg7(6),
+      I1 => \slv_reg7_reg_n_0_[6]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(6),
@@ -5471,7 +5489,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[7]\,
-      I1 => slv_reg7(7),
+      I1 => \slv_reg7_reg_n_0_[7]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(7),
@@ -5497,7 +5515,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[8]\,
-      I1 => slv_reg7(8),
+      I1 => \slv_reg7_reg_n_0_[8]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(8),
@@ -5523,7 +5541,7 @@ axi_bvalid_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \slv_reg5_reg_n_0_[9]\,
-      I1 => slv_reg7(9),
+      I1 => \slv_reg7_reg_n_0_[9]\,
       I2 => sel0(0),
       I3 => sel0(1),
       I4 => slv_reg4(9),
@@ -6054,7 +6072,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       Q(4) => \slv_reg0_reg_n_0_[4]\,
       Q(3) => \slv_reg0_reg_n_0_[3]\,
       Q(2 downto 0) => slv_reg0(2 downto 0),
-      RAM_reg(0) => \slv_reg5_reg_n_0_[0]\,
+      RAM_reg(0) => slv_reg7(0),
       RAM_reg_0(9 downto 0) => slv_reg4(9 downto 0),
       axi_awaddr(0) => axi_awaddr(3),
       \axi_awaddr_reg[3]\(0) => p_2_in(31),
@@ -8666,7 +8684,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[15]_i_1_n_0\,
       D => s00_axi_wdata(10),
-      Q => slv_reg7(10),
+      Q => \slv_reg7_reg_n_0_[10]\,
       R => ch_n_45
     );
 \slv_reg7_reg[11]\: unisim.vcomponents.FDRE
@@ -8674,7 +8692,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[15]_i_1_n_0\,
       D => s00_axi_wdata(11),
-      Q => slv_reg7(11),
+      Q => \slv_reg7_reg_n_0_[11]\,
       R => ch_n_45
     );
 \slv_reg7_reg[12]\: unisim.vcomponents.FDRE
@@ -8682,7 +8700,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[15]_i_1_n_0\,
       D => s00_axi_wdata(12),
-      Q => slv_reg7(12),
+      Q => \slv_reg7_reg_n_0_[12]\,
       R => ch_n_45
     );
 \slv_reg7_reg[13]\: unisim.vcomponents.FDRE
@@ -8690,7 +8708,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[15]_i_1_n_0\,
       D => s00_axi_wdata(13),
-      Q => slv_reg7(13),
+      Q => \slv_reg7_reg_n_0_[13]\,
       R => ch_n_45
     );
 \slv_reg7_reg[14]\: unisim.vcomponents.FDRE
@@ -8698,7 +8716,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[15]_i_1_n_0\,
       D => s00_axi_wdata(14),
-      Q => slv_reg7(14),
+      Q => \slv_reg7_reg_n_0_[14]\,
       R => ch_n_45
     );
 \slv_reg7_reg[15]\: unisim.vcomponents.FDRE
@@ -8706,7 +8724,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[15]_i_1_n_0\,
       D => s00_axi_wdata(15),
-      Q => slv_reg7(15),
+      Q => \slv_reg7_reg_n_0_[15]\,
       R => ch_n_45
     );
 \slv_reg7_reg[16]\: unisim.vcomponents.FDRE
@@ -8714,7 +8732,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[23]_i_1_n_0\,
       D => s00_axi_wdata(16),
-      Q => slv_reg7(16),
+      Q => \slv_reg7_reg_n_0_[16]\,
       R => ch_n_45
     );
 \slv_reg7_reg[17]\: unisim.vcomponents.FDRE
@@ -8722,7 +8740,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[23]_i_1_n_0\,
       D => s00_axi_wdata(17),
-      Q => slv_reg7(17),
+      Q => \slv_reg7_reg_n_0_[17]\,
       R => ch_n_45
     );
 \slv_reg7_reg[18]\: unisim.vcomponents.FDRE
@@ -8730,7 +8748,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[23]_i_1_n_0\,
       D => s00_axi_wdata(18),
-      Q => slv_reg7(18),
+      Q => \slv_reg7_reg_n_0_[18]\,
       R => ch_n_45
     );
 \slv_reg7_reg[19]\: unisim.vcomponents.FDRE
@@ -8738,7 +8756,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[23]_i_1_n_0\,
       D => s00_axi_wdata(19),
-      Q => slv_reg7(19),
+      Q => \slv_reg7_reg_n_0_[19]\,
       R => ch_n_45
     );
 \slv_reg7_reg[1]\: unisim.vcomponents.FDRE
@@ -8746,7 +8764,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[7]_i_1_n_0\,
       D => s00_axi_wdata(1),
-      Q => slv_reg7(1),
+      Q => \slv_reg7_reg_n_0_[1]\,
       R => ch_n_45
     );
 \slv_reg7_reg[20]\: unisim.vcomponents.FDRE
@@ -8754,7 +8772,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[23]_i_1_n_0\,
       D => s00_axi_wdata(20),
-      Q => slv_reg7(20),
+      Q => \slv_reg7_reg_n_0_[20]\,
       R => ch_n_45
     );
 \slv_reg7_reg[21]\: unisim.vcomponents.FDRE
@@ -8762,7 +8780,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[23]_i_1_n_0\,
       D => s00_axi_wdata(21),
-      Q => slv_reg7(21),
+      Q => \slv_reg7_reg_n_0_[21]\,
       R => ch_n_45
     );
 \slv_reg7_reg[22]\: unisim.vcomponents.FDRE
@@ -8770,7 +8788,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[23]_i_1_n_0\,
       D => s00_axi_wdata(22),
-      Q => slv_reg7(22),
+      Q => \slv_reg7_reg_n_0_[22]\,
       R => ch_n_45
     );
 \slv_reg7_reg[23]\: unisim.vcomponents.FDRE
@@ -8778,7 +8796,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[23]_i_1_n_0\,
       D => s00_axi_wdata(23),
-      Q => slv_reg7(23),
+      Q => \slv_reg7_reg_n_0_[23]\,
       R => ch_n_45
     );
 \slv_reg7_reg[24]\: unisim.vcomponents.FDRE
@@ -8786,7 +8804,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[31]_i_1_n_0\,
       D => s00_axi_wdata(24),
-      Q => slv_reg7(24),
+      Q => \slv_reg7_reg_n_0_[24]\,
       R => ch_n_45
     );
 \slv_reg7_reg[25]\: unisim.vcomponents.FDRE
@@ -8794,7 +8812,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[31]_i_1_n_0\,
       D => s00_axi_wdata(25),
-      Q => slv_reg7(25),
+      Q => \slv_reg7_reg_n_0_[25]\,
       R => ch_n_45
     );
 \slv_reg7_reg[26]\: unisim.vcomponents.FDRE
@@ -8802,7 +8820,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[31]_i_1_n_0\,
       D => s00_axi_wdata(26),
-      Q => slv_reg7(26),
+      Q => \slv_reg7_reg_n_0_[26]\,
       R => ch_n_45
     );
 \slv_reg7_reg[27]\: unisim.vcomponents.FDRE
@@ -8810,7 +8828,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[31]_i_1_n_0\,
       D => s00_axi_wdata(27),
-      Q => slv_reg7(27),
+      Q => \slv_reg7_reg_n_0_[27]\,
       R => ch_n_45
     );
 \slv_reg7_reg[28]\: unisim.vcomponents.FDRE
@@ -8818,7 +8836,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[31]_i_1_n_0\,
       D => s00_axi_wdata(28),
-      Q => slv_reg7(28),
+      Q => \slv_reg7_reg_n_0_[28]\,
       R => ch_n_45
     );
 \slv_reg7_reg[29]\: unisim.vcomponents.FDRE
@@ -8826,7 +8844,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[31]_i_1_n_0\,
       D => s00_axi_wdata(29),
-      Q => slv_reg7(29),
+      Q => \slv_reg7_reg_n_0_[29]\,
       R => ch_n_45
     );
 \slv_reg7_reg[2]\: unisim.vcomponents.FDRE
@@ -8834,7 +8852,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[7]_i_1_n_0\,
       D => s00_axi_wdata(2),
-      Q => slv_reg7(2),
+      Q => \slv_reg7_reg_n_0_[2]\,
       R => ch_n_45
     );
 \slv_reg7_reg[30]\: unisim.vcomponents.FDRE
@@ -8842,7 +8860,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[31]_i_1_n_0\,
       D => s00_axi_wdata(30),
-      Q => slv_reg7(30),
+      Q => \slv_reg7_reg_n_0_[30]\,
       R => ch_n_45
     );
 \slv_reg7_reg[31]\: unisim.vcomponents.FDRE
@@ -8850,7 +8868,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[31]_i_1_n_0\,
       D => s00_axi_wdata(31),
-      Q => slv_reg7(31),
+      Q => \slv_reg7_reg_n_0_[31]\,
       R => ch_n_45
     );
 \slv_reg7_reg[3]\: unisim.vcomponents.FDRE
@@ -8858,7 +8876,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[7]_i_1_n_0\,
       D => s00_axi_wdata(3),
-      Q => slv_reg7(3),
+      Q => \slv_reg7_reg_n_0_[3]\,
       R => ch_n_45
     );
 \slv_reg7_reg[4]\: unisim.vcomponents.FDRE
@@ -8866,7 +8884,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[7]_i_1_n_0\,
       D => s00_axi_wdata(4),
-      Q => slv_reg7(4),
+      Q => \slv_reg7_reg_n_0_[4]\,
       R => ch_n_45
     );
 \slv_reg7_reg[5]\: unisim.vcomponents.FDRE
@@ -8874,7 +8892,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[7]_i_1_n_0\,
       D => s00_axi_wdata(5),
-      Q => slv_reg7(5),
+      Q => \slv_reg7_reg_n_0_[5]\,
       R => ch_n_45
     );
 \slv_reg7_reg[6]\: unisim.vcomponents.FDRE
@@ -8882,7 +8900,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[7]_i_1_n_0\,
       D => s00_axi_wdata(6),
-      Q => slv_reg7(6),
+      Q => \slv_reg7_reg_n_0_[6]\,
       R => ch_n_45
     );
 \slv_reg7_reg[7]\: unisim.vcomponents.FDRE
@@ -8890,7 +8908,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[7]_i_1_n_0\,
       D => s00_axi_wdata(7),
-      Q => slv_reg7(7),
+      Q => \slv_reg7_reg_n_0_[7]\,
       R => ch_n_45
     );
 \slv_reg7_reg[8]\: unisim.vcomponents.FDRE
@@ -8898,7 +8916,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[15]_i_1_n_0\,
       D => s00_axi_wdata(8),
-      Q => slv_reg7(8),
+      Q => \slv_reg7_reg_n_0_[8]\,
       R => ch_n_45
     );
 \slv_reg7_reg[9]\: unisim.vcomponents.FDRE
@@ -8906,7 +8924,7 @@ ch: entity work.final_proj_digital_channel_la_0_0_analyzer_channel
       C => s00_axi_aclk,
       CE => \slv_reg7[15]_i_1_n_0\,
       D => s00_axi_wdata(9),
-      Q => slv_reg7(9),
+      Q => \slv_reg7_reg_n_0_[9]\,
       R => ch_n_45
     );
 slv_reg_rden: unisim.vcomponents.LUT3
@@ -8998,6 +9016,7 @@ entity final_proj_digital_channel_la_0_0 is
     buffer_we_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
     buffer_addr_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
     buffer_di_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    sig_valid_o : out STD_LOGIC;
     s00_axi_aclk : in STD_LOGIC;
     s00_axi_aresetn : in STD_LOGIC;
     s00_axi_awaddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
@@ -9153,6 +9172,7 @@ begin
   s00_axi_bresp(0) <= \<const0>\;
   s00_axi_rresp(1) <= \<const0>\;
   s00_axi_rresp(0) <= \<const0>\;
+  sig_valid_o <= \<const0>\;
 GND: unisim.vcomponents.GND
      port map (
       G => \<const0>\

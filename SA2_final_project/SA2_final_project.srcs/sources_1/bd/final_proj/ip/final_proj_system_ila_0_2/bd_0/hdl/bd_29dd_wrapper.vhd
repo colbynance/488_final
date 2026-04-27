@@ -37,6 +37,7 @@ entity bd_29dd_wrapper is
     probe4 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe5 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
     resetn : in STD_LOGIC
   );
 end bd_29dd_wrapper;
@@ -52,6 +53,7 @@ architecture STRUCTURE of bd_29dd_wrapper is
     probe4 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe5 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
     resetn : in STD_LOGIC;
     SLOT_0_AXI_araddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
     SLOT_0_AXI_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
@@ -104,6 +106,7 @@ bd_29dd_i: component bd_29dd
       probe4(0) => probe4(0),
       probe5(0) => probe5(0),
       probe6(0) => probe6(0),
+      probe7(0) => probe7(0),
       resetn => resetn
     );
 end STRUCTURE;

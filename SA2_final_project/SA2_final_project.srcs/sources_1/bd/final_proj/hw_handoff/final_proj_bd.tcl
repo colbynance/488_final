@@ -607,7 +607,7 @@ proc create_root_design { parentCell } {
   set_property -dict [ list \
    CONFIG.C_MON_TYPE {MIX} \
    CONFIG.C_NUM_MONITOR_SLOTS {1} \
-   CONFIG.C_NUM_OF_PROBES {7} \
+   CONFIG.C_NUM_OF_PROBES {8} \
    CONFIG.C_PROBE0_TYPE {0} \
    CONFIG.C_PROBE1_TYPE {0} \
    CONFIG.C_PROBE2_TYPE {0} \
@@ -615,6 +615,7 @@ proc create_root_design { parentCell } {
    CONFIG.C_PROBE4_TYPE {0} \
    CONFIG.C_PROBE5_TYPE {0} \
    CONFIG.C_PROBE6_TYPE {0} \
+   CONFIG.C_PROBE7_TYPE {0} \
    CONFIG.C_SLOT_0_APC_EN {0} \
    CONFIG.C_SLOT_0_AXI_AR_SEL_DATA {1} \
    CONFIG.C_SLOT_0_AXI_AR_SEL_TRIG {1} \
@@ -659,6 +660,8 @@ connect_bd_intf_net -intf_net [get_bd_intf_nets ps7_0_axi_periph_M03_AXI] [get_b
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets sample_done_o]
   connect_bd_net -net sig_1 [get_bd_ports sig] [get_bd_pins digital_channel_la_0/sig_i] [get_bd_pins system_ila_0/probe5]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets sig_1]
+  connect_bd_net -net sig_valid_o [get_bd_pins digital_channel_la_0/sig_valid_o] [get_bd_pins system_ila_0/probe7]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets sig_valid_o]
   connect_bd_net -net trigd_o [get_bd_pins digital_channel_la_0/trigd_o] [get_bd_pins system_ila_0/probe6]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets trigd_o]
 

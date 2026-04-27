@@ -32,7 +32,7 @@ module buffer (
     output reg [31:0] dout
 );
 
-reg [31:0] RAM [1023:0];
+(* ram_style = "block" *) reg [31:0] RAM [1023:0];
 
 always @(posedge clk)
 begin

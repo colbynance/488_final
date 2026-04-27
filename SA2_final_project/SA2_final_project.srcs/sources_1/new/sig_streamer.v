@@ -1,15 +1,17 @@
 module sig_streamer (
     input wire clk_i,
-    input wire rst_i,
+    input wire nrst_i,
     input wire sync_rst_i,
 
     input wire sig_i,
     input wire trig_i,
     input wire sig_valid_i,
+    
+    input wire new_sample_i,
 
     output reg         buffer_we_o,
     output wire [9:0]  buffer_addr_o,
-    output reg  [31:0] buffer_di_o,
+    output reg  [15:0] buffer_di_o,
 
     output reg sample_done_o
 );
@@ -19,8 +21,8 @@ reg [4:0] sig_idx;
 
 assign buffer_addr_o = buf_addr[9:0];
 
-always @(posedge clk_i, posedge rst_i) begin
-    if (rst_i) begin
+always @(posedge clk_i, negedge nrst_i) begin
+    if (!nrst_i) begin
         buffer_we_o <= 0;
         buf_addr <= 0;
         buffer_di_o <= 0;
@@ -37,11 +39,11 @@ always @(posedge clk_i, posedge rst_i) begin
 
             sig_idx <= 0;
         end
-        else if (trig_i && !sample_done_o && sig_valid_i) begin
+        else if (trig_i && !sample_done_o && sig_valid_i && new_sample_i) begin
             buffer_di_o[sig_idx] <= sig_i;
             sig_idx <= sig_idx + 1;
 
-            if (sig_idx == 31) begin
+            if (sig_idx == 15) begin
                 // Let sig_idx wrap
                 buffer_we_o <= 1;
             end

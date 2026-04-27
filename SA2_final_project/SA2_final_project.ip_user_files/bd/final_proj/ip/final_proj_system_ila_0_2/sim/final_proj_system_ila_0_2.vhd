@@ -63,6 +63,7 @@ ENTITY final_proj_system_ila_0_2 IS
     probe4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe5 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe6 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe7 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     SLOT_0_AXI_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
     SLOT_0_AXI_awprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
     SLOT_0_AXI_awvalid : IN STD_LOGIC;
@@ -99,6 +100,7 @@ ARCHITECTURE final_proj_system_ila_0_2_arch OF final_proj_system_ila_0_2 IS
       probe4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       probe5 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       probe6 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      probe7 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       SLOT_0_AXI_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
       SLOT_0_AXI_awprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
       SLOT_0_AXI_awvalid : IN STD_LOGIC;
@@ -159,6 +161,7 @@ BEGIN
       probe4 => probe4,
       probe5 => probe5,
       probe6 => probe6,
+      probe7 => probe7,
       SLOT_0_AXI_awaddr => SLOT_0_AXI_awaddr,
       SLOT_0_AXI_awprot => SLOT_0_AXI_awprot,
       SLOT_0_AXI_awvalid => SLOT_0_AXI_awvalid,

@@ -1,8 +1,8 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-// Date        : Fri Apr 24 15:29:13 2026
-// Host        : CO2041-14 running 64-bit major release  (build 9200)
+// Date        : Mon Apr 27 15:52:24 2026
+// Host        : CO2041-08 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_digital_channel_la_0_0/final_proj_digital_channel_la_0_0_sim_netlist.v
 // Design      : final_proj_digital_channel_la_0_0
@@ -22,6 +22,7 @@ module final_proj_digital_channel_la_0_0
     buffer_we_o,
     buffer_addr_o,
     buffer_di_o,
+    sig_valid_o,
     s00_axi_aclk,
     s00_axi_aresetn,
     s00_axi_awaddr,
@@ -50,6 +51,7 @@ module final_proj_digital_channel_la_0_0
   output [31:0]buffer_we_o;
   output [31:0]buffer_addr_o;
   output [31:0]buffer_di_o;
+  output sig_valid_o;
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 S00_AXI_CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S00_AXI_CLK, ASSOCIATED_BUSIF S00_AXI, ASSOCIATED_RESET s00_axi_aresetn, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN final_proj_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input s00_axi_aclk;
   (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 S00_AXI_RST RST" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S00_AXI_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input s00_axi_aresetn;
   (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 S00_AXI AWADDR" *) input [4:0]s00_axi_awaddr;
@@ -189,6 +191,7 @@ module final_proj_digital_channel_la_0_0
   assign s00_axi_bresp[0] = \<const0> ;
   assign s00_axi_rresp[1] = \<const0> ;
   assign s00_axi_rresp[0] = \<const0> ;
+  assign sig_valid_o = \<const0> ;
   GND GND
        (.G(\<const0> ));
   final_proj_digital_channel_la_0_0_digital_channel_la_v1_0 inst
@@ -283,7 +286,6 @@ module final_proj_digital_channel_la_0_0_analyzer_channel
   wire [31:0]\buffer_di_o[31] ;
   wire [0:0]buffer_we_o;
   wire [31:0]counter1_carry__1;
-  wire downsamp_n_0;
   wire p_0_in0;
   wire s00_axi_aclk;
   wire s00_axi_aresetn;
@@ -292,6 +294,7 @@ module final_proj_digital_channel_la_0_0_analyzer_channel
   wire [0:0]s00_axi_wstrb;
   wire sample_done_o_reg;
   wire sig_i;
+  wire sig_o;
   wire \slv_reg0_reg[31] ;
   wire \slv_reg5_reg[0] ;
   wire slv_reg_wren__0;
@@ -310,8 +313,7 @@ module final_proj_digital_channel_la_0_0_analyzer_channel
         .\slv_reg5_reg[0] (\slv_reg5_reg[0] ),
         .slv_reg_wren__0(slv_reg_wren__0));
   final_proj_digital_channel_la_0_0_downsample downsamp
-       (.D(downsamp_n_0),
-        .Q(Q[0]),
+       (.D(sig_o),
         .counter1_carry__1_0(counter1_carry__1),
         .\counter_reg[0]_0 (s00_axi_aresetn_0),
         .s00_axi_aclk(s00_axi_aclk),
@@ -337,7 +339,7 @@ module final_proj_digital_channel_la_0_0_analyzer_channel
         .\slv_reg0_reg[31] (\slv_reg0_reg[31] ),
         .slv_reg_wren__0(slv_reg_wren__0));
   final_proj_digital_channel_la_0_0_trigger trig
-       (.D(downsamp_n_0),
+       (.D(sig_o),
         .Q(Q),
         .\incoming_reg[33]_0 (p_0_in0),
         .\incoming_reg[33]_1 (s00_axi_aresetn_0),
@@ -833,11 +835,42 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
   wire \slv_reg6[23]_i_1_n_0 ;
   wire \slv_reg6[31]_i_1_n_0 ;
   wire \slv_reg6[7]_i_1_n_0 ;
-  wire [31:0]slv_reg7;
+  wire [0:0]slv_reg7;
   wire \slv_reg7[15]_i_1_n_0 ;
   wire \slv_reg7[23]_i_1_n_0 ;
   wire \slv_reg7[31]_i_1_n_0 ;
   wire \slv_reg7[7]_i_1_n_0 ;
+  wire \slv_reg7_reg_n_0_[10] ;
+  wire \slv_reg7_reg_n_0_[11] ;
+  wire \slv_reg7_reg_n_0_[12] ;
+  wire \slv_reg7_reg_n_0_[13] ;
+  wire \slv_reg7_reg_n_0_[14] ;
+  wire \slv_reg7_reg_n_0_[15] ;
+  wire \slv_reg7_reg_n_0_[16] ;
+  wire \slv_reg7_reg_n_0_[17] ;
+  wire \slv_reg7_reg_n_0_[18] ;
+  wire \slv_reg7_reg_n_0_[19] ;
+  wire \slv_reg7_reg_n_0_[1] ;
+  wire \slv_reg7_reg_n_0_[20] ;
+  wire \slv_reg7_reg_n_0_[21] ;
+  wire \slv_reg7_reg_n_0_[22] ;
+  wire \slv_reg7_reg_n_0_[23] ;
+  wire \slv_reg7_reg_n_0_[24] ;
+  wire \slv_reg7_reg_n_0_[25] ;
+  wire \slv_reg7_reg_n_0_[26] ;
+  wire \slv_reg7_reg_n_0_[27] ;
+  wire \slv_reg7_reg_n_0_[28] ;
+  wire \slv_reg7_reg_n_0_[29] ;
+  wire \slv_reg7_reg_n_0_[2] ;
+  wire \slv_reg7_reg_n_0_[30] ;
+  wire \slv_reg7_reg_n_0_[31] ;
+  wire \slv_reg7_reg_n_0_[3] ;
+  wire \slv_reg7_reg_n_0_[4] ;
+  wire \slv_reg7_reg_n_0_[5] ;
+  wire \slv_reg7_reg_n_0_[6] ;
+  wire \slv_reg7_reg_n_0_[7] ;
+  wire \slv_reg7_reg_n_0_[8] ;
+  wire \slv_reg7_reg_n_0_[9] ;
   wire slv_reg_rden__0;
   wire slv_reg_wren__0;
   wire trigd_o;
@@ -874,7 +907,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
         .I2(S_AXI_ARREADY),
         .I3(sel0[1]),
         .O(\axi_araddr[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT4 #(
     .INIT(16'hFB08)) 
     \axi_araddr[4]_i_1 
@@ -901,7 +934,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
         .D(\axi_araddr[4]_i_1_n_0 ),
         .Q(sel0[2]),
         .R(ch_n_45));
-  (* SOFT_HLUTNM = "soft_lutpair48" *) 
+  (* SOFT_HLUTNM = "soft_lutpair47" *) 
   LUT2 #(
     .INIT(4'h2)) 
     axi_arready_i_1
@@ -962,7 +995,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
         .D(\axi_awaddr[4]_i_1_n_0 ),
         .Q(axi_awaddr[4]),
         .R(ch_n_45));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT4 #(
     .INIT(16'h4000)) 
     axi_awready_i_1
@@ -1007,7 +1040,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[0]_i_3 
        (.I0(\slv_reg5_reg_n_0_[0] ),
-        .I1(slv_reg7[0]),
+        .I1(slv_reg7),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[0]),
@@ -1027,7 +1060,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[10]_i_3 
        (.I0(\slv_reg5_reg_n_0_[10] ),
-        .I1(slv_reg7[10]),
+        .I1(\slv_reg7_reg_n_0_[10] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[10]),
@@ -1047,7 +1080,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[11]_i_3 
        (.I0(\slv_reg5_reg_n_0_[11] ),
-        .I1(slv_reg7[11]),
+        .I1(\slv_reg7_reg_n_0_[11] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[11]),
@@ -1067,7 +1100,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[12]_i_3 
        (.I0(\slv_reg5_reg_n_0_[12] ),
-        .I1(slv_reg7[12]),
+        .I1(\slv_reg7_reg_n_0_[12] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[12]),
@@ -1087,7 +1120,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[13]_i_3 
        (.I0(\slv_reg5_reg_n_0_[13] ),
-        .I1(slv_reg7[13]),
+        .I1(\slv_reg7_reg_n_0_[13] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[13]),
@@ -1107,7 +1140,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[14]_i_3 
        (.I0(\slv_reg5_reg_n_0_[14] ),
-        .I1(slv_reg7[14]),
+        .I1(\slv_reg7_reg_n_0_[14] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[14]),
@@ -1127,7 +1160,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[15]_i_3 
        (.I0(\slv_reg5_reg_n_0_[15] ),
-        .I1(slv_reg7[15]),
+        .I1(\slv_reg7_reg_n_0_[15] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[15]),
@@ -1147,7 +1180,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[16]_i_3 
        (.I0(\slv_reg5_reg_n_0_[16] ),
-        .I1(slv_reg7[16]),
+        .I1(\slv_reg7_reg_n_0_[16] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[16]),
@@ -1167,7 +1200,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[17]_i_3 
        (.I0(\slv_reg5_reg_n_0_[17] ),
-        .I1(slv_reg7[17]),
+        .I1(\slv_reg7_reg_n_0_[17] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[17]),
@@ -1187,7 +1220,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[18]_i_3 
        (.I0(\slv_reg5_reg_n_0_[18] ),
-        .I1(slv_reg7[18]),
+        .I1(\slv_reg7_reg_n_0_[18] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[18]),
@@ -1207,7 +1240,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[19]_i_3 
        (.I0(\slv_reg5_reg_n_0_[19] ),
-        .I1(slv_reg7[19]),
+        .I1(\slv_reg7_reg_n_0_[19] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[19]),
@@ -1227,7 +1260,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[1]_i_3 
        (.I0(\slv_reg5_reg_n_0_[1] ),
-        .I1(slv_reg7[1]),
+        .I1(\slv_reg7_reg_n_0_[1] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[1]),
@@ -1247,7 +1280,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[20]_i_3 
        (.I0(\slv_reg5_reg_n_0_[20] ),
-        .I1(slv_reg7[20]),
+        .I1(\slv_reg7_reg_n_0_[20] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[20]),
@@ -1267,7 +1300,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[21]_i_3 
        (.I0(\slv_reg5_reg_n_0_[21] ),
-        .I1(slv_reg7[21]),
+        .I1(\slv_reg7_reg_n_0_[21] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[21]),
@@ -1287,7 +1320,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[22]_i_3 
        (.I0(\slv_reg5_reg_n_0_[22] ),
-        .I1(slv_reg7[22]),
+        .I1(\slv_reg7_reg_n_0_[22] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[22]),
@@ -1307,7 +1340,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[23]_i_3 
        (.I0(\slv_reg5_reg_n_0_[23] ),
-        .I1(slv_reg7[23]),
+        .I1(\slv_reg7_reg_n_0_[23] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[23]),
@@ -1327,7 +1360,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[24]_i_3 
        (.I0(\slv_reg5_reg_n_0_[24] ),
-        .I1(slv_reg7[24]),
+        .I1(\slv_reg7_reg_n_0_[24] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[24]),
@@ -1347,7 +1380,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[25]_i_3 
        (.I0(\slv_reg5_reg_n_0_[25] ),
-        .I1(slv_reg7[25]),
+        .I1(\slv_reg7_reg_n_0_[25] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[25]),
@@ -1367,7 +1400,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[26]_i_3 
        (.I0(\slv_reg5_reg_n_0_[26] ),
-        .I1(slv_reg7[26]),
+        .I1(\slv_reg7_reg_n_0_[26] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[26]),
@@ -1387,7 +1420,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[27]_i_3 
        (.I0(\slv_reg5_reg_n_0_[27] ),
-        .I1(slv_reg7[27]),
+        .I1(\slv_reg7_reg_n_0_[27] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[27]),
@@ -1407,7 +1440,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[28]_i_3 
        (.I0(\slv_reg5_reg_n_0_[28] ),
-        .I1(slv_reg7[28]),
+        .I1(\slv_reg7_reg_n_0_[28] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[28]),
@@ -1427,7 +1460,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[29]_i_3 
        (.I0(\slv_reg5_reg_n_0_[29] ),
-        .I1(slv_reg7[29]),
+        .I1(\slv_reg7_reg_n_0_[29] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[29]),
@@ -1447,7 +1480,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[2]_i_3 
        (.I0(\slv_reg5_reg_n_0_[2] ),
-        .I1(slv_reg7[2]),
+        .I1(\slv_reg7_reg_n_0_[2] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[2]),
@@ -1467,7 +1500,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[30]_i_3 
        (.I0(\slv_reg5_reg_n_0_[30] ),
-        .I1(slv_reg7[30]),
+        .I1(\slv_reg7_reg_n_0_[30] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[30]),
@@ -1487,7 +1520,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[31]_i_3 
        (.I0(\slv_reg5_reg_n_0_[31] ),
-        .I1(slv_reg7[31]),
+        .I1(\slv_reg7_reg_n_0_[31] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[31]),
@@ -1507,7 +1540,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[3]_i_3 
        (.I0(\slv_reg5_reg_n_0_[3] ),
-        .I1(slv_reg7[3]),
+        .I1(\slv_reg7_reg_n_0_[3] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[3]),
@@ -1527,7 +1560,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[4]_i_3 
        (.I0(\slv_reg5_reg_n_0_[4] ),
-        .I1(slv_reg7[4]),
+        .I1(\slv_reg7_reg_n_0_[4] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[4]),
@@ -1547,7 +1580,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[5]_i_3 
        (.I0(\slv_reg5_reg_n_0_[5] ),
-        .I1(slv_reg7[5]),
+        .I1(\slv_reg7_reg_n_0_[5] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[5]),
@@ -1567,7 +1600,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[6]_i_3 
        (.I0(\slv_reg5_reg_n_0_[6] ),
-        .I1(slv_reg7[6]),
+        .I1(\slv_reg7_reg_n_0_[6] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[6]),
@@ -1587,7 +1620,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[7]_i_3 
        (.I0(\slv_reg5_reg_n_0_[7] ),
-        .I1(slv_reg7[7]),
+        .I1(\slv_reg7_reg_n_0_[7] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[7]),
@@ -1607,7 +1640,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[8]_i_3 
        (.I0(\slv_reg5_reg_n_0_[8] ),
-        .I1(slv_reg7[8]),
+        .I1(\slv_reg7_reg_n_0_[8] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[8]),
@@ -1627,7 +1660,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
     .INIT(64'hCFAFCFA0C0AFC0A0)) 
     \axi_rdata[9]_i_3 
        (.I0(\slv_reg5_reg_n_0_[9] ),
-        .I1(slv_reg7[9]),
+        .I1(\slv_reg7_reg_n_0_[9] ),
         .I2(sel0[0]),
         .I3(sel0[1]),
         .I4(slv_reg4[9]),
@@ -1999,7 +2032,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
         .D(axi_rvalid_i_1_n_0),
         .Q(s00_axi_rvalid),
         .R(ch_n_45));
-  (* SOFT_HLUTNM = "soft_lutpair49" *) 
+  (* SOFT_HLUTNM = "soft_lutpair48" *) 
   LUT4 #(
     .INIT(16'h4000)) 
     axi_wready_i_1
@@ -2017,7 +2050,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
   final_proj_digital_channel_la_0_0_analyzer_channel ch
        (.D(ch_n_47),
         .Q({\slv_reg0_reg_n_0_[4] ,\slv_reg0_reg_n_0_[3] ,slv_reg0}),
-        .RAM_reg(\slv_reg5_reg_n_0_[0] ),
+        .RAM_reg(slv_reg7),
         .RAM_reg_0(slv_reg4[9:0]),
         .axi_awaddr(axi_awaddr[3]),
         .\axi_awaddr_reg[3] (p_2_in),
@@ -2067,7 +2100,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
         .I3(axi_awaddr[4]),
         .I4(s00_axi_wstrb[3]),
         .O(\slv_reg0[30]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT2 #(
     .INIT(4'hE)) 
     \slv_reg0[31]_i_2 
@@ -3195,7 +3228,7 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
         .D(s00_axi_wdata[9]),
         .Q(slv_reg4[9]),
         .R(ch_n_45));
-  (* SOFT_HLUTNM = "soft_lutpair50" *) 
+  (* SOFT_HLUTNM = "soft_lutpair49" *) 
   LUT4 #(
     .INIT(16'hF7FF)) 
     \slv_reg5[0]_i_2 
@@ -3983,193 +4016,193 @@ module final_proj_digital_channel_la_0_0_digital_channel_la_v1_0_S00_AXI
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[7]_i_1_n_0 ),
         .D(s00_axi_wdata[0]),
-        .Q(slv_reg7[0]),
+        .Q(slv_reg7),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[10] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[15]_i_1_n_0 ),
         .D(s00_axi_wdata[10]),
-        .Q(slv_reg7[10]),
+        .Q(\slv_reg7_reg_n_0_[10] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[11] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[15]_i_1_n_0 ),
         .D(s00_axi_wdata[11]),
-        .Q(slv_reg7[11]),
+        .Q(\slv_reg7_reg_n_0_[11] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[12] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[15]_i_1_n_0 ),
         .D(s00_axi_wdata[12]),
-        .Q(slv_reg7[12]),
+        .Q(\slv_reg7_reg_n_0_[12] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[13] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[15]_i_1_n_0 ),
         .D(s00_axi_wdata[13]),
-        .Q(slv_reg7[13]),
+        .Q(\slv_reg7_reg_n_0_[13] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[14] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[15]_i_1_n_0 ),
         .D(s00_axi_wdata[14]),
-        .Q(slv_reg7[14]),
+        .Q(\slv_reg7_reg_n_0_[14] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[15] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[15]_i_1_n_0 ),
         .D(s00_axi_wdata[15]),
-        .Q(slv_reg7[15]),
+        .Q(\slv_reg7_reg_n_0_[15] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[16] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[23]_i_1_n_0 ),
         .D(s00_axi_wdata[16]),
-        .Q(slv_reg7[16]),
+        .Q(\slv_reg7_reg_n_0_[16] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[17] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[23]_i_1_n_0 ),
         .D(s00_axi_wdata[17]),
-        .Q(slv_reg7[17]),
+        .Q(\slv_reg7_reg_n_0_[17] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[18] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[23]_i_1_n_0 ),
         .D(s00_axi_wdata[18]),
-        .Q(slv_reg7[18]),
+        .Q(\slv_reg7_reg_n_0_[18] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[19] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[23]_i_1_n_0 ),
         .D(s00_axi_wdata[19]),
-        .Q(slv_reg7[19]),
+        .Q(\slv_reg7_reg_n_0_[19] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[1] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[7]_i_1_n_0 ),
         .D(s00_axi_wdata[1]),
-        .Q(slv_reg7[1]),
+        .Q(\slv_reg7_reg_n_0_[1] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[20] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[23]_i_1_n_0 ),
         .D(s00_axi_wdata[20]),
-        .Q(slv_reg7[20]),
+        .Q(\slv_reg7_reg_n_0_[20] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[21] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[23]_i_1_n_0 ),
         .D(s00_axi_wdata[21]),
-        .Q(slv_reg7[21]),
+        .Q(\slv_reg7_reg_n_0_[21] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[22] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[23]_i_1_n_0 ),
         .D(s00_axi_wdata[22]),
-        .Q(slv_reg7[22]),
+        .Q(\slv_reg7_reg_n_0_[22] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[23] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[23]_i_1_n_0 ),
         .D(s00_axi_wdata[23]),
-        .Q(slv_reg7[23]),
+        .Q(\slv_reg7_reg_n_0_[23] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[24] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[31]_i_1_n_0 ),
         .D(s00_axi_wdata[24]),
-        .Q(slv_reg7[24]),
+        .Q(\slv_reg7_reg_n_0_[24] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[25] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[31]_i_1_n_0 ),
         .D(s00_axi_wdata[25]),
-        .Q(slv_reg7[25]),
+        .Q(\slv_reg7_reg_n_0_[25] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[26] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[31]_i_1_n_0 ),
         .D(s00_axi_wdata[26]),
-        .Q(slv_reg7[26]),
+        .Q(\slv_reg7_reg_n_0_[26] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[27] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[31]_i_1_n_0 ),
         .D(s00_axi_wdata[27]),
-        .Q(slv_reg7[27]),
+        .Q(\slv_reg7_reg_n_0_[27] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[28] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[31]_i_1_n_0 ),
         .D(s00_axi_wdata[28]),
-        .Q(slv_reg7[28]),
+        .Q(\slv_reg7_reg_n_0_[28] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[29] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[31]_i_1_n_0 ),
         .D(s00_axi_wdata[29]),
-        .Q(slv_reg7[29]),
+        .Q(\slv_reg7_reg_n_0_[29] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[2] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[7]_i_1_n_0 ),
         .D(s00_axi_wdata[2]),
-        .Q(slv_reg7[2]),
+        .Q(\slv_reg7_reg_n_0_[2] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[30] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[31]_i_1_n_0 ),
         .D(s00_axi_wdata[30]),
-        .Q(slv_reg7[30]),
+        .Q(\slv_reg7_reg_n_0_[30] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[31] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[31]_i_1_n_0 ),
         .D(s00_axi_wdata[31]),
-        .Q(slv_reg7[31]),
+        .Q(\slv_reg7_reg_n_0_[31] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[3] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[7]_i_1_n_0 ),
         .D(s00_axi_wdata[3]),
-        .Q(slv_reg7[3]),
+        .Q(\slv_reg7_reg_n_0_[3] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[4] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[7]_i_1_n_0 ),
         .D(s00_axi_wdata[4]),
-        .Q(slv_reg7[4]),
+        .Q(\slv_reg7_reg_n_0_[4] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[5] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[7]_i_1_n_0 ),
         .D(s00_axi_wdata[5]),
-        .Q(slv_reg7[5]),
+        .Q(\slv_reg7_reg_n_0_[5] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[6] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[7]_i_1_n_0 ),
         .D(s00_axi_wdata[6]),
-        .Q(slv_reg7[6]),
+        .Q(\slv_reg7_reg_n_0_[6] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[7] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[7]_i_1_n_0 ),
         .D(s00_axi_wdata[7]),
-        .Q(slv_reg7[7]),
+        .Q(\slv_reg7_reg_n_0_[7] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[8] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[15]_i_1_n_0 ),
         .D(s00_axi_wdata[8]),
-        .Q(slv_reg7[8]),
+        .Q(\slv_reg7_reg_n_0_[8] ),
         .R(ch_n_45));
   FDRE \slv_reg7_reg[9] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg7[15]_i_1_n_0 ),
         .D(s00_axi_wdata[9]),
-        .Q(slv_reg7[9]),
+        .Q(\slv_reg7_reg_n_0_[9] ),
         .R(ch_n_45));
   LUT3 #(
     .INIT(8'h20)) 
@@ -4186,17 +4219,14 @@ module final_proj_digital_channel_la_0_0_downsample
     s00_axi_aclk,
     \counter_reg[0]_0 ,
     counter1_carry__1_0,
-    Q,
     sig_i);
   output [0:0]D;
   input s00_axi_aclk;
   input \counter_reg[0]_0 ;
   input [31:0]counter1_carry__1_0;
-  input [0:0]Q;
   input sig_i;
 
   wire [0:0]D;
-  wire [0:0]Q;
   wire counter1_carry__0_i_1_n_0;
   wire counter1_carry__0_i_2_n_0;
   wire counter1_carry__0_i_3_n_0;
@@ -4320,7 +4350,6 @@ module final_proj_digital_channel_la_0_0_downsample
   wire load;
   wire s00_axi_aclk;
   wire sig_i;
-  wire sig_o;
   wire sig_o_i_1_n_0;
   wire [3:0]NLW_counter1_carry_O_UNCONNECTED;
   wire [3:0]NLW_counter1_carry__0_O_UNCONNECTED;
@@ -4911,27 +4940,19 @@ module final_proj_digital_channel_la_0_0_downsample
         .CLR(\counter_reg[0]_0 ),
         .D(\counter_reg[8]_i_1_n_6 ),
         .Q(counter_reg[9]));
-  (* SOFT_HLUTNM = "soft_lutpair0" *) 
-  LUT2 #(
-    .INIT(4'h8)) 
-    \incoming[0]_i_1 
-       (.I0(sig_o),
-        .I1(Q),
-        .O(D));
-  (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     sig_o_i_1
        (.I0(sig_i),
         .I1(load),
-        .I2(sig_o),
+        .I2(D),
         .O(sig_o_i_1_n_0));
   FDCE sig_o_reg
        (.C(s00_axi_aclk),
         .CE(1'b1),
         .CLR(\counter_reg[0]_0 ),
         .D(sig_o_i_1_n_0),
-        .Q(sig_o));
+        .Q(D));
 endmodule
 
 (* ORIG_REF_NAME = "sig_streamer" *) 
@@ -5086,7 +5107,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
   wire slv_reg_wren__0;
   wire streamer_we;
 
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_addr[0]_i_1 
@@ -5101,7 +5122,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I2(sample_done_o_reg_0),
         .I3(Q),
         .O(\buf_addr[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT4 #(
     .INIT(16'h7080)) 
     \buf_addr[10]_i_2 
@@ -5110,7 +5131,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I2(Q),
         .I3(buf_addr_reg[10]),
         .O(p_0_in[10]));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT4 #(
     .INIT(16'h8000)) 
     \buf_addr[10]_i_3 
@@ -5119,7 +5140,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I2(\buf_addr[9]_i_2_n_0 ),
         .I3(buf_addr_reg[7]),
         .O(\buf_addr[10]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
   LUT3 #(
     .INIT(8'h48)) 
     \buf_addr[1]_i_1 
@@ -5127,7 +5148,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I1(Q),
         .I2(buf_addr_reg[1]),
         .O(p_0_in[1]));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
   LUT4 #(
     .INIT(16'h7080)) 
     \buf_addr[2]_i_1 
@@ -5136,7 +5157,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I2(Q),
         .I3(buf_addr_reg[2]),
         .O(p_0_in[2]));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
   LUT5 #(
     .INIT(32'h7F008000)) 
     \buf_addr[3]_i_1 
@@ -5156,7 +5177,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I4(Q),
         .I5(buf_addr_reg[4]),
         .O(p_0_in[4]));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
   LUT3 #(
     .INIT(8'h48)) 
     \buf_addr[5]_i_1 
@@ -5164,7 +5185,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I1(Q),
         .I2(buf_addr_reg[5]),
         .O(p_0_in[5]));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT5 #(
     .INIT(32'h80000000)) 
     \buf_addr[5]_i_2 
@@ -5174,7 +5195,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(buf_addr_reg[1]),
         .I4(buf_addr_reg[3]),
         .O(\buf_addr[5]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT3 #(
     .INIT(8'h48)) 
     \buf_addr[6]_i_1 
@@ -5182,7 +5203,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I1(Q),
         .I2(buf_addr_reg[6]),
         .O(p_0_in[6]));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT4 #(
     .INIT(16'h7080)) 
     \buf_addr[7]_i_1 
@@ -5191,7 +5212,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I2(Q),
         .I3(buf_addr_reg[7]),
         .O(p_0_in[7]));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT5 #(
     .INIT(32'h7F008000)) 
     \buf_addr[8]_i_1 
@@ -5373,7 +5394,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[0] ),
         .O(\buffer_di_o[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[10]_INST_0 
@@ -5390,7 +5411,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[10] ),
         .O(\buffer_di_o[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[11]_INST_0 
@@ -5408,7 +5429,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I4(Q),
         .I5(\buffer_di_o_reg_n_0_[11] ),
         .O(\buffer_di_o[11]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[12]_INST_0 
@@ -5425,7 +5446,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[12] ),
         .O(\buffer_di_o[12]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[13]_INST_0 
@@ -5442,7 +5463,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[13] ),
         .O(\buffer_di_o[13]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[14]_INST_0 
@@ -5459,7 +5480,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[14] ),
         .O(\buffer_di_o[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[15]_INST_0 
@@ -5476,7 +5497,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[15] ),
         .O(\buffer_di_o[15]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT4 #(
     .INIT(16'h0040)) 
     \buffer_di_o[15]_i_2 
@@ -5485,7 +5506,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I2(sig_idx_reg[3]),
         .I3(sig_idx_reg[4]),
         .O(\buffer_di_o[15]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[16]_INST_0 
@@ -5502,7 +5523,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[16] ),
         .O(\buffer_di_o[16]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[17]_INST_0 
@@ -5519,7 +5540,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[17] ),
         .O(\buffer_di_o[17]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[18]_INST_0 
@@ -5536,7 +5557,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[18] ),
         .O(\buffer_di_o[18]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[19]_INST_0 
@@ -5570,7 +5591,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[1] ),
         .O(\buffer_di_o[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[20]_INST_0 
@@ -5587,7 +5608,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[20] ),
         .O(\buffer_di_o[20]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[21]_INST_0 
@@ -5604,7 +5625,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[21] ),
         .O(\buffer_di_o[21]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[22]_INST_0 
@@ -5621,7 +5642,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[22] ),
         .O(\buffer_di_o[22]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[23]_INST_0 
@@ -5638,7 +5659,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[23] ),
         .O(\buffer_di_o[23]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT4 #(
     .INIT(16'h0040)) 
     \buffer_di_o[23]_i_2 
@@ -5647,7 +5668,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I2(sig_idx_reg[4]),
         .I3(sig_idx_reg[3]),
         .O(\buffer_di_o[23]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[24]_INST_0 
@@ -5664,7 +5685,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[24] ),
         .O(\buffer_di_o[24]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
   LUT3 #(
     .INIT(8'hFE)) 
     \buffer_di_o[24]_i_2 
@@ -5672,7 +5693,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I1(sig_idx_reg[0]),
         .I2(sig_idx_reg[1]),
         .O(\buffer_di_o[24]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[25]_INST_0 
@@ -5689,7 +5710,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[25] ),
         .O(\buffer_di_o[25]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \buffer_di_o[25]_i_2 
@@ -5697,7 +5718,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I1(sig_idx_reg[1]),
         .I2(sig_idx_reg[2]),
         .O(\buffer_di_o[25]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[26]_INST_0 
@@ -5714,7 +5735,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[26] ),
         .O(\buffer_di_o[26]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
   LUT3 #(
     .INIT(8'hFD)) 
     \buffer_di_o[26]_i_2 
@@ -5722,7 +5743,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I1(sig_idx_reg[0]),
         .I2(sig_idx_reg[2]),
         .O(\buffer_di_o[26]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[27]_INST_0 
@@ -5740,14 +5761,14 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I4(Q),
         .I5(\buffer_di_o_reg_n_0_[27] ),
         .O(\buffer_di_o[27]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
   LUT2 #(
     .INIT(4'h7)) 
     \buffer_di_o[27]_i_2 
        (.I0(sig_idx_reg[1]),
         .I1(sig_idx_reg[0]),
         .O(\buffer_di_o[27]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[28]_INST_0 
@@ -5764,7 +5785,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[28] ),
         .O(\buffer_di_o[28]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT3 #(
     .INIT(8'hEF)) 
     \buffer_di_o[28]_i_2 
@@ -5772,7 +5793,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I1(sig_idx_reg[1]),
         .I2(sig_idx_reg[2]),
         .O(\buffer_di_o[28]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[29]_INST_0 
@@ -5789,7 +5810,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[29] ),
         .O(\buffer_di_o[29]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
   LUT3 #(
     .INIT(8'hDF)) 
     \buffer_di_o[29]_i_2 
@@ -5797,7 +5818,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I1(sig_idx_reg[1]),
         .I2(sig_idx_reg[2]),
         .O(\buffer_di_o[29]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[2]_INST_0 
@@ -5814,7 +5835,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[2] ),
         .O(\buffer_di_o[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[30]_INST_0 
@@ -5831,7 +5852,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[30] ),
         .O(\buffer_di_o[30]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT3 #(
     .INIT(8'hDF)) 
     \buffer_di_o[30]_i_2 
@@ -5839,7 +5860,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I1(sig_idx_reg[0]),
         .I2(sig_idx_reg[2]),
         .O(\buffer_di_o[30]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[31]_INST_0 
@@ -5856,7 +5877,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[31] ),
         .O(\buffer_di_o[31]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT3 #(
     .INIT(8'h7F)) 
     \buffer_di_o[31]_i_2 
@@ -5864,7 +5885,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I1(sig_idx_reg[1]),
         .I2(sig_idx_reg[2]),
         .O(\buffer_di_o[31]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT4 #(
     .INIT(16'h4000)) 
     \buffer_di_o[31]_i_3 
@@ -5873,7 +5894,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I2(sig_idx_reg[3]),
         .I3(sig_idx_reg[4]),
         .O(\buffer_di_o[31]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[3]_INST_0 
@@ -5891,7 +5912,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I4(Q),
         .I5(\buffer_di_o_reg_n_0_[3] ),
         .O(\buffer_di_o[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[4]_INST_0 
@@ -5908,7 +5929,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[4] ),
         .O(\buffer_di_o[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[5]_INST_0 
@@ -5925,7 +5946,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[5] ),
         .O(\buffer_di_o[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[6]_INST_0 
@@ -5942,7 +5963,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[6] ),
         .O(\buffer_di_o[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[7]_INST_0 
@@ -5959,7 +5980,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[7] ),
         .O(\buffer_di_o[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT4 #(
     .INIT(16'h0004)) 
     \buffer_di_o[7]_i_2 
@@ -5968,7 +5989,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I2(sig_idx_reg[4]),
         .I3(sig_idx_reg[3]),
         .O(\buffer_di_o[7]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[8]_INST_0 
@@ -5985,7 +6006,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I3(Q),
         .I4(\buffer_di_o_reg_n_0_[8] ),
         .O(\buffer_di_o[8]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \buffer_di_o[9]_INST_0 
@@ -6237,7 +6258,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I4(sample_done_o_reg_0),
         .I5(\buf_addr_reg[0]_0 ),
         .O(sample_done_o_i_2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT3 #(
     .INIT(8'h01)) 
     sample_done_o_i_3
@@ -6259,14 +6280,14 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .CLR(s00_axi_aresetn_0),
         .D(sample_done_o_i_1_n_0),
         .Q(sample_done_o_reg_0));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \sig_idx[0]_i_1 
        (.I0(Q),
         .I1(sig_idx_reg[0]),
         .O(p_0_in__0[0]));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
   LUT3 #(
     .INIT(8'h60)) 
     \sig_idx[1]_i_1 
@@ -6274,7 +6295,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I1(sig_idx_reg[0]),
         .I2(Q),
         .O(p_0_in__0[1]));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT4 #(
     .INIT(16'h7080)) 
     \sig_idx[2]_i_1 
@@ -6283,7 +6304,7 @@ module final_proj_digital_channel_la_0_0_sig_streamer
         .I2(Q),
         .I3(sig_idx_reg[2]),
         .O(p_0_in__0[2]));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT5 #(
     .INIT(32'h7F008000)) 
     \sig_idx[3]_i_1 
@@ -6491,231 +6512,231 @@ module final_proj_digital_channel_la_0_0_trigger
   wire [3:3]NLW_trig_o1_carry__1_CO_UNCONNECTED;
   wire [3:0]NLW_trig_o1_carry__1_O_UNCONNECTED;
 
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[10]_i_1 
        (.I0(\incoming_reg_n_0_[9] ),
         .I1(Q[0]),
         .O(\incoming[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[11]_i_1 
        (.I0(\incoming_reg_n_0_[10] ),
         .I1(Q[0]),
         .O(\incoming[11]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair42" *) 
+  (* SOFT_HLUTNM = "soft_lutpair41" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[12]_i_1 
        (.I0(\incoming_reg_n_0_[11] ),
         .I1(Q[0]),
         .O(\incoming[12]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[13]_i_1 
        (.I0(\incoming_reg_n_0_[12] ),
         .I1(Q[0]),
         .O(\incoming[13]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair41" *) 
+  (* SOFT_HLUTNM = "soft_lutpair40" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[14]_i_1 
        (.I0(\incoming_reg_n_0_[13] ),
         .I1(Q[0]),
         .O(\incoming[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[15]_i_1 
        (.I0(\incoming_reg_n_0_[14] ),
         .I1(Q[0]),
         .O(\incoming[15]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair40" *) 
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[16]_i_1 
        (.I0(\incoming_reg_n_0_[15] ),
         .I1(Q[0]),
         .O(\incoming[16]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[17]_i_1 
        (.I0(\incoming_reg_n_0_[16] ),
         .I1(Q[0]),
         .O(\incoming[17]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair39" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[18]_i_1 
        (.I0(\incoming_reg_n_0_[17] ),
         .I1(Q[0]),
         .O(\incoming[18]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[19]_i_1 
        (.I0(\incoming_reg_n_0_[18] ),
         .I1(Q[0]),
         .O(\incoming[19]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[1]_i_1 
        (.I0(\incoming_reg_n_0_[0] ),
         .I1(Q[0]),
         .O(\incoming[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair38" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[20]_i_1 
        (.I0(\incoming_reg_n_0_[19] ),
         .I1(Q[0]),
         .O(\incoming[20]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[21]_i_1 
        (.I0(\incoming_reg_n_0_[20] ),
         .I1(Q[0]),
         .O(\incoming[21]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair37" *) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[22]_i_1 
        (.I0(\incoming_reg_n_0_[21] ),
         .I1(Q[0]),
         .O(\incoming[22]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[23]_i_1 
        (.I0(\incoming_reg_n_0_[22] ),
         .I1(Q[0]),
         .O(\incoming[23]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair36" *) 
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[24]_i_1 
        (.I0(\incoming_reg_n_0_[23] ),
         .I1(Q[0]),
         .O(\incoming[24]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[25]_i_1 
        (.I0(\incoming_reg_n_0_[24] ),
         .I1(Q[0]),
         .O(\incoming[25]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair35" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[26]_i_1 
        (.I0(\incoming_reg_n_0_[25] ),
         .I1(Q[0]),
         .O(\incoming[26]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[27]_i_1 
        (.I0(\incoming_reg_n_0_[26] ),
         .I1(Q[0]),
         .O(\incoming[27]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[28]_i_1 
        (.I0(\incoming_reg_n_0_[27] ),
         .I1(Q[0]),
         .O(\incoming[28]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[29]_i_1 
        (.I0(\incoming_reg_n_0_[28] ),
         .I1(Q[0]),
         .O(\incoming[29]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair47" *) 
+  (* SOFT_HLUTNM = "soft_lutpair46" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[2]_i_1 
        (.I0(\incoming_reg_n_0_[1] ),
         .I1(Q[0]),
         .O(\incoming[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[30]_i_1 
        (.I0(\incoming_reg_n_0_[29] ),
         .I1(Q[0]),
         .O(\incoming[30]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[31]_i_1 
        (.I0(p_30_in),
         .I1(Q[0]),
         .O(\incoming[31]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[32]_i_1 
        (.I0(p_31_in),
         .I1(Q[0]),
         .O(\incoming[32]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[33]_i_1 
        (.I0(\incoming_reg_n_0_[32] ),
         .I1(Q[0]),
         .O(\incoming[33]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[3]_i_1 
        (.I0(\incoming_reg_n_0_[2] ),
         .I1(Q[0]),
         .O(\incoming[3]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair46" *) 
+  (* SOFT_HLUTNM = "soft_lutpair45" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[4]_i_1 
        (.I0(\incoming_reg_n_0_[3] ),
         .I1(Q[0]),
         .O(\incoming[4]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[5]_i_1 
        (.I0(\incoming_reg_n_0_[4] ),
         .I1(Q[0]),
         .O(\incoming[5]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair45" *) 
+  (* SOFT_HLUTNM = "soft_lutpair44" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[6]_i_1 
        (.I0(\incoming_reg_n_0_[5] ),
         .I1(Q[0]),
         .O(\incoming[6]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[7]_i_1 
        (.I0(\incoming_reg_n_0_[6] ),
         .I1(Q[0]),
         .O(\incoming[7]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair44" *) 
+  (* SOFT_HLUTNM = "soft_lutpair43" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[8]_i_1 
        (.I0(\incoming_reg_n_0_[7] ),
         .I1(Q[0]),
         .O(\incoming[8]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair43" *) 
+  (* SOFT_HLUTNM = "soft_lutpair42" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \incoming[9]_i_1 
@@ -7147,7 +7168,7 @@ module final_proj_digital_channel_la_0_0_trigger
         .I4(trig_o_i_4_n_0),
         .I5(trig_o_i_5_n_0),
         .O(trig_o1_out));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT3 #(
     .INIT(8'h10)) 
     trig_o_i_3
@@ -7155,7 +7176,7 @@ module final_proj_digital_channel_la_0_0_trigger
         .I1(Q[3]),
         .I2(Q[0]),
         .O(trig_o_i_3_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT3 #(
     .INIT(8'h04)) 
     trig_o_i_4
@@ -7163,7 +7184,7 @@ module final_proj_digital_channel_la_0_0_trigger
         .I1(p_30_in),
         .I2(Q[2]),
         .O(trig_o_i_4_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT5 #(
     .INIT(32'hF1F5F1F1)) 
     trig_o_i_5

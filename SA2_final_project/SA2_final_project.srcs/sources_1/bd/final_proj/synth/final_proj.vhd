@@ -1,8 +1,8 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Fri Apr 24 15:28:47 2026
---Host        : CO2041-14 running 64-bit major release  (build 9200)
+--Date        : Mon Apr 27 15:51:56 2026
+--Host        : CO2041-08 running 64-bit major release  (build 9200)
 --Command     : generate_target final_proj.bd
 --Design      : final_proj
 --Purpose     : IP block netlist
@@ -1778,7 +1778,8 @@ architecture STRUCTURE of final_proj is
     SLOT_0_AXI_rresp : in STD_LOGIC_VECTOR ( 1 downto 0 );
     SLOT_0_AXI_rvalid : in STD_LOGIC;
     SLOT_0_AXI_rready : in STD_LOGIC;
-    resetn : in STD_LOGIC
+    resetn : in STD_LOGIC;
+    probe7 : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
   end component final_proj_system_ila_0_2;
   component final_proj_digital_channel_la_0_0 is
@@ -1790,6 +1791,7 @@ architecture STRUCTURE of final_proj is
     buffer_we_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
     buffer_addr_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
     buffer_di_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    sig_valid_o : out STD_LOGIC;
     s00_axi_aclk : in STD_LOGIC;
     s00_axi_aresetn : in STD_LOGIC;
     s00_axi_awaddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
@@ -2026,6 +2028,9 @@ architecture STRUCTURE of final_proj is
   signal sig_1 : STD_LOGIC;
   attribute DEBUG of sig_1 : signal is "true";
   attribute MARK_DEBUG of sig_1 : signal is std.standard.true;
+  signal sig_valid_o : STD_LOGIC;
+  attribute DEBUG of sig_valid_o : signal is "true";
+  attribute MARK_DEBUG of sig_valid_o : signal is std.standard.true;
   signal trigd_o : STD_LOGIC;
   attribute DEBUG of trigd_o : signal is "true";
   attribute MARK_DEBUG of trigd_o : signal is std.standard.true;
@@ -2169,6 +2174,7 @@ digital_channel_la_0: component final_proj_digital_channel_la_0_0
       s00_axi_wvalid => ps7_0_axi_periph_M03_AXI_WVALID,
       sample_done_o => sample_done_o,
       sig_i => sig_1,
+      sig_valid_o => sig_valid_o,
       trigd_o => trigd_o
     );
 processing_system7_0: component final_proj_processing_system7_0_0
@@ -2407,6 +2413,7 @@ system_ila_0: component final_proj_system_ila_0_2
       probe4(0) => sample_done_o,
       probe5(0) => sig_1,
       probe6(0) => trigd_o,
+      probe7(0) => sig_valid_o,
       resetn => rst_ps7_0_100M_peripheral_aresetn(0)
     );
 end STRUCTURE;
