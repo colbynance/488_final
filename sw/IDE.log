@@ -1573,3 +1573,795 @@ con
 15:39:10 INFO  : The updated bitstream files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\bitstream' in project 'final_project'.
 15:39:10 INFO  : The file 'C:\Temp\sa2-final\sw\final_project\_ide\psinit\ps7_init.tcl' stored in project is removed.
 15:39:13 INFO  : The updated ps init files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\psinit' in project 'final_project'.
+14:46:38 INFO  : Launching XSCT server: xsct.bat -n  -interactive C:\Temp\sa2-final\sw\temp_xsdb_launch_script.tcl
+14:46:39 INFO  : XSCT server has started successfully.
+14:46:39 INFO  : Successfully done setting XSCT server connection channel  
+14:46:39 INFO  : plnx-install-location is set to ''
+14:46:39 INFO  : Successfully done setting workspace for the tool. 
+14:46:42 INFO  : Platform repository initialization has completed.
+14:46:42 INFO  : Successfully done query RDI_DATADIR 
+14:46:42 INFO  : Registering command handlers for Vitis TCF services
+14:46:55 INFO  : Hardware specification for platform project 'final_proj_wrapper' is updated.
+14:47:15 INFO  : Result from executing command 'getProjects': final_proj_wrapper
+14:47:15 INFO  : Result from executing command 'getPlatforms': final_proj_wrapper|C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/final_proj_wrapper.xpfm
+14:47:15 INFO  : Checking for BSP changes to sync application flags for project 'final_project'...
+14:47:57 INFO  : The hardware specfication used by project 'final_project' is out of sync with the platform. Resource files extracted from the hardware specfiication will be updated.
+14:47:57 INFO  : The file 'C:\Temp\sa2-final\sw\final_project\_ide\bitstream\final_proj_wrapper.bit' stored in project is removed.
+14:47:57 INFO  : The updated bitstream files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\bitstream' in project 'final_project'.
+14:47:57 INFO  : The file 'C:\Temp\sa2-final\sw\final_project\_ide\psinit\ps7_init.tcl' stored in project is removed.
+14:48:00 INFO  : The updated ps init files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\psinit' in project 'final_project'.
+14:48:02 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:48:02 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+14:48:02 INFO  : 'jtag frequency' command is executed.
+14:48:02 INFO  : Context for 'APU' is selected.
+14:48:03 INFO  : System reset is completed.
+14:48:06 INFO  : 'after 3000' command is executed.
+14:48:06 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+14:48:08 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+14:48:08 INFO  : Context for 'APU' is selected.
+14:48:08 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+14:48:08 INFO  : 'configparams force-mem-access 1' command is executed.
+14:48:08 INFO  : Context for 'APU' is selected.
+14:48:08 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+14:48:08 INFO  : 'ps7_init' command is executed.
+14:48:08 INFO  : 'ps7_post_config' command is executed.
+14:48:08 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:48:08 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+14:48:08 INFO  : 'configparams force-mem-access 0' command is executed.
+14:48:08 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+14:48:09 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:48:09 INFO  : 'con' command is executed.
+14:48:09 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+14:48:09 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+14:54:39 INFO  : Result from executing command 'getProjects': final_proj_wrapper
+14:54:39 INFO  : Result from executing command 'getPlatforms': final_proj_wrapper|C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/final_proj_wrapper.xpfm
+14:54:39 INFO  : Hardware specification for platform project 'final_proj_wrapper' is updated.
+14:54:47 INFO  : Disconnected from the channel tcfchan#2.
+14:54:48 INFO  : The hardware specfication used by project 'final_project' is out of sync with the platform. Resource files extracted from the hardware specfiication will be updated.
+14:54:48 INFO  : The file 'C:\Temp\sa2-final\sw\final_project\_ide\bitstream\final_proj_wrapper.bit' stored in project is removed.
+14:54:48 INFO  : The updated bitstream files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\bitstream' in project 'final_project'.
+14:54:48 INFO  : The file 'C:\Temp\sa2-final\sw\final_project\_ide\psinit\ps7_init.tcl' stored in project is removed.
+14:54:51 INFO  : The updated ps init files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\psinit' in project 'final_project'.
+14:54:51 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:54:51 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+14:54:51 INFO  : 'jtag frequency' command is executed.
+14:54:51 INFO  : Context for 'APU' is selected.
+14:54:51 INFO  : System reset is completed.
+14:54:54 INFO  : 'after 3000' command is executed.
+14:54:54 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+14:54:56 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+14:54:56 INFO  : Context for 'APU' is selected.
+14:54:57 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+14:54:57 INFO  : 'configparams force-mem-access 1' command is executed.
+14:54:57 INFO  : Context for 'APU' is selected.
+14:54:57 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+14:54:57 INFO  : 'ps7_init' command is executed.
+14:54:57 INFO  : 'ps7_post_config' command is executed.
+14:54:57 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:54:57 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+14:54:57 INFO  : 'configparams force-mem-access 0' command is executed.
+14:54:57 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+14:54:57 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:54:57 INFO  : 'con' command is executed.
+14:54:57 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+14:54:57 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+14:58:16 INFO  : Disconnected from the channel tcfchan#4.
+14:58:17 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:58:17 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+14:58:17 INFO  : 'jtag frequency' command is executed.
+14:58:17 INFO  : Context for 'APU' is selected.
+14:58:17 INFO  : System reset is completed.
+14:58:20 INFO  : 'after 3000' command is executed.
+14:58:20 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+14:58:23 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+14:58:23 INFO  : Context for 'APU' is selected.
+14:58:23 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+14:58:23 INFO  : 'configparams force-mem-access 1' command is executed.
+14:58:23 INFO  : Context for 'APU' is selected.
+14:58:23 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+14:58:23 INFO  : 'ps7_init' command is executed.
+14:58:23 INFO  : 'ps7_post_config' command is executed.
+14:58:23 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:58:23 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+14:58:23 INFO  : 'configparams force-mem-access 0' command is executed.
+14:58:23 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+14:58:23 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:58:23 INFO  : 'con' command is executed.
+14:58:23 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+14:58:23 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:15:55 INFO  : Hardware specification for platform project 'final_proj_wrapper' is updated.
+15:16:03 INFO  : Result from executing command 'getProjects': final_proj_wrapper
+15:16:03 INFO  : Result from executing command 'getPlatforms': final_proj_wrapper|C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/final_proj_wrapper.xpfm
+15:16:08 INFO  : Disconnected from the channel tcfchan#5.
+15:16:09 INFO  : The hardware specfication used by project 'final_project' is out of sync with the platform. Resource files extracted from the hardware specfiication will be updated.
+15:16:09 INFO  : The file 'C:\Temp\sa2-final\sw\final_project\_ide\bitstream\final_proj_wrapper.bit' stored in project is removed.
+15:16:09 INFO  : The updated bitstream files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\bitstream' in project 'final_project'.
+15:16:09 INFO  : The file 'C:\Temp\sa2-final\sw\final_project\_ide\psinit\ps7_init.tcl' stored in project is removed.
+15:16:12 INFO  : The updated ps init files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\psinit' in project 'final_project'.
+15:16:12 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:16:12 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:16:12 INFO  : 'jtag frequency' command is executed.
+15:16:12 INFO  : Context for 'APU' is selected.
+15:16:12 INFO  : System reset is completed.
+15:16:15 INFO  : 'after 3000' command is executed.
+15:16:15 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:16:17 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:16:17 INFO  : Context for 'APU' is selected.
+15:16:17 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:16:17 INFO  : 'configparams force-mem-access 1' command is executed.
+15:16:17 INFO  : Context for 'APU' is selected.
+15:16:17 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:16:18 INFO  : 'ps7_init' command is executed.
+15:16:18 INFO  : 'ps7_post_config' command is executed.
+15:16:18 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:16:18 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:16:18 INFO  : 'configparams force-mem-access 0' command is executed.
+15:16:18 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:16:18 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:16:18 INFO  : 'con' command is executed.
+15:16:18 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:16:18 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:19:49 INFO  : Disconnected from the channel tcfchan#7.
+15:19:50 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:19:50 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:19:50 INFO  : 'jtag frequency' command is executed.
+15:19:50 INFO  : Context for 'APU' is selected.
+15:19:50 INFO  : System reset is completed.
+15:19:53 INFO  : 'after 3000' command is executed.
+15:19:53 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:19:55 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:19:55 INFO  : Context for 'APU' is selected.
+15:19:56 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:19:56 INFO  : 'configparams force-mem-access 1' command is executed.
+15:19:56 INFO  : Context for 'APU' is selected.
+15:19:56 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:19:56 INFO  : 'ps7_init' command is executed.
+15:19:56 INFO  : 'ps7_post_config' command is executed.
+15:19:56 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:19:56 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:19:56 INFO  : 'configparams force-mem-access 0' command is executed.
+15:19:56 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:19:56 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:19:56 INFO  : 'con' command is executed.
+15:19:56 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:19:56 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:21:26 INFO  : Checking for BSP changes to sync application flags for project 'final_project'...
+15:21:29 INFO  : Disconnected from the channel tcfchan#8.
+15:21:30 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:21:30 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:21:30 INFO  : 'jtag frequency' command is executed.
+15:21:30 INFO  : Context for 'APU' is selected.
+15:21:30 INFO  : System reset is completed.
+15:21:33 INFO  : 'after 3000' command is executed.
+15:21:33 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:21:35 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:21:35 INFO  : Context for 'APU' is selected.
+15:21:35 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:21:35 INFO  : 'configparams force-mem-access 1' command is executed.
+15:21:35 INFO  : Context for 'APU' is selected.
+15:21:35 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:21:35 INFO  : 'ps7_init' command is executed.
+15:21:35 INFO  : 'ps7_post_config' command is executed.
+15:21:35 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:21:35 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:21:35 INFO  : 'configparams force-mem-access 0' command is executed.
+15:21:35 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:21:36 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:21:36 INFO  : 'con' command is executed.
+15:21:36 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:21:36 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:36:07 INFO  : Hardware specification for platform project 'final_proj_wrapper' is updated.
+15:36:11 INFO  : Result from executing command 'getProjects': final_proj_wrapper
+15:36:11 INFO  : Result from executing command 'getPlatforms': final_proj_wrapper|C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/final_proj_wrapper.xpfm
+15:36:18 INFO  : Disconnected from the channel tcfchan#9.
+15:36:19 INFO  : The hardware specfication used by project 'final_project' is out of sync with the platform. Resource files extracted from the hardware specfiication will be updated.
+15:36:19 INFO  : The file 'C:\Temp\sa2-final\sw\final_project\_ide\bitstream\final_proj_wrapper.bit' stored in project is removed.
+15:36:19 INFO  : The updated bitstream files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\bitstream' in project 'final_project'.
+15:36:19 INFO  : The file 'C:\Temp\sa2-final\sw\final_project\_ide\psinit\ps7_init.tcl' stored in project is removed.
+15:36:22 INFO  : The updated ps init files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\psinit' in project 'final_project'.
+15:36:22 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:36:22 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:36:22 INFO  : 'jtag frequency' command is executed.
+15:36:22 INFO  : Context for 'APU' is selected.
+15:36:22 INFO  : System reset is completed.
+15:36:25 INFO  : 'after 3000' command is executed.
+15:36:25 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:36:28 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:36:28 INFO  : Context for 'APU' is selected.
+15:36:28 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:36:28 INFO  : 'configparams force-mem-access 1' command is executed.
+15:36:28 INFO  : Context for 'APU' is selected.
+15:36:28 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:36:28 INFO  : 'ps7_init' command is executed.
+15:36:28 INFO  : 'ps7_post_config' command is executed.
+15:36:28 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:36:28 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:36:28 INFO  : 'configparams force-mem-access 0' command is executed.
+15:36:28 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:36:28 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:36:28 INFO  : 'con' command is executed.
+15:36:28 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:36:28 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:37:57 INFO  : Disconnected from the channel tcfchan#11.
+15:37:58 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:37:58 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:37:58 INFO  : 'jtag frequency' command is executed.
+15:37:58 INFO  : Context for 'APU' is selected.
+15:37:58 INFO  : System reset is completed.
+15:38:01 INFO  : 'after 3000' command is executed.
+15:38:01 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:38:04 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:38:04 INFO  : Context for 'APU' is selected.
+15:38:04 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:38:04 INFO  : 'configparams force-mem-access 1' command is executed.
+15:38:04 INFO  : Context for 'APU' is selected.
+15:38:04 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:38:04 INFO  : 'ps7_init' command is executed.
+15:38:04 INFO  : 'ps7_post_config' command is executed.
+15:38:04 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:38:04 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:38:04 INFO  : 'configparams force-mem-access 0' command is executed.
+15:38:04 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:38:04 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:38:04 INFO  : 'con' command is executed.
+15:38:04 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:38:04 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:38:50 INFO  : Checking for BSP changes to sync application flags for project 'final_project'...
+15:38:53 INFO  : Disconnected from the channel tcfchan#12.
+15:38:54 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:38:54 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:38:54 INFO  : 'jtag frequency' command is executed.
+15:38:54 INFO  : Context for 'APU' is selected.
+15:38:54 INFO  : System reset is completed.
+15:38:57 INFO  : 'after 3000' command is executed.
+15:38:57 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:39:00 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:39:00 INFO  : Context for 'APU' is selected.
+15:39:00 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:39:00 INFO  : 'configparams force-mem-access 1' command is executed.
+15:39:00 INFO  : Context for 'APU' is selected.
+15:39:00 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:39:00 INFO  : 'ps7_init' command is executed.
+15:39:00 INFO  : 'ps7_post_config' command is executed.
+15:39:00 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:39:00 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:39:00 INFO  : 'configparams force-mem-access 0' command is executed.
+15:39:00 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:39:00 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:39:00 INFO  : 'con' command is executed.
+15:39:00 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:39:00 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:39:18 INFO  : Disconnected from the channel tcfchan#13.
+15:39:19 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:39:19 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:39:19 INFO  : 'jtag frequency' command is executed.
+15:39:19 INFO  : Context for 'APU' is selected.
+15:39:19 INFO  : System reset is completed.
+15:39:22 INFO  : 'after 3000' command is executed.
+15:39:22 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:39:25 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:39:25 INFO  : Context for 'APU' is selected.
+15:39:25 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:39:25 INFO  : 'configparams force-mem-access 1' command is executed.
+15:39:25 INFO  : Context for 'APU' is selected.
+15:39:25 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:39:25 INFO  : 'ps7_init' command is executed.
+15:39:25 INFO  : 'ps7_post_config' command is executed.
+15:39:25 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:39:25 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:39:25 INFO  : 'configparams force-mem-access 0' command is executed.
+15:39:25 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:39:25 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:39:25 INFO  : 'con' command is executed.
+15:39:25 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:39:25 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:39:37 INFO  : Checking for BSP changes to sync application flags for project 'final_project'...
+15:39:40 INFO  : Disconnected from the channel tcfchan#14.
+15:39:41 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:39:42 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:39:42 INFO  : 'jtag frequency' command is executed.
+15:39:42 INFO  : Context for 'APU' is selected.
+15:39:42 INFO  : System reset is completed.
+15:39:45 INFO  : 'after 3000' command is executed.
+15:39:45 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:39:47 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:39:47 INFO  : Context for 'APU' is selected.
+15:39:47 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:39:47 INFO  : 'configparams force-mem-access 1' command is executed.
+15:39:47 INFO  : Context for 'APU' is selected.
+15:39:47 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:39:47 INFO  : 'ps7_init' command is executed.
+15:39:47 INFO  : 'ps7_post_config' command is executed.
+15:39:47 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:39:47 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:39:47 INFO  : 'configparams force-mem-access 0' command is executed.
+15:39:47 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:39:47 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:39:47 INFO  : 'con' command is executed.
+15:39:47 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:39:47 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:47:41 INFO  : Hardware specification for platform project 'final_proj_wrapper' is updated.
+15:47:45 INFO  : Result from executing command 'getProjects': final_proj_wrapper
+15:47:45 INFO  : Result from executing command 'getPlatforms': final_proj_wrapper|C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/final_proj_wrapper.xpfm
+15:47:46 INFO  : Checking for BSP changes to sync application flags for project 'final_project'...
+15:47:51 INFO  : Disconnected from the channel tcfchan#15.
+15:47:52 INFO  : The hardware specfication used by project 'final_project' is out of sync with the platform. Resource files extracted from the hardware specfiication will be updated.
+15:47:52 INFO  : The file 'C:\Temp\sa2-final\sw\final_project\_ide\bitstream\final_proj_wrapper.bit' stored in project is removed.
+15:47:52 INFO  : The updated bitstream files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\bitstream' in project 'final_project'.
+15:47:52 INFO  : The file 'C:\Temp\sa2-final\sw\final_project\_ide\psinit\ps7_init.tcl' stored in project is removed.
+15:47:55 INFO  : The updated ps init files are copied from platform to folder 'C:\Temp\sa2-final\sw\final_project\_ide\psinit' in project 'final_project'.
+15:47:55 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:47:55 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:47:55 INFO  : 'jtag frequency' command is executed.
+15:47:55 INFO  : Context for 'APU' is selected.
+15:47:55 INFO  : System reset is completed.
+15:47:58 INFO  : 'after 3000' command is executed.
+15:47:58 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:48:01 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:48:01 INFO  : Context for 'APU' is selected.
+15:48:01 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:48:01 INFO  : 'configparams force-mem-access 1' command is executed.
+15:48:01 INFO  : Context for 'APU' is selected.
+15:48:01 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:48:01 INFO  : 'ps7_init' command is executed.
+15:48:01 INFO  : 'ps7_post_config' command is executed.
+15:48:01 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:48:01 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:48:01 INFO  : 'configparams force-mem-access 0' command is executed.
+15:48:01 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:48:01 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:48:01 INFO  : 'con' command is executed.
+15:48:01 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:48:01 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:51:26 INFO  : Checking for BSP changes to sync application flags for project 'final_project'...
+15:51:29 INFO  : Disconnected from the channel tcfchan#17.
+15:51:30 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:51:30 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:51:30 INFO  : 'jtag frequency' command is executed.
+15:51:30 INFO  : Context for 'APU' is selected.
+15:51:30 INFO  : System reset is completed.
+15:51:33 INFO  : 'after 3000' command is executed.
+15:51:33 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:51:36 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:51:36 INFO  : Context for 'APU' is selected.
+15:51:36 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:51:36 INFO  : 'configparams force-mem-access 1' command is executed.
+15:51:36 INFO  : Context for 'APU' is selected.
+15:51:36 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:51:36 INFO  : 'ps7_init' command is executed.
+15:51:36 INFO  : 'ps7_post_config' command is executed.
+15:51:36 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:51:36 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:51:36 INFO  : 'configparams force-mem-access 0' command is executed.
+15:51:36 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:51:36 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:51:36 INFO  : 'con' command is executed.
+15:51:36 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:51:36 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:53:42 INFO  : Checking for BSP changes to sync application flags for project 'final_project'...
+15:53:46 INFO  : Disconnected from the channel tcfchan#18.
+15:53:47 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:53:48 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:53:48 INFO  : 'jtag frequency' command is executed.
+15:53:48 INFO  : Context for 'APU' is selected.
+15:53:48 INFO  : System reset is completed.
+15:53:51 INFO  : 'after 3000' command is executed.
+15:53:51 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:53:53 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:53:53 INFO  : Context for 'APU' is selected.
+15:53:53 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:53:53 INFO  : 'configparams force-mem-access 1' command is executed.
+15:53:53 INFO  : Context for 'APU' is selected.
+15:53:53 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:53:53 INFO  : 'ps7_init' command is executed.
+15:53:53 INFO  : 'ps7_post_config' command is executed.
+15:53:53 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:53:53 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:53:53 INFO  : 'configparams force-mem-access 0' command is executed.
+15:53:53 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:53:53 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:53:53 INFO  : 'con' command is executed.
+15:53:53 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:53:53 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:55:40 INFO  : Disconnected from the channel tcfchan#19.
+15:55:41 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:55:41 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:55:41 INFO  : 'jtag frequency' command is executed.
+15:55:41 INFO  : Context for 'APU' is selected.
+15:55:41 INFO  : System reset is completed.
+15:55:44 INFO  : 'after 3000' command is executed.
+15:55:44 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:55:47 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:55:47 INFO  : Context for 'APU' is selected.
+15:55:47 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:55:47 INFO  : 'configparams force-mem-access 1' command is executed.
+15:55:47 INFO  : Context for 'APU' is selected.
+15:55:47 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:55:47 INFO  : 'ps7_init' command is executed.
+15:55:47 INFO  : 'ps7_post_config' command is executed.
+15:55:47 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:55:47 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:55:47 INFO  : 'configparams force-mem-access 0' command is executed.
+15:55:47 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:55:47 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:55:47 INFO  : 'con' command is executed.
+15:55:47 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:55:47 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:55:58 INFO  : Checking for BSP changes to sync application flags for project 'final_project'...
+15:56:01 INFO  : Disconnected from the channel tcfchan#20.
+15:56:02 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:56:02 INFO  : Jtag cable 'Digilent Zed 210248B9DA75' is selected.
+15:56:02 INFO  : 'jtag frequency' command is executed.
+15:56:02 INFO  : Context for 'APU' is selected.
+15:56:02 INFO  : System reset is completed.
+15:56:05 INFO  : 'after 3000' command is executed.
+15:56:05 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}' command is executed.
+15:56:07 INFO  : FPGA configured successfully with bitstream "C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit"
+15:56:07 INFO  : Context for 'APU' is selected.
+15:56:07 INFO  : Hardware design and registers information is loaded from 'C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa'.
+15:56:07 INFO  : 'configparams force-mem-access 1' command is executed.
+15:56:07 INFO  : Context for 'APU' is selected.
+15:56:07 INFO  : Sourcing of 'C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl' is done.
+15:56:07 INFO  : 'ps7_init' command is executed.
+15:56:07 INFO  : 'ps7_post_config' command is executed.
+15:56:07 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:56:08 INFO  : The application 'C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:56:08 INFO  : 'configparams force-mem-access 0' command is executed.
+15:56:08 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248B9DA75" && level==0 && jtag_device_ctx=="jsn-Zed-210248B9DA75-23727093-0"}
+fpga -file C:/Temp/sa2-final/sw/final_project/_ide/bitstream/final_proj_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/hw/final_proj_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/Temp/sa2-final/sw/final_project/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/Temp/sa2-final/sw/final_project/Debug/final_project.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:56:08 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:56:08 INFO  : 'con' command is executed.
+15:56:08 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:56:08 INFO  : Launch script is exported to file 'C:\Temp\sa2-final\sw\.sdk\launch_scripts\single_application_debug\debugger_final_project-default.tcl'
+15:56:32 INFO  : Disconnected from the channel tcfchan#21.

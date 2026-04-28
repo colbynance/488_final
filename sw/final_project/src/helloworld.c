@@ -76,11 +76,11 @@ uint32_t leds;
 
 void init_digital_channel(){
 	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_CONTROL_OFFSET, (0x1 << 1) | 0);
-	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_DOWNSAMPLE_OFFSET, 10);
+	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_DOWNSAMPLE_OFFSET, 0);
 	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_TRIGGER_DATA_OFFSET, 0);
 	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_TRIGGER_MASK_OFFSET, 0);
 	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_BUFFER_ADDR_OFFSET, 0x10);
-	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_BUFFER_WRITE_DATA_OFFSET, 0xFFFFFFFF);
+	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_BUFFER_WRITE_DATA_OFFSET, 0);
 	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_BUFFER_WE_OFFSET, 1);
 	xil_printf("0x%08X \n\r", Xil_In32(DIGITAL_CHANNEL_ADDR + DIGITAL_BUFFER_READ_DATA_OFFSET));
 }
@@ -98,13 +98,13 @@ void print_buffer(uint32_t * arr){
 	int i;
 	for(i=0; i < BUFFER_SIZE; i++){
 		if(i % 16 == 0){
-			xil_printf("0x%03X: 0x%08X ", i, arr[i]);
+			xil_printf("0x%03X: %d ", i, arr[i] & 0b1);
 		}
 		else if(i % 16 == 15){
-			xil_printf("0x%08X \n\r", arr[i]);
+			xil_printf("%d \n\r", arr[i] & 0b1);
 		}
 		else{
-			xil_printf("0x%08X ", arr[i]);
+			xil_printf("%d ", arr[i] & 0b1);
 		}
 	}
 }

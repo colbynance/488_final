@@ -1,8 +1,8 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Mon Apr 27 15:51:56 2026
---Host        : CO2041-08 running 64-bit major release  (build 9200)
+--Date        : Tue Apr 28 15:43:11 2026
+--Host        : CO2041-16 running 64-bit major release  (build 9200)
 --Command     : generate_target final_proj.bd
 --Design      : final_proj
 --Purpose     : IP block netlist
@@ -1584,10 +1584,10 @@ entity final_proj is
     sig : in STD_LOGIC;
     sws_8bits_tri_i : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
-  attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of final_proj : entity is "final_proj,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=final_proj,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=15,numReposBlks=9,numNonXlnxBlks=1,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=9,da_board_cnt=5,da_clkrst_cnt=2,da_ps7_cnt=1,synth_mode=OOC_per_IP}";
-  attribute HW_HANDOFF : string;
-  attribute HW_HANDOFF of final_proj : entity is "final_proj.hwdef";
+  attribute core_generation_info : string;
+  attribute core_generation_info of final_proj : entity is "final_proj,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=final_proj,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=15,numReposBlks=9,numNonXlnxBlks=1,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=9,da_board_cnt=5,da_clkrst_cnt=2,da_ps7_cnt=1,synth_mode=OOC_per_IP}";
+  attribute hw_handoff : string;
+  attribute hw_handoff of final_proj : entity is "final_proj.hwdef";
 end final_proj;
 
 architecture STRUCTURE of final_proj is
@@ -1749,7 +1749,7 @@ architecture STRUCTURE of final_proj is
     peripheral_aresetn : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
   end component final_proj_rst_ps7_0_100M_0;
-  component final_proj_system_ila_0_2 is
+  component final_proj_system_ila_0_3 is
   port (
     clk : in STD_LOGIC;
     probe0 : in STD_LOGIC_VECTOR ( 31 downto 0 );
@@ -1759,6 +1759,7 @@ architecture STRUCTURE of final_proj is
     probe4 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe5 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
     SLOT_0_AXI_awaddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
     SLOT_0_AXI_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
     SLOT_0_AXI_awvalid : in STD_LOGIC;
@@ -1778,10 +1779,9 @@ architecture STRUCTURE of final_proj is
     SLOT_0_AXI_rresp : in STD_LOGIC_VECTOR ( 1 downto 0 );
     SLOT_0_AXI_rvalid : in STD_LOGIC;
     SLOT_0_AXI_rready : in STD_LOGIC;
-    resetn : in STD_LOGIC;
-    probe7 : in STD_LOGIC_VECTOR ( 0 to 0 )
+    resetn : in STD_LOGIC
   );
-  end component final_proj_system_ila_0_2;
+  end component final_proj_system_ila_0_3;
   component final_proj_digital_channel_la_0_0 is
   port (
     sig_i : in STD_LOGIC;
@@ -1791,7 +1791,7 @@ architecture STRUCTURE of final_proj is
     buffer_we_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
     buffer_addr_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
     buffer_di_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    sig_valid_o : out STD_LOGIC;
+    new_sample_o : out STD_LOGIC;
     s00_axi_aclk : in STD_LOGIC;
     s00_axi_aresetn : in STD_LOGIC;
     s00_axi_awaddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
@@ -1819,19 +1819,22 @@ architecture STRUCTURE of final_proj is
   signal axi_gpio_1_GPIO_TRI_I : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal axi_gpio_2_GPIO_TRI_O : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal buf_do_o : STD_LOGIC_VECTOR ( 31 downto 0 );
-  attribute DEBUG : string;
-  attribute DEBUG of buf_do_o : signal is "true";
   attribute MARK_DEBUG : boolean;
   attribute MARK_DEBUG of buf_do_o : signal is std.standard.true;
+  attribute debug : string;
+  attribute debug of buf_do_o : signal is "true";
   signal buffer_addr_o : STD_LOGIC_VECTOR ( 31 downto 0 );
-  attribute DEBUG of buffer_addr_o : signal is "true";
   attribute MARK_DEBUG of buffer_addr_o : signal is std.standard.true;
+  attribute debug of buffer_addr_o : signal is "true";
   signal buffer_di_o : STD_LOGIC_VECTOR ( 31 downto 0 );
-  attribute DEBUG of buffer_di_o : signal is "true";
   attribute MARK_DEBUG of buffer_di_o : signal is std.standard.true;
+  attribute debug of buffer_di_o : signal is "true";
   signal buffer_we_o : STD_LOGIC_VECTOR ( 31 downto 0 );
-  attribute DEBUG of buffer_we_o : signal is "true";
   attribute MARK_DEBUG of buffer_we_o : signal is std.standard.true;
+  attribute debug of buffer_we_o : signal is "true";
+  signal new_sample_o : STD_LOGIC;
+  attribute MARK_DEBUG of new_sample_o : signal is std.standard.true;
+  attribute debug of new_sample_o : signal is "true";
   signal processing_system7_0_DDR_ADDR : STD_LOGIC_VECTOR ( 14 downto 0 );
   signal processing_system7_0_DDR_BA : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal processing_system7_0_DDR_CAS_N : STD_LOGIC;
@@ -1945,95 +1948,92 @@ architecture STRUCTURE of final_proj is
   signal ps7_0_axi_periph_M02_AXI_WSTRB : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal ps7_0_axi_periph_M02_AXI_WVALID : STD_LOGIC_VECTOR ( 0 to 0 );
   signal ps7_0_axi_periph_M03_AXI_ARADDR : STD_LOGIC_VECTOR ( 31 downto 0 );
-  attribute CONN_BUS_INFO : string;
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_ARADDR : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE ARADDR";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_ARADDR : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_ARADDR : signal is std.standard.true;
+  attribute conn_bus_info : string;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_ARADDR : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE ARADDR";
+  attribute debug of ps7_0_axi_periph_M03_AXI_ARADDR : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_ARPROT : STD_LOGIC_VECTOR ( 2 downto 0 );
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_ARPROT : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE ARPROT";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_ARPROT : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_ARPROT : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_ARPROT : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE ARPROT";
+  attribute debug of ps7_0_axi_periph_M03_AXI_ARPROT : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_ARREADY : STD_LOGIC;
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_ARREADY : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE ARREADY";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_ARREADY : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_ARREADY : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_ARREADY : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE ARREADY";
+  attribute debug of ps7_0_axi_periph_M03_AXI_ARREADY : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_ARVALID : STD_LOGIC;
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_ARVALID : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE ARVALID";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_ARVALID : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_ARVALID : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_ARVALID : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE ARVALID";
+  attribute debug of ps7_0_axi_periph_M03_AXI_ARVALID : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_AWADDR : STD_LOGIC_VECTOR ( 31 downto 0 );
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_AWADDR : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE AWADDR";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_AWADDR : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_AWADDR : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_AWADDR : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE AWADDR";
+  attribute debug of ps7_0_axi_periph_M03_AXI_AWADDR : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_AWPROT : STD_LOGIC_VECTOR ( 2 downto 0 );
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_AWPROT : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE AWPROT";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_AWPROT : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_AWPROT : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_AWPROT : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE AWPROT";
+  attribute debug of ps7_0_axi_periph_M03_AXI_AWPROT : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_AWREADY : STD_LOGIC;
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_AWREADY : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE AWREADY";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_AWREADY : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_AWREADY : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_AWREADY : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE AWREADY";
+  attribute debug of ps7_0_axi_periph_M03_AXI_AWREADY : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_AWVALID : STD_LOGIC;
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_AWVALID : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE AWVALID";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_AWVALID : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_AWVALID : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_AWVALID : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE AWVALID";
+  attribute debug of ps7_0_axi_periph_M03_AXI_AWVALID : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_BREADY : STD_LOGIC;
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_BREADY : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE BREADY";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_BREADY : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_BREADY : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_BREADY : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE BREADY";
+  attribute debug of ps7_0_axi_periph_M03_AXI_BREADY : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_BRESP : STD_LOGIC_VECTOR ( 1 downto 0 );
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_BRESP : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE BRESP";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_BRESP : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_BRESP : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_BRESP : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE BRESP";
+  attribute debug of ps7_0_axi_periph_M03_AXI_BRESP : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_BVALID : STD_LOGIC;
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_BVALID : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE BVALID";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_BVALID : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_BVALID : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_BVALID : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE BVALID";
+  attribute debug of ps7_0_axi_periph_M03_AXI_BVALID : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_RDATA : STD_LOGIC_VECTOR ( 31 downto 0 );
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_RDATA : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE RDATA";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_RDATA : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_RDATA : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_RDATA : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE RDATA";
+  attribute debug of ps7_0_axi_periph_M03_AXI_RDATA : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_RREADY : STD_LOGIC;
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_RREADY : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE RREADY";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_RREADY : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_RREADY : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_RREADY : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE RREADY";
+  attribute debug of ps7_0_axi_periph_M03_AXI_RREADY : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_RRESP : STD_LOGIC_VECTOR ( 1 downto 0 );
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_RRESP : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE RRESP";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_RRESP : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_RRESP : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_RRESP : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE RRESP";
+  attribute debug of ps7_0_axi_periph_M03_AXI_RRESP : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_RVALID : STD_LOGIC;
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_RVALID : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE RVALID";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_RVALID : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_RVALID : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_RVALID : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE RVALID";
+  attribute debug of ps7_0_axi_periph_M03_AXI_RVALID : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_WDATA : STD_LOGIC_VECTOR ( 31 downto 0 );
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_WDATA : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE WDATA";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_WDATA : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_WDATA : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_WDATA : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE WDATA";
+  attribute debug of ps7_0_axi_periph_M03_AXI_WDATA : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_WREADY : STD_LOGIC;
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_WREADY : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE WREADY";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_WREADY : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_WREADY : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_WREADY : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE WREADY";
+  attribute debug of ps7_0_axi_periph_M03_AXI_WREADY : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_WSTRB : STD_LOGIC_VECTOR ( 3 downto 0 );
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_WSTRB : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE WSTRB";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_WSTRB : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_WSTRB : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_WSTRB : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE WSTRB";
+  attribute debug of ps7_0_axi_periph_M03_AXI_WSTRB : signal is "true";
   signal ps7_0_axi_periph_M03_AXI_WVALID : STD_LOGIC;
-  attribute CONN_BUS_INFO of ps7_0_axi_periph_M03_AXI_WVALID : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE WVALID";
-  attribute DEBUG of ps7_0_axi_periph_M03_AXI_WVALID : signal is "true";
   attribute MARK_DEBUG of ps7_0_axi_periph_M03_AXI_WVALID : signal is std.standard.true;
+  attribute conn_bus_info of ps7_0_axi_periph_M03_AXI_WVALID : signal is "ps7_0_axi_periph_M03_AXI xilinx.com:interface:aximm:1.0 AXI4LITE WVALID";
+  attribute debug of ps7_0_axi_periph_M03_AXI_WVALID : signal is "true";
   signal rst_ps7_0_100M_peripheral_aresetn : STD_LOGIC_VECTOR ( 0 to 0 );
   signal sample_done_o : STD_LOGIC;
-  attribute DEBUG of sample_done_o : signal is "true";
   attribute MARK_DEBUG of sample_done_o : signal is std.standard.true;
+  attribute debug of sample_done_o : signal is "true";
   signal sig_1 : STD_LOGIC;
-  attribute DEBUG of sig_1 : signal is "true";
   attribute MARK_DEBUG of sig_1 : signal is std.standard.true;
-  signal sig_valid_o : STD_LOGIC;
-  attribute DEBUG of sig_valid_o : signal is "true";
-  attribute MARK_DEBUG of sig_valid_o : signal is std.standard.true;
+  attribute debug of sig_1 : signal is "true";
   signal trigd_o : STD_LOGIC;
-  attribute DEBUG of trigd_o : signal is "true";
   attribute MARK_DEBUG of trigd_o : signal is std.standard.true;
+  attribute debug of trigd_o : signal is "true";
   signal NLW_processing_system7_0_TTC0_WAVE0_OUT_UNCONNECTED : STD_LOGIC;
   signal NLW_processing_system7_0_TTC0_WAVE1_OUT_UNCONNECTED : STD_LOGIC;
   signal NLW_processing_system7_0_TTC0_WAVE2_OUT_UNCONNECTED : STD_LOGIC;
@@ -2043,34 +2043,34 @@ architecture STRUCTURE of final_proj is
   signal NLW_rst_ps7_0_100M_bus_struct_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_rst_ps7_0_100M_interconnect_aresetn_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_rst_ps7_0_100M_peripheral_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
-  attribute X_INTERFACE_INFO : string;
-  attribute X_INTERFACE_INFO of DDR_cas_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CAS_N";
-  attribute X_INTERFACE_INFO of DDR_ck_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_N";
-  attribute X_INTERFACE_INFO of DDR_ck_p : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_P";
-  attribute X_INTERFACE_INFO of DDR_cke : signal is "xilinx.com:interface:ddrx:1.0 DDR CKE";
-  attribute X_INTERFACE_INFO of DDR_cs_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CS_N";
-  attribute X_INTERFACE_INFO of DDR_odt : signal is "xilinx.com:interface:ddrx:1.0 DDR ODT";
-  attribute X_INTERFACE_INFO of DDR_ras_n : signal is "xilinx.com:interface:ddrx:1.0 DDR RAS_N";
-  attribute X_INTERFACE_INFO of DDR_reset_n : signal is "xilinx.com:interface:ddrx:1.0 DDR RESET_N";
-  attribute X_INTERFACE_INFO of DDR_we_n : signal is "xilinx.com:interface:ddrx:1.0 DDR WE_N";
-  attribute X_INTERFACE_INFO of FIXED_IO_ddr_vrn : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO DDR_VRN";
-  attribute X_INTERFACE_PARAMETER : string;
-  attribute X_INTERFACE_PARAMETER of FIXED_IO_ddr_vrn : signal is "XIL_INTERFACENAME FIXED_IO, CAN_DEBUG false";
-  attribute X_INTERFACE_INFO of FIXED_IO_ddr_vrp : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO DDR_VRP";
-  attribute X_INTERFACE_INFO of FIXED_IO_ps_clk : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_CLK";
-  attribute X_INTERFACE_INFO of FIXED_IO_ps_porb : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_PORB";
-  attribute X_INTERFACE_INFO of FIXED_IO_ps_srstb : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_SRSTB";
-  attribute X_INTERFACE_INFO of DDR_addr : signal is "xilinx.com:interface:ddrx:1.0 DDR ADDR";
-  attribute X_INTERFACE_PARAMETER of DDR_addr : signal is "XIL_INTERFACENAME DDR, AXI_ARBITRATION_SCHEME TDM, BURST_LENGTH 8, CAN_DEBUG false, CAS_LATENCY 11, CAS_WRITE_LATENCY 11, CS_ENABLED true, DATA_MASK_ENABLED true, DATA_WIDTH 8, MEMORY_TYPE COMPONENTS, MEM_ADDR_MAP ROW_COLUMN_BANK, SLOT Single, TIMEPERIOD_PS 1250";
-  attribute X_INTERFACE_INFO of DDR_ba : signal is "xilinx.com:interface:ddrx:1.0 DDR BA";
-  attribute X_INTERFACE_INFO of DDR_dm : signal is "xilinx.com:interface:ddrx:1.0 DDR DM";
-  attribute X_INTERFACE_INFO of DDR_dq : signal is "xilinx.com:interface:ddrx:1.0 DDR DQ";
-  attribute X_INTERFACE_INFO of DDR_dqs_n : signal is "xilinx.com:interface:ddrx:1.0 DDR DQS_N";
-  attribute X_INTERFACE_INFO of DDR_dqs_p : signal is "xilinx.com:interface:ddrx:1.0 DDR DQS_P";
-  attribute X_INTERFACE_INFO of FIXED_IO_mio : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO MIO";
-  attribute X_INTERFACE_INFO of btns_5bits_tri_i : signal is "xilinx.com:interface:gpio:1.0 btns_5bits TRI_I";
-  attribute X_INTERFACE_INFO of leds_8bits_tri_o : signal is "xilinx.com:interface:gpio:1.0 leds_8bits TRI_O";
-  attribute X_INTERFACE_INFO of sws_8bits_tri_i : signal is "xilinx.com:interface:gpio:1.0 sws_8bits TRI_I";
+  attribute x_interface_info : string;
+  attribute x_interface_info of DDR_cas_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CAS_N";
+  attribute x_interface_info of DDR_ck_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_N";
+  attribute x_interface_info of DDR_ck_p : signal is "xilinx.com:interface:ddrx:1.0 DDR CK_P";
+  attribute x_interface_info of DDR_cke : signal is "xilinx.com:interface:ddrx:1.0 DDR CKE";
+  attribute x_interface_info of DDR_cs_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CS_N";
+  attribute x_interface_info of DDR_odt : signal is "xilinx.com:interface:ddrx:1.0 DDR ODT";
+  attribute x_interface_info of DDR_ras_n : signal is "xilinx.com:interface:ddrx:1.0 DDR RAS_N";
+  attribute x_interface_info of DDR_reset_n : signal is "xilinx.com:interface:ddrx:1.0 DDR RESET_N";
+  attribute x_interface_info of DDR_we_n : signal is "xilinx.com:interface:ddrx:1.0 DDR WE_N";
+  attribute x_interface_info of FIXED_IO_ddr_vrn : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO DDR_VRN";
+  attribute x_interface_parameter : string;
+  attribute x_interface_parameter of FIXED_IO_ddr_vrn : signal is "XIL_INTERFACENAME FIXED_IO, CAN_DEBUG false";
+  attribute x_interface_info of FIXED_IO_ddr_vrp : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO DDR_VRP";
+  attribute x_interface_info of FIXED_IO_ps_clk : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_CLK";
+  attribute x_interface_info of FIXED_IO_ps_porb : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_PORB";
+  attribute x_interface_info of FIXED_IO_ps_srstb : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_SRSTB";
+  attribute x_interface_info of DDR_addr : signal is "xilinx.com:interface:ddrx:1.0 DDR ADDR";
+  attribute x_interface_parameter of DDR_addr : signal is "XIL_INTERFACENAME DDR, AXI_ARBITRATION_SCHEME TDM, BURST_LENGTH 8, CAN_DEBUG false, CAS_LATENCY 11, CAS_WRITE_LATENCY 11, CS_ENABLED true, DATA_MASK_ENABLED true, DATA_WIDTH 8, MEMORY_TYPE COMPONENTS, MEM_ADDR_MAP ROW_COLUMN_BANK, SLOT Single, TIMEPERIOD_PS 1250";
+  attribute x_interface_info of DDR_ba : signal is "xilinx.com:interface:ddrx:1.0 DDR BA";
+  attribute x_interface_info of DDR_dm : signal is "xilinx.com:interface:ddrx:1.0 DDR DM";
+  attribute x_interface_info of DDR_dq : signal is "xilinx.com:interface:ddrx:1.0 DDR DQ";
+  attribute x_interface_info of DDR_dqs_n : signal is "xilinx.com:interface:ddrx:1.0 DDR DQS_N";
+  attribute x_interface_info of DDR_dqs_p : signal is "xilinx.com:interface:ddrx:1.0 DDR DQS_P";
+  attribute x_interface_info of FIXED_IO_mio : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO MIO";
+  attribute x_interface_info of btns_5bits_tri_i : signal is "xilinx.com:interface:gpio:1.0 btns_5bits TRI_I";
+  attribute x_interface_info of leds_8bits_tri_o : signal is "xilinx.com:interface:gpio:1.0 leds_8bits TRI_O";
+  attribute x_interface_info of sws_8bits_tri_i : signal is "xilinx.com:interface:gpio:1.0 sws_8bits TRI_I";
 begin
   axi_gpio_0_GPIO_TRI_I(4 downto 0) <= btns_5bits_tri_i(4 downto 0);
   axi_gpio_1_GPIO_TRI_I(7 downto 0) <= sws_8bits_tri_i(7 downto 0);
@@ -2151,6 +2151,7 @@ digital_channel_la_0: component final_proj_digital_channel_la_0_0
       buffer_addr_o(31 downto 0) => buffer_addr_o(31 downto 0),
       buffer_di_o(31 downto 0) => buffer_di_o(31 downto 0),
       buffer_we_o(31 downto 0) => buffer_we_o(31 downto 0),
+      new_sample_o => new_sample_o,
       s00_axi_aclk => processing_system7_0_FCLK_CLK0,
       s00_axi_araddr(4 downto 0) => ps7_0_axi_periph_M03_AXI_ARADDR(4 downto 0),
       s00_axi_aresetn => rst_ps7_0_100M_peripheral_aresetn(0),
@@ -2174,7 +2175,6 @@ digital_channel_la_0: component final_proj_digital_channel_la_0_0
       s00_axi_wvalid => ps7_0_axi_periph_M03_AXI_WVALID,
       sample_done_o => sample_done_o,
       sig_i => sig_1,
-      sig_valid_o => sig_valid_o,
       trigd_o => trigd_o
     );
 processing_system7_0: component final_proj_processing_system7_0_0
@@ -2384,7 +2384,7 @@ rst_ps7_0_100M: component final_proj_rst_ps7_0_100M_0
       peripheral_reset(0) => NLW_rst_ps7_0_100M_peripheral_reset_UNCONNECTED(0),
       slowest_sync_clk => processing_system7_0_FCLK_CLK0
     );
-system_ila_0: component final_proj_system_ila_0_2
+system_ila_0: component final_proj_system_ila_0_3
      port map (
       SLOT_0_AXI_araddr(4 downto 0) => ps7_0_axi_periph_M03_AXI_ARADDR(4 downto 0),
       SLOT_0_AXI_arprot(2 downto 0) => ps7_0_axi_periph_M03_AXI_ARPROT(2 downto 0),
@@ -2410,10 +2410,10 @@ system_ila_0: component final_proj_system_ila_0_2
       probe1(31 downto 0) => buffer_addr_o(31 downto 0),
       probe2(31 downto 0) => buffer_di_o(31 downto 0),
       probe3(31 downto 0) => buffer_we_o(31 downto 0),
-      probe4(0) => sample_done_o,
-      probe5(0) => sig_1,
-      probe6(0) => trigd_o,
-      probe7(0) => sig_valid_o,
+      probe4(0) => new_sample_o,
+      probe5(0) => sample_done_o,
+      probe6(0) => sig_1,
+      probe7(0) => trigd_o,
       resetn => rst_ps7_0_100M_peripheral_aresetn(0)
     );
 end STRUCTURE;

@@ -1,10 +1,24 @@
-15:39:05 **** Incremental Build of project final_proj_wrapper ****
-buildplatform.bat 59173 final_proj_wrapper no_domain_build 
-XSDB Server Channel: tcfchan#23
-15:39:07 **** Incremental Build of configuration Debug for project final_project ****
+Nothing to build in platform 'final_proj_wrapper'
+
+15:55:58 **** Incremental Build of configuration Debug for project final_project ****
 make all 
 make --no-print-directory pre-build
 a9-linaro-pre-build-step
 ' '
 make --no-print-directory main-build
-make[1]: Nothing to be done for 'main-build'.
+'Building file: ../src/helloworld.c'
+'Invoking: ARM v7 gcc compiler'
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/helloworld.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/sw/final_proj_wrapper/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.o" -o "src/helloworld.o" "../src/helloworld.c"
+'Finished building: ../src/helloworld.c'
+' '
+'Building target: final_project.elf'
+'Invoking: ARM v7 gcc linker'
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -LC:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/sw/final_proj_wrapper/domain_ps7_cortexa9_0/bsplib/lib -o "final_project.elf"  ./src/helloworld.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: final_project.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size final_project.elf  |tee "final_project.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  23340	   1144	  22648	  47132	   b81c	final_project.elf
+'Finished building: final_project.elf.size'
+' '

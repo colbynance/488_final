@@ -35,16 +35,19 @@ module trigger (
     input wire [31:0] trig_data_i, // TRIG_TYPE_VALUE: Value to compare incoming data to. Value should be in the top bits of the reg
     input wire [31:0] trig_mask_i, // TRIG_TYPE_VALUE: 1: Compare this value to the incoming data. 0: Don't compare
 
+    input wire new_sample_i,
+
     output wire sig_o,
-    output reg  sig_valid_o,
     output reg  trig_o // 1: Trigger found, stays high until reset
 );
 
-reg [4:0] valid_counter;
+reg [6:0] valid_counter;
 
 // Shift register, data comes from [0] to [31] ([31] is oldest).
 // 2 bits extra due to clock delays for setting trig_o sequentially (I'm lazy)
 reg [33:0] incoming;
+
+reg sig_valid_o;
 
 assign sig_o = incoming[33];
 
@@ -53,14 +56,17 @@ always @(posedge clk_i, negedge nrst_i) begin
         trig_o <= 0;
         incoming <= 0;
         valid_counter <= 0;
+        sig_valid_o <= 0;
     end
     else if (clk_i) begin
         if (sync_rst_i) begin
             trig_o <= 0;
-            incoming <= sig_i;
+            incoming <= 0;
             valid_counter <= 0;
+            sig_valid_o <= 0;
         end
-        else begin : CAPTURE
+        //check if there is a new sample, so the data rates are synced
+        else if(new_sample_i) begin : CAPTURE
             integer i;
             incoming[0] <= sig_i;
             for (i = 1; i < 34; i = i + 1) begin
@@ -75,10 +81,12 @@ always @(posedge clk_i, negedge nrst_i) begin
             default:            trig_o <= 0;
             endcase
 
-            if (valid_counter == 5'h1F)
+            if (valid_counter == 7'h3F)
               sig_valid_o <= 1;
-            else
+            else begin
               valid_counter <= valid_counter + 1;
+              trig_o <= 0;
+             end
         end
     end
 end

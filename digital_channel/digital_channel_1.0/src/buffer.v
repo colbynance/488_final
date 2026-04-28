@@ -28,11 +28,12 @@ module buffer (
     input wire we,
     input wire en,
     input wire [9:0] addr,
-    input wire [31:0] di,
-    output reg [31:0] dout
+    input wire di,
+    output reg dout
 );
 
-(* ram_style = "block" *) reg [31:0] RAM [1023:0];
+(* ram_style = "block" *) reg RAM [1023:0];
+
 
 always @(posedge clk)
 begin

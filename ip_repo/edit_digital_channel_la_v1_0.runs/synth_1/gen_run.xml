@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7z020clg484-1" LaunchTime="1777323044">
+<GenRun Id="synth_1" LaunchPart="xc7z020clg484-1" LaunchTime="1777407075">
   <File Type="PA-TCL" Name="digital_channel_la_v1_0.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="digital_channel_la_v1_0_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="digital_channel_la_v1_0_reports.tcl"/>

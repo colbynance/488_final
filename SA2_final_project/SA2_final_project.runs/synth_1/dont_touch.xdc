@@ -30,8 +30,8 @@ set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_rst_
 # IP: bd/final_proj/ip/final_proj_digital_channel_la_0_0/final_proj_digital_channel_la_0_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_digital_channel_la_0_0 || ORIG_REF_NAME==final_proj_digital_channel_la_0_0} -quiet] -quiet
 
-# IP: bd/final_proj/ip/final_proj_system_ila_0_2/final_proj_system_ila_0_2.xci
-set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_system_ila_0_2 || ORIG_REF_NAME==final_proj_system_ila_0_2} -quiet] -quiet
+# IP: bd/final_proj/ip/final_proj_system_ila_0_3/final_proj_system_ila_0_3.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_system_ila_0_3 || ORIG_REF_NAME==final_proj_system_ila_0_3} -quiet] -quiet
 
 # IP: bd/final_proj/ip/final_proj_auto_pc_0/final_proj_auto_pc_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_auto_pc_0 || ORIG_REF_NAME==final_proj_auto_pc_0} -quiet] -quiet

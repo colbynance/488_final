@@ -38,7 +38,6 @@ module trigger (
     input wire new_sample_i,
 
     output wire sig_o,
-    output reg  sig_valid_o,
     output reg  trig_o // 1: Trigger found, stays high until reset
 );
 
@@ -47,6 +46,8 @@ reg [6:0] valid_counter;
 // Shift register, data comes from [0] to [31] ([31] is oldest).
 // 2 bits extra due to clock delays for setting trig_o sequentially (I'm lazy)
 reg [33:0] incoming;
+
+reg sig_valid_o;
 
 assign sig_o = incoming[33];
 
@@ -74,17 +75,18 @@ always @(posedge clk_i, negedge nrst_i) begin
 
             case (trig_type_i)
             `TRIG_TYPE_NONE:    trig_o <= 1;
-            `TRIG_TYPE_RISING:  trig_o <= trig_o || (!incoming[0] && incoming[1]);
-            `TRIG_TYPE_FALLING: trig_o <= trig_o || (incoming[0] && !incoming[1]);
+            `TRIG_TYPE_RISING:  trig_o <= trig_o || (!incoming[31] && incoming[30]);
+            `TRIG_TYPE_FALLING: trig_o <= trig_o || (incoming[31] && !incoming[30]);
             `TRIG_TYPE_VALUE:   trig_o <= trig_o || (trig_data_i == (incoming[31:0] & trig_mask_i));
             default:            trig_o <= 0;
             endcase
 
-            if (valid_counter == 7'h7F)
+            if (valid_counter == 7'h3F)
               sig_valid_o <= 1;
-            else
+            else begin
               valid_counter <= valid_counter + 1;
-//              trig_o <= 0;
+              trig_o <= 0;
+             end
         end
     end
 end

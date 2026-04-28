@@ -29,10 +29,11 @@ module buffer (
     input wire en,
     input wire [9:0] addr,
     input wire [31:0] di,
-    output reg [31:0] dout
+    (* dont_touch = "true" *) output reg [31:0] dout
 );
 
-(* ram_style = "block" *)  reg [31:0] RAM [1023:0];
+(* ram_style = "block" *) reg [31:0] RAM [1023:0];
+fdsjozfdsjlfosdhjfdjsfd
 
 always @(posedge clk)
 begin
