@@ -9,13 +9,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="509fs"></ZoomStartTime>
-      <ZoomEndTime time="518fs"></ZoomEndTime>
-      <Cursor1Time time="513fs"></Cursor1Time>
+      <ZoomStartTime time="287fs"></ZoomStartTime>
+      <ZoomEndTime time="369fs"></ZoomEndTime>
+      <Cursor1Time time="311fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="358"></NameColumnWidth>
-      <ValueColumnWidth column_width="74"></ValueColumnWidth>
+      <ValueColumnWidth column_width="62"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="10" />
    <wave_markers>

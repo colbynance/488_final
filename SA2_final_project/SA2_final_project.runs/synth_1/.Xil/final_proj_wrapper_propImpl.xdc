@@ -6,6 +6,8 @@ create_clock -period 10.000 [get_ports {}]
 current_instance
 set_property src_info {type:XDC file:2 line:87 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN Y11  [get_ports {sig}];  # "JA1"
+set_property src_info {type:XDC file:2 line:89 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN AA11 [get_ports {sig2}];  # "JA2"
 set_property src_info {type:XDC file:2 line:362 export:INPUT save:INPUT read:READ} [current_design]
 set_property IOSTANDARD LVCMOS33 [get_ports -of_objects [get_iobanks 33]];
 set_property src_info {type:XDC file:2 line:367 export:INPUT save:INPUT read:READ} [current_design]

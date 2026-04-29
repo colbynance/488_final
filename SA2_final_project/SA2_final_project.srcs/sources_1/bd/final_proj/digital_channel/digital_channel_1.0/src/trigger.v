@@ -3,6 +3,14 @@
 `define TRIG_TYPE_RISING (1)
 `define TRIG_TYPE_FALLING (2)
 `define TRIG_TYPE_VALUE (3)
+`define TRIG_TYPE_EXT (4)
+
+`define TRIG_EXT_NONE (0)
+`define TRIG_EXT_OR (1)
+`define TRIG_EXT_AND (2)
+`define TRIG_EXT_XOR (3)
+
+
 //////////////////////////////////////////////////////////////////////////////////
 // Company:
 // Engineer:
@@ -31,6 +39,9 @@ module trigger (
     input wire sync_rst_i, // For clearing trigger when starting a new capture
 
     input wire sig_i,
+    
+    input wire trig_ext_i,
+    
     input wire [31:0] trig_type_i, // defines.v:TRIG_TYPE*
     input wire [31:0] trig_data_i, // TRIG_TYPE_VALUE: Value to compare incoming data to. Value should be in the top bits of the reg
     input wire [31:0] trig_mask_i, // TRIG_TYPE_VALUE: 1: Compare this value to the incoming data. 0: Don't compare
@@ -73,13 +84,24 @@ always @(posedge clk_i, negedge nrst_i) begin
                 incoming[i] <= incoming[i - 1];
             end
 
-            case (trig_type_i)
+            //base trigger
+            case (trig_type_i[2:0])
             `TRIG_TYPE_NONE:    trig_o <= 1;
             `TRIG_TYPE_RISING:  trig_o <= trig_o || (!incoming[31] && incoming[30]);
             `TRIG_TYPE_FALLING: trig_o <= trig_o || (incoming[31] && !incoming[30]);
             `TRIG_TYPE_VALUE:   trig_o <= trig_o || (trig_data_i == (incoming[31:0] & trig_mask_i));
+            `TRIG_TYPE_EXT:     trig_o <= trig_ext_i;
             default:            trig_o <= 0;
             endcase
+            
+//            //how to interact with the external trigger
+//            case (trig_type_i[4:3])
+//            `TRIG_EXT_NONE:     trig_o <= trig_o; //ignore external trigger
+//            `TRIG_EXT_OR:       trig_o <= trig_o || trig_ext_i;
+//            `TRIG_EXT_AND:      trig_o <= trig_o && trig_ext_i;
+//            `TRIG_EXT_XOR:      trig_o <= trig_o ^ trig_ext_i;
+//            default:            trig_o <= trig_o;
+//            endcase
 
             if (valid_counter == 7'h3F)
               sig_valid_o <= 1;

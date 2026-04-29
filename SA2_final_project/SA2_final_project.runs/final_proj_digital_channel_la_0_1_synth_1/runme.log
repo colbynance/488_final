@@ -1,0 +1,4 @@
+
+*** Running vivado
+    with args -log final_proj_digital_channel_la_0_1.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source final_proj_digital_channel_la_0_1.tcl
+

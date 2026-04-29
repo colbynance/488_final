@@ -1,4 +1,4 @@
-15:55:58 **** Incremental Build of configuration Debug for project final_project ****
+15:20:11 **** Incremental Build of configuration Debug for project final_project ****
 make all 
 make --no-print-directory pre-build
 a9-linaro-pre-build-step
@@ -7,6 +7,15 @@ make --no-print-directory main-build
 'Building file: ../src/helloworld.c'
 'Invoking: ARM v7 gcc compiler'
 arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/helloworld.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IC:/Temp/sa2-final/sw/final_proj_wrapper/export/final_proj_wrapper/sw/final_proj_wrapper/domain_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.o" -o "src/helloworld.o" "../src/helloworld.c"
+../src/helloworld.c: In function 'main':
+../src/helloworld.c:183:72: warning: implicit declaration of function 'malloc' [-Wimplicit-function-declaration]
+  183 |     digital_channel_config_t * channel1 = (digital_channel_config_t *) malloc(sizeof(digital_channel_config_t));
+      |                                                                        ^~~~~~
+../src/helloworld.c:183:72: warning: incompatible implicit declaration of built-in function 'malloc'
+../src/helloworld.c:55:1: note: include '<stdlib.h>' or provide a declaration of 'malloc'
+   54 | #include "xgpio_l.h"
+  +++ |+#include <stdlib.h>
+   55 | 
 'Finished building: ../src/helloworld.c'
 ' '
 'Building target: final_project.elf'
@@ -17,9 +26,9 @@ arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=non
 'Invoking: ARM v7 Print Size'
 arm-none-eabi-size final_project.elf  |tee "final_project.elf.size"
    text	   data	    bss	    dec	    hex	filename
-  23340	   1144	  22648	  47132	   b81c	final_project.elf
+  26760	   2184	  22696	  51640	   c9b8	final_project.elf
 'Finished building: final_project.elf.size'
 ' '
 
-15:55:59 Build Finished (took 637ms)
+15:20:12 Build Finished (took 564ms)
 

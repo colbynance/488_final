@@ -48,13 +48,14 @@
 
 
 // IP VLNV: iastate.edu:user:digital_channel_la:1.0
-// IP Revision: 8
+// IP Revision: 10
 
 (* X_CORE_INFO = "digital_channel_la_v1_0,Vivado 2020.1" *)
 (* CHECK_LICENSE_TYPE = "final_proj_digital_channel_la_0_0,digital_channel_la_v1_0,{}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module final_proj_digital_channel_la_0_0 (
   sig_i,
+  trig_ext_i,
   trigd_o,
   sample_done_o,
   buf_do_o,
@@ -86,6 +87,7 @@ module final_proj_digital_channel_la_0_0 (
 );
 
 input wire sig_i;
+input wire trig_ext_i;
 output wire trigd_o;
 output wire sample_done_o;
 output wire [31 : 0] buf_do_o;
@@ -145,6 +147,7 @@ input wire s00_axi_rready;
     .C_S00_AXI_ADDR_WIDTH(5)  // Width of S_AXI address bus
   ) inst (
     .sig_i(sig_i),
+    .trig_ext_i(trig_ext_i),
     .trigd_o(trigd_o),
     .sample_done_o(sample_done_o),
     .buf_do_o(buf_do_o),

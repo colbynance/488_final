@@ -27,6 +27,8 @@ module analyzer_channel (
     input wire enable_i,
 
     input wire sig_i,
+    input wire trig_ext_i,
+    
 
     input wire [31:0] downsample_spacing_i,
 
@@ -97,6 +99,8 @@ trigger trig (
     .sync_rst_i(!enable_i),
 
     .sig_i(downsamp_sig),
+    
+    .trig_ext_i(trig_ext_i),
 
     .trig_type_i(trig_type_i),
     .trig_data_i(trig_data_i),

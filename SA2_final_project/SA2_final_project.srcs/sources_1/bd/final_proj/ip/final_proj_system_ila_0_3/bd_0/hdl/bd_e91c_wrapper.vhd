@@ -38,6 +38,7 @@ entity bd_e91c_wrapper is
     probe5 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe8 : in STD_LOGIC_VECTOR ( 0 to 0 );
     resetn : in STD_LOGIC
   );
 end bd_e91c_wrapper;
@@ -54,6 +55,7 @@ architecture STRUCTURE of bd_e91c_wrapper is
     probe5 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe8 : in STD_LOGIC_VECTOR ( 0 to 0 );
     resetn : in STD_LOGIC;
     SLOT_0_AXI_araddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
     SLOT_0_AXI_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
@@ -107,6 +109,7 @@ bd_e91c_i: component bd_e91c
       probe5(0) => probe5(0),
       probe6(0) => probe6(0),
       probe7(0) => probe7(0),
+      probe8(0) => probe8(0),
       resetn => resetn
     );
 end STRUCTURE;

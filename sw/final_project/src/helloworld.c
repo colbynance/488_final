@@ -54,7 +54,8 @@
 #include "xgpio_l.h"
 
 
-#define DIGITAL_CHANNEL_ADDR 0x43C00000
+#define DIGITAL_CHANNEL1_ADDR 0x43C00000
+#define DIGITAL_CHANNEL2_ADDR 0x43C10000
 #define BUFFER_SIZE (2 << 10)
 
 #define DIGITAL_CONTROL_OFFSET 0x0
@@ -66,6 +67,7 @@
 #define DIGITAL_BUFFER_WRITE_DATA_OFFSET 0x18
 #define DIGITAL_BUFFER_WE_OFFSET 0x1C
 
+#define NUM_CHANNELS 2
 
 uint32_t curr_U, curr_D, curr_L, curr_R, curr_C;
 uint32_t prev_U, prev_D, prev_L, prev_R, prev_C;
@@ -74,33 +76,88 @@ uint32_t switches;
 uint32_t leds;
 
 
-void init_digital_channel(){
-	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_CONTROL_OFFSET, (0x1 << 1) | 0);
-	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_DOWNSAMPLE_OFFSET, 0);
-	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_TRIGGER_DATA_OFFSET, 0);
-	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_TRIGGER_MASK_OFFSET, 0);
-	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_BUFFER_ADDR_OFFSET, 0x10);
-	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_BUFFER_WRITE_DATA_OFFSET, 0);
-	Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_BUFFER_WE_OFFSET, 1);
-	xil_printf("0x%08X \n\r", Xil_In32(DIGITAL_CHANNEL_ADDR + DIGITAL_BUFFER_READ_DATA_OFFSET));
+typedef struct{
+
+	uint32_t base_addr;
+
+	union{
+		uint32_t reg;
+		struct{
+			uint32_t enable : 1;
+			uint32_t trig_type : 3;
+			uint32_t trig_ext_type : 2;
+			uint32_t reserved : 25;
+			uint32_t status : 1;
+		};
+	}control;
+
+	uint32_t downsample_rate;
+	uint32_t trigger_data;
+	uint32_t trigger_mask;
+	uint32_t buffer_addr;
+	uint32_t buffer_read_data;
+	uint32_t buffer_write_data;
+	uint32_t write_data;
+	uint32_t write_enable;
+
+	//used for identifying which channel for UART transmission
+	uint32_t channel_id;
+
+} digital_channel_config_t;
+
+
+
+void digital_set_from_config(digital_channel_config_t * config){
+	Xil_Out32(config->base_addr + DIGITAL_CONTROL_OFFSET, config->control.reg);
+	Xil_Out32(config->base_addr + DIGITAL_DOWNSAMPLE_OFFSET, config->downsample_rate);
+	Xil_Out32(config->base_addr + DIGITAL_TRIGGER_DATA_OFFSET, config->trigger_data);
+	Xil_Out32(config->base_addr + DIGITAL_TRIGGER_MASK_OFFSET, config->trigger_mask);
+	Xil_Out32(config->base_addr + DIGITAL_BUFFER_ADDR_OFFSET, config->buffer_addr);
+	Xil_Out32(config->base_addr + DIGITAL_BUFFER_WRITE_DATA_OFFSET, config->buffer_write_data);
+	Xil_Out32(config->base_addr + DIGITAL_BUFFER_WE_OFFSET, config->write_enable);
+}
+
+uint32_t poll_status(digital_channel_config_t * config){
+	return Xil_In32(config->base_addr + DIGITAL_CONTROL_OFFSET) & 0x80000000;
+}
+
+void enable_channel(digital_channel_config_t * config){
+	config->control.reg |= 0b1;
+	Xil_Out32(config->base_addr, config->control.reg);
+}
+
+void disable_channel(digital_channel_config_t * config){
+	config->control.reg &= (~0b1);
+	Xil_Out32(config->base_addr, config->control.reg);
+}
+
+uint32_t get_buffer(digital_channel_config_t * config, uint32_t addr){
+	config->buffer_addr = addr;
+	Xil_Out32(config->base_addr + DIGITAL_BUFFER_ADDR_OFFSET, config->buffer_addr);
+	return Xil_In32(config->base_addr + DIGITAL_BUFFER_READ_DATA_OFFSET);
 }
 
 
-void get_from_buffer(uint32_t * arr){
+void dump_buffer(digital_channel_config_t * config, uint32_t * arr){
 	int i;
 	for(i = 0; i < BUFFER_SIZE; i++){
-		Xil_Out32(DIGITAL_CHANNEL_ADDR + DIGITAL_BUFFER_ADDR_OFFSET, i);
-		arr[i] = Xil_In32(DIGITAL_CHANNEL_ADDR + DIGITAL_BUFFER_READ_DATA_OFFSET);
+		arr[i] = get_buffer(config, i);
 	}
 }
+
+
+
+
+
+
 
 void print_buffer(uint32_t * arr){
 	int i;
 	for(i=0; i < BUFFER_SIZE; i++){
-		if(i % 16 == 0){
+		if(i % 128 == 0){
 			xil_printf("0x%03X: %d ", i, arr[i] & 0b1);
 		}
-		else if(i % 16 == 15){
+		else if(i % 128 == 127){
 			xil_printf("%d \n\r", arr[i] & 0b1);
 		}
 		else{
@@ -112,12 +169,52 @@ void print_buffer(uint32_t * arr){
 int main()
 {
     init_platform();
-    init_digital_channel();
+
 
     uint32_t buf[BUFFER_SIZE];
+    int tick = 0;
 
     print("Hello World\n\r");
     print("Successfully ran Hello World application");
+
+
+    //INIT
+
+    digital_channel_config_t * channel1 = (digital_channel_config_t *) malloc(sizeof(digital_channel_config_t));
+    digital_channel_config_t * channel2 = (digital_channel_config_t *) malloc(sizeof(digital_channel_config_t));
+
+    digital_channel_config_t * channels[NUM_CHANNELS] = {channel1, channel2};
+
+    channel1->base_addr = DIGITAL_CHANNEL1_ADDR;
+    channel1->control.reg = (0x0 << 1) | (0x0 << 3);
+    channel1->downsample_rate = 10;
+    channel1->trigger_data = 0;
+    channel1->trigger_mask = 0;
+    channel1->buffer_addr = 0x10;
+    channel1->write_enable = 0;
+    channel1->channel_id = 1;
+
+
+    digital_set_from_config(channel1);
+
+
+    channel2->base_addr = DIGITAL_CHANNEL2_ADDR;
+    channel2->control.reg = (0x1 << 1) | (0x0 << 3);
+	channel2->downsample_rate = 10;
+	channel2->trigger_data = 0;
+	channel2->trigger_mask = 0;
+	channel2->buffer_addr = 0;
+	channel2->write_enable = 0;
+	channel2->channel_id = 2;
+//
+	digital_set_from_config(channel2);
+
+	channel2->control.trig_type = 0x1;
+
+	digital_set_from_config(channel2);
+
+	int edit_channel = 0;
+
     while(1){
 
     	switches =  Xil_In32(XPAR_AXI_GPIO_1_BASEADDR);
@@ -153,27 +250,46 @@ int main()
 			leds = ~switches;
 		}
 
-		if(pos_L){
-			//enable the digital channel
-			uint32_t val = Xil_In32(DIGITAL_CHANNEL_ADDR + 0x0);
-			Xil_Out32(DIGITAL_CHANNEL_ADDR, val | 0b1);
+		if(pos_U){
+			edit_channel = (edit_channel + 1) % 2;
+			xil_printf("Editing channel %d\n\r", edit_channel + 1);
 		}
-		if(Xil_In32(DIGITAL_CHANNEL_ADDR + 0x0) & 0x80000000){
-			print("Digital Channel Finished\n\r");
-			uint32_t val = Xil_In32(DIGITAL_CHANNEL_ADDR + 0x0);
-			Xil_Out32(DIGITAL_CHANNEL_ADDR, val & (~0b1));
-			print("\n\r");
-			get_from_buffer(buf);
-			print_buffer(buf);
+		if(pos_R){
+			channels[edit_channel]->control.trig_type = (channels[edit_channel]->control.trig_type + 1) % 5;
+			xil_printf("Channel %d trigger set to %d\n\r", edit_channel + 1, channels[edit_channel]->control.trig_type);
+			digital_set_from_config(channel1);
+		}
+		if(pos_D){
+			channels[edit_channel]->control.trig_ext_type = (channels[edit_channel]->control.trig_ext_type + 1) % 4;
+			xil_printf("Channel %d ext trigger set to %d\n\r", edit_channel + 1, channels[edit_channel]->control.trig_ext_type);
+			digital_set_from_config(channel1);
+		}
+
+		if(pos_L){
+			int i;
+			//enable the digital channel
+			for(i=0; i<NUM_CHANNELS; i++){
+				enable_channel(channels[i]);
+			}
+		}
+		int i;
+		for(i = 0; i<NUM_CHANNELS; i++){
+			if(poll_status(channels[i])){
+				xil_printf("Digital Channel %d Finished at tick %d\n\r", channels[i]->channel_id, tick);
+				disable_channel(channels[i]);
+				print("\n\r");
+				dump_buffer(channels[i], buf);
+				print_buffer(buf);
+			}
 		}
 
 		Xil_Out32(XPAR_AXI_GPIO_1_BASEADDR, leds);
 
-		int i =0;
 		for(i=0; i<1000000; i++){
 			i--;
 			i++;
 		}
+		tick++;
 
 
     }

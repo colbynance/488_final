@@ -45,6 +45,9 @@ always @(posedge clk_i, negedge nrst_i) begin
             if (buf_addr == 11'h400)
                 sample_done_o <= 1;
         end
+        else begin
+            buffer_we_o <= 0;
+        end
     end
 end
 
