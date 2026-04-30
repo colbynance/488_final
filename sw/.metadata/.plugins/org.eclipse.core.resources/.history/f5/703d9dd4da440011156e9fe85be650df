@@ -151,32 +151,20 @@ void dump_buffer(digital_channel_config_t * config, uint32_t * arr){
 
 
 
-//void print_buffer(uint32_t * arr){
-//	int i;
-//	for(i=0; i < BUFFER_SIZE; i++){
-//		if(i % 128 == 0){
-//			xil_printf("0x%03X: %d ", i, arr[i] & 0b1);
-//		}
-//		else if(i % 128 == 127){
-//			xil_printf("%d \n\r", arr[i] & 0b1);
-//		}
-//		else{
-//			xil_printf("%d ", arr[i] & 0b1);
-//		}
-//	}
-//}
-
-void print_buffer_to_uart(uint32_t * arr, uint32_t id){
+void print_buffer(uint32_t * arr){
 	int i;
-	xil_printf("SD%d\n", id);
 	for(i=0; i < BUFFER_SIZE; i++){
-		xil_printf("%d", arr[i] & 0b1);
+		if(i % 128 == 0){
+			xil_printf("0x%03X: %d ", i, arr[i] & 0b1);
+		}
+		else if(i % 128 == 127){
+			xil_printf("%d \n\r", arr[i] & 0b1);
+		}
+		else{
+			xil_printf("%d ", arr[i] & 0b1);
+		}
 	}
-	xil_printf("\n");
-
 }
-
-
 
 int main()
 {
@@ -291,7 +279,7 @@ int main()
 				disable_channel(channels[i]);
 				print("\n\r");
 				dump_buffer(channels[i], buf);
-				print_buffer_to_uart(buf, channels[i]->channel_id);
+				print_buffer(buf);
 			}
 		}
 
