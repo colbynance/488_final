@@ -114,6 +114,7 @@ proc step_failed { step } {
   close $ch
 }
 
+set_msg_config -id {HDL-1065} -limit 10000
 
 OPTRACE "Implementation" START { ROLLUP_1 }
 OPTRACE "Phase: Init Design" START { ROLLUP_AUTO }
@@ -131,6 +132,13 @@ OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
   set_property webtalk.parent_dir C:/Temp/sa2-final/SA2_final_project/SA2_final_project.cache/wt [current_project]
   set_property parent.project_path C:/Temp/sa2-final/SA2_final_project/SA2_final_project.xpr [current_project]
+  set_property ip_repo_paths {
+  C:/Temp/sa2-final/ip_repo/analog_channel_fr_1.0
+  C:/Temp/sa2-final/ip_repo/analog_channel_la_1.0
+  C:/Temp/sa2-final/digital_channel/digital_channel_1.0
+  C:/Temp/sa2-final/digital_channel/digital_channel_1.0
+} [current_project]
+  update_ip_catalog
   set_property ip_output_repo C:/Temp/sa2-final/SA2_final_project/SA2_final_project.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
@@ -142,6 +150,7 @@ OPTRACE "add files" START { }
   add_files C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/final_proj.bd
   set_param project.isImplRun false
 OPTRACE "read constraints: implementation" START { }
+  read_xdc C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "add files" END { }
 OPTRACE "link_design" START { }
