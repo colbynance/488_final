@@ -2,8 +2,8 @@
 # Vivado v2020.1 (64-bit)
 # SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
 # IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
-# Start of session at: Thu Apr 30 18:31:27 2026
-# Process ID: 15932
+# Start of session at: Fri May  1 15:31:14 2026
+# Process ID: 20108
 # Current directory: C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1
 # Command line: vivado.exe -log final_proj_wrapper.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source final_proj_wrapper.tcl
 # Log file: C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/final_proj_wrapper.vds
@@ -24,23 +24,23 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020
 INFO: [Device 21-403] Loading part xc7z020clg484-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 18904
+INFO: [Synth 8-7075] Helper process launched with PID 18568
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 1013.047 ; gain = 0.000
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1013.906 ; gain = 0.000
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'final_proj_wrapper' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/hdl/final_proj_wrapper.vhd:45]
 INFO: [Synth 8-3491] module 'final_proj' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:1559' bound to instance 'final_proj_i' of component 'final_proj' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/hdl/final_proj_wrapper.vhd:77]
 INFO: [Synth 8-638] synthesizing module 'final_proj' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:1594]
-INFO: [Synth 8-3491] module 'final_proj_analog_channel_fr_0_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_analog_channel_fr_0_0_stub.vhdl:5' bound to instance 'analog_channel_fr_0' of component 'final_proj_analog_channel_fr_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2054]
-INFO: [Synth 8-638] synthesizing module 'final_proj_analog_channel_fr_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_analog_channel_fr_0_0_stub.vhdl:44]
-INFO: [Synth 8-3491] module 'final_proj_axi_gpio_0_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_axi_gpio_0_0_stub.vhdl:5' bound to instance 'axi_gpio_0' of component 'final_proj_axi_gpio_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2090]
-INFO: [Synth 8-638] synthesizing module 'final_proj_axi_gpio_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_axi_gpio_0_0_stub.vhdl:31]
-INFO: [Synth 8-3491] module 'final_proj_axi_gpio_0_1' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_axi_gpio_0_1_stub.vhdl:5' bound to instance 'axi_gpio_1' of component 'final_proj_axi_gpio_0_1' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2113]
-INFO: [Synth 8-638] synthesizing module 'final_proj_axi_gpio_0_1' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_axi_gpio_0_1_stub.vhdl:31]
-INFO: [Synth 8-3491] module 'final_proj_axi_gpio_0_2' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_axi_gpio_0_2_stub.vhdl:5' bound to instance 'axi_gpio_2' of component 'final_proj_axi_gpio_0_2' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2136]
-INFO: [Synth 8-638] synthesizing module 'final_proj_axi_gpio_0_2' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_axi_gpio_0_2_stub.vhdl:31]
-INFO: [Synth 8-3491] module 'final_proj_processing_system7_0_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_processing_system7_0_0_stub.vhdl:5' bound to instance 'processing_system7_0' of component 'final_proj_processing_system7_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2159]
-INFO: [Synth 8-638] synthesizing module 'final_proj_processing_system7_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_processing_system7_0_0_stub.vhdl:79]
+INFO: [Synth 8-3491] module 'final_proj_analog_channel_fr_0_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_analog_channel_fr_0_0_stub.vhdl:5' bound to instance 'analog_channel_fr_0' of component 'final_proj_analog_channel_fr_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2046]
+INFO: [Synth 8-638] synthesizing module 'final_proj_analog_channel_fr_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_analog_channel_fr_0_0_stub.vhdl:44]
+INFO: [Synth 8-3491] module 'final_proj_axi_gpio_0_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_axi_gpio_0_0_stub.vhdl:5' bound to instance 'axi_gpio_0' of component 'final_proj_axi_gpio_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2082]
+INFO: [Synth 8-638] synthesizing module 'final_proj_axi_gpio_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_axi_gpio_0_0_stub.vhdl:31]
+INFO: [Synth 8-3491] module 'final_proj_axi_gpio_0_1' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_axi_gpio_0_1_stub.vhdl:5' bound to instance 'axi_gpio_1' of component 'final_proj_axi_gpio_0_1' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2105]
+INFO: [Synth 8-638] synthesizing module 'final_proj_axi_gpio_0_1' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_axi_gpio_0_1_stub.vhdl:31]
+INFO: [Synth 8-3491] module 'final_proj_axi_gpio_0_2' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_axi_gpio_0_2_stub.vhdl:5' bound to instance 'axi_gpio_2' of component 'final_proj_axi_gpio_0_2' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2128]
+INFO: [Synth 8-638] synthesizing module 'final_proj_axi_gpio_0_2' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_axi_gpio_0_2_stub.vhdl:31]
+INFO: [Synth 8-3491] module 'final_proj_processing_system7_0_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_processing_system7_0_0_stub.vhdl:5' bound to instance 'processing_system7_0' of component 'final_proj_processing_system7_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2151]
+INFO: [Synth 8-638] synthesizing module 'final_proj_processing_system7_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_processing_system7_0_0_stub.vhdl:79]
 INFO: [Synth 8-638] synthesizing module 'final_proj_ps7_0_axi_periph_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:869]
 INFO: [Synth 8-638] synthesizing module 'm00_couplers_imp_PONY3V' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:57]
 INFO: [Synth 8-256] done synthesizing module 'm00_couplers_imp_PONY3V' (1#1) [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:57]
@@ -51,33 +51,40 @@ INFO: [Synth 8-256] done synthesizing module 'm02_couplers_imp_15PWUEF' (3#1) [C
 INFO: [Synth 8-638] synthesizing module 'm03_couplers_imp_1VHKRKX' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:364]
 INFO: [Synth 8-256] done synthesizing module 'm03_couplers_imp_1VHKRKX' (4#1) [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:364]
 INFO: [Synth 8-638] synthesizing module 's00_couplers_imp_HFOZVU' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:494]
-INFO: [Synth 8-3491] module 'final_proj_auto_pc_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_auto_pc_0_stub.vhdl:5' bound to instance 'auto_pc' of component 'final_proj_auto_pc_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:677]
-INFO: [Synth 8-638] synthesizing module 'final_proj_auto_pc_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_auto_pc_0_stub.vhdl:70]
+INFO: [Synth 8-3491] module 'final_proj_auto_pc_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_auto_pc_0_stub.vhdl:5' bound to instance 'auto_pc' of component 'final_proj_auto_pc_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:677]
+INFO: [Synth 8-638] synthesizing module 'final_proj_auto_pc_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_auto_pc_0_stub.vhdl:70]
 INFO: [Synth 8-256] done synthesizing module 's00_couplers_imp_HFOZVU' (5#1) [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:494]
-INFO: [Synth 8-3491] module 'final_proj_xbar_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_xbar_0_stub.vhdl:5' bound to instance 'xbar' of component 'final_proj_xbar_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:1458]
-INFO: [Synth 8-638] synthesizing module 'final_proj_xbar_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_xbar_0_stub.vhdl:51]
+INFO: [Synth 8-3491] module 'final_proj_xbar_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_xbar_0_stub.vhdl:5' bound to instance 'xbar' of component 'final_proj_xbar_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:1458]
+INFO: [Synth 8-638] synthesizing module 'final_proj_xbar_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_xbar_0_stub.vhdl:51]
 INFO: [Synth 8-256] done synthesizing module 'final_proj_ps7_0_axi_periph_0' (6#1) [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:869]
-INFO: [Synth 8-3491] module 'final_proj_rst_ps7_0_100M_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_rst_ps7_0_100M_0_stub.vhdl:5' bound to instance 'rst_ps7_0_100M' of component 'final_proj_rst_ps7_0_100M_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2353]
-INFO: [Synth 8-638] synthesizing module 'final_proj_rst_ps7_0_100M_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_rst_ps7_0_100M_0_stub.vhdl:21]
-INFO: [Synth 8-3491] module 'final_proj_system_ila_0_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_system_ila_0_0_stub.vhdl:5' bound to instance 'system_ila_0' of component 'final_proj_system_ila_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2366]
-INFO: [Synth 8-638] synthesizing module 'final_proj_system_ila_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_system_ila_0_0_stub.vhdl:21]
-INFO: [Synth 8-3491] module 'final_proj_xadc_wiz_0_1' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_xadc_wiz_0_1_stub.vhdl:5' bound to instance 'xadc_wiz_0' of component 'final_proj_xadc_wiz_0_1' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2379]
-INFO: [Synth 8-638] synthesizing module 'final_proj_xadc_wiz_0_1' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-15932-CO2041-10/realtime/final_proj_xadc_wiz_0_1_stub.vhdl:33]
-INFO: [Synth 8-256] done synthesizing module 'final_proj' (7#1) [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:1594]
-INFO: [Synth 8-256] done synthesizing module 'final_proj_wrapper' (8#1) [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/hdl/final_proj_wrapper.vhd:45]
+INFO: [Synth 8-3491] module 'final_proj_rst_ps7_0_100M_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_rst_ps7_0_100M_0_stub.vhdl:5' bound to instance 'rst_ps7_0_100M' of component 'final_proj_rst_ps7_0_100M_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2345]
+INFO: [Synth 8-638] synthesizing module 'final_proj_rst_ps7_0_100M_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_rst_ps7_0_100M_0_stub.vhdl:21]
+INFO: [Synth 8-3491] module 'final_proj_system_ila_0_0' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_system_ila_0_0_stub.vhdl:5' bound to instance 'system_ila_0' of component 'final_proj_system_ila_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2358]
+INFO: [Synth 8-638] synthesizing module 'final_proj_system_ila_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_system_ila_0_0_stub.vhdl:21]
+INFO: [Synth 8-3491] module 'final_proj_xadc_wiz_0_1' declared at 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_xadc_wiz_0_1_stub.vhdl:5' bound to instance 'xadc_wiz_0' of component 'final_proj_xadc_wiz_0_1' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2371]
+INFO: [Synth 8-638] synthesizing module 'final_proj_xadc_wiz_0_1' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/.Xil/Vivado-20108-CO2041-13/realtime/final_proj_xadc_wiz_0_1_stub.vhdl:26]
+INFO: [Synth 8-3491] module 'final_proj_xlconstant_0_0' declared at 'c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xlconstant_0_0/synth/final_proj_xlconstant_0_0.v:57' bound to instance 'xlconstant_0' of component 'final_proj_xlconstant_0_0' [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:2389]
+INFO: [Synth 8-6157] synthesizing module 'final_proj_xlconstant_0_0' [c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xlconstant_0_0/synth/final_proj_xlconstant_0_0.v:57]
+INFO: [Synth 8-6157] synthesizing module 'xlconstant_v1_1_7_xlconstant' [c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/fcfc/hdl/xlconstant_v1_1_vl_rfs.v:23]
+	Parameter CONST_VAL bound to: 3 - type: integer 
+	Parameter CONST_WIDTH bound to: 7 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'xlconstant_v1_1_7_xlconstant' (7#1) [c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ipshared/fcfc/hdl/xlconstant_v1_1_vl_rfs.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'final_proj_xlconstant_0_0' (8#1) [c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xlconstant_0_0/synth/final_proj_xlconstant_0_0.v:57]
+INFO: [Synth 8-256] done synthesizing module 'final_proj' (9#1) [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/synth/final_proj.vhd:1594]
+INFO: [Synth 8-256] done synthesizing module 'final_proj_wrapper' (10#1) [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/hdl/final_proj_wrapper.vhd:45]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 1013.047 ; gain = 0.000
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 1013.906 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1013.047 ; gain = 0.000
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1013.906 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1013.047 ; gain = 0.000
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1013.906 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1013.047 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1013.906 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -104,31 +111,34 @@ Finished Parsing XDC File [c:/Temp/sa2-final/SA2_final_project/SA2_final_project
 Parsing XDC File [c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_auto_pc_0/final_proj_auto_pc_0/final_proj_auto_pc_0_in_context.xdc] for cell 'final_proj_i/ps7_0_axi_periph/s00_couplers/auto_pc'
 Finished Parsing XDC File [c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_auto_pc_0/final_proj_auto_pc_0/final_proj_auto_pc_0_in_context.xdc] for cell 'final_proj_i/ps7_0_axi_periph/s00_couplers/auto_pc'
 Parsing XDC File [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc]
+WARNING: [Vivado 12-584] No ports matched 'AD0N_R'. [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc:249]
+WARNING: [Vivado 12-584] No ports matched 'AD0P_R'. [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc:250]
 WARNING: [Vivado 12-584] No ports matched '[get_ports -of_objects [get_iobanks 33]]'. [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc:362]
 WARNING: [Vivado 12-584] No ports matched '[get_ports -of_objects [get_iobanks 34]]'. [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc:367]
 WARNING: [Vivado 12-584] No ports matched '[get_ports -of_objects [get_iobanks 35]]'. [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc:372]
 WARNING: [Vivado 12-584] No ports matched '[get_ports -of_objects [get_iobanks 13]]'. [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc:375]
 Finished Parsing XDC File [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc]
+WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/final_proj_wrapper_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/constrs_1/new/zedboard.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/final_proj_wrapper_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/final_proj_wrapper_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Parsing XDC File [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/dont_touch.xdc]
 Finished Parsing XDC File [C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1052.992 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1051.969 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1052.992 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1051.969 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1052.992 ; gain = 39.945
+Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1051.969 ; gain = 38.062
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z020clg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1052.992 ; gain = 39.945
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1051.969 ; gain = 38.062
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -404,12 +414,13 @@ Applied set_property DONT_TOUCH = true for final_proj_i/rst_ps7_0_100M. (constra
 Applied set_property DONT_TOUCH = true for final_proj_i/analog_channel_fr_0. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for final_proj_i/xadc_wiz_0. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for final_proj_i/system_ila_0. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for final_proj_i/xlconstant_0. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for final_proj_i/ps7_0_axi_periph/s00_couplers/auto_pc. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1052.992 ; gain = 39.945
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1051.969 ; gain = 38.062
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1052.992 ; gain = 39.945
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1051.969 ; gain = 38.062
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -431,25 +442,25 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1052.992 ; gain = 39.945
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1051.969 ; gain = 38.062
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 1052.992 ; gain = 39.945
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 1053.164 ; gain = 39.258
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 1052.992 ; gain = 39.945
+Finished Timing Optimization : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 1053.238 ; gain = 39.332
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1071.625 ; gain = 58.578
+Finished Technology Mapping : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 1072.742 ; gain = 58.836
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -467,37 +478,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1076.453 ; gain = 63.406
+Finished IO Insertion : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1077.891 ; gain = 63.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1076.453 ; gain = 63.406
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1077.891 ; gain = 63.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1076.453 ; gain = 63.406
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1077.891 ; gain = 63.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1076.453 ; gain = 63.406
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1077.891 ; gain = 63.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1076.453 ; gain = 63.406
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1077.891 ; gain = 63.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1076.453 ; gain = 63.406
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1077.891 ; gain = 63.984
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -537,23 +548,25 @@ Report Cell Usage:
 |12    |OBUF                                   |     8|
 +------+---------------------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1076.453 ; gain = 63.406
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1077.891 ; gain = 63.984
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1076.453 ; gain = 23.461
-Synthesis Optimization Complete : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1076.453 ; gain = 63.406
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 1077.891 ; gain = 25.922
+Synthesis Optimization Complete : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1077.891 ; gain = 63.984
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 1076.453 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1077.891 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1088.875 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1089.098 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-56 Infos, 6 Warnings, 0 Critical Warnings and 0 Errors encountered.
+61 Infos, 9 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1088.875 ; gain = 75.828
+synth_design: Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1089.098 ; gain = 75.191
+INFO: [Common 17-600] The following parameters have non-default value.
+tcl.collectionResultDisplayLimit
 INFO: [Common 17-1381] The checkpoint 'C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/synth_1/final_proj_wrapper.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file final_proj_wrapper_utilization_synth.rpt -pb final_proj_wrapper_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Apr 30 18:31:47 2026...
+INFO: [Common 17-206] Exiting Vivado at Fri May  1 15:31:36 2026...

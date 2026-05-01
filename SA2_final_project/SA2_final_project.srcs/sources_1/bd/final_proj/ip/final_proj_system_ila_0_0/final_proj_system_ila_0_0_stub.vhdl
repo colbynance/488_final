@@ -1,10 +1,10 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Thu Apr 30 18:31:24 2026
+-- Date        : Thu Apr 30 18:31:23 2026
 -- Host        : CO2041-10 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub
---               c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_0/final_proj_system_ila_0_0_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top final_proj_system_ila_0_0 -prefix
+--               final_proj_system_ila_0_0_ final_proj_system_ila_0_0_stub.vhdl
 -- Design      : final_proj_system_ila_0_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z020clg484-1

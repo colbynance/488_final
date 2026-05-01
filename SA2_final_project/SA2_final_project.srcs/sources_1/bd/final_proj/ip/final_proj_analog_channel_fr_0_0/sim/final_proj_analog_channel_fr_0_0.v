@@ -48,7 +48,7 @@
 
 
 // IP VLNV: iastate.edu:user:analog_channel_fr:1.0
-// IP Revision: 4
+// IP Revision: 5
 
 `timescale 1ns/1ps
 

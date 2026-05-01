@@ -1,8 +1,8 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Thu Apr 30 18:30:30 2026
---Host        : CO2041-10 running 64-bit major release  (build 9200)
+--Date        : Fri May  1 15:31:06 2026
+--Host        : CO2041-13 running 64-bit major release  (build 9200)
 --Command     : generate_target final_proj.bd
 --Design      : final_proj
 --Purpose     : IP block netlist
@@ -1586,7 +1586,7 @@ entity final_proj is
     sws_8bits_tri_i : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of final_proj : entity is "final_proj,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=final_proj,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=16,numReposBlks=10,numNonXlnxBlks=1,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=5,da_board_cnt=5,da_clkrst_cnt=1,da_ps7_cnt=1,synth_mode=OOC_per_IP}";
+  attribute CORE_GENERATION_INFO of final_proj : entity is "final_proj,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=final_proj,x_ipVersion=1.00.a,x_ipLanguage=VHDL,numBlks=17,numReposBlks=11,numNonXlnxBlks=1,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=0,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=5,da_board_cnt=5,da_clkrst_cnt=1,da_ps7_cnt=1,synth_mode=OOC_per_IP}";
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of final_proj : entity is "final_proj.hwdef";
 end final_proj;
@@ -1750,6 +1750,39 @@ architecture STRUCTURE of final_proj is
     peripheral_aresetn : out STD_LOGIC_VECTOR ( 0 to 0 )
   );
   end component final_proj_rst_ps7_0_100M_0;
+  component final_proj_xadc_wiz_0_1 is
+  port (
+    di_in : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    daddr_in : in STD_LOGIC_VECTOR ( 6 downto 0 );
+    den_in : in STD_LOGIC;
+    dwe_in : in STD_LOGIC;
+    drdy_out : out STD_LOGIC;
+    do_out : out STD_LOGIC_VECTOR ( 15 downto 0 );
+    dclk_in : in STD_LOGIC;
+    reset_in : in STD_LOGIC;
+    vp_in : in STD_LOGIC;
+    vn_in : in STD_LOGIC;
+    channel_out : out STD_LOGIC_VECTOR ( 4 downto 0 );
+    eoc_out : out STD_LOGIC;
+    alarm_out : out STD_LOGIC;
+    eos_out : out STD_LOGIC;
+    busy_out : out STD_LOGIC
+  );
+  end component final_proj_xadc_wiz_0_1;
+  component final_proj_system_ila_0_0 is
+  port (
+    clk : in STD_LOGIC;
+    probe0 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe1 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe2 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe3 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe4 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe5 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe8 : in STD_LOGIC_VECTOR ( 15 downto 0 )
+  );
+  end component final_proj_system_ila_0_0;
   component final_proj_analog_channel_fr_0_0 is
   port (
     xadc_di_o : out STD_LOGIC_VECTOR ( 15 downto 0 );
@@ -1787,57 +1820,18 @@ architecture STRUCTURE of final_proj is
     s00_axi_rready : in STD_LOGIC
   );
   end component final_proj_analog_channel_fr_0_0;
-  component final_proj_xadc_wiz_0_1 is
+  component final_proj_xlconstant_0_0 is
   port (
-    di_in : in STD_LOGIC_VECTOR ( 15 downto 0 );
-    daddr_in : in STD_LOGIC_VECTOR ( 6 downto 0 );
-    den_in : in STD_LOGIC;
-    dwe_in : in STD_LOGIC;
-    drdy_out : out STD_LOGIC;
-    do_out : out STD_LOGIC_VECTOR ( 15 downto 0 );
-    dclk_in : in STD_LOGIC;
-    reset_in : in STD_LOGIC;
-    vp_in : in STD_LOGIC;
-    vn_in : in STD_LOGIC;
-    user_temp_alarm_out : out STD_LOGIC;
-    vccint_alarm_out : out STD_LOGIC;
-    vccaux_alarm_out : out STD_LOGIC;
-    vccpint_alarm_out : out STD_LOGIC;
-    vccpaux_alarm_out : out STD_LOGIC;
-    vccddro_alarm_out : out STD_LOGIC;
-    ot_out : out STD_LOGIC;
-    channel_out : out STD_LOGIC_VECTOR ( 4 downto 0 );
-    eoc_out : out STD_LOGIC;
-    alarm_out : out STD_LOGIC;
-    eos_out : out STD_LOGIC;
-    busy_out : out STD_LOGIC
+    dout : out STD_LOGIC_VECTOR ( 6 downto 0 )
   );
-  end component final_proj_xadc_wiz_0_1;
-  component final_proj_system_ila_0_0 is
-  port (
-    clk : in STD_LOGIC;
-    probe0 : in STD_LOGIC_VECTOR ( 0 to 0 );
-    probe1 : in STD_LOGIC_VECTOR ( 0 to 0 );
-    probe2 : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    probe3 : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    probe4 : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    probe5 : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
-    probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
-    probe8 : in STD_LOGIC_VECTOR ( 15 downto 0 )
-  );
-  end component final_proj_system_ila_0_0;
-  signal analog_channel_fr_0_xadc_addr_o : STD_LOGIC_VECTOR ( 6 downto 0 );
-  signal analog_channel_fr_0_xadc_den_o : STD_LOGIC;
-  attribute DEBUG : string;
-  attribute DEBUG of analog_channel_fr_0_xadc_den_o : signal is "true";
-  attribute MARK_DEBUG : boolean;
-  attribute MARK_DEBUG of analog_channel_fr_0_xadc_den_o : signal is std.standard.true;
+  end component final_proj_xlconstant_0_0;
   signal axi_gpio_0_GPIO_TRI_I : STD_LOGIC_VECTOR ( 4 downto 0 );
   signal axi_gpio_1_GPIO_TRI_I : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal axi_gpio_2_GPIO_TRI_O : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal buf_addr_o : STD_LOGIC_VECTOR ( 31 downto 0 );
+  attribute DEBUG : string;
   attribute DEBUG of buf_addr_o : signal is "true";
+  attribute MARK_DEBUG : boolean;
   attribute MARK_DEBUG of buf_addr_o : signal is std.standard.true;
   signal buf_di_o : STD_LOGIC_VECTOR ( 31 downto 0 );
   attribute DEBUG of buf_di_o : signal is "true";
@@ -1848,6 +1842,9 @@ architecture STRUCTURE of final_proj is
   signal buf_we_o : STD_LOGIC_VECTOR ( 31 downto 0 );
   attribute DEBUG of buf_we_o : signal is "true";
   attribute MARK_DEBUG of buf_we_o : signal is std.standard.true;
+  signal eoc_out : STD_LOGIC;
+  attribute DEBUG of eoc_out : signal is "true";
+  attribute MARK_DEBUG of eoc_out : signal is std.standard.true;
   signal processing_system7_0_DDR_ADDR : STD_LOGIC_VECTOR ( 14 downto 0 );
   signal processing_system7_0_DDR_BA : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal processing_system7_0_DDR_CAS_N : STD_LOGIC;
@@ -1994,7 +1991,10 @@ architecture STRUCTURE of final_proj is
   signal xadc_wiz_0_drdy_out : STD_LOGIC;
   attribute DEBUG of xadc_wiz_0_drdy_out : signal is "true";
   attribute MARK_DEBUG of xadc_wiz_0_drdy_out : signal is std.standard.true;
+  signal xlconstant_0_dout : STD_LOGIC_VECTOR ( 6 downto 0 );
+  signal NLW_analog_channel_fr_0_xadc_den_o_UNCONNECTED : STD_LOGIC;
   signal NLW_analog_channel_fr_0_xadc_dwe_o_UNCONNECTED : STD_LOGIC;
+  signal NLW_analog_channel_fr_0_xadc_addr_o_UNCONNECTED : STD_LOGIC_VECTOR ( 6 downto 0 );
   signal NLW_analog_channel_fr_0_xadc_di_o_UNCONNECTED : STD_LOGIC_VECTOR ( 15 downto 0 );
   signal NLW_processing_system7_0_TTC0_WAVE0_OUT_UNCONNECTED : STD_LOGIC;
   signal NLW_processing_system7_0_TTC0_WAVE1_OUT_UNCONNECTED : STD_LOGIC;
@@ -2007,15 +2007,7 @@ architecture STRUCTURE of final_proj is
   signal NLW_rst_ps7_0_100M_peripheral_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_xadc_wiz_0_alarm_out_UNCONNECTED : STD_LOGIC;
   signal NLW_xadc_wiz_0_busy_out_UNCONNECTED : STD_LOGIC;
-  signal NLW_xadc_wiz_0_eoc_out_UNCONNECTED : STD_LOGIC;
   signal NLW_xadc_wiz_0_eos_out_UNCONNECTED : STD_LOGIC;
-  signal NLW_xadc_wiz_0_ot_out_UNCONNECTED : STD_LOGIC;
-  signal NLW_xadc_wiz_0_user_temp_alarm_out_UNCONNECTED : STD_LOGIC;
-  signal NLW_xadc_wiz_0_vccaux_alarm_out_UNCONNECTED : STD_LOGIC;
-  signal NLW_xadc_wiz_0_vccddro_alarm_out_UNCONNECTED : STD_LOGIC;
-  signal NLW_xadc_wiz_0_vccint_alarm_out_UNCONNECTED : STD_LOGIC;
-  signal NLW_xadc_wiz_0_vccpaux_alarm_out_UNCONNECTED : STD_LOGIC;
-  signal NLW_xadc_wiz_0_vccpint_alarm_out_UNCONNECTED : STD_LOGIC;
   signal NLW_xadc_wiz_0_channel_out_UNCONNECTED : STD_LOGIC_VECTOR ( 4 downto 0 );
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of DDR_cas_n : signal is "xilinx.com:interface:ddrx:1.0 DDR CAS_N";
@@ -2080,8 +2072,8 @@ analog_channel_fr_0: component final_proj_analog_channel_fr_0_0
       s00_axi_wvalid => ps7_0_axi_periph_M03_AXI_WVALID,
       sample_done_o => sample_done_o,
       trigd_o => trigd_o,
-      xadc_addr_o(6 downto 0) => analog_channel_fr_0_xadc_addr_o(6 downto 0),
-      xadc_den_o => analog_channel_fr_0_xadc_den_o,
+      xadc_addr_o(6 downto 0) => NLW_analog_channel_fr_0_xadc_addr_o_UNCONNECTED(6 downto 0),
+      xadc_den_o => NLW_analog_channel_fr_0_xadc_den_o_UNCONNECTED,
       xadc_di_o(15 downto 0) => NLW_analog_channel_fr_0_xadc_di_o_UNCONNECTED(15 downto 0),
       xadc_do_i(15 downto 0) => xadc_wiz_0_do_out(15 downto 0),
       xadc_drdy_i => xadc_wiz_0_drdy_out,
@@ -2367,7 +2359,7 @@ system_ila_0: component final_proj_system_ila_0_0
      port map (
       clk => processing_system7_0_FCLK_CLK0,
       probe0(0) => xadc_wiz_0_drdy_out,
-      probe1(0) => analog_channel_fr_0_xadc_den_o,
+      probe1(0) => eoc_out,
       probe2(31 downto 0) => buf_addr_o(31 downto 0),
       probe3(31 downto 0) => buf_di_o(31 downto 0),
       probe4(31 downto 0) => buf_do_o(31 downto 0),
@@ -2381,24 +2373,21 @@ xadc_wiz_0: component final_proj_xadc_wiz_0_1
       alarm_out => NLW_xadc_wiz_0_alarm_out_UNCONNECTED,
       busy_out => NLW_xadc_wiz_0_busy_out_UNCONNECTED,
       channel_out(4 downto 0) => NLW_xadc_wiz_0_channel_out_UNCONNECTED(4 downto 0),
-      daddr_in(6 downto 0) => analog_channel_fr_0_xadc_addr_o(6 downto 0),
+      daddr_in(6 downto 0) => xlconstant_0_dout(6 downto 0),
       dclk_in => processing_system7_0_FCLK_CLK0,
-      den_in => analog_channel_fr_0_xadc_den_o,
+      den_in => eoc_out,
       di_in(15 downto 0) => B"0000000000000000",
       do_out(15 downto 0) => xadc_wiz_0_do_out(15 downto 0),
       drdy_out => xadc_wiz_0_drdy_out,
       dwe_in => '0',
-      eoc_out => NLW_xadc_wiz_0_eoc_out_UNCONNECTED,
+      eoc_out => eoc_out,
       eos_out => NLW_xadc_wiz_0_eos_out_UNCONNECTED,
-      ot_out => NLW_xadc_wiz_0_ot_out_UNCONNECTED,
       reset_in => '0',
-      user_temp_alarm_out => NLW_xadc_wiz_0_user_temp_alarm_out_UNCONNECTED,
-      vccaux_alarm_out => NLW_xadc_wiz_0_vccaux_alarm_out_UNCONNECTED,
-      vccddro_alarm_out => NLW_xadc_wiz_0_vccddro_alarm_out_UNCONNECTED,
-      vccint_alarm_out => NLW_xadc_wiz_0_vccint_alarm_out_UNCONNECTED,
-      vccpaux_alarm_out => NLW_xadc_wiz_0_vccpaux_alarm_out_UNCONNECTED,
-      vccpint_alarm_out => NLW_xadc_wiz_0_vccpint_alarm_out_UNCONNECTED,
       vn_in => sig1_n_1,
       vp_in => sig1_p_1
+    );
+xlconstant_0: component final_proj_xlconstant_0_0
+     port map (
+      dout(6 downto 0) => xlconstant_0_dout(6 downto 0)
     );
 end STRUCTURE;

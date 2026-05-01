@@ -76,17 +76,11 @@ xadc_iface xadc (
     .clk_i(clk_i),
     .nrst_i(nrst_i),
 
-    .xadc_di_o(xadc_di_o),
     .xadc_do_i(xadc_do_i),
-    .xadc_addr_o(xadc_addr_o),
-    .xadc_den_o(xadc_den_o),
-    .xadc_dwe_o(xadc_dwe_o),
-    .xadc_drdy_i(xadc_drdy_i),
+    .xadc_eoc_i(xadc_drdy_i),
     
     .val_o(xadc_val),
-    .val_valid_o(xadc_val_valid),
-    
-    .enable_i(enable_i)
+    .val_valid_o(xadc_val_valid)
 );
 
 analog_downsample downsamp (

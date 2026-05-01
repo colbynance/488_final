@@ -48,7 +48,7 @@
 
 
 // IP VLNV: iastate.edu:user:analog_channel_fr:1.0
-// IP Revision: 4
+// IP Revision: 5
 
 (* X_CORE_INFO = "analog_channel_real_v1_0,Vivado 2020.1" *)
 (* CHECK_LICENSE_TYPE = "final_proj_analog_channel_fr_0_0,analog_channel_real_v1_0,{}" *)

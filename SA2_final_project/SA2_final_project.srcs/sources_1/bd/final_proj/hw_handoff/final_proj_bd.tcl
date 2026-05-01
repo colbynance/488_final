@@ -625,12 +625,26 @@ proc create_root_design { parentCell } {
    CONFIG.ENABLE_EXTERNAL_MUX {false} \
    CONFIG.ENABLE_JTAG_ARBITER {false} \
    CONFIG.ENABLE_RESET {true} \
+   CONFIG.ENABLE_VCCDDRO_ALARM {false} \
+   CONFIG.ENABLE_VCCPAUX_ALARM {false} \
+   CONFIG.ENABLE_VCCPINT_ALARM {false} \
    CONFIG.EXTERNAL_MUX_CHANNEL {VP_VN} \
    CONFIG.INTERFACE_SELECTION {ENABLE_DRP} \
+   CONFIG.OT_ALARM {false} \
    CONFIG.SEQUENCER_MODE {Off} \
    CONFIG.SINGLE_CHANNEL_SELECTION {VP_VN} \
+   CONFIG.USER_TEMP_ALARM {false} \
+   CONFIG.VCCAUX_ALARM {false} \
+   CONFIG.VCCINT_ALARM {false} \
    CONFIG.XADC_STARUP_SELECTION {single_channel} \
  ] $xadc_wiz_0
+
+  # Create instance: xlconstant_0, and set properties
+  set xlconstant_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0 ]
+  set_property -dict [ list \
+   CONFIG.CONST_VAL {3} \
+   CONFIG.CONST_WIDTH {7} \
+ ] $xlconstant_0
 
   # Create interface connections
   connect_bd_intf_net -intf_net axi_gpio_0_GPIO [get_bd_intf_ports btns_5bits] [get_bd_intf_pins axi_gpio_0/GPIO]
@@ -645,9 +659,6 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M03_AXI [get_bd_intf_pins analog_channel_fr_0/S00_AXI] [get_bd_intf_pins ps7_0_axi_periph/M03_AXI]
 
   # Create port connections
-  connect_bd_net -net analog_channel_fr_0_xadc_addr_o [get_bd_pins analog_channel_fr_0/xadc_addr_o] [get_bd_pins xadc_wiz_0/daddr_in]
-  connect_bd_net -net analog_channel_fr_0_xadc_den_o [get_bd_pins analog_channel_fr_0/xadc_den_o] [get_bd_pins system_ila_0/probe1] [get_bd_pins xadc_wiz_0/den_in]
-  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets analog_channel_fr_0_xadc_den_o]
   connect_bd_net -net buf_addr_o [get_bd_pins analog_channel_fr_0/buf_addr_o] [get_bd_pins system_ila_0/probe2]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets buf_addr_o]
   connect_bd_net -net buf_di_o [get_bd_pins analog_channel_fr_0/buf_di_o] [get_bd_pins system_ila_0/probe3]
@@ -656,6 +667,8 @@ proc create_root_design { parentCell } {
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets buf_do_o]
   connect_bd_net -net buf_we_o [get_bd_pins analog_channel_fr_0/buf_we_o] [get_bd_pins system_ila_0/probe5]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets buf_we_o]
+  connect_bd_net -net eoc_out [get_bd_pins system_ila_0/probe1] [get_bd_pins xadc_wiz_0/den_in] [get_bd_pins xadc_wiz_0/eoc_out]
+  set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets eoc_out]
   connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins analog_channel_fr_0/s00_axi_aclk] [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins axi_gpio_1/s_axi_aclk] [get_bd_pins axi_gpio_2/s_axi_aclk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/M01_ACLK] [get_bd_pins ps7_0_axi_periph/M02_ACLK] [get_bd_pins ps7_0_axi_periph/M03_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps7_0_100M/slowest_sync_clk] [get_bd_pins system_ila_0/clk] [get_bd_pins xadc_wiz_0/dclk_in]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_ps7_0_100M/ext_reset_in]
   connect_bd_net -net rst_ps7_0_100M_peripheral_aresetn [get_bd_pins analog_channel_fr_0/s00_axi_aresetn] [get_bd_pins axi_gpio_0/s_axi_aresetn] [get_bd_pins axi_gpio_1/s_axi_aresetn] [get_bd_pins axi_gpio_2/s_axi_aresetn] [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/M01_ARESETN] [get_bd_pins ps7_0_axi_periph/M02_ARESETN] [get_bd_pins ps7_0_axi_periph/M03_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps7_0_100M/peripheral_aresetn]
@@ -669,6 +682,7 @@ proc create_root_design { parentCell } {
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets xadc_wiz_0_do_out]
   connect_bd_net -net xadc_wiz_0_drdy_out [get_bd_pins analog_channel_fr_0/xadc_drdy_i] [get_bd_pins system_ila_0/probe0] [get_bd_pins xadc_wiz_0/drdy_out]
   set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets xadc_wiz_0_drdy_out]
+  connect_bd_net -net xlconstant_0_dout [get_bd_pins xadc_wiz_0/daddr_in] [get_bd_pins xlconstant_0/dout]
 
   # Create address segments
   assign_bd_address -offset 0x43C00000 -range 0x00010000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs analog_channel_fr_0/S00_AXI/S00_AXI_reg] -force

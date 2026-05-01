@@ -8,6 +8,10 @@ set_property src_info {type:XDC file:2 line:87 export:INPUT save:INPUT read:READ
 set_property PACKAGE_PIN Y11  [get_ports {sig1_p}];  # "JA1"
 set_property src_info {type:XDC file:2 line:89 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN AA11 [get_ports {sig1_n}];  # "JA2"
+set_property src_info {type:XDC file:2 line:249 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN E16 [get_ports {AD0N_R}];  # "XADC-AD0N-R"
+set_property src_info {type:XDC file:2 line:250 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN F16 [get_ports {AD0P_R}];  # "XADC-AD0P-R"
 set_property src_info {type:XDC file:2 line:362 export:INPUT save:INPUT read:READ} [current_design]
 set_property IOSTANDARD LVCMOS33 [get_ports -of_objects [get_iobanks 33]];
 set_property src_info {type:XDC file:2 line:367 export:INPUT save:INPUT read:READ} [current_design]

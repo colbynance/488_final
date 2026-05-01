@@ -25,9 +25,10 @@
         "m03_couplers": {}
       },
       "rst_ps7_0_100M": "",
-      "analog_channel_fr_0": "",
       "xadc_wiz_0": "",
-      "system_ila_0": ""
+      "system_ila_0": "",
+      "analog_channel_fr_0": "",
+      "xlconstant_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -1186,16 +1187,16 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_pc": {
-                "interface_ports": [
-                  "S_AXI",
-                  "auto_pc/S_AXI"
-                ]
-              },
               "auto_pc_to_s00_couplers": {
                 "interface_ports": [
                   "M_AXI",
                   "auto_pc/M_AXI"
+                ]
+              },
+              "s00_couplers_to_auto_pc": {
+                "interface_ports": [
+                  "S_AXI",
+                  "auto_pc/S_AXI"
                 ]
               }
             },
@@ -1432,24 +1433,6 @@
           }
         },
         "interface_nets": {
-          "m00_couplers_to_ps7_0_axi_periph": {
-            "interface_ports": [
-              "M00_AXI",
-              "m00_couplers/M_AXI"
-            ]
-          },
-          "s00_couplers_to_xbar": {
-            "interface_ports": [
-              "s00_couplers/M_AXI",
-              "xbar/S00_AXI"
-            ]
-          },
-          "ps7_0_axi_periph_to_s00_couplers": {
-            "interface_ports": [
-              "S00_AXI",
-              "s00_couplers/S_AXI"
-            ]
-          },
           "xbar_to_m00_couplers": {
             "interface_ports": [
               "xbar/M00_AXI",
@@ -1490,6 +1473,24 @@
             "interface_ports": [
               "xbar/M02_AXI",
               "m02_couplers/S_AXI"
+            ]
+          },
+          "m00_couplers_to_ps7_0_axi_periph": {
+            "interface_ports": [
+              "M00_AXI",
+              "m00_couplers/M_AXI"
+            ]
+          },
+          "s00_couplers_to_xbar": {
+            "interface_ports": [
+              "s00_couplers/M_AXI",
+              "xbar/S00_AXI"
+            ]
+          },
+          "ps7_0_axi_periph_to_s00_couplers": {
+            "interface_ports": [
+              "S00_AXI",
+              "s00_couplers/S_AXI"
             ]
           }
         },
@@ -1532,10 +1533,6 @@
         "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
         "xci_name": "final_proj_rst_ps7_0_100M_0"
       },
-      "analog_channel_fr_0": {
-        "vlnv": "iastate.edu:user:analog_channel_fr:1.0",
-        "xci_name": "final_proj_analog_channel_fr_0_0"
-      },
       "xadc_wiz_0": {
         "vlnv": "xilinx.com:ip:xadc_wiz:3.3",
         "xci_name": "final_proj_xadc_wiz_0_1",
@@ -1549,17 +1546,38 @@
           "ENABLE_RESET": {
             "value": "true"
           },
+          "ENABLE_VCCDDRO_ALARM": {
+            "value": "false"
+          },
+          "ENABLE_VCCPAUX_ALARM": {
+            "value": "false"
+          },
+          "ENABLE_VCCPINT_ALARM": {
+            "value": "false"
+          },
           "EXTERNAL_MUX_CHANNEL": {
             "value": "VP_VN"
           },
           "INTERFACE_SELECTION": {
             "value": "ENABLE_DRP"
           },
+          "OT_ALARM": {
+            "value": "false"
+          },
           "SEQUENCER_MODE": {
             "value": "Off"
           },
           "SINGLE_CHANNEL_SELECTION": {
             "value": "VP_VN"
+          },
+          "USER_TEMP_ALARM": {
+            "value": "false"
+          },
+          "VCCAUX_ALARM": {
+            "value": "false"
+          },
+          "VCCINT_ALARM": {
+            "value": "false"
           },
           "XADC_STARUP_SELECTION": {
             "value": "single_channel"
@@ -1604,43 +1622,29 @@
             "value": "0"
           }
         }
+      },
+      "analog_channel_fr_0": {
+        "vlnv": "iastate.edu:user:analog_channel_fr:1.0",
+        "xci_name": "final_proj_analog_channel_fr_0_0"
+      },
+      "xlconstant_0": {
+        "vlnv": "xilinx.com:ip:xlconstant:1.1",
+        "xci_name": "final_proj_xlconstant_0_0",
+        "parameters": {
+          "CONST_VAL": {
+            "value": "3"
+          },
+          "CONST_WIDTH": {
+            "value": "7"
+          }
+        }
       }
     },
     "interface_nets": {
-      "ps7_0_axi_periph_M03_AXI": {
-        "interface_ports": [
-          "ps7_0_axi_periph/M03_AXI",
-          "analog_channel_fr_0/S00_AXI"
-        ]
-      },
-      "processing_system7_0_FIXED_IO": {
-        "interface_ports": [
-          "FIXED_IO",
-          "processing_system7_0/FIXED_IO"
-        ]
-      },
       "ps7_0_axi_periph_M00_AXI": {
         "interface_ports": [
           "ps7_0_axi_periph/M00_AXI",
           "axi_gpio_0/S_AXI"
-        ]
-      },
-      "axi_gpio_2_GPIO": {
-        "interface_ports": [
-          "leds_8bits",
-          "axi_gpio_2/GPIO"
-        ]
-      },
-      "axi_gpio_0_GPIO": {
-        "interface_ports": [
-          "btns_5bits",
-          "axi_gpio_0/GPIO"
-        ]
-      },
-      "processing_system7_0_DDR": {
-        "interface_ports": [
-          "DDR",
-          "processing_system7_0/DDR"
         ]
       },
       "ps7_0_axi_periph_M02_AXI": {
@@ -1653,6 +1657,36 @@
         "interface_ports": [
           "processing_system7_0/M_AXI_GP0",
           "ps7_0_axi_periph/S00_AXI"
+        ]
+      },
+      "ps7_0_axi_periph_M03_AXI": {
+        "interface_ports": [
+          "ps7_0_axi_periph/M03_AXI",
+          "analog_channel_fr_0/S00_AXI"
+        ]
+      },
+      "processing_system7_0_FIXED_IO": {
+        "interface_ports": [
+          "FIXED_IO",
+          "processing_system7_0/FIXED_IO"
+        ]
+      },
+      "axi_gpio_2_GPIO": {
+        "interface_ports": [
+          "leds_8bits",
+          "axi_gpio_2/GPIO"
+        ]
+      },
+      "processing_system7_0_DDR": {
+        "interface_ports": [
+          "DDR",
+          "processing_system7_0/DDR"
+        ]
+      },
+      "axi_gpio_0_GPIO": {
+        "interface_ports": [
+          "btns_5bits",
+          "axi_gpio_0/GPIO"
         ]
       },
       "axi_gpio_1_GPIO": {
@@ -1683,9 +1717,9 @@
           "axi_gpio_2/s_axi_aclk",
           "ps7_0_axi_periph/M02_ACLK",
           "ps7_0_axi_periph/M03_ACLK",
-          "analog_channel_fr_0/s00_axi_aclk",
           "xadc_wiz_0/dclk_in",
-          "system_ila_0/clk"
+          "system_ila_0/clk",
+          "analog_channel_fr_0/s00_axi_aclk"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -1724,8 +1758,8 @@
       "xadc_wiz_0_drdy_out": {
         "ports": [
           "xadc_wiz_0/drdy_out",
-          "analog_channel_fr_0/xadc_drdy_i",
-          "system_ila_0/probe0"
+          "system_ila_0/probe0",
+          "analog_channel_fr_0/xadc_drdy_i"
         ],
         "hdl_attributes": {
           "DEBUG": {
@@ -1735,33 +1769,12 @@
             "value": "true"
           }
         }
-      },
-      "analog_channel_fr_0_xadc_addr_o": {
-        "ports": [
-          "analog_channel_fr_0/xadc_addr_o",
-          "xadc_wiz_0/daddr_in"
-        ]
       },
       "xadc_wiz_0_do_out": {
         "ports": [
           "xadc_wiz_0/do_out",
-          "analog_channel_fr_0/xadc_do_i",
-          "system_ila_0/probe8"
-        ],
-        "hdl_attributes": {
-          "DEBUG": {
-            "value": "true"
-          },
-          "MARK_DEBUG": {
-            "value": "true"
-          }
-        }
-      },
-      "analog_channel_fr_0_xadc_den_o": {
-        "ports": [
-          "analog_channel_fr_0/xadc_den_o",
-          "xadc_wiz_0/den_in",
-          "system_ila_0/probe1"
+          "system_ila_0/probe8",
+          "analog_channel_fr_0/xadc_do_i"
         ],
         "hdl_attributes": {
           "DEBUG": {
@@ -1855,6 +1868,27 @@
             "value": "true"
           }
         }
+      },
+      "eoc_out": {
+        "ports": [
+          "xadc_wiz_0/eoc_out",
+          "system_ila_0/probe1",
+          "xadc_wiz_0/den_in"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      },
+      "xlconstant_0_dout": {
+        "ports": [
+          "xlconstant_0/dout",
+          "xadc_wiz_0/daddr_in"
+        ]
       }
     },
     "addressing": {

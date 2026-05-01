@@ -1,8 +1,8 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-// Date        : Thu Apr 30 18:30:57 2026
-// Host        : CO2041-10 running 64-bit major release  (build 9200)
+// Date        : Fri May  1 15:06:06 2026
+// Host        : CO2041-13 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
 //               c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_analog_channel_fr_0_0/final_proj_analog_channel_fr_0_0_stub.v
 // Design      : final_proj_analog_channel_fr_0_0

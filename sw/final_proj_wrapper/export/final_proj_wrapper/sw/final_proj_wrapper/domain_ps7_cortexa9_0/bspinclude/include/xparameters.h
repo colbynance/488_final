@@ -218,6 +218,11 @@
 #define XPAR_PS7_SLCR_0_S_AXI_HIGHADDR 0xF8000FFF
 
 
+/* Definitions for peripheral ANALOG_CHANNEL_FR_0 */
+#define XPAR_ANALOG_CHANNEL_FR_0_S00_AXI_BASEADDR 0x43C00000
+#define XPAR_ANALOG_CHANNEL_FR_0_S00_AXI_HIGHADDR 0x43C0FFFF
+
+
 /******************************************************************/
 
 /* Definitions for driver GPIO */
