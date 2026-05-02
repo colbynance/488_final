@@ -3,8 +3,8 @@
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
 -- Date        : Fri May  1 14:39:37 2026
 -- Host        : CO2041-13 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xadc_wiz_0_1/final_proj_xadc_wiz_0_1_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top final_proj_xadc_wiz_0_1 -prefix
+--               final_proj_xadc_wiz_0_1_ final_proj_xadc_wiz_0_1_sim_netlist.vhdl
 -- Design      : final_proj_xadc_wiz_0_1
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.

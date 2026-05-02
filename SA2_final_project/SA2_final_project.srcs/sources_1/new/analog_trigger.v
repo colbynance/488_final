@@ -68,7 +68,7 @@ always @(posedge clk_i, negedge nrst_i) begin
             `TRIG_TYPE_NONE:    trig_o <= 1;
             `TRIG_TYPE_RISING:  trig_o <= trig_o || (last_val < trig_data_i && val_i >= trig_data_i);
             `TRIG_TYPE_FALLING: trig_o <= trig_o || (last_val > trig_data_i && val_i <= trig_data_i);
-            default:            trig_o <= 0;
+            default:            trig_o <= 1;
             endcase
             
             if(valid_counter < 30) begin

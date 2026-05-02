@@ -114,6 +114,7 @@ proc step_failed { step } {
   close $ch
 }
 
+set_msg_config -id {HDL-1065} -limit 10000
 
 OPTRACE "Implementation" START { ROLLUP_1 }
 OPTRACE "Phase: Init Design" START { ROLLUP_AUTO }
@@ -134,6 +135,8 @@ OPTRACE "set parameters" START { }
   set_property webtalk.parent_dir C:/Temp/sa2-final/SA2_final_project/SA2_final_project.cache/wt [current_project]
   set_property parent.project_path C:/Temp/sa2-final/SA2_final_project/SA2_final_project.xpr [current_project]
   set_property ip_repo_paths {
+  C:/Temp/sa2-final/ip_repo/the_analog_channel_1.0
+  C:/Temp/sa2-final/ip_repo/analog_channel_final_1.0
   C:/Temp/sa2-final/ip_repo/analog_channel_fr_1.0
   C:/Temp/sa2-final/ip_repo/analog_channel_la_1.0
   C:/Temp/sa2-final/digital_channel/digital_channel_1.0

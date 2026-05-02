@@ -610,6 +610,38 @@
                                         ]
                                     }
                                 ]
+                            },
+                            {
+                                "name": "probe9",
+                                "id": 9,
+                                "type": "DATA_TRIGGER",
+                                "direction": "IN",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 9,
+                                "nets": [
+                                    {
+                                        "name": "final_proj_i/system_ila_0/U0/probe9_1",
+                                        "isBus": false
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe10",
+                                "id": 10,
+                                "type": "DATA_TRIGGER",
+                                "direction": "IN",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 10,
+                                "nets": [
+                                    {
+                                        "name": "final_proj_i/system_ila_0/U0/probe10_1",
+                                        "isBus": false
+                                    }
+                                ]
                             }
                         ],
                         "native_ports": [
@@ -623,6 +655,22 @@
                                         "physical_pin": {
                                             "id": 0,
                                             "name": "probe0",
+                                            "leftBit": 0,
+                                            "width": 1
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe10",
+                                "connectedBus": "xadc_drdy_o",
+                                "protocol": "PROBE",
+                                "port_maps": [
+                                    {
+                                        "logical_port": "probe10",
+                                        "physical_pin": {
+                                            "id": 10,
+                                            "name": "probe10",
                                             "leftBit": 0,
                                             "width": 1
                                         }
@@ -711,6 +759,8 @@
                             },
                             {
                                 "name": "probe6",
+                                "connectedBus": "downsampl_new_o",
+                                "protocol": "PROBE",
                                 "port_maps": [
                                     {
                                         "logical_port": "probe6",
@@ -749,6 +799,20 @@
                                             "name": "probe8",
                                             "leftBit": 0,
                                             "width": 16
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe9",
+                                "port_maps": [
+                                    {
+                                        "logical_port": "probe9",
+                                        "physical_pin": {
+                                            "id": 9,
+                                            "name": "probe9",
+                                            "leftBit": 0,
+                                            "width": 1
                                         }
                                     }
                                 ]

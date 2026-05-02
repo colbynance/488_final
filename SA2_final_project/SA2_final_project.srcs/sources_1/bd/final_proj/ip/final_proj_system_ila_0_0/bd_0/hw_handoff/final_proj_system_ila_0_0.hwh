@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri May  1 15:31:06 2026" VIVADOVERSION="2020.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sat May  2 15:53:26 2026" VIVADOVERSION="2020.1">
 
   <SYSTEMINFO ARCH="zynq" BOARD="em.avnet.com:zed:part0:1.4" DEVICE="7z020" NAME="bd_e85c" PACKAGE="clg484" SPEEDGRADE="-1"/>
 
@@ -54,6 +54,16 @@
         <CONNECTION INSTANCE="ila_lib" PORT="probe8"/>
       </CONNECTIONS>
     </PORT>
+    <PORT DIR="I" LEFT="0" NAME="probe9" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_probe9">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="ila_lib" PORT="probe9"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" LEFT="0" NAME="probe10" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_probe10">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="ila_lib" PORT="probe10"/>
+      </CONNECTIONS>
+    </PORT>
   </EXTERNALPORTS>
 
   <EXTERNALINTERFACES/>
@@ -79,7 +89,7 @@
         <PARAMETER NAME="C_SLOT_0_AXI_PROTOCOL" VALUE="AXI4"/>
         <PARAMETER NAME="C_NUM_MONITOR_SLOTS" VALUE="1"/>
         <PARAMETER NAME="C_ENABLE_ILA_AXI_MON" VALUE="0"/>
-        <PARAMETER NAME="C_NUM_OF_PROBES" VALUE="9"/>
+        <PARAMETER NAME="C_NUM_OF_PROBES" VALUE="11"/>
         <PARAMETER NAME="C_DATA_DEPTH" VALUE="1024"/>
         <PARAMETER NAME="C_MAJOR_VERSION" VALUE="2020"/>
         <PARAMETER NAME="C_MINOR_VERSION" VALUE="1"/>
@@ -3247,6 +3257,16 @@
         <PORT DIR="I" LEFT="15" NAME="probe8" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_probe8">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="probe8"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="probe9" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_probe9">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="probe9"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="probe10" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_probe10">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="probe10"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>

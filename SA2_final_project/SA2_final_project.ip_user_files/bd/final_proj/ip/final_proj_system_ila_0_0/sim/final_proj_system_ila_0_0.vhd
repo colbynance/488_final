@@ -64,7 +64,9 @@ ENTITY final_proj_system_ila_0_0 IS
     probe5 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     probe6 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe7 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe8 : IN STD_LOGIC_VECTOR(15 DOWNTO 0)
+    probe8 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    probe9 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe10 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
   );
 END final_proj_system_ila_0_0;
 
@@ -82,7 +84,9 @@ ARCHITECTURE final_proj_system_ila_0_0_arch OF final_proj_system_ila_0_0 IS
       probe5 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       probe6 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       probe7 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-      probe8 : IN STD_LOGIC_VECTOR(15 DOWNTO 0)
+      probe8 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+      probe9 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      probe10 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
     );
   END COMPONENT bd_e85c;
   ATTRIBUTE X_INTERFACE_INFO : STRING;
@@ -101,6 +105,8 @@ BEGIN
       probe5 => probe5,
       probe6 => probe6,
       probe7 => probe7,
-      probe8 => probe8
+      probe8 => probe8,
+      probe9 => probe9,
+      probe10 => probe10
     );
 END final_proj_system_ila_0_0_arch;

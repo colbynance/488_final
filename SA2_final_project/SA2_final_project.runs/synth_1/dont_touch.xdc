@@ -27,9 +27,6 @@ set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_ps7_
 # IP: bd/final_proj/ip/final_proj_rst_ps7_0_100M_0/final_proj_rst_ps7_0_100M_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_rst_ps7_0_100M_0 || ORIG_REF_NAME==final_proj_rst_ps7_0_100M_0} -quiet] -quiet
 
-# IP: bd/final_proj/ip/final_proj_analog_channel_fr_0_0/final_proj_analog_channel_fr_0_0.xci
-set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_analog_channel_fr_0_0 || ORIG_REF_NAME==final_proj_analog_channel_fr_0_0} -quiet] -quiet
-
 # IP: bd/final_proj/ip/final_proj_xadc_wiz_0_1/final_proj_xadc_wiz_0_1.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_xadc_wiz_0_1 || ORIG_REF_NAME==final_proj_xadc_wiz_0_1} -quiet] -quiet
 
@@ -38,6 +35,9 @@ set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_syst
 
 # IP: bd/final_proj/ip/final_proj_xlconstant_0_0/final_proj_xlconstant_0_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_xlconstant_0_0 || ORIG_REF_NAME==final_proj_xlconstant_0_0} -quiet] -quiet
+
+# IP: bd/final_proj/ip/final_proj_analog_channel_fr_0_2/final_proj_analog_channel_fr_0_2.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_analog_channel_fr_0_2 || ORIG_REF_NAME==final_proj_analog_channel_fr_0_2} -quiet] -quiet
 
 # IP: bd/final_proj/ip/final_proj_auto_pc_0/final_proj_auto_pc_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_auto_pc_0 || ORIG_REF_NAME==final_proj_auto_pc_0} -quiet] -quiet

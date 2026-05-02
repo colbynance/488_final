@@ -30,6 +30,7 @@ module analog_channel (
     output wire [6:0]  xadc_addr_o,
     output wire        xadc_den_o,
     output wire        xadc_dwe_o,
+    output wire          xadc_drdy_o,
     input wire        xadc_drdy_i,
 
     input wire [31:0] sample_spacing_i,
@@ -40,6 +41,7 @@ module analog_channel (
 
     output wire trig_trigd_o,
     output wire sample_done_o,
+    output wire downsampl_new_o,
 
     input wire         buf_we_i,
     input wire  [9:0]  buf_addr_i,
@@ -72,23 +74,19 @@ assign buf_di_o = buffer_di;
 assign buf_addr_o = buffer_addr;
 assign buf_we_o = buffer_we;
 
-xadc_iface xadc (
-    .clk_i(clk_i),
-    .nrst_i(nrst_i),
+assign xadc_val_valid = xadc_drdy_i;
+assign xadc_val = xadc_do_i[15:4];
 
-    .xadc_do_i(xadc_do_i),
-    .xadc_eoc_i(xadc_drdy_i),
-    
-    .val_o(xadc_val),
-    .val_valid_o(xadc_val_valid)
-);
+assign xadc_drdy_o = xadc_drdy_i;
+
+assign downsampl_new_o = downsamp_val_valid;
 
 analog_downsample downsamp (
     .clk_i(clk_i),
     .nrst_i(nrst_i),
 
     .val_i(xadc_val),
-    .val_valid_i(xadc_val_valid),
+    .val_valid_i(xadc_drdy_i),
     .val_o(downsamp_val),
     .val_valid_o(downsamp_val_valid),
     

@@ -1,6 +1,6 @@
-15:33:30 **** Incremental Build of project final_proj_wrapper ****
-buildplatform.bat 52440 final_proj_wrapper no_domain_build 
-XSDB Server Channel: tcfchan#14
+15:56:41 **** Incremental Build of project final_proj_wrapper ****
+buildplatform.bat 64931 final_proj_wrapper no_domain_build 
+XSDB Server Channel: tcfchan#35
 
-15:33:31 Build Finished (took 978ms)
+15:56:41 Build Finished (took 876ms)
 

@@ -28,11 +28,11 @@ module analog_buffer (
     input wire we,
     input wire en,
     input wire [9:0] addr,
-    input wire [31:0] di,
-    output reg [31:0] dout
+    input wire [11:0] di,
+    output reg [11:0] dout
 );
 
-reg [31:0] RAM [1023:0];
+reg [11:0] RAM [1023:0];
 
 always @(posedge clk)
 begin

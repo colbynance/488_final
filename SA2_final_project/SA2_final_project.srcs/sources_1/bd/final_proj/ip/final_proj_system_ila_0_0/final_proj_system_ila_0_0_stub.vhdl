@@ -1,8 +1,8 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Thu Apr 30 18:31:23 2026
--- Host        : CO2041-10 running 64-bit major release  (build 9200)
+-- Date        : Sat May  2 14:17:59 2026
+-- Host        : CO2041-13 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub -rename_top final_proj_system_ila_0_0 -prefix
 --               final_proj_system_ila_0_0_ final_proj_system_ila_0_0_stub.vhdl
 -- Design      : final_proj_system_ila_0_0
@@ -23,7 +23,9 @@ entity final_proj_system_ila_0_0 is
     probe5 : in STD_LOGIC_VECTOR ( 31 downto 0 );
     probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
-    probe8 : in STD_LOGIC_VECTOR ( 15 downto 0 )
+    probe8 : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    probe9 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe10 : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
 
 end final_proj_system_ila_0_0;
@@ -32,7 +34,7 @@ architecture stub of final_proj_system_ila_0_0 is
 attribute syn_black_box : boolean;
 attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
-attribute black_box_pad_pin of stub : architecture is "clk,probe0[0:0],probe1[0:0],probe2[31:0],probe3[31:0],probe4[31:0],probe5[31:0],probe6[0:0],probe7[0:0],probe8[15:0]";
+attribute black_box_pad_pin of stub : architecture is "clk,probe0[0:0],probe1[0:0],probe2[31:0],probe3[31:0],probe4[31:0],probe5[31:0],probe6[0:0],probe7[0:0],probe8[15:0],probe9[0:0],probe10[0:0]";
 attribute x_core_info : string;
 attribute x_core_info of stub : architecture is "bd_e85c,Vivado 2020.1";
 begin

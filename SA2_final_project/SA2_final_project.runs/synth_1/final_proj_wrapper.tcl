@@ -73,6 +73,7 @@ OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param tcl.collectionResultDisplayLimit 0
 set_param chipscope.maxJobs 5
 set_param xicom.use_bs_reader 1
+set_msg_config -id {HDL-1065} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z020clg484-1
 
@@ -87,6 +88,8 @@ set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
 set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
 set_property ip_repo_paths {
+  c:/Temp/sa2-final/ip_repo/the_analog_channel_1.0
+  c:/Temp/sa2-final/ip_repo/analog_channel_final_1.0
   c:/Temp/sa2-final/ip_repo/analog_channel_fr_1.0
   c:/Temp/sa2-final/ip_repo/analog_channel_la_1.0
   c:/Temp/sa2-final/digital_channel/digital_channel_1.0
