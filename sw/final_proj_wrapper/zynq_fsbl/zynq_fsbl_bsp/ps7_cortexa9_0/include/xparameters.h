@@ -228,6 +228,11 @@
 #define XPAR_DIGITAL_CHANNEL_LA_1_S00_AXI_HIGHADDR 0x43C1FFFF
 
 
+/* Definitions for peripheral ANALOG_CHANNEL_FR_0 */
+#define XPAR_ANALOG_CHANNEL_FR_0_S00_AXI_BASEADDR 0x43C20000
+#define XPAR_ANALOG_CHANNEL_FR_0_S00_AXI_HIGHADDR 0x43C2FFFF
+
+
 /******************************************************************/
 
 /* Definitions for driver GPIO */

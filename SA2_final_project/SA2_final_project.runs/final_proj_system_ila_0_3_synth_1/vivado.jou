@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Sun May  3 16:06:27 2026
+# Process ID: 6460
+# Current directory: C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/final_proj_system_ila_0_3_synth_1
+# Command line: vivado.exe -log final_proj_system_ila_0_3.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source final_proj_system_ila_0_3.tcl
+# Log file: C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/final_proj_system_ila_0_3_synth_1/final_proj_system_ila_0_3.vds
+# Journal file: C:/Temp/sa2-final/SA2_final_project/SA2_final_project.runs/final_proj_system_ila_0_3_synth_1\vivado.jou
+#-----------------------------------------------------------
+source final_proj_system_ila_0_3.tcl -notrace

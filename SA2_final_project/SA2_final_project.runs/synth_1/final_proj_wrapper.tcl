@@ -70,9 +70,7 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param tcl.collectionResultDisplayLimit 0
-set_param chipscope.maxJobs 5
-set_param xicom.use_bs_reader 1
+set_msg_config -id {HDL-1065} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z020clg484-1
 
@@ -87,6 +85,7 @@ set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
 set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
 set_property ip_repo_paths {
+  c:/Temp/sa2-final/ip_repo/analog_channel_fr_1.0
   c:/Temp/sa2-final/digital_channel/digital_channel_1.0
   c:/Temp/sa2-final/ip_repo
 } [current_project]
@@ -117,6 +116,8 @@ set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_3/bd_0/ip/ip_0/bd_e91c_ila_lib_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_3/bd_0/bd_e91c_ooc.xdc]
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_system_ila_0_3/final_proj_system_ila_0_3_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xadc_wiz_0_0/final_proj_xadc_wiz_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xadc_wiz_0_0/final_proj_xadc_wiz_0_0.xdc]
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_auto_pc_0/final_proj_auto_pc_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/final_proj_ooc.xdc]
 

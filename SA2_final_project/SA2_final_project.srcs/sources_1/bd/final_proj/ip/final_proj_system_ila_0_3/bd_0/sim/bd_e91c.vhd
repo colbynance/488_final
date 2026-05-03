@@ -32,6 +32,13 @@ entity bd_e91c is
     clk : in STD_LOGIC;
     probe0 : in STD_LOGIC_VECTOR ( 31 downto 0 );
     probe1 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe10 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe11 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe12 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe13 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe14 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe15 : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    probe16 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe2 : in STD_LOGIC_VECTOR ( 31 downto 0 );
     probe3 : in STD_LOGIC_VECTOR ( 31 downto 0 );
     probe4 : in STD_LOGIC_VECTOR ( 0 to 0 );
@@ -39,6 +46,7 @@ entity bd_e91c is
     probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe8 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe9 : in STD_LOGIC_VECTOR ( 31 downto 0 );
     resetn : in STD_LOGIC
   );
   attribute CORE_GENERATION_INFO : string;
@@ -60,24 +68,32 @@ architecture STRUCTURE of bd_e91c is
     probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe8 : in STD_LOGIC_VECTOR ( 0 to 0 );
-    probe9 : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    probe10 : in STD_LOGIC_VECTOR ( 4 downto 0 );
-    probe11 : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    probe12 : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    probe13 : in STD_LOGIC_VECTOR ( 4 downto 0 );
-    probe14 : in STD_LOGIC_VECTOR ( 2 downto 0 );
-    probe15 : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    probe16 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    probe9 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe10 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe11 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe12 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe13 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe14 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe15 : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    probe16 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe17 : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    probe18 : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    probe19 : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    probe20 : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    probe21 : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    probe22 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    probe18 : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    probe19 : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    probe20 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    probe21 : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    probe22 : in STD_LOGIC_VECTOR ( 2 downto 0 );
     probe23 : in STD_LOGIC_VECTOR ( 1 downto 0 );
     probe24 : in STD_LOGIC_VECTOR ( 1 downto 0 );
     probe25 : in STD_LOGIC_VECTOR ( 1 downto 0 );
-    probe26 : in STD_LOGIC_VECTOR ( 1 downto 0 )
+    probe26 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe27 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    probe28 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe29 : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    probe30 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    probe31 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    probe32 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    probe33 : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    probe34 : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   end component bd_e91c_ila_lib_0;
   component bd_e91c_g_inst_0 is
@@ -212,6 +228,13 @@ architecture STRUCTURE of bd_e91c is
   signal net_slot_0_axi_wstrb : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal net_slot_0_axi_wvalid : STD_LOGIC;
   signal probe0_1 : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal probe10_1 : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal probe11_1 : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal probe12_1 : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal probe13_1 : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal probe14_1 : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal probe15_1 : STD_LOGIC_VECTOR ( 15 downto 0 );
+  signal probe16_1 : STD_LOGIC_VECTOR ( 0 to 0 );
   signal probe1_1 : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal probe2_1 : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal probe3_1 : STD_LOGIC_VECTOR ( 31 downto 0 );
@@ -220,6 +243,7 @@ architecture STRUCTURE of bd_e91c is
   signal probe6_1 : STD_LOGIC_VECTOR ( 0 to 0 );
   signal probe7_1 : STD_LOGIC_VECTOR ( 0 to 0 );
   signal probe8_1 : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal probe9_1 : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal resetn_1 : STD_LOGIC;
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of SLOT_0_AXI_arready : signal is "xilinx.com:interface:aximm:1.0 SLOT_0_AXI ARREADY";
@@ -269,6 +293,13 @@ begin
   Conn_WVALID <= SLOT_0_AXI_wvalid;
   clk_1 <= clk;
   probe0_1(31 downto 0) <= probe0(31 downto 0);
+  probe10_1(31 downto 0) <= probe10(31 downto 0);
+  probe11_1(31 downto 0) <= probe11(31 downto 0);
+  probe12_1(31 downto 0) <= probe12(31 downto 0);
+  probe13_1(0) <= probe13(0);
+  probe14_1(0) <= probe14(0);
+  probe15_1(15 downto 0) <= probe15(15 downto 0);
+  probe16_1(0) <= probe16(0);
   probe1_1(31 downto 0) <= probe1(31 downto 0);
   probe2_1(31 downto 0) <= probe2(31 downto 0);
   probe3_1(31 downto 0) <= probe3(31 downto 0);
@@ -277,6 +308,7 @@ begin
   probe6_1(0) <= probe6(0);
   probe7_1(0) <= probe7(0);
   probe8_1(0) <= probe8(0);
+  probe9_1(31 downto 0) <= probe9(31 downto 0);
   resetn_1 <= resetn;
 g_inst: component bd_e91c_g_inst_0
      port map (
@@ -330,31 +362,39 @@ ila_lib: component bd_e91c_ila_lib_0
       clk => clk_1,
       probe0(31 downto 0) => probe0_1(31 downto 0),
       probe1(31 downto 0) => probe1_1(31 downto 0),
-      probe10(4 downto 0) => net_slot_0_axi_araddr(4 downto 0),
-      probe11(2 downto 0) => net_slot_0_axi_arprot(2 downto 0),
-      probe12(1 downto 0) => net_slot_0_axi_aw_cnt(1 downto 0),
-      probe13(4 downto 0) => net_slot_0_axi_awaddr(4 downto 0),
-      probe14(2 downto 0) => net_slot_0_axi_awprot(2 downto 0),
-      probe15(1 downto 0) => net_slot_0_axi_b_cnt(1 downto 0),
-      probe16(1 downto 0) => net_slot_0_axi_bresp(1 downto 0),
-      probe17(1 downto 0) => net_slot_0_axi_r_cnt(1 downto 0),
-      probe18(31 downto 0) => net_slot_0_axi_rdata(31 downto 0),
-      probe19(1 downto 0) => net_slot_0_axi_rresp(1 downto 0),
+      probe10(31 downto 0) => probe10_1(31 downto 0),
+      probe11(31 downto 0) => probe11_1(31 downto 0),
+      probe12(31 downto 0) => probe12_1(31 downto 0),
+      probe13(0) => probe13_1(0),
+      probe14(0) => probe14_1(0),
+      probe15(15 downto 0) => probe15_1(15 downto 0),
+      probe16(0) => probe16_1(0),
+      probe17(1 downto 0) => net_slot_0_axi_ar_cnt(1 downto 0),
+      probe18(4 downto 0) => net_slot_0_axi_araddr(4 downto 0),
+      probe19(2 downto 0) => net_slot_0_axi_arprot(2 downto 0),
       probe2(31 downto 0) => probe2_1(31 downto 0),
-      probe20(31 downto 0) => net_slot_0_axi_wdata(31 downto 0),
-      probe21(3 downto 0) => net_slot_0_axi_wstrb(3 downto 0),
-      probe22(1 downto 0) => net_slot_0_axi_aw_ctrl(1 downto 0),
-      probe23(1 downto 0) => net_slot_0_axi_w_ctrl(1 downto 0),
-      probe24(1 downto 0) => net_slot_0_axi_b_ctrl(1 downto 0),
-      probe25(1 downto 0) => net_slot_0_axi_ar_ctrl(1 downto 0),
-      probe26(1 downto 0) => net_slot_0_axi_r_ctrl(1 downto 0),
+      probe20(1 downto 0) => net_slot_0_axi_aw_cnt(1 downto 0),
+      probe21(4 downto 0) => net_slot_0_axi_awaddr(4 downto 0),
+      probe22(2 downto 0) => net_slot_0_axi_awprot(2 downto 0),
+      probe23(1 downto 0) => net_slot_0_axi_b_cnt(1 downto 0),
+      probe24(1 downto 0) => net_slot_0_axi_bresp(1 downto 0),
+      probe25(1 downto 0) => net_slot_0_axi_r_cnt(1 downto 0),
+      probe26(31 downto 0) => net_slot_0_axi_rdata(31 downto 0),
+      probe27(1 downto 0) => net_slot_0_axi_rresp(1 downto 0),
+      probe28(31 downto 0) => net_slot_0_axi_wdata(31 downto 0),
+      probe29(3 downto 0) => net_slot_0_axi_wstrb(3 downto 0),
       probe3(31 downto 0) => probe3_1(31 downto 0),
+      probe30(1 downto 0) => net_slot_0_axi_aw_ctrl(1 downto 0),
+      probe31(1 downto 0) => net_slot_0_axi_w_ctrl(1 downto 0),
+      probe32(1 downto 0) => net_slot_0_axi_b_ctrl(1 downto 0),
+      probe33(1 downto 0) => net_slot_0_axi_ar_ctrl(1 downto 0),
+      probe34(1 downto 0) => net_slot_0_axi_r_ctrl(1 downto 0),
       probe4(0) => probe4_1(0),
       probe5(0) => probe5_1(0),
       probe6(0) => probe6_1(0),
       probe7(0) => probe7_1(0),
       probe8(0) => probe8_1(0),
-      probe9(1 downto 0) => net_slot_0_axi_ar_cnt(1 downto 0)
+      probe9(31 downto 0) => probe9_1(31 downto 0)
     );
 slot_0_ar: component bd_e91c_slot_0_ar_0
      port map (

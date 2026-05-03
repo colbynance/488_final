@@ -52,10 +52,16 @@
 #include "xil_printf.h"
 #include <xil_io.h>
 #include "xgpio_l.h"
+#include "xuartps.h"
+
+
+
 
 
 #define DIGITAL_CHANNEL1_ADDR 0x43C00000
 #define DIGITAL_CHANNEL2_ADDR 0x43C10000
+#define ANALOG_CHANNEL1_ADDR 0x43C20000
+
 #define BUFFER_SIZE (2 << 10)
 
 #define DIGITAL_CONTROL_OFFSET 0x0
@@ -67,7 +73,19 @@
 #define DIGITAL_BUFFER_WRITE_DATA_OFFSET 0x18
 #define DIGITAL_BUFFER_WE_OFFSET 0x1C
 
-#define NUM_CHANNELS 2
+#define NUM_DIGITAL_CHANNELS 2
+
+#define ANALOG_CONTROL_OFFSET 0x0
+#define ANALOG_DOWNSAMPLE_OFFSET 0x4
+#define ANALOG_TRIGGER_DATA_OFFSET 0x8
+#define ANALOG_TRIGGER_TYPE_OFFSET 0x0C
+#define ANALOG_BUFFER_ADDR_OFFSET 0x14
+#define ANALOG_BUFFER_READ_DATA_OFFSET 0x18
+#define ANALOG_BUFFER_WRITE_DATA_OFFSET 0x20
+#define ANALOG_BUFFER_WE_OFFSET 0x1C
+
+#define NUM_ANALOG_CHANNELS 1
+
 
 uint32_t curr_U, curr_D, curr_L, curr_R, curr_C;
 uint32_t prev_U, prev_D, prev_L, prev_R, prev_C;
@@ -117,56 +135,121 @@ void digital_set_from_config(digital_channel_config_t * config){
 	Xil_Out32(config->base_addr + DIGITAL_BUFFER_WE_OFFSET, config->write_enable);
 }
 
-uint32_t poll_status(digital_channel_config_t * config){
+uint32_t digital_poll_status(digital_channel_config_t * config){
 	return Xil_In32(config->base_addr + DIGITAL_CONTROL_OFFSET) & 0x80000000;
 }
 
-void enable_channel(digital_channel_config_t * config){
+void digital_enable_channel(digital_channel_config_t * config){
 	config->control.reg |= 0b1;
 	Xil_Out32(config->base_addr, config->control.reg);
 }
 
-void disable_channel(digital_channel_config_t * config){
+void digital_disable_channel(digital_channel_config_t * config){
 	config->control.reg &= (~0b1);
 	Xil_Out32(config->base_addr, config->control.reg);
 }
 
-uint32_t get_buffer(digital_channel_config_t * config, uint32_t addr){
+uint32_t digital_get_buffer(digital_channel_config_t * config, uint32_t addr){
 	config->buffer_addr = addr;
 	Xil_Out32(config->base_addr + DIGITAL_BUFFER_ADDR_OFFSET, config->buffer_addr);
 	return Xil_In32(config->base_addr + DIGITAL_BUFFER_READ_DATA_OFFSET);
 }
 
 
-void dump_buffer(digital_channel_config_t * config, uint32_t * arr){
+void digital_dump_buffer(digital_channel_config_t * config, uint32_t * arr){
 	int i;
 	for(i = 0; i < BUFFER_SIZE; i++){
-		arr[i] = get_buffer(config, i);
+		arr[i] = digital_get_buffer(config, i);
 	}
 }
 
 
+typedef struct{
+
+	uint32_t base_addr;
+
+	union{
+		uint32_t reg;
+		struct{
+			uint32_t enable : 1;
+			uint32_t reserved : 30;
+			uint32_t status : 1;
+		};
+	}control;
+
+	uint32_t downsample_rate;
+	uint32_t trigger_data;
+	uint32_t trigger_type;
+	uint32_t buffer_addr;
+	uint32_t buffer_read_data;
+	uint32_t buffer_write_data;
+	uint32_t write_data;
+	uint32_t write_enable;
+	uint32_t trigger_offset;
+
+	//used for identifying which channel for UART transmission
+	uint32_t channel_id;
+
+} analog_channel_config_t;
 
 
 
+void analog_set_from_config(analog_channel_config_t * config){
+	Xil_Out32(config->base_addr + ANALOG_CONTROL_OFFSET, config->control.reg);
+	Xil_Out32(config->base_addr + ANALOG_DOWNSAMPLE_OFFSET, config->downsample_rate);
+	Xil_Out32(config->base_addr + ANALOG_TRIGGER_DATA_OFFSET, config->trigger_data);
+	Xil_Out32(config->base_addr + ANALOG_TRIGGER_TYPE_OFFSET, config->trigger_type);
+	Xil_Out32(config->base_addr + ANALOG_BUFFER_ADDR_OFFSET, config->buffer_addr);
+	Xil_Out32(config->base_addr + ANALOG_BUFFER_WRITE_DATA_OFFSET, config->buffer_write_data);
+	Xil_Out32(config->base_addr + ANALOG_BUFFER_WE_OFFSET, config->write_enable);
+}
+
+uint32_t analog_poll_status(analog_channel_config_t * config){
+	return Xil_In32(config->base_addr + ANALOG_CONTROL_OFFSET) & 0x80000000;
+}
+
+void analog_enable_channel(analog_channel_config_t * config){
+	config->control.enable = 0b1;
+	Xil_Out32(config->base_addr, config->control.reg);
+}
+
+void analog_disable_channel(analog_channel_config_t * config){
+	config->control.enable = 0b0;
+	Xil_Out32(config->base_addr, config->control.reg);
+}
+
+uint32_t analog_get_buffer(analog_channel_config_t * config, uint32_t addr){
+	config->buffer_addr = addr;
+	Xil_Out32(config->base_addr + ANALOG_BUFFER_ADDR_OFFSET, config->buffer_addr);
+	return Xil_In32(config->base_addr + ANALOG_BUFFER_READ_DATA_OFFSET);
+}
 
 
-//void print_buffer(uint32_t * arr){
-//	int i;
-//	for(i=0; i < BUFFER_SIZE; i++){
-//		if(i % 128 == 0){
-//			xil_printf("0x%03X: %d ", i, arr[i] & 0b1);
-//		}
-//		else if(i % 128 == 127){
-//			xil_printf("%d \n\r", arr[i] & 0b1);
-//		}
-//		else{
-//			xil_printf("%d ", arr[i] & 0b1);
-//		}
-//	}
-//}
+void analog_dump_buffer(analog_channel_config_t * config, uint32_t * arr){
+	int i;
+	for(i = 0; i < BUFFER_SIZE; i++){
+		arr[i] = analog_get_buffer(config, i);
+	}
+}
 
-void print_buffer_to_uart(uint32_t * arr, uint32_t id){
+
+void print_buffer(uint32_t * arr){
+	int i;
+	for(i=0; i < BUFFER_SIZE; i++){
+		if(i % 16 == 0){
+			xil_printf("0x%03X: 0x%03X ", i, arr[i] & 0xFFF);
+		}
+		else if(i % 16 == 15){
+			xil_printf("0x%03X \n\r", arr[i] & 0xFFF);
+		}
+		else{
+			xil_printf("0x%03X ", arr[i] & 0xFFF);
+		}
+	}
+}
+
+
+void digital_print_buffer_to_uart(uint32_t * arr, uint32_t id){
 	int i;
 	xil_printf("SD%d\n", id);
 	for(i=0; i < BUFFER_SIZE; i++){
@@ -176,6 +259,83 @@ void print_buffer_to_uart(uint32_t * arr, uint32_t id){
 
 }
 
+void analog_print_buffer_to_uart(uint32_t * arr, uint32_t id){
+	int i;
+	xil_printf("SA%d\n", id);
+	for(i=0; i < BUFFER_SIZE; i++){
+		xil_printf("%d", arr[i] & 0xFFF);
+	}
+	xil_printf("\n");
+
+}
+
+void digital_print_registers(digital_channel_config_t * config){
+	int i;
+	xil_printf("CD%d\n", config->channel_id);
+	for(i=0; i<8; i++){
+		xil_printf("%04X", 	Xil_In32(config->base_addr + i*4));
+	}
+}
+
+void analog_print_registers(analog_channel_config_t * config){
+	int i;
+	xil_printf("CA%d\n", config->channel_id);
+	for(i=0; i<16; i++){
+		xil_printf("%04X", 	Xil_In32(config->base_addr + i*4));
+	}
+}
+
+uint32_t get_reg_val(){
+	uint32_t val = 0;
+	int i;
+	for(i=0; i<4; i++){
+		char in = inbyte();
+		val = (val << 8) | in;
+	}
+	return val;
+}
+
+
+
+void set_config_from_uart(digital_channel_config_t * d_channels[], analog_channel_config_t * a_channels[]){
+	char inp = inbyte();
+	int i;
+	if(inp == 'D'){
+		int id = (int) inbyte();
+		d_channels[id]->control.reg = get_reg_val();
+		d_channels[id]->downsample_rate = get_reg_val();
+		d_channels[id]->trigger_data = get_reg_val();
+		d_channels[id]->trigger_mask = get_reg_val();
+		d_channels[id]->buffer_addr = get_reg_val();
+		get_reg_val(); //don't need to read the read data
+		d_channels[id]->buffer_write_data = get_reg_val();
+		d_channels[id]->write_enable = get_reg_val();
+
+	}
+	else if(inp == 'A'){
+		int id = (int) inbyte();
+		a_channels[id]->control.reg = get_reg_val();
+		a_channels[id]->downsample_rate = get_reg_val();
+		a_channels[id]->trigger_data = get_reg_val();
+		a_channels[id]->trigger_type = get_reg_val();
+		get_reg_val(); //kinda just forgot about this reg
+		a_channels[id]->buffer_addr = get_reg_val();
+		get_reg_val(); //don't need to read the read data
+		a_channels[id]->buffer_write_data = get_reg_val();
+		a_channels[id]->write_enable = get_reg_val();
+		get_reg_val();
+		get_reg_val();
+		get_reg_val();
+		get_reg_val();
+		get_reg_val();
+		get_reg_val();
+		get_reg_val();
+		get_reg_val();
+	}
+	else{
+		xil_printf("Not a recognized start\n\r");
+	}
+}
 
 
 int main()
@@ -192,38 +352,62 @@ int main()
 
     //INIT
 
-    digital_channel_config_t * channel1 = (digital_channel_config_t *) malloc(sizeof(digital_channel_config_t));
-    digital_channel_config_t * channel2 = (digital_channel_config_t *) malloc(sizeof(digital_channel_config_t));
+    digital_channel_config_t * d_channel1 = (digital_channel_config_t *) malloc(sizeof(digital_channel_config_t));
+    digital_channel_config_t * d_channel2 = (digital_channel_config_t *) malloc(sizeof(digital_channel_config_t));
 
-    digital_channel_config_t * channels[NUM_CHANNELS] = {channel1, channel2};
+    digital_channel_config_t * d_channels[NUM_DIGITAL_CHANNELS] = {d_channel1, d_channel2};
 
-    channel1->base_addr = DIGITAL_CHANNEL1_ADDR;
-    channel1->control.reg = (0x0 << 1) | (0x0 << 3);
-    channel1->downsample_rate = 10;
-    channel1->trigger_data = 0;
-    channel1->trigger_mask = 0;
-    channel1->buffer_addr = 0x10;
-    channel1->write_enable = 0;
-    channel1->channel_id = 1;
-
-
-    digital_set_from_config(channel1);
+    d_channel1->base_addr = DIGITAL_CHANNEL1_ADDR;
+    d_channel1->control.reg = (0x0 << 1) | (0x0 << 3);
+    d_channel1->downsample_rate = 10;
+    d_channel1->trigger_data = 0;
+    d_channel1->trigger_mask = 0;
+    d_channel1->buffer_addr = 0x10;
+    d_channel1->write_enable = 0;
+    d_channel1->channel_id = 1;
 
 
-    channel2->base_addr = DIGITAL_CHANNEL2_ADDR;
-    channel2->control.reg = (0x1 << 1) | (0x0 << 3);
-	channel2->downsample_rate = 10;
-	channel2->trigger_data = 0;
-	channel2->trigger_mask = 0;
-	channel2->buffer_addr = 0;
-	channel2->write_enable = 0;
-	channel2->channel_id = 2;
+    digital_set_from_config(d_channel1);
+
+
+    d_channel2->base_addr = DIGITAL_CHANNEL2_ADDR;
+    d_channel2->control.reg = (0x1 << 1) | (0x0 << 3);
+	d_channel2->downsample_rate = 10;
+	d_channel2->trigger_data = 0;
+	d_channel2->trigger_mask = 0;
+	d_channel2->buffer_addr = 0;
+	d_channel2->write_enable = 0;
+	d_channel2->channel_id = 2;
 //
-	digital_set_from_config(channel2);
+	digital_set_from_config(d_channel2);
 
-	channel2->control.trig_type = 0x1;
+	d_channel2->control.trig_type = 0x1;
 
-	digital_set_from_config(channel2);
+	digital_set_from_config(d_channel2);
+
+
+	analog_channel_config_t * a_channel1 = (analog_channel_config_t *) malloc(sizeof(analog_channel_config_t));
+	//    analog_channel_config_t * channel2 = (analog_channel_config_t *) malloc(sizeof(analog_channel_config_t));
+
+	analog_channel_config_t * a_channels[NUM_ANALOG_CHANNELS] = {a_channel1};
+
+	a_channel1->base_addr = ANALOG_CHANNEL1_ADDR;
+	a_channel1->control.enable = 0;
+	a_channel1->downsample_rate = 1000;
+	a_channel1->trigger_data = 0xFFF >> 1;
+	a_channel1->trigger_type = 2;
+	a_channel1->buffer_addr = 0x0;
+	a_channel1->write_enable = 0x1;
+	a_channel1->channel_id = 1;
+	a_channel1->buffer_write_data = 0xFFFFFFFF;
+
+
+	analog_set_from_config(a_channel1);
+
+	a_channel1->write_enable = 0x0;
+
+	analog_set_from_config(a_channel1);
+
 
 	int edit_channel = 0;
 
@@ -267,31 +451,49 @@ int main()
 			xil_printf("Editing channel %d\n\r", edit_channel + 1);
 		}
 		if(pos_R){
-			channels[edit_channel]->control.trig_type = (channels[edit_channel]->control.trig_type + 1) % 5;
-			xil_printf("Channel %d trigger set to %d\n\r", edit_channel + 1, channels[edit_channel]->control.trig_type);
-			digital_set_from_config(channel1);
+//			channels[edit_channel]->control.trig_type = (channels[edit_channel]->control.trig_type + 1) % 5;
+//			xil_printf("Channel %d trigger set to %d\n\r", edit_channel + 1, channels[edit_channel]->control.trig_type);
+//			digital_set_from_config(d_channel1);
 		}
 		if(pos_D){
-			channels[edit_channel]->control.trig_ext_type = (channels[edit_channel]->control.trig_ext_type + 1) % 4;
-			xil_printf("Channel %d ext trigger set to %d\n\r", edit_channel + 1, channels[edit_channel]->control.trig_ext_type);
-			digital_set_from_config(channel1);
+			int i;
+			for(i=0; i<NUM_DIGITAL_CHANNELS; i++){
+				digital_print_registers(d_channels[i]);
+			}
+			for(i=0; i<NUM_ANALOG_CHANNELS; i++){
+				analog_print_registers(a_channels[i]);
+			}
 		}
 
 		if(pos_L){
 			int i;
 			//enable the digital channel
-			for(i=0; i<NUM_CHANNELS; i++){
-				enable_channel(channels[i]);
+			xil_printf("Channels have been starts \n\r");
+			for(i=0; i<NUM_DIGITAL_CHANNELS; i++){
+				digital_enable_channel(d_channels[i]);
+			}
+			for(i=0; i<NUM_ANALOG_CHANNELS; i++){
+				analog_enable_channel(a_channels[i]);
 			}
 		}
 		int i;
-		for(i = 0; i<NUM_CHANNELS; i++){
-			if(poll_status(channels[i])){
-				xil_printf("Digital Channel %d Finished at tick %d\n\r", channels[i]->channel_id, tick);
-				disable_channel(channels[i]);
+		for(i = 0; i<NUM_DIGITAL_CHANNELS; i++){
+			if(digital_poll_status(d_channels[i])){
+				xil_printf("Digital Channel %d Finished at tick %d\n\r", d_channels[i]->channel_id, tick);
+				digital_disable_channel(d_channels[i]);
 				print("\n\r");
-				dump_buffer(channels[i], buf);
-				print_buffer_to_uart(buf, channels[i]->channel_id);
+				digital_dump_buffer(d_channels[i], buf);
+				digital_print_buffer_to_uart(buf, d_channels[i]->channel_id);
+			}
+		}
+
+		for(i = 0; i<NUM_ANALOG_CHANNELS; i++){
+			if(analog_poll_status(a_channels[i])){
+				xil_printf("Analog Channel %d Finished at tick %d\n\r", a_channels[i]->channel_id, tick);
+				analog_disable_channel(a_channels[i]);
+				print("\n\r");
+				analog_dump_buffer(a_channels[i], buf);
+				print_buffer(buf);
 			}
 		}
 
@@ -303,7 +505,9 @@ int main()
 		}
 		tick++;
 
-
+		if(XUartPs_IsReceiveData(STDIN_BASEADDRESS)){
+			set_config_from_uart(d_channels, a_channels);                                                                     // printing data from hyperterminal
+		}
     }
     cleanup_platform();
     return 0;

@@ -114,6 +114,7 @@ proc step_failed { step } {
   close $ch
 }
 
+set_msg_config -id {HDL-1065} -limit 10000
 
 OPTRACE "Implementation" START { ROLLUP_1 }
 OPTRACE "Phase: Init Design" START { ROLLUP_AUTO }
@@ -121,9 +122,7 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
-  set_param tcl.collectionResultDisplayLimit 0
   set_param chipscope.maxJobs 5
-  set_param xicom.use_bs_reader 1
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7z020clg484-1
   set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
@@ -134,6 +133,7 @@ OPTRACE "set parameters" START { }
   set_property webtalk.parent_dir C:/Temp/sa2-final/SA2_final_project/SA2_final_project.cache/wt [current_project]
   set_property parent.project_path C:/Temp/sa2-final/SA2_final_project/SA2_final_project.xpr [current_project]
   set_property ip_repo_paths {
+  C:/Temp/sa2-final/ip_repo/analog_channel_fr_1.0
   C:/Temp/sa2-final/digital_channel/digital_channel_1.0
   C:/Temp/sa2-final/ip_repo
 } [current_project]

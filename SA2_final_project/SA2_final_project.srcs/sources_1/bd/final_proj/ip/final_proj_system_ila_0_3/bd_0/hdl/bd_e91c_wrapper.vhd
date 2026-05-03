@@ -32,6 +32,13 @@ entity bd_e91c_wrapper is
     clk : in STD_LOGIC;
     probe0 : in STD_LOGIC_VECTOR ( 31 downto 0 );
     probe1 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe10 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe11 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe12 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe13 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe14 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe15 : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    probe16 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe2 : in STD_LOGIC_VECTOR ( 31 downto 0 );
     probe3 : in STD_LOGIC_VECTOR ( 31 downto 0 );
     probe4 : in STD_LOGIC_VECTOR ( 0 to 0 );
@@ -39,6 +46,7 @@ entity bd_e91c_wrapper is
     probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe8 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe9 : in STD_LOGIC_VECTOR ( 31 downto 0 );
     resetn : in STD_LOGIC
   );
 end bd_e91c_wrapper;
@@ -56,6 +64,14 @@ architecture STRUCTURE of bd_e91c_wrapper is
     probe6 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe7 : in STD_LOGIC_VECTOR ( 0 to 0 );
     probe8 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe9 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe10 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe11 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe12 : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    probe13 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe14 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe15 : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    probe16 : in STD_LOGIC_VECTOR ( 0 to 0 );
     resetn : in STD_LOGIC;
     SLOT_0_AXI_araddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
     SLOT_0_AXI_arprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
@@ -103,6 +119,13 @@ bd_e91c_i: component bd_e91c
       clk => clk,
       probe0(31 downto 0) => probe0(31 downto 0),
       probe1(31 downto 0) => probe1(31 downto 0),
+      probe10(31 downto 0) => probe10(31 downto 0),
+      probe11(31 downto 0) => probe11(31 downto 0),
+      probe12(31 downto 0) => probe12(31 downto 0),
+      probe13(0) => probe13(0),
+      probe14(0) => probe14(0),
+      probe15(15 downto 0) => probe15(15 downto 0),
+      probe16(0) => probe16(0),
       probe2(31 downto 0) => probe2(31 downto 0),
       probe3(31 downto 0) => probe3(31 downto 0),
       probe4(0) => probe4(0),
@@ -110,6 +133,7 @@ bd_e91c_i: component bd_e91c
       probe6(0) => probe6(0),
       probe7(0) => probe7(0),
       probe8(0) => probe8(0),
+      probe9(31 downto 0) => probe9(31 downto 0),
       resetn => resetn
     );
 end STRUCTURE;

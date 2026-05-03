@@ -70,9 +70,7 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "final_proj_xbar_0_synth_1" START { ROLLUP_AUTO }
-set_param tcl.collectionResultDisplayLimit 0
-set_param chipscope.maxJobs 5
-set_param xicom.use_bs_reader 1
+set_msg_config -id {HDL-1065} -limit 10000
 set_param project.vivado.isBlockSynthRun true
 set_msg_config -msgmgr_mode ooc_run
 OPTRACE "Creating in-memory project" START { }
@@ -89,6 +87,7 @@ set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
 set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
 set_property ip_repo_paths {
+  c:/Temp/sa2-final/ip_repo/analog_channel_fr_1.0
   c:/Temp/sa2-final/digital_channel/digital_channel_1.0
   c:/Temp/sa2-final/ip_repo
 } [current_project]
