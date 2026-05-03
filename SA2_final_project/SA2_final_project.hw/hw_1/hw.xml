@@ -20,8 +20,10 @@
     </Object>
   </ObjectList>
   <ObjectList object_type="hw_probe" gui_info="">
+    <Object name="final_proj_i/system_ila_0/U0/probe5_1[31:0]" gui_info=""/>
     <Object name="final_proj_i/system_ila_0/U0/probe6_1" gui_info=""/>
     <Object name="final_proj_i/system_ila_0/U0/probe7_1" gui_info=""/>
+    <Object name="final_proj_i/system_ila_0/U0/probe9_1" gui_info="Trigger Setup=0"/>
   </ObjectList>
   <probeset name="hw project" active="false">
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
@@ -327,8 +329,8 @@
         <Option Id="HW_ILA" value="hw_ila_1"/>
         <Option Id="LINK_TO_WAVEFORM" value="1"/>
         <Option Id="MAP" value="probe7[0]"/>
-        <Option Id="NAME.CUSTOM" value=""/>
-        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="NAME.CUSTOM" value="sample_done_o"/>
+        <Option Id="NAME.SELECT" value="Custom"/>
         <Option Id="SOURCE" value="netlist"/>
         <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
         <Option Id="WAVEFORM_STYLE" value="Digital"/>
@@ -376,7 +378,7 @@
     <probe type="ila" busType="net" source="netlist" spec="ILA_V2_RT">
       <probeOptions Id="DebugProbeParams">
         <Option Id="CAPTURE_COMPARE_VALUE" value="eq1&apos;bX"/>
-        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bX"/>
+        <Option Id="COMPARE_VALUE.0" value="eq1&apos;bR"/>
         <Option Id="DISPLAY_AS_ENUM" value="1"/>
         <Option Id="DISPLAY_HINT" value=""/>
         <Option Id="DISPLAY_RADIX" value="HEX"/>
@@ -384,10 +386,10 @@
         <Option Id="HW_ILA" value="hw_ila_1"/>
         <Option Id="LINK_TO_WAVEFORM" value="1"/>
         <Option Id="MAP" value="probe9[0]"/>
-        <Option Id="NAME.CUSTOM" value=""/>
-        <Option Id="NAME.SELECT" value="Long"/>
+        <Option Id="NAME.CUSTOM" value="trigd_o"/>
+        <Option Id="NAME.SELECT" value="Custom"/>
         <Option Id="SOURCE" value="netlist"/>
-        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bX"/>
+        <Option Id="TRIGGER_COMPARE_VALUE" value="eq1&apos;bR"/>
         <Option Id="WAVEFORM_STYLE" value="Digital"/>
       </probeOptions>
       <nets>

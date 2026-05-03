@@ -79,7 +79,11 @@ assign xadc_val = xadc_do_i[15:4];
 
 assign xadc_drdy_o = xadc_drdy_i;
 
+assign trig_trigd_o = trig_trig;
+
 assign downsampl_new_o = downsamp_val_valid;
+
+assign streamer_di = xadc_val;
 
 analog_downsample downsamp (
     .clk_i(clk_i),
@@ -122,7 +126,7 @@ analog_streamer ana_stream (
     
     .buffer_we_o(streamer_we),
     .buffer_addr_o(streamer_addr),
-    .buffer_di_o(streamer_di),
+    .buffer_di_o(nothing),
     
     .sample_done_o(sample_done_o)
 );

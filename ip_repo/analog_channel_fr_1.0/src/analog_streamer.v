@@ -31,28 +31,39 @@ module analog_streamer (
     input wire        val_valid_i,
 
     output wire        buffer_we_o,
-    output reg [9:0]  buffer_addr_o,
+    output wire [9:0]  buffer_addr_o,
     output wire [31:0] buffer_di_o,
 
     output reg sample_done_o
 );
 
 assign buffer_di_o = {20'b0, val_i};
-assign buffer_we_o = val_valid_i;
+assign buffer_we_o = val_valid_i && !sample_done_o && enable_i;
+reg [10:0] buf_addr;
+assign buffer_addr_o = buf_addr[9:0];
+reg start_stream;
+
 
 always @(posedge clk_i, negedge nrst_i) begin
     if (!nrst_i) begin
-        buffer_addr_o <= 0;
+        buf_addr <= 0;
         sample_done_o <= 0;
     end
     else if (clk_i) begin
         if (!enable_i) begin
-            buffer_addr_o <= 0;
+            buf_addr <= 0;
+            start_stream <= 0;
+            sample_done_o <= 0;
         end
-        else if (val_valid_i && !sample_done_o) begin
-            buffer_addr_o <= buffer_addr_o + 1;
-            if (buffer_addr_o == 11'h400)
+        else if (val_valid_i && !sample_done_o && (start_stream || trig_i)) begin
+            start_stream <= 1;
+            if (buf_addr == 11'h400)
                 sample_done_o <= 1;
+            else begin
+                buf_addr <= buf_addr + 1;
+                sample_done_o <= 0;
+            end
+
         end
     end
 end

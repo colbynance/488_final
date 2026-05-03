@@ -557,7 +557,7 @@
   wire [31:0] buf_do;
 	//Add user logic here
  analog_channel ach (
-    .clk_i(S_AXI_CLK),
+    .clk_i(S_AXI_ACLK),
     .nrst_i(S_AXI_ARESETN),
 
     // XADC interface

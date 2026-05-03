@@ -1,7 +1,7 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Sat May  2 15:53:26 2026
+--Date        : Sat May  2 23:26:07 2026
 --Host        : CO2041-13 running 64-bit major release  (build 9200)
 --Command     : generate_target final_proj_wrapper.bd
 --Design      : final_proj_wrapper
@@ -53,6 +53,8 @@ architecture STRUCTURE of final_proj_wrapper is
     FIXED_IO_ps_srstb : inout STD_LOGIC;
     FIXED_IO_ps_clk : inout STD_LOGIC;
     FIXED_IO_ps_porb : inout STD_LOGIC;
+    btns_5bits_tri_i : in STD_LOGIC_VECTOR ( 4 downto 0 );
+    sws_8bits_tri_i : in STD_LOGIC_VECTOR ( 7 downto 0 );
     leds_8bits_tri_o : out STD_LOGIC_VECTOR ( 7 downto 0 );
     DDR_cas_n : inout STD_LOGIC;
     DDR_cke : inout STD_LOGIC;
@@ -68,9 +70,7 @@ architecture STRUCTURE of final_proj_wrapper is
     DDR_dm : inout STD_LOGIC_VECTOR ( 3 downto 0 );
     DDR_dq : inout STD_LOGIC_VECTOR ( 31 downto 0 );
     DDR_dqs_n : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    DDR_dqs_p : inout STD_LOGIC_VECTOR ( 3 downto 0 );
-    btns_5bits_tri_i : in STD_LOGIC_VECTOR ( 4 downto 0 );
-    sws_8bits_tri_i : in STD_LOGIC_VECTOR ( 7 downto 0 )
+    DDR_dqs_p : inout STD_LOGIC_VECTOR ( 3 downto 0 )
   );
   end component final_proj;
 begin

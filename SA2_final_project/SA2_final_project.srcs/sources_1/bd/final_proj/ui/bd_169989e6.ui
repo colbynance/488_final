@@ -39,15 +39,15 @@ preplace netloc buf_addr_o 1 3 1 1120 380n
 preplace netloc buf_we_o 1 3 1 1160 440n
 preplace netloc sample_done_o 1 3 1 1170 480n
 preplace netloc trigd_o 1 3 1 1180 520n
-preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 800 800n
-preplace netloc ps7_0_axi_periph_M02_AXI 1 2 1 780 960n
-preplace netloc processing_system7_0_M_AXI_GP0 1 1 1 450 780n
+preplace netloc ps7_0_axi_periph_M01_AXI 1 2 1 N 940
 preplace netloc processing_system7_0_FIXED_IO 1 1 4 NJ 740 NJ 740 NJ 740 NJ
-preplace netloc axi_gpio_2_GPIO 1 3 2 NJ 1100 NJ
-preplace netloc processing_system7_0_DDR 1 1 4 NJ 720 NJ 720 NJ 720 NJ
 preplace netloc axi_gpio_0_GPIO 1 3 2 NJ 820 NJ
 preplace netloc axi_gpio_1_GPIO 1 3 2 NJ 960 NJ
-preplace netloc ps7_0_axi_periph_M01_AXI 1 2 1 N 940
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 1 450 780n
+preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 800 800n
+preplace netloc axi_gpio_2_GPIO 1 3 2 NJ 1100 NJ
+preplace netloc ps7_0_axi_periph_M02_AXI 1 2 1 780 960n
+preplace netloc processing_system7_0_DDR 1 1 4 NJ 720 NJ 720 NJ 720 NJ
 preplace netloc ps7_0_axi_periph_M03_AXI 1 2 1 770 510n
 levelinfo -pg 1 0 240 620 960 1280 1390
 pagesize -pg 1 -db -bbox -sgen -100 0 1510 1180

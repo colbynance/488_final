@@ -126,7 +126,7 @@ void enable_channel(analog_channel_config_t * config){
 }
 
 void disable_channel(analog_channel_config_t * config){
-	config->control.reg &= (~0b1);
+	config->control.enable = 0b0;
 	Xil_Out32(config->base_addr, config->control.reg);
 }
 
@@ -198,9 +198,9 @@ int main()
 
     channel1->base_addr = ANALOG_CHANNEL1_ADDR;
     channel1->control.enable = 0;
-    channel1->downsample_rate = 2;
-    channel1->trigger_data = 0;
-    channel1->trigger_type = 0;
+    channel1->downsample_rate = 1000;
+    channel1->trigger_data = 0xFFF >> 1;
+    channel1->trigger_type = 2;
     channel1->buffer_addr = 0x0;
     channel1->write_enable = 0x1;
     channel1->channel_id = 1;
@@ -289,7 +289,7 @@ int main()
 		}
 		int i;
 		for(i = 0; i<NUM_CHANNELS; i++){
-			if(poll_status(channels[i])){
+			if(poll_status(channels[i]) && channels[i]->control.enable){
 				xil_printf("analog Channel %d Finished at tick %d\n\r", channels[i]->channel_id, tick);
 				disable_channel(channels[i]);
 				print("\n\r");
