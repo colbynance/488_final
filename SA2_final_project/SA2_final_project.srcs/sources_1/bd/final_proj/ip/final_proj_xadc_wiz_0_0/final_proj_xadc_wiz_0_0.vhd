@@ -67,6 +67,12 @@ entity final_proj_xadc_wiz_0_0 is
     channel_out     : out  STD_LOGIC_VECTOR (4 downto 0);    -- Channel Selection Outputs
     eoc_out         : out  STD_LOGIC;                        -- End of Conversion Signal
     eos_out         : out  STD_LOGIC;                        -- End of Sequence Signal
+    vccddro_alarm_out : out  STD_LOGIC;                        -- VCCDDRO-sensor alarm output
+    vccpint_alarm_out : out  STD_LOGIC;                        -- VCCPINT-sensor alarm output
+    vccpaux_alarm_out : out  STD_LOGIC;                        -- VCCPAUX-sensor alarm output
+    vccaux_alarm_out : out  STD_LOGIC;                        -- VCCAUX-sensor alarm output
+    vccint_alarm_out : out  STD_LOGIC;                        -- VCCINT-sensor alarm output
+    user_temp_alarm_out : out  STD_LOGIC;                        -- Temperature-sensor alarm output
     alarm_out       : out STD_LOGIC;                         -- OR'ed output of all the Alarms
     vp_in           : in  STD_LOGIC;                         -- Dedicated Analog Input Pair
     vn_in           : in  STD_LOGIC
@@ -76,12 +82,9 @@ end final_proj_xadc_wiz_0_0;
 architecture xilinx of final_proj_xadc_wiz_0_0 is
 
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of xilinx : architecture is "final_proj_xadc_wiz_0_0,xadc_wiz_v3_3_8,{component_name=final_proj_xadc_wiz_0_0,enable_axi=false,enable_axi4stream=false,dclk_frequency=100,enable_busy=true,enable_convst=false,enable_convstclk=false,enable_dclk=true,enable_drp=true,enable_eoc=true,enable_eos=true,enable_vbram_alaram=false,enable_vccddro_alaram=false,enable_Vccint_Alaram=false,enable_Vccaux_alaram=falseenable_vccpaux_alaram=false,enable_vccpint_alaram=false,ot_alaram=false,user_temp_alaram=false,timing_mode=continuous,channel_averaging=None,sequencer_mode=off,startup_channel_selection=single_channel}";
+  attribute CORE_GENERATION_INFO of xilinx : architecture is "final_proj_xadc_wiz_0_0,xadc_wiz_v3_3_8,{component_name=final_proj_xadc_wiz_0_0,enable_axi=false,enable_axi4stream=false,dclk_frequency=100,enable_busy=true,enable_convst=false,enable_convstclk=false,enable_dclk=true,enable_drp=true,enable_eoc=true,enable_eos=true,enable_vbram_alaram=false,enable_vccddro_alaram=true,enable_Vccint_Alaram=true,enable_Vccaux_alaram=trueenable_vccpaux_alaram=true,enable_vccpint_alaram=true,ot_alaram=false,user_temp_alaram=true,timing_mode=continuous,channel_averaging=None,sequencer_mode=off,startup_channel_selection=single_channel}";
 
 
-  signal FLOAT_VCCAUX_ALARM : std_logic;
-  signal FLOAT_VCCINT_ALARM : std_logic;
-  signal FLOAT_USER_TEMP_ALARM : std_logic;
   signal FLOAT_VBRAM_ALARM : std_logic;
   signal FLOAT_MUXADDR : std_logic_vector (4 downto 0);
   signal aux_channel_p : std_logic_vector (15 downto 0);
@@ -91,6 +94,12 @@ architecture xilinx of final_proj_xadc_wiz_0_0 is
 begin
 
        alarm_out <= alm_int(7);
+       vccddro_alarm_out <= alm_int(6);
+       vccpaux_alarm_out <= alm_int(5);
+       vccpint_alarm_out <= alm_int(4);
+       vccaux_alarm_out <= alm_int(2);
+       vccint_alarm_out <= alm_int(1);
+       user_temp_alarm_out <= alm_int(0);
 
         aux_channel_p(0) <= '0';
         aux_channel_n(0) <= '0';
@@ -143,7 +152,7 @@ begin
  U0 : XADC
      generic map(
         INIT_40 => X"0003", -- config reg 0
-        INIT_41 => X"31AF", -- config reg 1
+        INIT_41 => X"31A1", -- config reg 1
         INIT_42 => X"0400", -- config reg 2
         INIT_48 => X"0100", -- Sequencer channel selection
         INIT_49 => X"0000", -- Sequencer channel selection

@@ -25,9 +25,11 @@ def set_channel(id, channel_val, digital=True):
             ser.write(val.to_bytes(4, 'big'))
             print(val.to_bytes(4, 'big'))
 
-
-channel_val = [1, 0, 0, 0 ,0 ,0 ,0 ,0 , 0 ,0 ,0 ,0 ]
-set_channel(0, channel_val)
+channel_val = [0, 0, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0 ]
+set_channel(0, channel_val, digital=False)
+input()
+channel_val = [1, 0, 0, 0,0,0,0,0,0,0,0,0,0,0,0,0 ]
+set_channel(0, channel_val, digital=False)
 
 while True:
     print(ser.readline())

@@ -1,7 +1,7 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-// Date        : Sun May  3 16:06:49 2026
+// Date        : Mon May  4 12:07:49 2026
 // Host        : CO2041-13 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xadc_wiz_0_0/final_proj_xadc_wiz_0_0_sim_netlist.v
@@ -26,6 +26,12 @@ module final_proj_xadc_wiz_0_0
     channel_out,
     eoc_out,
     eos_out,
+    vccddro_alarm_out,
+    vccpint_alarm_out,
+    vccpaux_alarm_out,
+    vccaux_alarm_out,
+    vccint_alarm_out,
+    user_temp_alarm_out,
     alarm_out,
     vp_in,
     vn_in);
@@ -41,6 +47,12 @@ module final_proj_xadc_wiz_0_0
   output [4:0]channel_out;
   output eoc_out;
   output eos_out;
+  output vccddro_alarm_out;
+  output vccpint_alarm_out;
+  output vccpaux_alarm_out;
+  output vccaux_alarm_out;
+  output vccint_alarm_out;
+  output user_temp_alarm_out;
   output alarm_out;
   input vp_in;
   input vn_in;
@@ -58,19 +70,25 @@ module final_proj_xadc_wiz_0_0
   wire eoc_out;
   wire eos_out;
   wire reset_in;
+  wire user_temp_alarm_out;
+  wire vccaux_alarm_out;
+  wire vccddro_alarm_out;
+  wire vccint_alarm_out;
+  wire vccpaux_alarm_out;
+  wire vccpint_alarm_out;
   wire vn_in;
   wire vp_in;
   wire NLW_U0_JTAGBUSY_UNCONNECTED;
   wire NLW_U0_JTAGLOCKED_UNCONNECTED;
   wire NLW_U0_JTAGMODIFIED_UNCONNECTED;
   wire NLW_U0_OT_UNCONNECTED;
-  wire [6:0]NLW_U0_ALM_UNCONNECTED;
+  wire [3:3]NLW_U0_ALM_UNCONNECTED;
   wire [4:0]NLW_U0_MUXADDR_UNCONNECTED;
 
   (* box_type = "PRIMITIVE" *) 
   XADC #(
     .INIT_40(16'h0003),
-    .INIT_41(16'h31AF),
+    .INIT_41(16'h31A1),
     .INIT_42(16'h0400),
     .INIT_43(16'h0000),
     .INIT_44(16'h0000),
@@ -106,7 +124,7 @@ module final_proj_xadc_wiz_0_0
     .SIM_DEVICE("ZYNQ"),
     .SIM_MONITOR_FILE("design.txt")) 
     U0
-       (.ALM({alarm_out,NLW_U0_ALM_UNCONNECTED[6:0]}),
+       (.ALM({alarm_out,vccddro_alarm_out,vccpaux_alarm_out,vccpint_alarm_out,NLW_U0_ALM_UNCONNECTED[3],vccaux_alarm_out,vccint_alarm_out,user_temp_alarm_out}),
         .BUSY(busy_out),
         .CHANNEL(channel_out),
         .CONVST(1'b0),

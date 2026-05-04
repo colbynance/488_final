@@ -70,6 +70,8 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "final_proj_xadc_wiz_0_0_synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 5
+set_param xicom.use_bs_reader 1
 set_msg_config -id {HDL-1065} -limit 10000
 set_param project.vivado.isBlockSynthRun true
 set_msg_config -msgmgr_mode ooc_run
@@ -96,7 +98,7 @@ set_property ip_output_repo c:/Temp/sa2-final/SA2_final_project/SA2_final_projec
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_ip -quiet c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xadc_wiz_0_0/final_proj_xadc_wiz_0_0.xci
+read_ip -quiet C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xadc_wiz_0_0/final_proj_xadc_wiz_0_0.xci
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xadc_wiz_0_0/final_proj_xadc_wiz_0_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xadc_wiz_0_0/final_proj_xadc_wiz_0_0.xdc]
 

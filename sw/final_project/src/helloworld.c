@@ -61,6 +61,8 @@
 #define DIGITAL_CHANNEL1_ADDR 0x43C00000
 #define DIGITAL_CHANNEL2_ADDR 0x43C10000
 #define ANALOG_CHANNEL1_ADDR 0x43C20000
+#define ANALOG_CHANNEL2_ADDR 0x43C30000
+
 
 #define BUFFER_SIZE (2 << 10)
 
@@ -296,8 +298,10 @@ uint32_t get_reg_val(){
 }
 
 
+digital_channel_config_t * d_channels[NUM_DIGITAL_CHANNELS];
+analog_channel_config_t * a_channels[NUM_ANALOG_CHANNELS];
 
-void set_config_from_uart(digital_channel_config_t * d_channels[], analog_channel_config_t * a_channels[]){
+void set_config_from_uart(){
 	char inp = inbyte();
 	int i;
 	if(inp == 'D'){
@@ -310,6 +314,7 @@ void set_config_from_uart(digital_channel_config_t * d_channels[], analog_channe
 		get_reg_val(); //don't need to read the read data
 		d_channels[id]->buffer_write_data = get_reg_val();
 		d_channels[id]->write_enable = get_reg_val();
+		digital_set_from_config(d_channels[id]);
 
 	}
 	else if(inp == 'A'){
@@ -329,8 +334,8 @@ void set_config_from_uart(digital_channel_config_t * d_channels[], analog_channe
 		get_reg_val();
 		get_reg_val();
 		get_reg_val();
-		get_reg_val();
-		get_reg_val();
+		analog_set_from_config(a_channels[id]);
+
 	}
 	else{
 		xil_printf("Not a recognized start\n\r");
@@ -355,7 +360,8 @@ int main()
     digital_channel_config_t * d_channel1 = (digital_channel_config_t *) malloc(sizeof(digital_channel_config_t));
     digital_channel_config_t * d_channel2 = (digital_channel_config_t *) malloc(sizeof(digital_channel_config_t));
 
-    digital_channel_config_t * d_channels[NUM_DIGITAL_CHANNELS] = {d_channel1, d_channel2};
+    d_channels[0] = d_channel1;
+    d_channels[1] = d_channel2;
 
     d_channel1->base_addr = DIGITAL_CHANNEL1_ADDR;
     d_channel1->control.reg = (0x0 << 1) | (0x0 << 3);
@@ -364,7 +370,7 @@ int main()
     d_channel1->trigger_mask = 0;
     d_channel1->buffer_addr = 0x10;
     d_channel1->write_enable = 0;
-    d_channel1->channel_id = 1;
+    d_channel1->channel_id = 0;
 
 
     digital_set_from_config(d_channel1);
@@ -377,7 +383,7 @@ int main()
 	d_channel2->trigger_mask = 0;
 	d_channel2->buffer_addr = 0;
 	d_channel2->write_enable = 0;
-	d_channel2->channel_id = 2;
+	d_channel2->channel_id = 1;
 //
 	digital_set_from_config(d_channel2);
 
@@ -387,9 +393,9 @@ int main()
 
 
 	analog_channel_config_t * a_channel1 = (analog_channel_config_t *) malloc(sizeof(analog_channel_config_t));
-	//    analog_channel_config_t * channel2 = (analog_channel_config_t *) malloc(sizeof(analog_channel_config_t));
+	    analog_channel_config_t * a_channel2 = (analog_channel_config_t *) malloc(sizeof(analog_channel_config_t));
 
-	analog_channel_config_t * a_channels[NUM_ANALOG_CHANNELS] = {a_channel1};
+	a_channels[0] = a_channel1;
 
 	a_channel1->base_addr = ANALOG_CHANNEL1_ADDR;
 	a_channel1->control.enable = 0;
@@ -398,7 +404,7 @@ int main()
 	a_channel1->trigger_type = 2;
 	a_channel1->buffer_addr = 0x0;
 	a_channel1->write_enable = 0x1;
-	a_channel1->channel_id = 1;
+	a_channel1->channel_id = 0;
 	a_channel1->buffer_write_data = 0xFFFFFFFF;
 
 
@@ -407,6 +413,23 @@ int main()
 	a_channel1->write_enable = 0x0;
 
 	analog_set_from_config(a_channel1);
+
+//	a_channel2->base_addr = ANALOG_CHANNEL2_ADDR;
+//	a_channel2->control.enable = 0;
+//	a_channel2->downsample_rate = 1000;
+//	a_channel2->trigger_data = 0xFFF >> 1;
+//	a_channel2->trigger_type = 2;
+//	a_channel2->buffer_addr = 0x0;
+//	a_channel2->write_enable = 0x1;
+//	a_channel2->channel_id = 1;
+//	a_channel2->buffer_write_data = 0xFFFFFFFF;
+//
+//
+//	analog_set_from_config(a_channel2);
+//
+//	a_channel2->write_enable = 0x0;
+//
+//	analog_set_from_config(a_channel2);
 
 
 	int edit_channel = 0;
@@ -506,7 +529,7 @@ int main()
 		tick++;
 
 		if(XUartPs_IsReceiveData(STDIN_BASEADDRESS)){
-			set_config_from_uart(d_channels, a_channels);                                                                     // printing data from hyperterminal
+			set_config_from_uart();                                                                     // printing data from hyperterminal
 		}
     }
     cleanup_platform();

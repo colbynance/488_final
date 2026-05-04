@@ -165,23 +165,15 @@ proc create_root_design { parentCell } {
    CONFIG.ASSOCIATED_BUSIF {SLOT_0_AXI} \
    CONFIG.ASSOCIATED_RESET {resetn} \
  ] $clk
-  set probe0 [ create_bd_port -dir I -from 31 -to 0 probe0 ]
-  set probe1 [ create_bd_port -dir I -from 31 -to 0 probe1 ]
-  set probe2 [ create_bd_port -dir I -from 31 -to 0 probe2 ]
-  set probe3 [ create_bd_port -dir I -from 31 -to 0 probe3 ]
+  set probe0 [ create_bd_port -dir I -from 0 -to 0 probe0 ]
+  set probe1 [ create_bd_port -dir I -from 0 -to 0 probe1 ]
+  set probe2 [ create_bd_port -dir I -from 0 -to 0 probe2 ]
+  set probe3 [ create_bd_port -dir I -from 0 -to 0 probe3 ]
   set probe4 [ create_bd_port -dir I -from 0 -to 0 probe4 ]
   set probe5 [ create_bd_port -dir I -from 0 -to 0 probe5 ]
   set probe6 [ create_bd_port -dir I -from 0 -to 0 probe6 ]
-  set probe7 [ create_bd_port -dir I -from 0 -to 0 probe7 ]
+  set probe7 [ create_bd_port -dir I -from 15 -to 0 probe7 ]
   set probe8 [ create_bd_port -dir I -from 0 -to 0 probe8 ]
-  set probe9 [ create_bd_port -dir I -from 31 -to 0 probe9 ]
-  set probe10 [ create_bd_port -dir I -from 31 -to 0 probe10 ]
-  set probe11 [ create_bd_port -dir I -from 31 -to 0 probe11 ]
-  set probe12 [ create_bd_port -dir I -from 31 -to 0 probe12 ]
-  set probe13 [ create_bd_port -dir I -from 0 -to 0 probe13 ]
-  set probe14 [ create_bd_port -dir I -from 0 -to 0 probe14 ]
-  set probe15 [ create_bd_port -dir I -from 15 -to 0 probe15 ]
-  set probe16 [ create_bd_port -dir I -from 0 -to 0 probe16 ]
   set resetn [ create_bd_port -dir I -type rst resetn ]
 
   # Create instance: g_inst, and set properties
@@ -233,46 +225,39 @@ proc create_root_design { parentCell } {
    CONFIG.C_ILA_CLK_FREQ {100000000} \
    CONFIG.C_INPUT_PIPE_STAGES {0} \
    CONFIG.C_MONITOR_TYPE {Native} \
-   CONFIG.C_NUM_OF_PROBES {35} \
+   CONFIG.C_NUM_OF_PROBES {27} \
    CONFIG.C_PROBE0_MU_CNT {1} \
    CONFIG.C_PROBE0_TYPE {0} \
-   CONFIG.C_PROBE0_WIDTH {32} \
-   CONFIG.C_PROBE10_MU_CNT {1} \
+   CONFIG.C_PROBE0_WIDTH {1} \
    CONFIG.C_PROBE10_TYPE {0} \
-   CONFIG.C_PROBE10_WIDTH {32} \
-   CONFIG.C_PROBE11_MU_CNT {1} \
+   CONFIG.C_PROBE10_WIDTH {5} \
    CONFIG.C_PROBE11_TYPE {0} \
-   CONFIG.C_PROBE11_WIDTH {32} \
-   CONFIG.C_PROBE12_MU_CNT {1} \
+   CONFIG.C_PROBE11_WIDTH {3} \
    CONFIG.C_PROBE12_TYPE {0} \
-   CONFIG.C_PROBE12_WIDTH {32} \
-   CONFIG.C_PROBE13_MU_CNT {1} \
+   CONFIG.C_PROBE12_WIDTH {2} \
    CONFIG.C_PROBE13_TYPE {0} \
-   CONFIG.C_PROBE13_WIDTH {1} \
-   CONFIG.C_PROBE14_MU_CNT {1} \
+   CONFIG.C_PROBE13_WIDTH {5} \
    CONFIG.C_PROBE14_TYPE {0} \
-   CONFIG.C_PROBE14_WIDTH {1} \
-   CONFIG.C_PROBE15_MU_CNT {1} \
+   CONFIG.C_PROBE14_WIDTH {3} \
    CONFIG.C_PROBE15_TYPE {0} \
-   CONFIG.C_PROBE15_WIDTH {16} \
-   CONFIG.C_PROBE16_MU_CNT {1} \
+   CONFIG.C_PROBE15_WIDTH {2} \
    CONFIG.C_PROBE16_TYPE {0} \
-   CONFIG.C_PROBE16_WIDTH {1} \
+   CONFIG.C_PROBE16_WIDTH {2} \
    CONFIG.C_PROBE17_TYPE {0} \
    CONFIG.C_PROBE17_WIDTH {2} \
    CONFIG.C_PROBE18_TYPE {0} \
-   CONFIG.C_PROBE18_WIDTH {5} \
+   CONFIG.C_PROBE18_WIDTH {32} \
    CONFIG.C_PROBE19_TYPE {0} \
-   CONFIG.C_PROBE19_WIDTH {3} \
+   CONFIG.C_PROBE19_WIDTH {2} \
    CONFIG.C_PROBE1_MU_CNT {1} \
    CONFIG.C_PROBE1_TYPE {0} \
-   CONFIG.C_PROBE1_WIDTH {32} \
+   CONFIG.C_PROBE1_WIDTH {1} \
    CONFIG.C_PROBE20_TYPE {0} \
-   CONFIG.C_PROBE20_WIDTH {2} \
+   CONFIG.C_PROBE20_WIDTH {32} \
    CONFIG.C_PROBE21_TYPE {0} \
-   CONFIG.C_PROBE21_WIDTH {5} \
+   CONFIG.C_PROBE21_WIDTH {4} \
    CONFIG.C_PROBE22_TYPE {0} \
-   CONFIG.C_PROBE22_WIDTH {3} \
+   CONFIG.C_PROBE22_WIDTH {2} \
    CONFIG.C_PROBE23_TYPE {0} \
    CONFIG.C_PROBE23_WIDTH {2} \
    CONFIG.C_PROBE24_TYPE {0} \
@@ -280,29 +265,13 @@ proc create_root_design { parentCell } {
    CONFIG.C_PROBE25_TYPE {0} \
    CONFIG.C_PROBE25_WIDTH {2} \
    CONFIG.C_PROBE26_TYPE {0} \
-   CONFIG.C_PROBE26_WIDTH {32} \
-   CONFIG.C_PROBE27_TYPE {0} \
-   CONFIG.C_PROBE27_WIDTH {2} \
-   CONFIG.C_PROBE28_TYPE {0} \
-   CONFIG.C_PROBE28_WIDTH {32} \
-   CONFIG.C_PROBE29_TYPE {0} \
-   CONFIG.C_PROBE29_WIDTH {4} \
+   CONFIG.C_PROBE26_WIDTH {2} \
    CONFIG.C_PROBE2_MU_CNT {1} \
    CONFIG.C_PROBE2_TYPE {0} \
-   CONFIG.C_PROBE2_WIDTH {32} \
-   CONFIG.C_PROBE30_TYPE {0} \
-   CONFIG.C_PROBE30_WIDTH {2} \
-   CONFIG.C_PROBE31_TYPE {0} \
-   CONFIG.C_PROBE31_WIDTH {2} \
-   CONFIG.C_PROBE32_TYPE {0} \
-   CONFIG.C_PROBE32_WIDTH {2} \
-   CONFIG.C_PROBE33_TYPE {0} \
-   CONFIG.C_PROBE33_WIDTH {2} \
-   CONFIG.C_PROBE34_TYPE {0} \
-   CONFIG.C_PROBE34_WIDTH {2} \
+   CONFIG.C_PROBE2_WIDTH {1} \
    CONFIG.C_PROBE3_MU_CNT {1} \
    CONFIG.C_PROBE3_TYPE {0} \
-   CONFIG.C_PROBE3_WIDTH {32} \
+   CONFIG.C_PROBE3_WIDTH {1} \
    CONFIG.C_PROBE4_MU_CNT {1} \
    CONFIG.C_PROBE4_TYPE {0} \
    CONFIG.C_PROBE4_WIDTH {1} \
@@ -314,13 +283,12 @@ proc create_root_design { parentCell } {
    CONFIG.C_PROBE6_WIDTH {1} \
    CONFIG.C_PROBE7_MU_CNT {1} \
    CONFIG.C_PROBE7_TYPE {0} \
-   CONFIG.C_PROBE7_WIDTH {1} \
+   CONFIG.C_PROBE7_WIDTH {16} \
    CONFIG.C_PROBE8_MU_CNT {1} \
    CONFIG.C_PROBE8_TYPE {0} \
    CONFIG.C_PROBE8_WIDTH {1} \
-   CONFIG.C_PROBE9_MU_CNT {1} \
    CONFIG.C_PROBE9_TYPE {0} \
-   CONFIG.C_PROBE9_WIDTH {32} \
+   CONFIG.C_PROBE9_WIDTH {2} \
    CONFIG.C_TIME_TAG_WIDTH {32} \
    CONFIG.C_TRIGIN_EN {false} \
    CONFIG.C_TRIGOUT_EN {false} \
@@ -353,42 +321,35 @@ connect_bd_intf_net -intf_net Conn [get_bd_intf_ports SLOT_0_AXI] [get_bd_intf_p
 
   # Create port connections
   connect_bd_net -net clk_1 [get_bd_ports clk] [get_bd_pins g_inst/aclk] [get_bd_pins ila_lib/clk]
-  connect_bd_net -net net_slot_0_axi_ar_cnt [get_bd_pins g_inst/m_slot_0_axi_ar_cnt] [get_bd_pins ila_lib/probe17]
-  connect_bd_net -net net_slot_0_axi_ar_ctrl [get_bd_pins ila_lib/probe33] [get_bd_pins slot_0_ar/dout]
-  connect_bd_net -net net_slot_0_axi_araddr [get_bd_pins g_inst/m_slot_0_axi_araddr] [get_bd_pins ila_lib/probe18]
-  connect_bd_net -net net_slot_0_axi_arprot [get_bd_pins g_inst/m_slot_0_axi_arprot] [get_bd_pins ila_lib/probe19]
+  connect_bd_net -net net_slot_0_axi_ar_cnt [get_bd_pins g_inst/m_slot_0_axi_ar_cnt] [get_bd_pins ila_lib/probe9]
+  connect_bd_net -net net_slot_0_axi_ar_ctrl [get_bd_pins ila_lib/probe25] [get_bd_pins slot_0_ar/dout]
+  connect_bd_net -net net_slot_0_axi_araddr [get_bd_pins g_inst/m_slot_0_axi_araddr] [get_bd_pins ila_lib/probe10]
+  connect_bd_net -net net_slot_0_axi_arprot [get_bd_pins g_inst/m_slot_0_axi_arprot] [get_bd_pins ila_lib/probe11]
   connect_bd_net -net net_slot_0_axi_arready [get_bd_pins g_inst/m_slot_0_axi_arready] [get_bd_pins slot_0_ar/In1]
   connect_bd_net -net net_slot_0_axi_arvalid [get_bd_pins g_inst/m_slot_0_axi_arvalid] [get_bd_pins slot_0_ar/In0]
-  connect_bd_net -net net_slot_0_axi_aw_cnt [get_bd_pins g_inst/m_slot_0_axi_aw_cnt] [get_bd_pins ila_lib/probe20]
-  connect_bd_net -net net_slot_0_axi_aw_ctrl [get_bd_pins ila_lib/probe30] [get_bd_pins slot_0_aw/dout]
-  connect_bd_net -net net_slot_0_axi_awaddr [get_bd_pins g_inst/m_slot_0_axi_awaddr] [get_bd_pins ila_lib/probe21]
-  connect_bd_net -net net_slot_0_axi_awprot [get_bd_pins g_inst/m_slot_0_axi_awprot] [get_bd_pins ila_lib/probe22]
+  connect_bd_net -net net_slot_0_axi_aw_cnt [get_bd_pins g_inst/m_slot_0_axi_aw_cnt] [get_bd_pins ila_lib/probe12]
+  connect_bd_net -net net_slot_0_axi_aw_ctrl [get_bd_pins ila_lib/probe22] [get_bd_pins slot_0_aw/dout]
+  connect_bd_net -net net_slot_0_axi_awaddr [get_bd_pins g_inst/m_slot_0_axi_awaddr] [get_bd_pins ila_lib/probe13]
+  connect_bd_net -net net_slot_0_axi_awprot [get_bd_pins g_inst/m_slot_0_axi_awprot] [get_bd_pins ila_lib/probe14]
   connect_bd_net -net net_slot_0_axi_awready [get_bd_pins g_inst/m_slot_0_axi_awready] [get_bd_pins slot_0_aw/In1]
   connect_bd_net -net net_slot_0_axi_awvalid [get_bd_pins g_inst/m_slot_0_axi_awvalid] [get_bd_pins slot_0_aw/In0]
-  connect_bd_net -net net_slot_0_axi_b_cnt [get_bd_pins g_inst/m_slot_0_axi_b_cnt] [get_bd_pins ila_lib/probe23]
-  connect_bd_net -net net_slot_0_axi_b_ctrl [get_bd_pins ila_lib/probe32] [get_bd_pins slot_0_b/dout]
+  connect_bd_net -net net_slot_0_axi_b_cnt [get_bd_pins g_inst/m_slot_0_axi_b_cnt] [get_bd_pins ila_lib/probe15]
+  connect_bd_net -net net_slot_0_axi_b_ctrl [get_bd_pins ila_lib/probe24] [get_bd_pins slot_0_b/dout]
   connect_bd_net -net net_slot_0_axi_bready [get_bd_pins g_inst/m_slot_0_axi_bready] [get_bd_pins slot_0_b/In1]
-  connect_bd_net -net net_slot_0_axi_bresp [get_bd_pins g_inst/m_slot_0_axi_bresp] [get_bd_pins ila_lib/probe24]
+  connect_bd_net -net net_slot_0_axi_bresp [get_bd_pins g_inst/m_slot_0_axi_bresp] [get_bd_pins ila_lib/probe16]
   connect_bd_net -net net_slot_0_axi_bvalid [get_bd_pins g_inst/m_slot_0_axi_bvalid] [get_bd_pins slot_0_b/In0]
-  connect_bd_net -net net_slot_0_axi_r_cnt [get_bd_pins g_inst/m_slot_0_axi_r_cnt] [get_bd_pins ila_lib/probe25]
-  connect_bd_net -net net_slot_0_axi_r_ctrl [get_bd_pins ila_lib/probe34] [get_bd_pins slot_0_r/dout]
-  connect_bd_net -net net_slot_0_axi_rdata [get_bd_pins g_inst/m_slot_0_axi_rdata] [get_bd_pins ila_lib/probe26]
+  connect_bd_net -net net_slot_0_axi_r_cnt [get_bd_pins g_inst/m_slot_0_axi_r_cnt] [get_bd_pins ila_lib/probe17]
+  connect_bd_net -net net_slot_0_axi_r_ctrl [get_bd_pins ila_lib/probe26] [get_bd_pins slot_0_r/dout]
+  connect_bd_net -net net_slot_0_axi_rdata [get_bd_pins g_inst/m_slot_0_axi_rdata] [get_bd_pins ila_lib/probe18]
   connect_bd_net -net net_slot_0_axi_rready [get_bd_pins g_inst/m_slot_0_axi_rready] [get_bd_pins slot_0_r/In1]
-  connect_bd_net -net net_slot_0_axi_rresp [get_bd_pins g_inst/m_slot_0_axi_rresp] [get_bd_pins ila_lib/probe27]
+  connect_bd_net -net net_slot_0_axi_rresp [get_bd_pins g_inst/m_slot_0_axi_rresp] [get_bd_pins ila_lib/probe19]
   connect_bd_net -net net_slot_0_axi_rvalid [get_bd_pins g_inst/m_slot_0_axi_rvalid] [get_bd_pins slot_0_r/In0]
-  connect_bd_net -net net_slot_0_axi_w_ctrl [get_bd_pins ila_lib/probe31] [get_bd_pins slot_0_w/dout]
-  connect_bd_net -net net_slot_0_axi_wdata [get_bd_pins g_inst/m_slot_0_axi_wdata] [get_bd_pins ila_lib/probe28]
+  connect_bd_net -net net_slot_0_axi_w_ctrl [get_bd_pins ila_lib/probe23] [get_bd_pins slot_0_w/dout]
+  connect_bd_net -net net_slot_0_axi_wdata [get_bd_pins g_inst/m_slot_0_axi_wdata] [get_bd_pins ila_lib/probe20]
   connect_bd_net -net net_slot_0_axi_wready [get_bd_pins g_inst/m_slot_0_axi_wready] [get_bd_pins slot_0_w/In1]
-  connect_bd_net -net net_slot_0_axi_wstrb [get_bd_pins g_inst/m_slot_0_axi_wstrb] [get_bd_pins ila_lib/probe29]
+  connect_bd_net -net net_slot_0_axi_wstrb [get_bd_pins g_inst/m_slot_0_axi_wstrb] [get_bd_pins ila_lib/probe21]
   connect_bd_net -net net_slot_0_axi_wvalid [get_bd_pins g_inst/m_slot_0_axi_wvalid] [get_bd_pins slot_0_w/In0]
   connect_bd_net -net probe0_1 [get_bd_ports probe0] [get_bd_pins ila_lib/probe0]
-  connect_bd_net -net probe10_1 [get_bd_ports probe10] [get_bd_pins ila_lib/probe10]
-  connect_bd_net -net probe11_1 [get_bd_ports probe11] [get_bd_pins ila_lib/probe11]
-  connect_bd_net -net probe12_1 [get_bd_ports probe12] [get_bd_pins ila_lib/probe12]
-  connect_bd_net -net probe13_1 [get_bd_ports probe13] [get_bd_pins ila_lib/probe13]
-  connect_bd_net -net probe14_1 [get_bd_ports probe14] [get_bd_pins ila_lib/probe14]
-  connect_bd_net -net probe15_1 [get_bd_ports probe15] [get_bd_pins ila_lib/probe15]
-  connect_bd_net -net probe16_1 [get_bd_ports probe16] [get_bd_pins ila_lib/probe16]
   connect_bd_net -net probe1_1 [get_bd_ports probe1] [get_bd_pins ila_lib/probe1]
   connect_bd_net -net probe2_1 [get_bd_ports probe2] [get_bd_pins ila_lib/probe2]
   connect_bd_net -net probe3_1 [get_bd_ports probe3] [get_bd_pins ila_lib/probe3]
@@ -397,7 +358,6 @@ connect_bd_intf_net -intf_net Conn [get_bd_intf_ports SLOT_0_AXI] [get_bd_intf_p
   connect_bd_net -net probe6_1 [get_bd_ports probe6] [get_bd_pins ila_lib/probe6]
   connect_bd_net -net probe7_1 [get_bd_ports probe7] [get_bd_pins ila_lib/probe7]
   connect_bd_net -net probe8_1 [get_bd_ports probe8] [get_bd_pins ila_lib/probe8]
-  connect_bd_net -net probe9_1 [get_bd_ports probe9] [get_bd_pins ila_lib/probe9]
   connect_bd_net -net resetn_1 [get_bd_ports resetn] [get_bd_pins g_inst/aresetn]
 
   # Create address segments
