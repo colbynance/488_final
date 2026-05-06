@@ -103,8 +103,6 @@ void SerialManager::openPort(const QString& portName){
                         std::fprintf(stderr, "[CMD] Config Dump Incoming for ID: %d\n", m_incomingId);
                     }
                     else if (line.startsWith("D")) {//config set
-                        // Note: Your prompt showed this doesn't have a \n, but if it arrives 
-                        // on its own line, we parse it immediately without changing state.
                         std::fprintf(stderr, "[CMD] Config Set received: %s\n", line.toLocal8Bit().constData());
                     }
                     else {
@@ -113,26 +111,15 @@ void SerialManager::openPort(const QString& portName){
 
                 } 
                 else if (m_parserState == ParserState::ExpectingBufferDump) {
-                   std::fprintf(stderr, "[DATA] Buffer payload for ID %d received (%d bytes)\n", m_incomingId, rawLine.size());
+                   std::fprintf(stderr, "[DATA] Buffer for ID %d received (%d bytes)\n", m_incomingId, rawLine.size());
                 
-                    // The ID we received earlier IS the channel!
                     int targetChannel = m_incomingId; 
-
-                    // 1. Loop through every single byte in the payload
                     for (int i = 0; i < rawLine.size(); ++i) {
                         uint8_t currentByte = static_cast<uint8_t>(rawLine.at(i));
-
-                        // 2. Loop through all 8 bits inside this byte
-                        // Note: This assumes bit 0 (far right) is the oldest sample, and bit 7 is the newest. 
-                        // If your hardware sends the MSB (bit 7) first, change this loop to: 
-                        // for (int bitIndex = 7; bitIndex >= 0; --bitIndex)
                         for (int bitIndex = 0; bitIndex < 8; ++bitIndex) {
                             
                             bool bitValue = (currentByte >> bitIndex) & 1; 
                             double graphValue = bitValue ? 1.0 : 0.0;
-
-                            // 3. SHOUT TO THE MAIN WINDOW!
-                            // We emit the targetChannel and the next sequential value
                             emit dataParsed(targetChannel, graphValue); 
                         }
                     }
