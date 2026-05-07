@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x8F0134DE606F71B1",
+      "boundary_crc": "0x1479B49A1D600B4C",
       "design_src": "SBD",
       "device": "xc7z020clg484-1",
       "name": "bd_e91c",
@@ -187,22 +187,22 @@
       },
       "probe0": {
         "direction": "I",
-        "left": "31",
+        "left": "0",
         "right": "0"
       },
       "probe1": {
         "direction": "I",
-        "left": "31",
+        "left": "0",
         "right": "0"
       },
       "probe2": {
         "direction": "I",
-        "left": "31",
+        "left": "0",
         "right": "0"
       },
       "probe3": {
         "direction": "I",
-        "left": "31",
+        "left": "0",
         "right": "0"
       },
       "probe4": {
@@ -222,7 +222,7 @@
       },
       "probe7": {
         "direction": "I",
-        "left": "0",
+        "left": "15",
         "right": "0"
       },
       "probe8": {
@@ -287,7 +287,7 @@
             "value": "0"
           },
           "C_PROBE0_WIDTH": {
-            "value": "32"
+            "value": "1"
           },
           "C_PROBE10_TYPE": {
             "value": "0"
@@ -356,7 +356,7 @@
             "value": "0"
           },
           "C_PROBE1_WIDTH": {
-            "value": "32"
+            "value": "1"
           },
           "C_PROBE20_TYPE": {
             "value": "0"
@@ -407,7 +407,7 @@
             "value": "0"
           },
           "C_PROBE2_WIDTH": {
-            "value": "32"
+            "value": "1"
           },
           "C_PROBE3_MU_CNT": {
             "value": "1"
@@ -416,7 +416,7 @@
             "value": "0"
           },
           "C_PROBE3_WIDTH": {
-            "value": "32"
+            "value": "1"
           },
           "C_PROBE4_MU_CNT": {
             "value": "1"
@@ -452,7 +452,7 @@
             "value": "0"
           },
           "C_PROBE7_WIDTH": {
-            "value": "1"
+            "value": "16"
           },
           "C_PROBE8_MU_CNT": {
             "value": "1"

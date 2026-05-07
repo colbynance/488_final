@@ -56,14 +56,14 @@ USE ieee.numeric_std.ALL;
 ENTITY final_proj_system_ila_0_3 IS
   PORT (
     clk : IN STD_LOGIC;
-    probe0 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    probe1 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    probe2 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    probe3 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    probe0 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe1 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe2 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe3 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe5 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe6 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe7 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe7 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     probe8 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     SLOT_0_AXI_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
     SLOT_0_AXI_awprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
@@ -94,14 +94,14 @@ ARCHITECTURE final_proj_system_ila_0_3_arch OF final_proj_system_ila_0_3 IS
   COMPONENT bd_e91c IS
     PORT (
       clk : IN STD_LOGIC;
-      probe0 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-      probe1 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-      probe2 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-      probe3 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+      probe0 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      probe1 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      probe2 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      probe3 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       probe4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       probe5 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       probe6 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-      probe7 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      probe7 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
       probe8 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       SLOT_0_AXI_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
       SLOT_0_AXI_awprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);

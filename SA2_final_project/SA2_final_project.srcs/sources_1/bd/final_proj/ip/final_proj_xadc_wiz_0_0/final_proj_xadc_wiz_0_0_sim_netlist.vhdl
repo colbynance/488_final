@@ -1,8 +1,8 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Mon May  4 12:07:49 2026
--- Host        : CO2041-13 running 64-bit major release  (build 9200)
+-- Date        : Thu May  7 18:29:14 2026
+-- Host        : CO2041-04 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_xadc_wiz_0_0/final_proj_xadc_wiz_0_0_sim_netlist.vhdl
 -- Design      : final_proj_xadc_wiz_0_0
@@ -24,16 +24,12 @@ entity final_proj_xadc_wiz_0_0 is
     drdy_out : out STD_LOGIC;
     dclk_in : in STD_LOGIC;
     reset_in : in STD_LOGIC;
+    vauxp8 : in STD_LOGIC;
+    vauxn8 : in STD_LOGIC;
     busy_out : out STD_LOGIC;
     channel_out : out STD_LOGIC_VECTOR ( 4 downto 0 );
     eoc_out : out STD_LOGIC;
     eos_out : out STD_LOGIC;
-    vccddro_alarm_out : out STD_LOGIC;
-    vccpint_alarm_out : out STD_LOGIC;
-    vccpaux_alarm_out : out STD_LOGIC;
-    vccaux_alarm_out : out STD_LOGIC;
-    vccint_alarm_out : out STD_LOGIC;
-    user_temp_alarm_out : out STD_LOGIC;
     alarm_out : out STD_LOGIC;
     vp_in : in STD_LOGIC;
     vn_in : in STD_LOGIC
@@ -47,23 +43,23 @@ architecture STRUCTURE of final_proj_xadc_wiz_0_0 is
   signal NLW_U0_JTAGLOCKED_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_JTAGMODIFIED_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_OT_UNCONNECTED : STD_LOGIC;
-  signal NLW_U0_ALM_UNCONNECTED : STD_LOGIC_VECTOR ( 3 to 3 );
+  signal NLW_U0_ALM_UNCONNECTED : STD_LOGIC_VECTOR ( 6 downto 0 );
   signal NLW_U0_MUXADDR_UNCONNECTED : STD_LOGIC_VECTOR ( 4 downto 0 );
   attribute box_type : string;
   attribute box_type of U0 : label is "PRIMITIVE";
 begin
 U0: unisim.vcomponents.XADC
     generic map(
-      INIT_40 => X"0003",
-      INIT_41 => X"31A1",
+      INIT_40 => X"0000",
+      INIT_41 => X"21AF",
       INIT_42 => X"0400",
       INIT_43 => X"0000",
       INIT_44 => X"0000",
       INIT_45 => X"0000",
       INIT_46 => X"0000",
       INIT_47 => X"0000",
-      INIT_48 => X"0100",
-      INIT_49 => X"0000",
+      INIT_48 => X"0800",
+      INIT_49 => X"0100",
       INIT_4A => X"0000",
       INIT_4B => X"0000",
       INIT_4C => X"0000",
@@ -93,13 +89,7 @@ U0: unisim.vcomponents.XADC
     )
         port map (
       ALM(7) => alarm_out,
-      ALM(6) => vccddro_alarm_out,
-      ALM(5) => vccpaux_alarm_out,
-      ALM(4) => vccpint_alarm_out,
-      ALM(3) => NLW_U0_ALM_UNCONNECTED(3),
-      ALM(2) => vccaux_alarm_out,
-      ALM(1) => vccint_alarm_out,
-      ALM(0) => user_temp_alarm_out,
+      ALM(6 downto 0) => NLW_U0_ALM_UNCONNECTED(6 downto 0),
       BUSY => busy_out,
       CHANNEL(4 downto 0) => channel_out(4 downto 0),
       CONVST => '0',
@@ -119,8 +109,12 @@ U0: unisim.vcomponents.XADC
       MUXADDR(4 downto 0) => NLW_U0_MUXADDR_UNCONNECTED(4 downto 0),
       OT => NLW_U0_OT_UNCONNECTED,
       RESET => reset_in,
-      VAUXN(15 downto 0) => B"0000000000000000",
-      VAUXP(15 downto 0) => B"0000000000000000",
+      VAUXN(15 downto 9) => B"0000000",
+      VAUXN(8) => vauxn8,
+      VAUXN(7 downto 0) => B"00000000",
+      VAUXP(15 downto 9) => B"0000000",
+      VAUXP(8) => vauxp8,
+      VAUXP(7 downto 0) => B"00000000",
       VN => vn_in,
       VP => vp_in
     );

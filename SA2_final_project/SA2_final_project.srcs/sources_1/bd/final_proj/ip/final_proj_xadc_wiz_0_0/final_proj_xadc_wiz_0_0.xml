@@ -1352,7 +1352,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.Vaux8" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_VAUX8&apos;)) and (not spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)))) or ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP8_VAUXN8&quot;) or ( spirit:decode(id(&apos;PARAM_VALUE.XADC_STARUP_SELECTION&apos;))=&quot;simultaneous_sampling&quot; and ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP0_VAUXN0&quot;))">false</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.Vaux8" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_VAUX8&apos;)) and (not spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)))) or ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP8_VAUXN8&quot;) or ( spirit:decode(id(&apos;PARAM_VALUE.XADC_STARUP_SELECTION&apos;))=&quot;simultaneous_sampling&quot; and ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP0_VAUXN0&quot;))">true</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -1730,11 +1730,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon May 04 17:07:23 UTC 2026</spirit:value>
+            <spirit:value>Thu May 07 23:28:43 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:fbb7f11d</spirit:value>
+            <spirit:value>9:ff8b6e0f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1745,7 +1745,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:fbb7f11d</spirit:value>
+            <spirit:value>9:ff8b6e0f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1761,11 +1761,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon May 04 17:07:23 UTC 2026</spirit:value>
+            <spirit:value>Thu May 07 23:28:43 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:fbb7f11d</spirit:value>
+            <spirit:value>9:ff8b6e0f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1780,11 +1780,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon May 04 17:07:23 UTC 2026</spirit:value>
+            <spirit:value>Thu May 07 23:28:43 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:b74e879b</spirit:value>
+            <spirit:value>9:4fe09899</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1800,11 +1800,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon May 04 17:07:23 UTC 2026</spirit:value>
+            <spirit:value>Thu May 07 23:28:43 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:b74e879b</spirit:value>
+            <spirit:value>9:4fe09899</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1818,11 +1818,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Mon May 04 17:07:49 UTC 2026</spirit:value>
+            <spirit:value>Thu May 07 23:29:14 UTC 2026</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:fbb7f11d</spirit:value>
+            <spirit:value>9:ff8b6e0f</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -3112,7 +3112,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vauxp8" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_VAUX8&apos;)) and (not spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)))) or ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP8_VAUXN8&quot;) or ( spirit:decode(id(&apos;PARAM_VALUE.XADC_STARUP_SELECTION&apos;))=&quot;simultaneous_sampling&quot; and ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP0_VAUXN0&quot;))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vauxp8" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_VAUX8&apos;)) and (not spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)))) or ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP8_VAUXN8&quot;) or ( spirit:decode(id(&apos;PARAM_VALUE.XADC_STARUP_SELECTION&apos;))=&quot;simultaneous_sampling&quot; and ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP0_VAUXN0&quot;))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -3135,7 +3135,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vauxn8" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_VAUX8&apos;)) and (not spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)))) or ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP8_VAUXN8&quot;) or ( spirit:decode(id(&apos;PARAM_VALUE.XADC_STARUP_SELECTION&apos;))=&quot;simultaneous_sampling&quot; and ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP0_VAUXN0&quot;))">false</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vauxn8" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_VAUX8&apos;)) and (not spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)))) or ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP8_VAUXN8&quot;) or ( spirit:decode(id(&apos;PARAM_VALUE.XADC_STARUP_SELECTION&apos;))=&quot;simultaneous_sampling&quot; and ( spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_EXTERNAL_MUX&apos;)) and spirit:decode(id(&apos;MODELPARAM_VALUE.C_EXTERNAL_MUX_CHANNEL&apos;))=&quot;VAUXP0_VAUXN0&quot;))">true</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -3477,7 +3477,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.user_temp_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_USER_TEMP_ALARM&apos;))">true</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.user_temp_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_USER_TEMP_ALARM&apos;))">false</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -3497,7 +3497,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vccint_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_VCCINT_ALARM&apos;))">true</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vccint_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_VCCINT_ALARM&apos;))">false</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -3517,7 +3517,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vccaux_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_VCCAUX_ALARM&apos;))">true</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vccaux_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_VCCAUX_ALARM&apos;))">false</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -3537,7 +3537,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vccpint_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_VCCPINT_ALARM&apos;))">true</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vccpint_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_VCCPINT_ALARM&apos;))">false</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -3557,7 +3557,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vccpaux_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_VCCPAUX_ALARM&apos;))">true</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vccpaux_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_VCCPAUX_ALARM&apos;))">false</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -3577,7 +3577,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vccddro_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_VCCDDRO_ALARM&apos;))">true</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.vccddro_alarm_out" xilinx:dependency="spirit:decode(id(&apos;MODELPARAM_VALUE.C_HAS_VCCDDRO_ALARM&apos;))">false</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -3927,15 +3927,15 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_HAS_USER_TEMP_ALARM</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_USER_TEMP_ALARM" spirit:order="163">1</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_USER_TEMP_ALARM" spirit:order="163">0</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_HAS_VCCINT_ALARM</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_VCCINT_ALARM" spirit:order="164">1</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_VCCINT_ALARM" spirit:order="164">0</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_HAS_VCCAUX_ALARM</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_VCCAUX_ALARM" spirit:order="165">1</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_VCCAUX_ALARM" spirit:order="165">0</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_HAS_VBRAM_ALARM</spirit:name>
@@ -3943,23 +3943,23 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_HAS_VCCPINT_ALARM</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_VCCPINT_ALARM" spirit:order="167">1</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_VCCPINT_ALARM" spirit:order="167">0</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_HAS_VCCPAUX_ALARM</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_VCCPAUX_ALARM" spirit:order="168">1</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_VCCPAUX_ALARM" spirit:order="168">0</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_HAS_VCCDDRO_ALARM</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_VCCDDRO_ALARM" spirit:order="169">1</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_HAS_VCCDDRO_ALARM" spirit:order="169">0</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_CONFIGURATION_R0</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CONFIGURATION_R0" spirit:order="170">3</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CONFIGURATION_R0" spirit:order="170">0</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_CONFIGURATION_R1</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CONFIGURATION_R1" spirit:order="171">12705</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_CONFIGURATION_R1" spirit:order="171">8623</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_CONFIGURATION_R2</spirit:name>
@@ -4031,11 +4031,11 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_SEQUENCE_R0</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_SEQUENCE_R0" spirit:order="189">256</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_SEQUENCE_R0" spirit:order="189">2048</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_SEQUENCE_R1</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_SEQUENCE_R1" spirit:order="190">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_SEQUENCE_R1" spirit:order="190">256</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_SEQUENCE_R2</spirit:name>
@@ -4095,7 +4095,7 @@
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_VAUX8</spirit:name>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_VAUX8" spirit:order="205">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_VAUX8" spirit:order="205">1</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="INTEGER">
         <spirit:name>C_VAUX9</spirit:name>
@@ -4161,10 +4161,6 @@
       <spirit:enumeration>SIN</spirit:enumeration>
       <spirit:enumeration>TRIANGLE</spirit:enumeration>
       <spirit:enumeration>SQUARE</spirit:enumeration>
-    </spirit:choice>
-    <spirit:choice>
-      <spirit:name>choice_list_94d66e30</spirit:name>
-      <spirit:enumeration>Off</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_list_a985c99c</spirit:name>
@@ -4237,6 +4233,12 @@
       <spirit:name>choice_pairs_484ee5bb</spirit:name>
       <spirit:enumeration spirit:text="Single Channel">single_channel</spirit:enumeration>
       <spirit:enumeration spirit:text="Channel Sequencer">channel_sequencer</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>choice_pairs_735c6fff</spirit:name>
+      <spirit:enumeration spirit:text="Continuous">Continuous</spirit:enumeration>
+      <spirit:enumeration spirit:text="Default">Default</spirit:enumeration>
+      <spirit:enumeration spirit:text="One Pass">One_Pass</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_pairs_8f542992</spirit:name>
@@ -4430,7 +4432,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>XADC_STARUP_SELECTION</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.XADC_STARUP_SELECTION" spirit:choiceRef="choice_pairs_e67a5db9" spirit:order="5">single_channel</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.XADC_STARUP_SELECTION" spirit:choiceRef="choice_pairs_e67a5db9" spirit:order="5">channel_sequencer</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>ENABLE_DCLK</spirit:name>
@@ -4455,7 +4457,7 @@
     <spirit:parameter>
       <spirit:name>SEQUENCER_MODE</spirit:name>
       <spirit:displayName>Sequencer Mode</spirit:displayName>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.SEQUENCER_MODE" spirit:choiceRef="choice_list_94d66e30" spirit:order="5.05">Off</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.SEQUENCER_MODE" spirit:choiceRef="choice_pairs_735c6fff" spirit:order="5.05">Continuous</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>ENABLE_CALIBRATION_AVERAGING</spirit:name>
@@ -4523,15 +4525,15 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>USER_TEMP_ALARM</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USER_TEMP_ALARM" spirit:order="24">true</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.USER_TEMP_ALARM" spirit:order="24">false</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>VCCINT_ALARM</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.VCCINT_ALARM" spirit:order="25">true</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.VCCINT_ALARM" spirit:order="25">false</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>VCCAUX_ALARM</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.VCCAUX_ALARM" spirit:order="26">true</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.VCCAUX_ALARM" spirit:order="26">false</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>ENABLE_VBRAM_ALARM</spirit:name>
@@ -4589,15 +4591,15 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>ENABLE_VCCPINT_ALARM</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.ENABLE_VCCPINT_ALARM" spirit:order="38">true</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.ENABLE_VCCPINT_ALARM" spirit:order="38">false</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>ENABLE_VCCPAUX_ALARM</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.ENABLE_VCCPAUX_ALARM" spirit:order="39">true</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.ENABLE_VCCPAUX_ALARM" spirit:order="39">false</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>ENABLE_VCCDDRO_ALARM</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.ENABLE_VCCDDRO_ALARM" spirit:order="40">true</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.ENABLE_VCCDDRO_ALARM" spirit:order="40">false</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>VCCDDRO_VOLT</spirit:name>
@@ -4714,7 +4716,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>CHANNEL_ENABLE_VP_VN</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CHANNEL_ENABLE_VP_VN" spirit:order="63">false</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CHANNEL_ENABLE_VP_VN" spirit:order="63">true</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>CHANNEL_ENABLE_VREFP</spirit:name>
@@ -4790,7 +4792,7 @@
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>CHANNEL_ENABLE_VAUXP8_VAUXN8</spirit:name>
-      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CHANNEL_ENABLE_VAUXP8_VAUXN8" spirit:order="82">false</spirit:value>
+      <spirit:value spirit:format="bool" spirit:resolve="user" spirit:id="PARAM_VALUE.CHANNEL_ENABLE_VAUXP8_VAUXN8" spirit:order="82">true</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
       <spirit:name>CHANNEL_ENABLE_VAUXP9_VAUXN9</spirit:name>
@@ -5132,7 +5134,9 @@
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_LITE.SUPPORTS_NARROW_BURST" xilinx:valueSource="auto" xilinx:valuePermission="bd_and_user"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_LITE.WUSER_BITS_PER_BYTE" xilinx:valuePermission="bd_and_user"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S_AXI_LITE.WUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd_and_user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.CHANNEL_ENABLE_TEMPERATURE" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.CHANNEL_ENABLE_VAUXP0_VAUXN0" xilinx:valueSource="user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.CHANNEL_ENABLE_VAUXP8_VAUXN8" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.CHANNEL_ENABLE_VP_VN" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.ENABLE_RESET" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.ENABLE_VCCDDRO_ALARM" xilinx:valueSource="user"/>

@@ -1,8 +1,8 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-// Date        : Sun May  3 16:06:50 2026
-// Host        : CO2041-13 running 64-bit major release  (build 9200)
+// Date        : Thu May  7 16:47:59 2026
+// Host        : CO2041-04 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_analog_channel_fr_0_2/final_proj_analog_channel_fr_0_2_sim_netlist.v
 // Design      : final_proj_analog_channel_fr_0_2
@@ -15,14 +15,11 @@
 (* CHECK_LICENSE_TYPE = "final_proj_analog_channel_fr_0_2,analog_channel_fr_v1_0,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "analog_channel_fr_v1_0,Vivado 2020.1" *) 
 (* NotValidForBitStream *)
 module final_proj_analog_channel_fr_0_2
-   (xadc_di_o,
-    xadc_do_i,
-    xadc_addr_o,
-    xadc_den_o,
-    xadc_dwe_o,
+   (xadc_do_i,
     downsampl_new_o,
     xadc_drdy_i,
     xadc_drdy_o,
+    xadc_channel_i,
     buf_do_o,
     buf_di_o,
     buf_addr_o,
@@ -50,14 +47,11 @@ module final_proj_analog_channel_fr_0_2
     s00_axi_rresp,
     s00_axi_rvalid,
     s00_axi_rready);
-  output [15:0]xadc_di_o;
   input [15:0]xadc_do_i;
-  output [6:0]xadc_addr_o;
-  output xadc_den_o;
-  output xadc_dwe_o;
   output downsampl_new_o;
   input xadc_drdy_i;
   output xadc_drdy_o;
+  input [4:0]xadc_channel_i;
   output [31:0]buf_do_o;
   output [31:0]buf_di_o;
   output [31:0]buf_addr_o;
@@ -111,8 +105,10 @@ module final_proj_analog_channel_fr_0_2
   wire s00_axi_wvalid;
   wire sample_done_o;
   wire trigd_o;
+  wire [4:0]xadc_channel_i;
   wire [15:0]xadc_do_i;
   wire xadc_drdy_i;
+  wire xadc_drdy_o;
 
   assign buf_addr_o[31] = \<const0> ;
   assign buf_addr_o[30] = \<const0> ;
@@ -194,32 +190,6 @@ module final_proj_analog_channel_fr_0_2
   assign s00_axi_bresp[0] = \<const0> ;
   assign s00_axi_rresp[1] = \<const0> ;
   assign s00_axi_rresp[0] = \<const0> ;
-  assign xadc_addr_o[6] = \<const0> ;
-  assign xadc_addr_o[5] = \<const0> ;
-  assign xadc_addr_o[4] = \<const0> ;
-  assign xadc_addr_o[3] = \<const0> ;
-  assign xadc_addr_o[2] = \<const0> ;
-  assign xadc_addr_o[1] = \<const0> ;
-  assign xadc_addr_o[0] = \<const0> ;
-  assign xadc_den_o = \<const0> ;
-  assign xadc_di_o[15] = \<const0> ;
-  assign xadc_di_o[14] = \<const0> ;
-  assign xadc_di_o[13] = \<const0> ;
-  assign xadc_di_o[12] = \<const0> ;
-  assign xadc_di_o[11] = \<const0> ;
-  assign xadc_di_o[10] = \<const0> ;
-  assign xadc_di_o[9] = \<const0> ;
-  assign xadc_di_o[8] = \<const0> ;
-  assign xadc_di_o[7] = \<const0> ;
-  assign xadc_di_o[6] = \<const0> ;
-  assign xadc_di_o[5] = \<const0> ;
-  assign xadc_di_o[4] = \<const0> ;
-  assign xadc_di_o[3] = \<const0> ;
-  assign xadc_di_o[2] = \<const0> ;
-  assign xadc_di_o[1] = \<const0> ;
-  assign xadc_di_o[0] = \<const0> ;
-  assign xadc_drdy_o = xadc_drdy_i;
-  assign xadc_dwe_o = \<const0> ;
   GND GND
        (.G(\<const0> ));
   final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0 inst
@@ -247,8 +217,10 @@ module final_proj_analog_channel_fr_0_2
         .s00_axi_wvalid(s00_axi_wvalid),
         .sample_done_o_reg(sample_done_o),
         .trig_o_reg(trigd_o),
+        .xadc_channel_i(xadc_channel_i),
         .xadc_do_i(xadc_do_i[15:4]),
-        .xadc_drdy_i(xadc_drdy_i));
+        .xadc_drdy_i(xadc_drdy_i),
+        .xadc_drdy_o(xadc_drdy_o));
 endmodule
 
 (* ORIG_REF_NAME = "analog_buffer" *) 
@@ -262,10 +234,6 @@ module final_proj_analog_channel_fr_0_2_analog_buffer
     \slv_reg6_reg[7] ,
     s00_axi_wdata,
     \slv_reg6_reg[11] ,
-    \slv_reg6_reg[10] ,
-    s00_axi_wstrb,
-    \slv_reg6_reg[10]_0 ,
-    \slv_reg6_reg[8] ,
     xadc_do_i,
     Q,
     RAM_reg_0);
@@ -278,10 +246,6 @@ module final_proj_analog_channel_fr_0_2_analog_buffer
   input \slv_reg6_reg[7] ;
   input [11:0]s00_axi_wdata;
   input \slv_reg6_reg[11] ;
-  input \slv_reg6_reg[10] ;
-  input [1:0]s00_axi_wstrb;
-  input \slv_reg6_reg[10]_0 ;
-  input \slv_reg6_reg[8] ;
   input [11:0]xadc_do_i;
   input [0:0]Q;
   input [11:0]RAM_reg_0;
@@ -295,12 +259,8 @@ module final_proj_analog_channel_fr_0_2_analog_buffer
   wire [0:0]buf_we_o;
   wire s00_axi_aclk;
   wire [11:0]s00_axi_wdata;
-  wire [1:0]s00_axi_wstrb;
-  wire \slv_reg6_reg[10] ;
-  wire \slv_reg6_reg[10]_0 ;
   wire \slv_reg6_reg[11] ;
   wire \slv_reg6_reg[7] ;
-  wire \slv_reg6_reg[8] ;
   wire [11:0]xadc_do_i;
   wire [15:12]NLW_RAM_reg_DOADO_UNCONNECTED;
   wire [15:0]NLW_RAM_reg_DOBDO_UNCONNECTED;
@@ -447,45 +407,39 @@ module final_proj_analog_channel_fr_0_2_analog_buffer
         .I1(Q),
         .I2(RAM_reg_0[9]),
         .O(buf_di_o[9]));
-  LUT6 #(
-    .INIT(64'h4F4F4FFF44444444)) 
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \slv_reg6[0]_i_1 
-       (.I0(\slv_reg6_reg[7] ),
-        .I1(s00_axi_wdata[0]),
-        .I2(\slv_reg6_reg[11] ),
-        .I3(\slv_reg6_reg[10] ),
-        .I4(s00_axi_wstrb[0]),
-        .I5(buf_do_o[0]),
+       (.I0(buf_do_o[0]),
+        .I1(\slv_reg6_reg[7] ),
+        .I2(s00_axi_wdata[0]),
         .O(D[0]));
-  LUT6 #(
-    .INIT(64'h555D5F5F000C0000)) 
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \slv_reg6[10]_i_1 
-       (.I0(\slv_reg6_reg[11] ),
-        .I1(s00_axi_wdata[10]),
-        .I2(\slv_reg6_reg[10] ),
-        .I3(\slv_reg6_reg[10]_0 ),
-        .I4(s00_axi_wstrb[1]),
-        .I5(buf_do_o[10]),
+       (.I0(buf_do_o[10]),
+        .I1(\slv_reg6_reg[11] ),
+        .I2(s00_axi_wdata[10]),
         .O(D[10]));
-  LUT4 #(
-    .INIT(16'hEA2A)) 
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \slv_reg6[11]_i_1 
        (.I0(buf_do_o[11]),
-        .I1(s00_axi_wstrb[1]),
-        .I2(\slv_reg6_reg[11] ),
-        .I3(s00_axi_wdata[11]),
+        .I1(\slv_reg6_reg[11] ),
+        .I2(s00_axi_wdata[11]),
         .O(D[11]));
-  LUT6 #(
-    .INIT(64'h4F4F4FFF44444444)) 
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \slv_reg6[1]_i_1 
-       (.I0(\slv_reg6_reg[7] ),
-        .I1(s00_axi_wdata[1]),
-        .I2(\slv_reg6_reg[11] ),
-        .I3(\slv_reg6_reg[10] ),
-        .I4(s00_axi_wstrb[0]),
-        .I5(buf_do_o[1]),
+       (.I0(buf_do_o[1]),
+        .I1(\slv_reg6_reg[7] ),
+        .I2(s00_axi_wdata[1]),
         .O(D[1]));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \slv_reg6[2]_i_1 
@@ -493,7 +447,7 @@ module final_proj_analog_channel_fr_0_2_analog_buffer
         .I1(\slv_reg6_reg[7] ),
         .I2(s00_axi_wdata[2]),
         .O(D[2]));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \slv_reg6[3]_i_1 
@@ -501,62 +455,53 @@ module final_proj_analog_channel_fr_0_2_analog_buffer
         .I1(\slv_reg6_reg[7] ),
         .I2(s00_axi_wdata[3]),
         .O(D[3]));
-  LUT6 #(
-    .INIT(64'h5D5D0C0C5DFF0C0C)) 
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \slv_reg6[4]_i_1 
-       (.I0(\slv_reg6_reg[11] ),
-        .I1(s00_axi_wdata[4]),
-        .I2(\slv_reg6_reg[7] ),
-        .I3(s00_axi_wstrb[0]),
-        .I4(buf_do_o[4]),
-        .I5(\slv_reg6_reg[10] ),
+       (.I0(buf_do_o[4]),
+        .I1(\slv_reg6_reg[7] ),
+        .I2(s00_axi_wdata[4]),
         .O(D[4]));
-  LUT6 #(
-    .INIT(64'h5D5D0C0C5DFF0C0C)) 
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \slv_reg6[5]_i_1 
-       (.I0(\slv_reg6_reg[11] ),
-        .I1(s00_axi_wdata[5]),
-        .I2(\slv_reg6_reg[7] ),
-        .I3(s00_axi_wstrb[0]),
-        .I4(buf_do_o[5]),
-        .I5(\slv_reg6_reg[10] ),
+       (.I0(buf_do_o[5]),
+        .I1(\slv_reg6_reg[7] ),
+        .I2(s00_axi_wdata[5]),
         .O(D[5]));
-  LUT6 #(
-    .INIT(64'h5D5D0C0C5DFF0C0C)) 
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \slv_reg6[6]_i_1 
-       (.I0(\slv_reg6_reg[11] ),
-        .I1(s00_axi_wdata[6]),
-        .I2(\slv_reg6_reg[7] ),
-        .I3(s00_axi_wstrb[0]),
-        .I4(buf_do_o[6]),
-        .I5(\slv_reg6_reg[10] ),
+       (.I0(buf_do_o[6]),
+        .I1(\slv_reg6_reg[7] ),
+        .I2(s00_axi_wdata[6]),
         .O(D[6]));
-  LUT6 #(
-    .INIT(64'h5D5D0C0C5DFF0C0C)) 
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \slv_reg6[7]_i_1 
-       (.I0(\slv_reg6_reg[11] ),
-        .I1(s00_axi_wdata[7]),
-        .I2(\slv_reg6_reg[7] ),
-        .I3(s00_axi_wstrb[0]),
-        .I4(buf_do_o[7]),
-        .I5(\slv_reg6_reg[10] ),
+       (.I0(buf_do_o[7]),
+        .I1(\slv_reg6_reg[7] ),
+        .I2(s00_axi_wdata[7]),
         .O(D[7]));
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
   LUT3 #(
     .INIT(8'hB8)) 
     \slv_reg6[8]_i_1 
        (.I0(buf_do_o[8]),
-        .I1(\slv_reg6_reg[8] ),
+        .I1(\slv_reg6_reg[11] ),
         .I2(s00_axi_wdata[8]),
         .O(D[8]));
-  LUT6 #(
-    .INIT(64'h555D5F5F000C0000)) 
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  LUT3 #(
+    .INIT(8'hB8)) 
     \slv_reg6[9]_i_1 
-       (.I0(\slv_reg6_reg[11] ),
-        .I1(s00_axi_wdata[9]),
-        .I2(\slv_reg6_reg[10] ),
-        .I3(\slv_reg6_reg[10]_0 ),
-        .I4(s00_axi_wstrb[1]),
-        .I5(buf_do_o[9]),
+       (.I0(buf_do_o[9]),
+        .I1(\slv_reg6_reg[11] ),
+        .I2(s00_axi_wdata[9]),
         .O(D[9]));
 endmodule
 
@@ -571,27 +516,28 @@ module final_proj_analog_channel_fr_0_2_analog_channel
     trig_o_reg,
     start_stream_reg,
     sample_done_o_reg,
+    xadc_drdy_i_0,
     sample_done_o0_out,
     D,
-    \s00_axi_wdata[31] ,
+    sample_done_o_reg_0,
     s00_axi_aclk,
     val_valid_o_reg_0,
     start_stream_reg_0,
-    sample_done_o_reg_0,
-    xadc_drdy_i,
+    sample_done_o_reg_1,
     Q,
+    xadc_drdy_i,
+    \counter_reg[31] ,
+    xadc_channel_i,
     RAM_reg,
     val_o0_carry__2,
     \trig_o2_inferred__2/i__carry__2 ,
     \slv_reg6_reg[7] ,
     s00_axi_wdata,
     \slv_reg6_reg[11] ,
-    \slv_reg6_reg[10] ,
+    \slv_reg0_reg[31] ,
     s00_axi_wstrb,
-    \slv_reg6_reg[10]_0 ,
-    \slv_reg6_reg[8] ,
-    E,
-    trig_o_i_6,
+    \slv_reg0_reg[31]_0 ,
+    trig_o_i_8,
     xadc_do_i,
     RAM_reg_0,
     RAM_reg_1);
@@ -604,33 +550,33 @@ module final_proj_analog_channel_fr_0_2_analog_channel
   output trig_o_reg;
   output start_stream_reg;
   output sample_done_o_reg;
+  output xadc_drdy_i_0;
   output sample_done_o0_out;
   output [11:0]D;
-  output [0:0]\s00_axi_wdata[31] ;
+  output [0:0]sample_done_o_reg_0;
   input s00_axi_aclk;
   input val_valid_o_reg_0;
   input start_stream_reg_0;
-  input sample_done_o_reg_0;
-  input xadc_drdy_i;
+  input sample_done_o_reg_1;
   input [0:0]Q;
+  input xadc_drdy_i;
+  input [5:0]\counter_reg[31] ;
+  input [4:0]xadc_channel_i;
   input [0:0]RAM_reg;
   input [31:0]val_o0_carry__2;
   input [31:0]\trig_o2_inferred__2/i__carry__2 ;
   input \slv_reg6_reg[7] ;
   input [12:0]s00_axi_wdata;
   input \slv_reg6_reg[11] ;
-  input \slv_reg6_reg[10] ;
-  input [1:0]s00_axi_wstrb;
-  input \slv_reg6_reg[10]_0 ;
-  input \slv_reg6_reg[8] ;
-  input [0:0]E;
-  input [31:0]trig_o_i_6;
+  input \slv_reg0_reg[31] ;
+  input [0:0]s00_axi_wstrb;
+  input \slv_reg0_reg[31]_0 ;
+  input [31:0]trig_o_i_8;
   input [11:0]xadc_do_i;
   input [11:0]RAM_reg_0;
   input [9:0]RAM_reg_1;
 
   wire [11:0]D;
-  wire [0:0]E;
   wire [0:0]Q;
   wire [0:0]RAM_reg;
   wire [11:0]RAM_reg_0;
@@ -639,7 +585,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel
   wire [11:0]buf_di_o;
   wire [11:0]buf_do_o;
   wire [0:0]buf_we_o;
-  wire downsamp_n_1;
+  wire [5:0]\counter_reg[31] ;
   wire downsamp_n_10;
   wire downsamp_n_11;
   wire downsamp_n_12;
@@ -651,13 +597,14 @@ module final_proj_analog_channel_fr_0_2_analog_channel
   wire downsamp_n_18;
   wire downsamp_n_19;
   wire downsamp_n_2;
+  wire downsamp_n_20;
   wire downsamp_n_3;
-  wire downsamp_n_32;
   wire downsamp_n_33;
   wire downsamp_n_34;
   wire downsamp_n_35;
   wire downsamp_n_36;
   wire downsamp_n_37;
+  wire downsamp_n_38;
   wire downsamp_n_4;
   wire downsamp_n_5;
   wire downsamp_n_6;
@@ -667,41 +614,44 @@ module final_proj_analog_channel_fr_0_2_analog_channel
   wire [11:0]p_1_in;
   wire s00_axi_aclk;
   wire [12:0]s00_axi_wdata;
-  wire [0:0]\s00_axi_wdata[31] ;
-  wire [1:0]s00_axi_wstrb;
+  wire [0:0]s00_axi_wstrb;
   wire sample_done_o0_out;
   wire sample_done_o_reg;
-  wire sample_done_o_reg_0;
-  wire \slv_reg6_reg[10] ;
-  wire \slv_reg6_reg[10]_0 ;
+  wire [0:0]sample_done_o_reg_0;
+  wire sample_done_o_reg_1;
+  wire \slv_reg0_reg[31] ;
+  wire \slv_reg0_reg[31]_0 ;
   wire \slv_reg6_reg[11] ;
   wire \slv_reg6_reg[7] ;
-  wire \slv_reg6_reg[8] ;
   wire start_stream_reg;
   wire start_stream_reg_0;
   wire [31:0]\trig_o2_inferred__2/i__carry__2 ;
-  wire [31:0]trig_o_i_6;
+  wire [31:0]trig_o_i_8;
   wire trig_o_reg;
   wire trig_val_valid;
   wire [31:0]val_o0_carry__2;
   wire val_valid_o_reg;
   wire val_valid_o_reg_0;
+  wire [4:0]xadc_channel_i;
   wire [11:0]xadc_do_i;
   wire xadc_drdy_i;
+  wire xadc_drdy_i_0;
 
   final_proj_analog_channel_fr_0_2_analog_streamer ana_stream
-       (.E(E),
-        .Q(Q),
+       (.Q(Q),
         .RAM_reg(RAM_reg_1),
         .buf_addr_o(buf_addr_o),
         .\buf_addr_reg[10]_0 (trig_o_reg),
         .s00_axi_aclk(s00_axi_aclk),
         .s00_axi_wdata(s00_axi_wdata[12]),
-        .\s00_axi_wdata[31] (\s00_axi_wdata[31] ),
+        .s00_axi_wstrb(s00_axi_wstrb),
         .sample_done_o0_out(sample_done_o0_out),
         .sample_done_o_reg_0(sample_done_o_reg),
         .sample_done_o_reg_1(sample_done_o_reg_0),
-        .sample_done_o_reg_2(val_valid_o_reg_0),
+        .sample_done_o_reg_2(sample_done_o_reg_1),
+        .sample_done_o_reg_3(val_valid_o_reg_0),
+        .\slv_reg0_reg[31] (\slv_reg0_reg[31] ),
+        .\slv_reg0_reg[31]_0 (\slv_reg0_reg[31]_0 ),
         .start_stream_reg_0(start_stream_reg),
         .start_stream_reg_1(start_stream_reg_0),
         .trig_val_valid(trig_val_valid));
@@ -715,50 +665,49 @@ module final_proj_analog_channel_fr_0_2_analog_channel
         .buf_we_o(buf_we_o),
         .s00_axi_aclk(s00_axi_aclk),
         .s00_axi_wdata(s00_axi_wdata[11:0]),
-        .s00_axi_wstrb(s00_axi_wstrb),
-        .\slv_reg6_reg[10] (\slv_reg6_reg[10] ),
-        .\slv_reg6_reg[10]_0 (\slv_reg6_reg[10]_0 ),
         .\slv_reg6_reg[11] (\slv_reg6_reg[11] ),
         .\slv_reg6_reg[7] (\slv_reg6_reg[7] ),
-        .\slv_reg6_reg[8] (\slv_reg6_reg[8] ),
         .xadc_do_i(xadc_do_i));
   final_proj_analog_channel_fr_0_2_analog_downsample downsamp
        (.D(p_1_in),
-        .DI({downsamp_n_5,downsamp_n_6,downsamp_n_7,downsamp_n_8}),
-        .E(downsamp_n_19),
+        .DI({downsamp_n_6,downsamp_n_7,downsamp_n_8,downsamp_n_9}),
+        .E(downsamp_n_20),
         .Q(Q),
-        .S({downsamp_n_1,downsamp_n_2,downsamp_n_3,downsamp_n_4}),
+        .S({downsamp_n_2,downsamp_n_3,downsamp_n_4,downsamp_n_5}),
+        .\counter_reg[31]_0 (\counter_reg[31] ),
         .s00_axi_aclk(s00_axi_aclk),
-        .\slv_reg2_reg[10] ({downsamp_n_15,downsamp_n_16}),
+        .\slv_reg2_reg[10] ({downsamp_n_16,downsamp_n_17}),
         .\trig_o2_inferred__1/i__carry__0 (\trig_o2_inferred__2/i__carry__2 [11:0]),
         .val_o0_carry__2_0(val_o0_carry__2),
-        .\val_o_reg[10]_0 ({downsamp_n_13,downsamp_n_14}),
-        .\val_o_reg[10]_1 ({downsamp_n_17,downsamp_n_18}),
-        .\val_o_reg[10]_2 ({downsamp_n_36,downsamp_n_37}),
-        .\val_o_reg[6]_0 ({downsamp_n_9,downsamp_n_10,downsamp_n_11,downsamp_n_12}),
-        .\val_o_reg[6]_1 ({downsamp_n_32,downsamp_n_33,downsamp_n_34,downsamp_n_35}),
+        .\val_o_reg[10]_0 ({downsamp_n_14,downsamp_n_15}),
+        .\val_o_reg[10]_1 ({downsamp_n_18,downsamp_n_19}),
+        .\val_o_reg[10]_2 ({downsamp_n_37,downsamp_n_38}),
+        .\val_o_reg[6]_0 ({downsamp_n_10,downsamp_n_11,downsamp_n_12,downsamp_n_13}),
+        .\val_o_reg[6]_1 ({downsamp_n_33,downsamp_n_34,downsamp_n_35,downsamp_n_36}),
         .val_valid_o_reg_0(val_valid_o_reg),
         .val_valid_o_reg_1(val_valid_o_reg_0),
+        .xadc_channel_i(xadc_channel_i),
         .xadc_do_i(xadc_do_i),
-        .xadc_drdy_i(xadc_drdy_i));
+        .xadc_drdy_i(xadc_drdy_i),
+        .xadc_drdy_i_0(xadc_drdy_i_0));
   final_proj_analog_channel_fr_0_2_analog_trigger trig
        (.D(p_1_in),
-        .DI({downsamp_n_5,downsamp_n_6,downsamp_n_7,downsamp_n_8}),
-        .E(downsamp_n_19),
+        .DI({downsamp_n_6,downsamp_n_7,downsamp_n_8,downsamp_n_9}),
+        .E(downsamp_n_20),
         .Q(Q),
         .RAM_reg(sample_done_o_reg),
         .RAM_reg_0(RAM_reg),
-        .S({downsamp_n_1,downsamp_n_2,downsamp_n_3,downsamp_n_4}),
+        .S({downsamp_n_2,downsamp_n_3,downsamp_n_4,downsamp_n_5}),
         .buf_we_o(buf_we_o),
         .s00_axi_aclk(s00_axi_aclk),
-        .trig_o2_carry__0_0({downsamp_n_32,downsamp_n_33,downsamp_n_34,downsamp_n_35}),
-        .trig_o2_carry__1_0({downsamp_n_15,downsamp_n_16}),
-        .trig_o2_carry__1_1({downsamp_n_36,downsamp_n_37}),
-        .\trig_o2_inferred__1/i__carry__0_0 ({downsamp_n_9,downsamp_n_10,downsamp_n_11,downsamp_n_12}),
-        .\trig_o2_inferred__1/i__carry__1_0 ({downsamp_n_17,downsamp_n_18}),
-        .\trig_o2_inferred__1/i__carry__1_1 ({downsamp_n_13,downsamp_n_14}),
+        .trig_o2_carry__0_0({downsamp_n_33,downsamp_n_34,downsamp_n_35,downsamp_n_36}),
+        .trig_o2_carry__1_0({downsamp_n_16,downsamp_n_17}),
+        .trig_o2_carry__1_1({downsamp_n_37,downsamp_n_38}),
+        .\trig_o2_inferred__1/i__carry__0_0 ({downsamp_n_10,downsamp_n_11,downsamp_n_12,downsamp_n_13}),
+        .\trig_o2_inferred__1/i__carry__1_0 ({downsamp_n_18,downsamp_n_19}),
+        .\trig_o2_inferred__1/i__carry__1_1 ({downsamp_n_14,downsamp_n_15}),
         .\trig_o2_inferred__2/i__carry__2_0 (\trig_o2_inferred__2/i__carry__2 ),
-        .trig_o_i_6_0(trig_o_i_6),
+        .trig_o_i_8_0(trig_o_i_8),
         .trig_o_reg_0(trig_o_reg),
         .trig_val_valid(trig_val_valid),
         .val_valid_o_reg_0(val_valid_o_reg),
@@ -767,54 +716,58 @@ endmodule
 
 (* ORIG_REF_NAME = "analog_channel_fr_v1_0" *) 
 module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0
-   (sample_done_o_reg,
+   (xadc_drdy_o,
+    sample_done_o_reg,
     trig_o_reg,
-    S_AXI_AWREADY,
-    S_AXI_WREADY,
     buf_do_o,
     buf_addr_o,
     buf_di_o,
     buf_we_o,
     downsampl_new_o,
+    S_AXI_WREADY,
+    S_AXI_AWREADY,
     S_AXI_ARREADY,
     s00_axi_rdata,
     s00_axi_rvalid,
     s00_axi_bvalid,
     s00_axi_wstrb,
-    s00_axi_wvalid,
-    s00_axi_awvalid,
     s00_axi_aclk,
     xadc_do_i,
     s00_axi_awaddr,
     s00_axi_wdata,
     s00_axi_araddr,
     xadc_drdy_i,
+    xadc_channel_i,
+    s00_axi_awvalid,
+    s00_axi_wvalid,
     s00_axi_arvalid,
     s00_axi_aresetn,
     s00_axi_bready,
     s00_axi_rready);
+  output xadc_drdy_o;
   output sample_done_o_reg;
   output trig_o_reg;
-  output S_AXI_AWREADY;
-  output S_AXI_WREADY;
   output [11:0]buf_do_o;
   output [9:0]buf_addr_o;
   output [31:0]buf_di_o;
   output [0:0]buf_we_o;
   output downsampl_new_o;
+  output S_AXI_WREADY;
+  output S_AXI_AWREADY;
   output S_AXI_ARREADY;
   output [31:0]s00_axi_rdata;
   output s00_axi_rvalid;
   output s00_axi_bvalid;
   input [3:0]s00_axi_wstrb;
-  input s00_axi_wvalid;
-  input s00_axi_awvalid;
   input s00_axi_aclk;
   input [11:0]xadc_do_i;
   input [3:0]s00_axi_awaddr;
   input [31:0]s00_axi_wdata;
   input [3:0]s00_axi_araddr;
   input xadc_drdy_i;
+  input [4:0]xadc_channel_i;
+  input s00_axi_awvalid;
+  input s00_axi_wvalid;
   input s00_axi_arvalid;
   input s00_axi_aresetn;
   input s00_axi_bready;
@@ -855,8 +808,10 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0
   wire start_stream_i_1_n_0;
   wire trig_o_reg;
   wire val_valid_o_i_2_n_0;
+  wire [4:0]xadc_channel_i;
   wire [11:0]xadc_do_i;
   wire xadc_drdy_i;
+  wire xadc_drdy_o;
 
   final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI analog_channel_fr_v1_0_S00_AXI_inst
        (.Q(slv_reg0),
@@ -891,8 +846,10 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0
         .trig_val_valid(\ach/trig_val_valid ),
         .val_valid_o_reg(downsampl_new_o),
         .val_valid_o_reg_0(val_valid_o_i_2_n_0),
+        .xadc_channel_i(xadc_channel_i),
         .xadc_do_i(xadc_do_i),
-        .xadc_drdy_i(xadc_drdy_i));
+        .xadc_drdy_i(xadc_drdy_i),
+        .xadc_drdy_i_0(xadc_drdy_o));
   LUT6 #(
     .INIT(64'hFFFF88880FFF8888)) 
     aw_en_i_1
@@ -904,20 +861,20 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0
         .I5(S_AXI_AWREADY),
         .O(aw_en_i_1_n_0));
   LUT6 #(
-    .INIT(64'h55555555C0000000)) 
+    .INIT(64'h7444444444444444)) 
     axi_bvalid_i_1
        (.I0(s00_axi_bready),
-        .I1(S_AXI_AWREADY),
-        .I2(S_AXI_WREADY),
-        .I3(s00_axi_wvalid),
-        .I4(s00_axi_awvalid),
-        .I5(s00_axi_bvalid),
+        .I1(s00_axi_bvalid),
+        .I2(S_AXI_AWREADY),
+        .I3(S_AXI_WREADY),
+        .I4(s00_axi_wvalid),
+        .I5(s00_axi_awvalid),
         .O(axi_bvalid_i_1_n_0));
   LUT4 #(
     .INIT(16'h08F8)) 
     axi_rvalid_i_1
-       (.I0(S_AXI_ARREADY),
-        .I1(s00_axi_arvalid),
+       (.I0(s00_axi_arvalid),
+        .I1(S_AXI_ARREADY),
         .I2(s00_axi_rvalid),
         .I3(s00_axi_rready),
         .O(axi_rvalid_i_1_n_0));
@@ -965,6 +922,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
     s00_axi_bvalid,
     aw_en_reg_0,
     s00_axi_rvalid,
+    xadc_drdy_i_0,
     Q,
     sample_done_o0_out,
     s00_axi_rdata,
@@ -976,14 +934,15 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
     aw_en_reg_1,
     axi_rvalid_reg_0,
     s00_axi_wstrb,
-    s00_axi_wvalid,
-    s00_axi_awvalid,
     xadc_do_i,
     s00_axi_awaddr,
     s00_axi_wdata,
     s00_axi_araddr,
     s00_axi_arvalid,
-    xadc_drdy_i);
+    xadc_drdy_i,
+    xadc_channel_i,
+    s00_axi_awvalid,
+    s00_axi_wvalid);
   output [11:0]buf_do_o;
   output [9:0]buf_addr_o;
   output [31:0]buf_di_o;
@@ -999,6 +958,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   output s00_axi_bvalid;
   output aw_en_reg_0;
   output s00_axi_rvalid;
+  output xadc_drdy_i_0;
   output [0:0]Q;
   output sample_done_o0_out;
   output [31:0]s00_axi_rdata;
@@ -1010,17 +970,17 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   input aw_en_reg_1;
   input axi_rvalid_reg_0;
   input [3:0]s00_axi_wstrb;
-  input s00_axi_wvalid;
-  input s00_axi_awvalid;
   input [11:0]xadc_do_i;
   input [3:0]s00_axi_awaddr;
   input [31:0]s00_axi_wdata;
   input [3:0]s00_axi_araddr;
   input s00_axi_arvalid;
   input xadc_drdy_i;
+  input [4:0]xadc_channel_i;
+  input s00_axi_awvalid;
+  input s00_axi_wvalid;
 
   wire [0:0]Q;
-  wire ach_n_41;
   wire ach_n_42;
   wire ach_n_43;
   wire ach_n_44;
@@ -1032,6 +992,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   wire ach_n_50;
   wire ach_n_51;
   wire ach_n_52;
+  wire ach_n_53;
   wire aw_en_reg_0;
   wire aw_en_reg_1;
   wire axi_arready0;
@@ -1257,7 +1218,8 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   wire sample_done_o_reg;
   wire sample_done_o_reg_0;
   wire [3:0]sel0;
-  wire \slv_reg0[30]_i_2_n_0 ;
+  wire \slv_reg0[31]_i_2_n_0 ;
+  wire \slv_reg0[31]_i_3_n_0 ;
   wire [31:1]slv_reg0__0;
   wire [31:0]slv_reg1;
   wire [31:0]slv_reg10;
@@ -1308,8 +1270,6 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   wire \slv_reg4[15]_i_1_n_0 ;
   wire \slv_reg4[23]_i_1_n_0 ;
   wire \slv_reg4[31]_i_1_n_0 ;
-  wire \slv_reg4[31]_i_2_n_0 ;
-  wire \slv_reg4[31]_i_3_n_0 ;
   wire \slv_reg4[7]_i_1_n_0 ;
   wire [9:0]slv_reg5;
   wire \slv_reg5[15]_i_1_n_0 ;
@@ -1318,8 +1278,6 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   wire \slv_reg5[7]_i_1_n_0 ;
   wire [31:10]slv_reg5__0;
   wire [31:0]slv_reg6;
-  wire \slv_reg6[10]_i_2_n_0 ;
-  wire \slv_reg6[11]_i_2_n_0 ;
   wire \slv_reg6[12]_i_1_n_0 ;
   wire \slv_reg6[13]_i_1_n_0 ;
   wire \slv_reg6[14]_i_1_n_0 ;
@@ -1341,6 +1299,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   wire \slv_reg6[28]_i_1_n_0 ;
   wire \slv_reg6[29]_i_1_n_0 ;
   wire \slv_reg6[30]_i_1_n_0 ;
+  wire \slv_reg6[30]_i_2_n_0 ;
   wire \slv_reg6[31]_i_1_n_0 ;
   wire \slv_reg6[31]_i_2_n_0 ;
   wire \slv_reg6[7]_i_2_n_0 ;
@@ -1355,11 +1314,42 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   wire \slv_reg8[23]_i_1_n_0 ;
   wire \slv_reg8[31]_i_1_n_0 ;
   wire \slv_reg8[7]_i_1_n_0 ;
-  wire [31:0]slv_reg9;
+  wire [31:31]slv_reg9;
   wire \slv_reg9[15]_i_1_n_0 ;
   wire \slv_reg9[23]_i_1_n_0 ;
   wire \slv_reg9[31]_i_1_n_0 ;
   wire \slv_reg9[7]_i_1_n_0 ;
+  wire \slv_reg9_reg_n_0_[0] ;
+  wire \slv_reg9_reg_n_0_[10] ;
+  wire \slv_reg9_reg_n_0_[11] ;
+  wire \slv_reg9_reg_n_0_[12] ;
+  wire \slv_reg9_reg_n_0_[13] ;
+  wire \slv_reg9_reg_n_0_[14] ;
+  wire \slv_reg9_reg_n_0_[15] ;
+  wire \slv_reg9_reg_n_0_[16] ;
+  wire \slv_reg9_reg_n_0_[17] ;
+  wire \slv_reg9_reg_n_0_[18] ;
+  wire \slv_reg9_reg_n_0_[19] ;
+  wire \slv_reg9_reg_n_0_[1] ;
+  wire \slv_reg9_reg_n_0_[20] ;
+  wire \slv_reg9_reg_n_0_[21] ;
+  wire \slv_reg9_reg_n_0_[22] ;
+  wire \slv_reg9_reg_n_0_[23] ;
+  wire \slv_reg9_reg_n_0_[24] ;
+  wire \slv_reg9_reg_n_0_[25] ;
+  wire \slv_reg9_reg_n_0_[26] ;
+  wire \slv_reg9_reg_n_0_[27] ;
+  wire \slv_reg9_reg_n_0_[28] ;
+  wire \slv_reg9_reg_n_0_[29] ;
+  wire \slv_reg9_reg_n_0_[2] ;
+  wire \slv_reg9_reg_n_0_[30] ;
+  wire \slv_reg9_reg_n_0_[3] ;
+  wire \slv_reg9_reg_n_0_[4] ;
+  wire \slv_reg9_reg_n_0_[5] ;
+  wire \slv_reg9_reg_n_0_[6] ;
+  wire \slv_reg9_reg_n_0_[7] ;
+  wire \slv_reg9_reg_n_0_[8] ;
+  wire \slv_reg9_reg_n_0_[9] ;
   wire slv_reg_rden__0;
   wire start_stream_reg;
   wire start_stream_reg_0;
@@ -1367,12 +1357,13 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   wire trig_val_valid;
   wire val_valid_o_reg;
   wire val_valid_o_reg_0;
+  wire [4:0]xadc_channel_i;
   wire [11:0]xadc_do_i;
   wire xadc_drdy_i;
+  wire xadc_drdy_i_0;
 
   final_proj_analog_channel_fr_0_2_analog_channel ach
-       (.D({ach_n_41,ach_n_42,ach_n_43,ach_n_44,ach_n_45,ach_n_46,ach_n_47,ach_n_48,ach_n_49,ach_n_50,ach_n_51,ach_n_52}),
-        .E(p_1_in[30]),
+       (.D({ach_n_42,ach_n_43,ach_n_44,ach_n_45,ach_n_46,ach_n_47,ach_n_48,ach_n_49,ach_n_50,ach_n_51,ach_n_52,ach_n_53}),
         .Q(Q),
         .RAM_reg(slv_reg7),
         .RAM_reg_0(slv_reg8[11:0]),
@@ -1381,29 +1372,31 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .buf_di_o(buf_di_o[11:0]),
         .buf_do_o(buf_do_o),
         .buf_we_o(buf_we_o),
+        .\counter_reg[31] ({slv_reg9,\slv_reg9_reg_n_0_[4] ,\slv_reg9_reg_n_0_[3] ,\slv_reg9_reg_n_0_[2] ,\slv_reg9_reg_n_0_[1] ,\slv_reg9_reg_n_0_[0] }),
         .s00_axi_aclk(s00_axi_aclk),
         .s00_axi_wdata({s00_axi_wdata[31],s00_axi_wdata[11:0]}),
-        .\s00_axi_wdata[31] (p_2_in),
-        .s00_axi_wstrb(s00_axi_wstrb[1:0]),
+        .s00_axi_wstrb(s00_axi_wstrb[3]),
         .sample_done_o0_out(sample_done_o0_out),
         .sample_done_o_reg(sample_done_o_reg),
-        .sample_done_o_reg_0(sample_done_o_reg_0),
-        .\slv_reg6_reg[10] (\slv_reg6[10]_i_2_n_0 ),
-        .\slv_reg6_reg[10]_0 (\slv_reg0[30]_i_2_n_0 ),
-        .\slv_reg6_reg[11] (\slv_reg6[11]_i_2_n_0 ),
+        .sample_done_o_reg_0(p_2_in),
+        .sample_done_o_reg_1(sample_done_o_reg_0),
+        .\slv_reg0_reg[31] (\slv_reg0[31]_i_2_n_0 ),
+        .\slv_reg0_reg[31]_0 (\slv_reg0[31]_i_3_n_0 ),
+        .\slv_reg6_reg[11] (\slv_reg6[15]_i_2_n_0 ),
         .\slv_reg6_reg[7] (\slv_reg6[7]_i_2_n_0 ),
-        .\slv_reg6_reg[8] (\slv_reg6[15]_i_2_n_0 ),
         .start_stream_reg(start_stream_reg),
         .start_stream_reg_0(start_stream_reg_0),
         .\trig_o2_inferred__2/i__carry__2 (slv_reg2),
-        .trig_o_i_6(slv_reg3),
+        .trig_o_i_8(slv_reg3),
         .trig_o_reg(trig_o_reg),
         .trig_val_valid(trig_val_valid),
         .val_o0_carry__2(slv_reg1),
         .val_valid_o_reg(val_valid_o_reg),
         .val_valid_o_reg_0(val_valid_o_reg_0),
+        .xadc_channel_i(xadc_channel_i),
         .xadc_do_i(xadc_do_i),
-        .xadc_drdy_i(xadc_drdy_i));
+        .xadc_drdy_i(xadc_drdy_i),
+        .xadc_drdy_i_0(xadc_drdy_i_0));
   FDSE aw_en_reg
        (.C(s00_axi_aclk),
         .CE(1'b1),
@@ -1516,7 +1509,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[0]),
         .I1(slv_reg10[0]),
         .I2(sel0[1]),
-        .I3(slv_reg9[0]),
+        .I3(\slv_reg9_reg_n_0_[0] ),
         .I4(sel0[0]),
         .I5(slv_reg8[0]),
         .O(\axi_rdata[0]_i_6_n_0 ));
@@ -1556,7 +1549,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[10]),
         .I1(slv_reg10[10]),
         .I2(sel0[1]),
-        .I3(slv_reg9[10]),
+        .I3(\slv_reg9_reg_n_0_[10] ),
         .I4(sel0[0]),
         .I5(slv_reg8[10]),
         .O(\axi_rdata[10]_i_6_n_0 ));
@@ -1596,7 +1589,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[11]),
         .I1(slv_reg10[11]),
         .I2(sel0[1]),
-        .I3(slv_reg9[11]),
+        .I3(\slv_reg9_reg_n_0_[11] ),
         .I4(sel0[0]),
         .I5(slv_reg8[11]),
         .O(\axi_rdata[11]_i_6_n_0 ));
@@ -1636,7 +1629,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[12]),
         .I1(slv_reg10[12]),
         .I2(sel0[1]),
-        .I3(slv_reg9[12]),
+        .I3(\slv_reg9_reg_n_0_[12] ),
         .I4(sel0[0]),
         .I5(slv_reg8[12]),
         .O(\axi_rdata[12]_i_6_n_0 ));
@@ -1676,7 +1669,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[13]),
         .I1(slv_reg10[13]),
         .I2(sel0[1]),
-        .I3(slv_reg9[13]),
+        .I3(\slv_reg9_reg_n_0_[13] ),
         .I4(sel0[0]),
         .I5(slv_reg8[13]),
         .O(\axi_rdata[13]_i_6_n_0 ));
@@ -1716,7 +1709,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[14]),
         .I1(slv_reg10[14]),
         .I2(sel0[1]),
-        .I3(slv_reg9[14]),
+        .I3(\slv_reg9_reg_n_0_[14] ),
         .I4(sel0[0]),
         .I5(slv_reg8[14]),
         .O(\axi_rdata[14]_i_6_n_0 ));
@@ -1756,7 +1749,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[15]),
         .I1(slv_reg10[15]),
         .I2(sel0[1]),
-        .I3(slv_reg9[15]),
+        .I3(\slv_reg9_reg_n_0_[15] ),
         .I4(sel0[0]),
         .I5(slv_reg8[15]),
         .O(\axi_rdata[15]_i_6_n_0 ));
@@ -1796,7 +1789,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[16]),
         .I1(slv_reg10[16]),
         .I2(sel0[1]),
-        .I3(slv_reg9[16]),
+        .I3(\slv_reg9_reg_n_0_[16] ),
         .I4(sel0[0]),
         .I5(slv_reg8[16]),
         .O(\axi_rdata[16]_i_6_n_0 ));
@@ -1836,7 +1829,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[17]),
         .I1(slv_reg10[17]),
         .I2(sel0[1]),
-        .I3(slv_reg9[17]),
+        .I3(\slv_reg9_reg_n_0_[17] ),
         .I4(sel0[0]),
         .I5(slv_reg8[17]),
         .O(\axi_rdata[17]_i_6_n_0 ));
@@ -1876,7 +1869,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[18]),
         .I1(slv_reg10[18]),
         .I2(sel0[1]),
-        .I3(slv_reg9[18]),
+        .I3(\slv_reg9_reg_n_0_[18] ),
         .I4(sel0[0]),
         .I5(slv_reg8[18]),
         .O(\axi_rdata[18]_i_6_n_0 ));
@@ -1916,7 +1909,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[19]),
         .I1(slv_reg10[19]),
         .I2(sel0[1]),
-        .I3(slv_reg9[19]),
+        .I3(\slv_reg9_reg_n_0_[19] ),
         .I4(sel0[0]),
         .I5(slv_reg8[19]),
         .O(\axi_rdata[19]_i_6_n_0 ));
@@ -1956,7 +1949,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[1]),
         .I1(slv_reg10[1]),
         .I2(sel0[1]),
-        .I3(slv_reg9[1]),
+        .I3(\slv_reg9_reg_n_0_[1] ),
         .I4(sel0[0]),
         .I5(slv_reg8[1]),
         .O(\axi_rdata[1]_i_6_n_0 ));
@@ -1996,7 +1989,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[20]),
         .I1(slv_reg10[20]),
         .I2(sel0[1]),
-        .I3(slv_reg9[20]),
+        .I3(\slv_reg9_reg_n_0_[20] ),
         .I4(sel0[0]),
         .I5(slv_reg8[20]),
         .O(\axi_rdata[20]_i_6_n_0 ));
@@ -2036,7 +2029,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[21]),
         .I1(slv_reg10[21]),
         .I2(sel0[1]),
-        .I3(slv_reg9[21]),
+        .I3(\slv_reg9_reg_n_0_[21] ),
         .I4(sel0[0]),
         .I5(slv_reg8[21]),
         .O(\axi_rdata[21]_i_6_n_0 ));
@@ -2076,7 +2069,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[22]),
         .I1(slv_reg10[22]),
         .I2(sel0[1]),
-        .I3(slv_reg9[22]),
+        .I3(\slv_reg9_reg_n_0_[22] ),
         .I4(sel0[0]),
         .I5(slv_reg8[22]),
         .O(\axi_rdata[22]_i_6_n_0 ));
@@ -2116,7 +2109,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[23]),
         .I1(slv_reg10[23]),
         .I2(sel0[1]),
-        .I3(slv_reg9[23]),
+        .I3(\slv_reg9_reg_n_0_[23] ),
         .I4(sel0[0]),
         .I5(slv_reg8[23]),
         .O(\axi_rdata[23]_i_6_n_0 ));
@@ -2156,7 +2149,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[24]),
         .I1(slv_reg10[24]),
         .I2(sel0[1]),
-        .I3(slv_reg9[24]),
+        .I3(\slv_reg9_reg_n_0_[24] ),
         .I4(sel0[0]),
         .I5(slv_reg8[24]),
         .O(\axi_rdata[24]_i_6_n_0 ));
@@ -2196,7 +2189,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[25]),
         .I1(slv_reg10[25]),
         .I2(sel0[1]),
-        .I3(slv_reg9[25]),
+        .I3(\slv_reg9_reg_n_0_[25] ),
         .I4(sel0[0]),
         .I5(slv_reg8[25]),
         .O(\axi_rdata[25]_i_6_n_0 ));
@@ -2236,7 +2229,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[26]),
         .I1(slv_reg10[26]),
         .I2(sel0[1]),
-        .I3(slv_reg9[26]),
+        .I3(\slv_reg9_reg_n_0_[26] ),
         .I4(sel0[0]),
         .I5(slv_reg8[26]),
         .O(\axi_rdata[26]_i_6_n_0 ));
@@ -2276,7 +2269,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[27]),
         .I1(slv_reg10[27]),
         .I2(sel0[1]),
-        .I3(slv_reg9[27]),
+        .I3(\slv_reg9_reg_n_0_[27] ),
         .I4(sel0[0]),
         .I5(slv_reg8[27]),
         .O(\axi_rdata[27]_i_6_n_0 ));
@@ -2316,7 +2309,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[28]),
         .I1(slv_reg10[28]),
         .I2(sel0[1]),
-        .I3(slv_reg9[28]),
+        .I3(\slv_reg9_reg_n_0_[28] ),
         .I4(sel0[0]),
         .I5(slv_reg8[28]),
         .O(\axi_rdata[28]_i_6_n_0 ));
@@ -2356,7 +2349,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[29]),
         .I1(slv_reg10[29]),
         .I2(sel0[1]),
-        .I3(slv_reg9[29]),
+        .I3(\slv_reg9_reg_n_0_[29] ),
         .I4(sel0[0]),
         .I5(slv_reg8[29]),
         .O(\axi_rdata[29]_i_6_n_0 ));
@@ -2396,7 +2389,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[2]),
         .I1(slv_reg10[2]),
         .I2(sel0[1]),
-        .I3(slv_reg9[2]),
+        .I3(\slv_reg9_reg_n_0_[2] ),
         .I4(sel0[0]),
         .I5(slv_reg8[2]),
         .O(\axi_rdata[2]_i_6_n_0 ));
@@ -2436,7 +2429,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[30]),
         .I1(slv_reg10[30]),
         .I2(sel0[1]),
-        .I3(slv_reg9[30]),
+        .I3(\slv_reg9_reg_n_0_[30] ),
         .I4(sel0[0]),
         .I5(slv_reg8[30]),
         .O(\axi_rdata[30]_i_6_n_0 ));
@@ -2476,7 +2469,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[31]),
         .I1(slv_reg10[31]),
         .I2(sel0[1]),
-        .I3(slv_reg9[31]),
+        .I3(slv_reg9),
         .I4(sel0[0]),
         .I5(slv_reg8[31]),
         .O(\axi_rdata[31]_i_6_n_0 ));
@@ -2516,7 +2509,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[3]),
         .I1(slv_reg10[3]),
         .I2(sel0[1]),
-        .I3(slv_reg9[3]),
+        .I3(\slv_reg9_reg_n_0_[3] ),
         .I4(sel0[0]),
         .I5(slv_reg8[3]),
         .O(\axi_rdata[3]_i_6_n_0 ));
@@ -2556,7 +2549,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[4]),
         .I1(slv_reg10[4]),
         .I2(sel0[1]),
-        .I3(slv_reg9[4]),
+        .I3(\slv_reg9_reg_n_0_[4] ),
         .I4(sel0[0]),
         .I5(slv_reg8[4]),
         .O(\axi_rdata[4]_i_6_n_0 ));
@@ -2596,7 +2589,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[5]),
         .I1(slv_reg10[5]),
         .I2(sel0[1]),
-        .I3(slv_reg9[5]),
+        .I3(\slv_reg9_reg_n_0_[5] ),
         .I4(sel0[0]),
         .I5(slv_reg8[5]),
         .O(\axi_rdata[5]_i_6_n_0 ));
@@ -2636,7 +2629,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[6]),
         .I1(slv_reg10[6]),
         .I2(sel0[1]),
-        .I3(slv_reg9[6]),
+        .I3(\slv_reg9_reg_n_0_[6] ),
         .I4(sel0[0]),
         .I5(slv_reg8[6]),
         .O(\axi_rdata[6]_i_6_n_0 ));
@@ -2676,7 +2669,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[7]),
         .I1(slv_reg10[7]),
         .I2(sel0[1]),
-        .I3(slv_reg9[7]),
+        .I3(\slv_reg9_reg_n_0_[7] ),
         .I4(sel0[0]),
         .I5(slv_reg8[7]),
         .O(\axi_rdata[7]_i_6_n_0 ));
@@ -2716,7 +2709,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[8]),
         .I1(slv_reg10[8]),
         .I2(sel0[1]),
-        .I3(slv_reg9[8]),
+        .I3(\slv_reg9_reg_n_0_[8] ),
         .I4(sel0[0]),
         .I5(slv_reg8[8]),
         .O(\axi_rdata[8]_i_6_n_0 ));
@@ -2756,7 +2749,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
        (.I0(slv_reg11[9]),
         .I1(slv_reg10[9]),
         .I2(sel0[1]),
-        .I3(slv_reg9[9]),
+        .I3(\slv_reg9_reg_n_0_[9] ),
         .I4(sel0[0]),
         .I5(slv_reg8[9]),
         .O(\axi_rdata[9]_i_6_n_0 ));
@@ -3462,140 +3455,140 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .D(axi_wready0),
         .Q(axi_wready_reg_0),
         .R(val_valid_o_reg_0));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[12]_INST_0 
        (.I0(slv_reg8[12]),
         .I1(Q),
         .O(buf_di_o[12]));
-  (* SOFT_HLUTNM = "soft_lutpair34" *) 
+  (* SOFT_HLUTNM = "soft_lutpair39" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[13]_INST_0 
        (.I0(slv_reg8[13]),
         .I1(Q),
         .O(buf_di_o[13]));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[14]_INST_0 
        (.I0(slv_reg8[14]),
         .I1(Q),
         .O(buf_di_o[14]));
-  (* SOFT_HLUTNM = "soft_lutpair33" *) 
+  (* SOFT_HLUTNM = "soft_lutpair38" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[15]_INST_0 
        (.I0(slv_reg8[15]),
         .I1(Q),
         .O(buf_di_o[15]));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[16]_INST_0 
        (.I0(slv_reg8[16]),
         .I1(Q),
         .O(buf_di_o[16]));
-  (* SOFT_HLUTNM = "soft_lutpair32" *) 
+  (* SOFT_HLUTNM = "soft_lutpair37" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[17]_INST_0 
        (.I0(slv_reg8[17]),
         .I1(Q),
         .O(buf_di_o[17]));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[18]_INST_0 
        (.I0(slv_reg8[18]),
         .I1(Q),
         .O(buf_di_o[18]));
-  (* SOFT_HLUTNM = "soft_lutpair31" *) 
+  (* SOFT_HLUTNM = "soft_lutpair36" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[19]_INST_0 
        (.I0(slv_reg8[19]),
         .I1(Q),
         .O(buf_di_o[19]));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[20]_INST_0 
        (.I0(slv_reg8[20]),
         .I1(Q),
         .O(buf_di_o[20]));
-  (* SOFT_HLUTNM = "soft_lutpair30" *) 
+  (* SOFT_HLUTNM = "soft_lutpair35" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[21]_INST_0 
        (.I0(slv_reg8[21]),
         .I1(Q),
         .O(buf_di_o[21]));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[22]_INST_0 
        (.I0(slv_reg8[22]),
         .I1(Q),
         .O(buf_di_o[22]));
-  (* SOFT_HLUTNM = "soft_lutpair29" *) 
+  (* SOFT_HLUTNM = "soft_lutpair34" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[23]_INST_0 
        (.I0(slv_reg8[23]),
         .I1(Q),
         .O(buf_di_o[23]));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[24]_INST_0 
        (.I0(slv_reg8[24]),
         .I1(Q),
         .O(buf_di_o[24]));
-  (* SOFT_HLUTNM = "soft_lutpair28" *) 
+  (* SOFT_HLUTNM = "soft_lutpair33" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[25]_INST_0 
        (.I0(slv_reg8[25]),
         .I1(Q),
         .O(buf_di_o[25]));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[26]_INST_0 
        (.I0(slv_reg8[26]),
         .I1(Q),
         .O(buf_di_o[26]));
-  (* SOFT_HLUTNM = "soft_lutpair27" *) 
+  (* SOFT_HLUTNM = "soft_lutpair32" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[27]_INST_0 
        (.I0(slv_reg8[27]),
         .I1(Q),
         .O(buf_di_o[27]));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[28]_INST_0 
        (.I0(slv_reg8[28]),
         .I1(Q),
         .O(buf_di_o[28]));
-  (* SOFT_HLUTNM = "soft_lutpair26" *) 
+  (* SOFT_HLUTNM = "soft_lutpair31" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[29]_INST_0 
        (.I0(slv_reg8[29]),
         .I1(Q),
         .O(buf_di_o[29]));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[30]_INST_0 
        (.I0(slv_reg8[30]),
         .I1(Q),
         .O(buf_di_o[30]));
-  (* SOFT_HLUTNM = "soft_lutpair25" *) 
+  (* SOFT_HLUTNM = "soft_lutpair30" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_di_o[31]_INST_0 
@@ -3603,52 +3596,61 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .I1(Q),
         .O(buf_di_o[31]));
   LUT6 #(
-    .INIT(64'h0000000000010000)) 
+    .INIT(64'h0001000000000000)) 
     \slv_reg0[15]_i_1 
        (.I0(p_0_in_0[3]),
-        .I1(p_0_in_0[2]),
+        .I1(p_0_in_0[0]),
         .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[0]),
-        .I4(s00_axi_wstrb[1]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(s00_axi_wstrb[1]),
         .O(p_1_in[15]));
   LUT6 #(
-    .INIT(64'h0000000000010000)) 
+    .INIT(64'h0001000000000000)) 
     \slv_reg0[23]_i_1 
        (.I0(p_0_in_0[3]),
-        .I1(p_0_in_0[2]),
+        .I1(p_0_in_0[0]),
         .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[0]),
-        .I4(s00_axi_wstrb[2]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(s00_axi_wstrb[2]),
         .O(p_1_in[23]));
   LUT6 #(
-    .INIT(64'h0000000000010000)) 
+    .INIT(64'h0001000000000000)) 
     \slv_reg0[30]_i_1 
        (.I0(p_0_in_0[3]),
-        .I1(p_0_in_0[2]),
+        .I1(p_0_in_0[0]),
         .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[0]),
-        .I4(s00_axi_wstrb[3]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(s00_axi_wstrb[3]),
         .O(p_1_in[30]));
   LUT4 #(
-    .INIT(16'h7FFF)) 
-    \slv_reg0[30]_i_2 
+    .INIT(16'h8000)) 
+    \slv_reg0[31]_i_2 
        (.I0(axi_awready_reg_0),
         .I1(axi_wready_reg_0),
         .I2(s00_axi_wvalid),
         .I3(s00_axi_awvalid),
-        .O(\slv_reg0[30]_i_2_n_0 ));
+        .O(\slv_reg0[31]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  LUT4 #(
+    .INIT(16'h0001)) 
+    \slv_reg0[31]_i_3 
+       (.I0(p_0_in_0[2]),
+        .I1(p_0_in_0[1]),
+        .I2(p_0_in_0[0]),
+        .I3(p_0_in_0[3]),
+        .O(\slv_reg0[31]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000010000)) 
+    .INIT(64'h0001000000000000)) 
     \slv_reg0[7]_i_1 
        (.I0(p_0_in_0[3]),
-        .I1(p_0_in_0[2]),
+        .I1(p_0_in_0[0]),
         .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[0]),
-        .I4(s00_axi_wstrb[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(s00_axi_wstrb[0]),
         .O(p_1_in[0]));
   FDRE \slv_reg0_reg[0] 
        (.C(s00_axi_aclk),
@@ -3843,44 +3845,44 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .Q(slv_reg0__0[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0010000000000000)) 
+    .INIT(64'h0400000000000000)) 
     \slv_reg10[15]_i_1 
        (.I0(p_0_in_0[0]),
-        .I1(\slv_reg0[30]_i_2_n_0 ),
-        .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[2]),
-        .I4(p_0_in_0[3]),
-        .I5(s00_axi_wstrb[1]),
+        .I1(p_0_in_0[1]),
+        .I2(p_0_in_0[2]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
+        .I4(s00_axi_wstrb[1]),
+        .I5(p_0_in_0[3]),
         .O(\slv_reg10[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0010000000000000)) 
+    .INIT(64'h0400000000000000)) 
     \slv_reg10[23]_i_1 
        (.I0(p_0_in_0[0]),
-        .I1(\slv_reg0[30]_i_2_n_0 ),
-        .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[2]),
+        .I1(p_0_in_0[1]),
+        .I2(p_0_in_0[2]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
         .I4(s00_axi_wstrb[2]),
         .I5(p_0_in_0[3]),
         .O(\slv_reg10[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0010000000000000)) 
+    .INIT(64'h0400000000000000)) 
     \slv_reg10[31]_i_1 
        (.I0(p_0_in_0[0]),
-        .I1(\slv_reg0[30]_i_2_n_0 ),
-        .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[2]),
-        .I4(p_0_in_0[3]),
-        .I5(s00_axi_wstrb[3]),
+        .I1(p_0_in_0[1]),
+        .I2(p_0_in_0[2]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
+        .I4(s00_axi_wstrb[3]),
+        .I5(p_0_in_0[3]),
         .O(\slv_reg10[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0010000000000000)) 
+    .INIT(64'h0400000000000000)) 
     \slv_reg10[7]_i_1 
        (.I0(p_0_in_0[0]),
-        .I1(\slv_reg0[30]_i_2_n_0 ),
-        .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[2]),
-        .I4(p_0_in_0[3]),
-        .I5(s00_axi_wstrb[0]),
+        .I1(p_0_in_0[1]),
+        .I2(p_0_in_0[2]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
+        .I4(s00_axi_wstrb[0]),
+        .I5(p_0_in_0[3]),
         .O(\slv_reg10[7]_i_1_n_0 ));
   FDRE \slv_reg10_reg[0] 
        (.C(s00_axi_aclk),
@@ -4075,44 +4077,44 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .Q(slv_reg10[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0020000000000000)) 
+    .INIT(64'h0080000000000000)) 
     \slv_reg11[15]_i_1 
-       (.I0(p_0_in_0[1]),
-        .I1(p_0_in_0[2]),
-        .I2(p_0_in_0[0]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(p_0_in_0[3]),
-        .I5(s00_axi_wstrb[1]),
+       (.I0(p_0_in_0[3]),
+        .I1(s00_axi_wstrb[1]),
+        .I2(\slv_reg0[31]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[1]),
+        .I5(p_0_in_0[0]),
         .O(\slv_reg11[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0020000000000000)) 
+    .INIT(64'h0080000000000000)) 
     \slv_reg11[23]_i_1 
-       (.I0(p_0_in_0[1]),
-        .I1(p_0_in_0[2]),
-        .I2(p_0_in_0[0]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(s00_axi_wstrb[2]),
-        .I5(p_0_in_0[3]),
+       (.I0(p_0_in_0[3]),
+        .I1(s00_axi_wstrb[2]),
+        .I2(\slv_reg0[31]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[1]),
+        .I5(p_0_in_0[0]),
         .O(\slv_reg11[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0020000000000000)) 
+    .INIT(64'h0080000000000000)) 
     \slv_reg11[31]_i_1 
-       (.I0(p_0_in_0[1]),
-        .I1(p_0_in_0[2]),
-        .I2(p_0_in_0[0]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(p_0_in_0[3]),
-        .I5(s00_axi_wstrb[3]),
+       (.I0(p_0_in_0[3]),
+        .I1(s00_axi_wstrb[3]),
+        .I2(\slv_reg0[31]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[1]),
+        .I5(p_0_in_0[0]),
         .O(\slv_reg11[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0020000000000000)) 
+    .INIT(64'h0080000000000000)) 
     \slv_reg11[7]_i_1 
-       (.I0(p_0_in_0[1]),
-        .I1(p_0_in_0[2]),
-        .I2(p_0_in_0[0]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(p_0_in_0[3]),
-        .I5(s00_axi_wstrb[0]),
+       (.I0(p_0_in_0[3]),
+        .I1(s00_axi_wstrb[0]),
+        .I2(\slv_reg0[31]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[1]),
+        .I5(p_0_in_0[0]),
         .O(\slv_reg11[7]_i_1_n_0 ));
   FDRE \slv_reg11_reg[0] 
        (.C(s00_axi_aclk),
@@ -4306,33 +4308,45 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .D(s00_axi_wdata[9]),
         .Q(slv_reg11[9]),
         .R(val_valid_o_reg_0));
-  LUT3 #(
-    .INIT(8'h40)) 
+  LUT6 #(
+    .INIT(64'h0000080000000000)) 
     \slv_reg12[15]_i_1 
-       (.I0(\slv_reg4[31]_i_2_n_0 ),
+       (.I0(s00_axi_wstrb[1]),
         .I1(p_0_in_0[3]),
-        .I2(s00_axi_wstrb[1]),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg12[15]_i_1_n_0 ));
-  LUT3 #(
-    .INIT(8'h40)) 
+  LUT6 #(
+    .INIT(64'h0000080000000000)) 
     \slv_reg12[23]_i_1 
-       (.I0(\slv_reg4[31]_i_2_n_0 ),
-        .I1(s00_axi_wstrb[2]),
-        .I2(p_0_in_0[3]),
+       (.I0(s00_axi_wstrb[2]),
+        .I1(p_0_in_0[3]),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg12[23]_i_1_n_0 ));
-  LUT3 #(
-    .INIT(8'h40)) 
+  LUT6 #(
+    .INIT(64'h0000080000000000)) 
     \slv_reg12[31]_i_1 
-       (.I0(\slv_reg4[31]_i_2_n_0 ),
+       (.I0(s00_axi_wstrb[3]),
         .I1(p_0_in_0[3]),
-        .I2(s00_axi_wstrb[3]),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg12[31]_i_1_n_0 ));
-  LUT3 #(
-    .INIT(8'h40)) 
+  LUT6 #(
+    .INIT(64'h0000080000000000)) 
     \slv_reg12[7]_i_1 
-       (.I0(\slv_reg4[31]_i_2_n_0 ),
+       (.I0(s00_axi_wstrb[0]),
         .I1(p_0_in_0[3]),
-        .I2(s00_axi_wstrb[0]),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg12[7]_i_1_n_0 ));
   FDRE \slv_reg12_reg[0] 
        (.C(s00_axi_aclk),
@@ -4527,44 +4541,44 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .Q(slv_reg12[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0000400000000000)) 
+    .INIT(64'h4000000000000000)) 
     \slv_reg13[15]_i_1 
        (.I0(p_0_in_0[1]),
         .I1(p_0_in_0[2]),
         .I2(p_0_in_0[3]),
         .I3(s00_axi_wstrb[1]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg13[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000400000000000)) 
+    .INIT(64'h4000000000000000)) 
     \slv_reg13[23]_i_1 
        (.I0(p_0_in_0[1]),
         .I1(p_0_in_0[2]),
         .I2(p_0_in_0[3]),
         .I3(s00_axi_wstrb[2]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg13[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000400000000000)) 
+    .INIT(64'h4000000000000000)) 
     \slv_reg13[31]_i_1 
        (.I0(p_0_in_0[1]),
         .I1(p_0_in_0[2]),
         .I2(p_0_in_0[3]),
         .I3(s00_axi_wstrb[3]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg13[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000400000000000)) 
+    .INIT(64'h4000000000000000)) 
     \slv_reg13[7]_i_1 
        (.I0(p_0_in_0[1]),
         .I1(p_0_in_0[2]),
         .I2(p_0_in_0[3]),
         .I3(s00_axi_wstrb[0]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg13[7]_i_1_n_0 ));
   FDRE \slv_reg13_reg[0] 
        (.C(s00_axi_aclk),
@@ -4759,44 +4773,44 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .Q(slv_reg13[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0000000040000000)) 
+    .INIT(64'h4000000000000000)) 
     \slv_reg14[15]_i_1 
-       (.I0(\slv_reg0[30]_i_2_n_0 ),
-        .I1(s00_axi_wstrb[1]),
+       (.I0(p_0_in_0[0]),
+        .I1(p_0_in_0[2]),
         .I2(p_0_in_0[3]),
-        .I3(p_0_in_0[1]),
-        .I4(p_0_in_0[2]),
-        .I5(p_0_in_0[0]),
+        .I3(s00_axi_wstrb[1]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg14[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000040000000)) 
+    .INIT(64'h4000000000000000)) 
     \slv_reg14[23]_i_1 
-       (.I0(\slv_reg0[30]_i_2_n_0 ),
-        .I1(s00_axi_wstrb[2]),
+       (.I0(p_0_in_0[0]),
+        .I1(p_0_in_0[2]),
         .I2(p_0_in_0[3]),
-        .I3(p_0_in_0[1]),
-        .I4(p_0_in_0[2]),
-        .I5(p_0_in_0[0]),
+        .I3(s00_axi_wstrb[2]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg14[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000040000000)) 
+    .INIT(64'h4000000000000000)) 
     \slv_reg14[31]_i_1 
-       (.I0(\slv_reg0[30]_i_2_n_0 ),
-        .I1(s00_axi_wstrb[3]),
+       (.I0(p_0_in_0[0]),
+        .I1(p_0_in_0[2]),
         .I2(p_0_in_0[3]),
-        .I3(p_0_in_0[1]),
-        .I4(p_0_in_0[2]),
-        .I5(p_0_in_0[0]),
+        .I3(s00_axi_wstrb[3]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg14[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000040000000)) 
+    .INIT(64'h4000000000000000)) 
     \slv_reg14[7]_i_1 
-       (.I0(\slv_reg0[30]_i_2_n_0 ),
-        .I1(s00_axi_wstrb[0]),
+       (.I0(p_0_in_0[0]),
+        .I1(p_0_in_0[2]),
         .I2(p_0_in_0[3]),
-        .I3(p_0_in_0[1]),
-        .I4(p_0_in_0[2]),
-        .I5(p_0_in_0[0]),
+        .I3(s00_axi_wstrb[0]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg14[7]_i_1_n_0 ));
   FDRE \slv_reg14_reg[0] 
        (.C(s00_axi_aclk),
@@ -4991,44 +5005,44 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .Q(slv_reg14[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0000800000000000)) 
+    .INIT(64'h8000000000000000)) 
     \slv_reg15[15]_i_1 
        (.I0(p_0_in_0[2]),
         .I1(p_0_in_0[1]),
         .I2(p_0_in_0[3]),
         .I3(s00_axi_wstrb[1]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg15[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000800000000000)) 
+    .INIT(64'h8000000000000000)) 
     \slv_reg15[23]_i_1 
        (.I0(p_0_in_0[2]),
         .I1(p_0_in_0[1]),
         .I2(p_0_in_0[3]),
         .I3(s00_axi_wstrb[2]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg15[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000800000000000)) 
+    .INIT(64'h8000000000000000)) 
     \slv_reg15[31]_i_1 
        (.I0(p_0_in_0[2]),
         .I1(p_0_in_0[1]),
         .I2(p_0_in_0[3]),
         .I3(s00_axi_wstrb[3]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg15[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000800000000000)) 
+    .INIT(64'h8000000000000000)) 
     \slv_reg15[7]_i_1 
        (.I0(p_0_in_0[2]),
         .I1(p_0_in_0[1]),
         .I2(p_0_in_0[3]),
         .I3(s00_axi_wstrb[0]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg15[7]_i_1_n_0 ));
   FDRE \slv_reg15_reg[0] 
        (.C(s00_axi_aclk),
@@ -5223,44 +5237,44 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .Q(slv_reg15[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0000000000100000)) 
+    .INIT(64'h0010000000000000)) 
     \slv_reg1[15]_i_1 
        (.I0(p_0_in_0[2]),
         .I1(p_0_in_0[1]),
         .I2(s00_axi_wstrb[1]),
         .I3(p_0_in_0[3]),
         .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg1[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000100000)) 
+    .INIT(64'h0010000000000000)) 
     \slv_reg1[23]_i_1 
        (.I0(p_0_in_0[2]),
         .I1(p_0_in_0[1]),
         .I2(s00_axi_wstrb[2]),
         .I3(p_0_in_0[3]),
         .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg1[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000100000)) 
+    .INIT(64'h0000000010000000)) 
     \slv_reg1[31]_i_1 
        (.I0(p_0_in_0[2]),
         .I1(p_0_in_0[1]),
         .I2(p_0_in_0[0]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
         .I4(s00_axi_wstrb[3]),
         .I5(p_0_in_0[3]),
         .O(\slv_reg1[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000100000)) 
+    .INIT(64'h0010000000000000)) 
     \slv_reg1[7]_i_1 
        (.I0(p_0_in_0[2]),
         .I1(p_0_in_0[1]),
         .I2(s00_axi_wstrb[0]),
         .I3(p_0_in_0[3]),
         .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg1[7]_i_1_n_0 ));
   FDRE \slv_reg1_reg[0] 
        (.C(s00_axi_aclk),
@@ -5455,44 +5469,44 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .Q(slv_reg1[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0000000000040000)) 
+    .INIT(64'h0000040000000000)) 
     \slv_reg2[15]_i_1 
        (.I0(p_0_in_0[3]),
         .I1(s00_axi_wstrb[1]),
         .I2(p_0_in_0[0]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(p_0_in_0[1]),
-        .I5(p_0_in_0[2]),
+        .I3(p_0_in_0[1]),
+        .I4(p_0_in_0[2]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg2[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000040000)) 
+    .INIT(64'h0000040000000000)) 
     \slv_reg2[23]_i_1 
        (.I0(p_0_in_0[3]),
         .I1(s00_axi_wstrb[2]),
         .I2(p_0_in_0[0]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(p_0_in_0[1]),
-        .I5(p_0_in_0[2]),
+        .I3(p_0_in_0[1]),
+        .I4(p_0_in_0[2]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg2[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000040000)) 
+    .INIT(64'h0000040000000000)) 
     \slv_reg2[31]_i_1 
        (.I0(p_0_in_0[3]),
         .I1(s00_axi_wstrb[3]),
         .I2(p_0_in_0[0]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(p_0_in_0[1]),
-        .I5(p_0_in_0[2]),
+        .I3(p_0_in_0[1]),
+        .I4(p_0_in_0[2]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg2[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000040000)) 
+    .INIT(64'h0000040000000000)) 
     \slv_reg2[7]_i_1 
        (.I0(p_0_in_0[3]),
         .I1(s00_axi_wstrb[0]),
         .I2(p_0_in_0[0]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(p_0_in_0[1]),
-        .I5(p_0_in_0[2]),
+        .I3(p_0_in_0[1]),
+        .I4(p_0_in_0[2]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg2[7]_i_1_n_0 ));
   FDRE \slv_reg2_reg[0] 
        (.C(s00_axi_aclk),
@@ -5687,44 +5701,44 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .Q(slv_reg2[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0000000000400000)) 
+    .INIT(64'h0000000020000000)) 
     \slv_reg3[15]_i_1 
-       (.I0(p_0_in_0[3]),
-        .I1(s00_axi_wstrb[1]),
-        .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[2]),
-        .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+       (.I0(s00_axi_wstrb[1]),
+        .I1(p_0_in_0[3]),
+        .I2(p_0_in_0[0]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
+        .I4(p_0_in_0[1]),
+        .I5(p_0_in_0[2]),
         .O(\slv_reg3[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000400000)) 
+    .INIT(64'h0000000020000000)) 
     \slv_reg3[23]_i_1 
-       (.I0(p_0_in_0[3]),
-        .I1(s00_axi_wstrb[2]),
-        .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[2]),
-        .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+       (.I0(s00_axi_wstrb[2]),
+        .I1(p_0_in_0[3]),
+        .I2(p_0_in_0[0]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
+        .I4(p_0_in_0[1]),
+        .I5(p_0_in_0[2]),
         .O(\slv_reg3[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000400000)) 
+    .INIT(64'h0000000000800000)) 
     \slv_reg3[31]_i_1 
-       (.I0(p_0_in_0[3]),
-        .I1(s00_axi_wstrb[3]),
-        .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[2]),
-        .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+       (.I0(p_0_in_0[0]),
+        .I1(\slv_reg0[31]_i_2_n_0 ),
+        .I2(s00_axi_wstrb[3]),
+        .I3(p_0_in_0[3]),
+        .I4(p_0_in_0[1]),
+        .I5(p_0_in_0[2]),
         .O(\slv_reg3[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000400000)) 
+    .INIT(64'h0000000020000000)) 
     \slv_reg3[7]_i_1 
-       (.I0(p_0_in_0[3]),
-        .I1(s00_axi_wstrb[0]),
-        .I2(p_0_in_0[1]),
-        .I3(p_0_in_0[2]),
-        .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+       (.I0(s00_axi_wstrb[0]),
+        .I1(p_0_in_0[3]),
+        .I2(p_0_in_0[0]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
+        .I4(p_0_in_0[1]),
+        .I5(p_0_in_0[2]),
         .O(\slv_reg3[7]_i_1_n_0 ));
   FDRE \slv_reg3_reg[0] 
        (.C(s00_axi_aclk),
@@ -5918,49 +5932,45 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .D(s00_axi_wdata[9]),
         .Q(slv_reg3[9]),
         .R(val_valid_o_reg_0));
-  LUT3 #(
-    .INIT(8'h04)) 
+  LUT6 #(
+    .INIT(64'h0000040000000000)) 
     \slv_reg4[15]_i_1 
        (.I0(p_0_in_0[3]),
         .I1(s00_axi_wstrb[1]),
-        .I2(\slv_reg4[31]_i_2_n_0 ),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg4[15]_i_1_n_0 ));
-  LUT3 #(
-    .INIT(8'h04)) 
+  LUT6 #(
+    .INIT(64'h0000040000000000)) 
     \slv_reg4[23]_i_1 
        (.I0(p_0_in_0[3]),
         .I1(s00_axi_wstrb[2]),
-        .I2(\slv_reg4[31]_i_2_n_0 ),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg4[23]_i_1_n_0 ));
-  LUT3 #(
-    .INIT(8'h04)) 
+  LUT6 #(
+    .INIT(64'h0000040000000000)) 
     \slv_reg4[31]_i_1 
        (.I0(p_0_in_0[3]),
         .I1(s00_axi_wstrb[3]),
-        .I2(\slv_reg4[31]_i_2_n_0 ),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg4[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFF7FFFFFFFFFFF)) 
-    \slv_reg4[31]_i_2 
-       (.I0(axi_awready_reg_0),
-        .I1(axi_wready_reg_0),
-        .I2(s00_axi_wvalid),
-        .I3(s00_axi_awvalid),
-        .I4(p_0_in_0[0]),
-        .I5(\slv_reg4[31]_i_3_n_0 ),
-        .O(\slv_reg4[31]_i_2_n_0 ));
-  LUT2 #(
-    .INIT(4'h2)) 
-    \slv_reg4[31]_i_3 
-       (.I0(p_0_in_0[2]),
-        .I1(p_0_in_0[1]),
-        .O(\slv_reg4[31]_i_3_n_0 ));
-  LUT3 #(
-    .INIT(8'h04)) 
+    .INIT(64'h0000040000000000)) 
     \slv_reg4[7]_i_1 
        (.I0(p_0_in_0[3]),
         .I1(s00_axi_wstrb[0]),
-        .I2(\slv_reg4[31]_i_2_n_0 ),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(\slv_reg0[31]_i_2_n_0 ),
         .O(\slv_reg4[7]_i_1_n_0 ));
   FDRE \slv_reg4_reg[0] 
        (.C(s00_axi_aclk),
@@ -6155,42 +6165,42 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .Q(slv_reg4[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0000000000400000)) 
+    .INIT(64'h0000200000000000)) 
     \slv_reg5[15]_i_1 
-       (.I0(p_0_in_0[1]),
-        .I1(p_0_in_0[2]),
-        .I2(s00_axi_wstrb[1]),
-        .I3(p_0_in_0[3]),
-        .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+       (.I0(s00_axi_wstrb[1]),
+        .I1(p_0_in_0[3]),
+        .I2(p_0_in_0[0]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
+        .I4(p_0_in_0[1]),
+        .I5(p_0_in_0[2]),
         .O(\slv_reg5[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000000400000)) 
+    .INIT(64'h0000200000000000)) 
     \slv_reg5[23]_i_1 
-       (.I0(p_0_in_0[1]),
-        .I1(p_0_in_0[2]),
-        .I2(s00_axi_wstrb[2]),
-        .I3(p_0_in_0[3]),
-        .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+       (.I0(s00_axi_wstrb[2]),
+        .I1(p_0_in_0[3]),
+        .I2(p_0_in_0[0]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
+        .I4(p_0_in_0[1]),
+        .I5(p_0_in_0[2]),
         .O(\slv_reg5[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000002000000000)) 
+    .INIT(64'h0000008000000000)) 
     \slv_reg5[31]_i_1 
        (.I0(p_0_in_0[0]),
-        .I1(\slv_reg0[30]_i_2_n_0 ),
+        .I1(\slv_reg0[31]_i_2_n_0 ),
         .I2(s00_axi_wstrb[3]),
         .I3(p_0_in_0[3]),
         .I4(p_0_in_0[1]),
         .I5(p_0_in_0[2]),
         .O(\slv_reg5[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000002000000000)) 
+    .INIT(64'h0000200000000000)) 
     \slv_reg5[7]_i_1 
        (.I0(s00_axi_wstrb[0]),
         .I1(p_0_in_0[3]),
         .I2(p_0_in_0[0]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
         .I4(p_0_in_0[1]),
         .I5(p_0_in_0[2]),
         .O(\slv_reg5[7]_i_1_n_0 ));
@@ -6386,47 +6396,28 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .D(s00_axi_wdata[9]),
         .Q(slv_reg5[9]),
         .R(val_valid_o_reg_0));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
-  LUT4 #(
-    .INIT(16'hFFBF)) 
-    \slv_reg6[10]_i_2 
-       (.I0(p_0_in_0[3]),
-        .I1(p_0_in_0[1]),
-        .I2(p_0_in_0[2]),
-        .I3(p_0_in_0[0]),
-        .O(\slv_reg6[10]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
-  LUT5 #(
-    .INIT(32'h00000008)) 
-    \slv_reg6[11]_i_2 
-       (.I0(p_0_in_0[1]),
-        .I1(p_0_in_0[2]),
-        .I2(p_0_in_0[3]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(p_0_in_0[0]),
-        .O(\slv_reg6[11]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[12]_i_1 
        (.I0(s00_axi_wdata[12]),
         .I1(\slv_reg6[15]_i_2_n_0 ),
         .O(\slv_reg6[12]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+  (* SOFT_HLUTNM = "soft_lutpair21" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[13]_i_1 
        (.I0(s00_axi_wdata[13]),
         .I1(\slv_reg6[15]_i_2_n_0 ),
         .O(\slv_reg6[13]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[14]_i_1 
        (.I0(s00_axi_wdata[14]),
         .I1(\slv_reg6[15]_i_2_n_0 ),
         .O(\slv_reg6[14]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+  (* SOFT_HLUTNM = "soft_lutpair22" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[15]_i_1 
@@ -6434,65 +6425,65 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .I1(\slv_reg6[15]_i_2_n_0 ),
         .O(\slv_reg6[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFF7FFFFFFF)) 
+    .INIT(64'hFFFFFFFFFFFF7FFF)) 
     \slv_reg6[15]_i_2 
-       (.I0(s00_axi_wstrb[1]),
-        .I1(axi_awready_reg_0),
-        .I2(axi_wready_reg_0),
-        .I3(s00_axi_wvalid),
-        .I4(s00_axi_awvalid),
-        .I5(\slv_reg6[10]_i_2_n_0 ),
+       (.I0(\slv_reg0[31]_i_2_n_0 ),
+        .I1(s00_axi_wstrb[1]),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[3]),
+        .I5(p_0_in_0[0]),
         .O(\slv_reg6[15]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[16]_i_1 
        (.I0(s00_axi_wdata[16]),
         .I1(\slv_reg6[23]_i_2_n_0 ),
         .O(\slv_reg6[16]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+  (* SOFT_HLUTNM = "soft_lutpair23" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[17]_i_1 
        (.I0(s00_axi_wdata[17]),
         .I1(\slv_reg6[23]_i_2_n_0 ),
         .O(\slv_reg6[17]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[18]_i_1 
        (.I0(s00_axi_wdata[18]),
         .I1(\slv_reg6[23]_i_2_n_0 ),
         .O(\slv_reg6[18]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[19]_i_1 
        (.I0(s00_axi_wdata[19]),
         .I1(\slv_reg6[23]_i_2_n_0 ),
         .O(\slv_reg6[19]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[20]_i_1 
        (.I0(s00_axi_wdata[20]),
         .I1(\slv_reg6[23]_i_2_n_0 ),
         .O(\slv_reg6[20]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+  (* SOFT_HLUTNM = "soft_lutpair25" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[21]_i_1 
        (.I0(s00_axi_wdata[21]),
         .I1(\slv_reg6[23]_i_2_n_0 ),
         .O(\slv_reg6[21]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[22]_i_1 
        (.I0(s00_axi_wdata[22]),
         .I1(\slv_reg6[23]_i_2_n_0 ),
         .O(\slv_reg6[22]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  (* SOFT_HLUTNM = "soft_lutpair26" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[23]_i_1 
@@ -6500,107 +6491,116 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .I1(\slv_reg6[23]_i_2_n_0 ),
         .O(\slv_reg6[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFF7FFFFFFF)) 
+    .INIT(64'hFFFFFFFFFFFF7FFF)) 
     \slv_reg6[23]_i_2 
-       (.I0(s00_axi_wstrb[2]),
-        .I1(axi_awready_reg_0),
-        .I2(axi_wready_reg_0),
-        .I3(s00_axi_wvalid),
-        .I4(s00_axi_awvalid),
-        .I5(\slv_reg6[10]_i_2_n_0 ),
+       (.I0(\slv_reg0[31]_i_2_n_0 ),
+        .I1(s00_axi_wstrb[2]),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[3]),
+        .I5(p_0_in_0[0]),
         .O(\slv_reg6[23]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[24]_i_1 
        (.I0(s00_axi_wdata[24]),
-        .I1(\slv_reg6[31]_i_2_n_0 ),
+        .I1(\slv_reg6[30]_i_2_n_0 ),
         .O(\slv_reg6[24]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+  (* SOFT_HLUTNM = "soft_lutpair27" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[25]_i_1 
        (.I0(s00_axi_wdata[25]),
-        .I1(\slv_reg6[31]_i_2_n_0 ),
+        .I1(\slv_reg6[30]_i_2_n_0 ),
         .O(\slv_reg6[25]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[26]_i_1 
        (.I0(s00_axi_wdata[26]),
-        .I1(\slv_reg6[31]_i_2_n_0 ),
+        .I1(\slv_reg6[30]_i_2_n_0 ),
         .O(\slv_reg6[26]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+  (* SOFT_HLUTNM = "soft_lutpair28" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[27]_i_1 
        (.I0(s00_axi_wdata[27]),
-        .I1(\slv_reg6[31]_i_2_n_0 ),
+        .I1(\slv_reg6[30]_i_2_n_0 ),
         .O(\slv_reg6[27]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[28]_i_1 
        (.I0(s00_axi_wdata[28]),
-        .I1(\slv_reg6[31]_i_2_n_0 ),
+        .I1(\slv_reg6[30]_i_2_n_0 ),
         .O(\slv_reg6[28]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+  (* SOFT_HLUTNM = "soft_lutpair29" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[29]_i_1 
        (.I0(s00_axi_wdata[29]),
-        .I1(\slv_reg6[31]_i_2_n_0 ),
+        .I1(\slv_reg6[30]_i_2_n_0 ),
         .O(\slv_reg6[29]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \slv_reg6[30]_i_1 
        (.I0(s00_axi_wdata[30]),
-        .I1(\slv_reg6[31]_i_2_n_0 ),
+        .I1(\slv_reg6[30]_i_2_n_0 ),
         .O(\slv_reg6[30]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
-  LUT2 #(
-    .INIT(4'h2)) 
-    \slv_reg6[31]_i_1 
-       (.I0(s00_axi_wdata[31]),
-        .I1(\slv_reg6[31]_i_2_n_0 ),
-        .O(\slv_reg6[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFF7FFFFFFF)) 
-    \slv_reg6[31]_i_2 
+    .INIT(64'hFFFFFFFFFFFF7FFF)) 
+    \slv_reg6[30]_i_2 
+       (.I0(\slv_reg0[31]_i_2_n_0 ),
+        .I1(s00_axi_wstrb[3]),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[3]),
+        .I5(p_0_in_0[0]),
+        .O(\slv_reg6[30]_i_2_n_0 ));
+  LUT6 #(
+    .INIT(64'h0000000000008000)) 
+    \slv_reg6[31]_i_1 
        (.I0(s00_axi_wstrb[3]),
-        .I1(axi_awready_reg_0),
-        .I2(axi_wready_reg_0),
-        .I3(s00_axi_wvalid),
-        .I4(s00_axi_awvalid),
-        .I5(\slv_reg6[10]_i_2_n_0 ),
+        .I1(\slv_reg0[31]_i_2_n_0 ),
+        .I2(s00_axi_wdata[31]),
+        .I3(\slv_reg6[31]_i_2_n_0 ),
+        .I4(p_0_in_0[3]),
+        .I5(p_0_in_0[0]),
+        .O(\slv_reg6[31]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \slv_reg6[31]_i_2 
+       (.I0(p_0_in_0[1]),
+        .I1(p_0_in_0[2]),
         .O(\slv_reg6[31]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFF7FFFFFFF)) 
+    .INIT(64'hFFFFFFFFFFFF7FFF)) 
     \slv_reg6[7]_i_2 
-       (.I0(s00_axi_wstrb[0]),
-        .I1(axi_awready_reg_0),
-        .I2(axi_wready_reg_0),
-        .I3(s00_axi_wvalid),
-        .I4(s00_axi_awvalid),
-        .I5(\slv_reg6[10]_i_2_n_0 ),
+       (.I0(\slv_reg0[31]_i_2_n_0 ),
+        .I1(s00_axi_wstrb[0]),
+        .I2(p_0_in_0[1]),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[3]),
+        .I5(p_0_in_0[0]),
         .O(\slv_reg6[7]_i_2_n_0 ));
   FDRE \slv_reg6_reg[0] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_52),
+        .D(ach_n_53),
         .Q(slv_reg6[0]),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg6_reg[10] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_42),
+        .D(ach_n_43),
         .Q(slv_reg6[10]),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg6_reg[11] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_41),
+        .D(ach_n_42),
         .Q(slv_reg6[11]),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg6_reg[12] 
@@ -6654,7 +6654,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   FDRE \slv_reg6_reg[1] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_51),
+        .D(ach_n_52),
         .Q(slv_reg6[1]),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg6_reg[20] 
@@ -6720,7 +6720,7 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   FDRE \slv_reg6_reg[2] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_50),
+        .D(ach_n_51),
         .Q(slv_reg6[2]),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg6_reg[30] 
@@ -6738,84 +6738,84 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
   FDRE \slv_reg6_reg[3] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_49),
+        .D(ach_n_50),
         .Q(slv_reg6[3]),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg6_reg[4] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_48),
+        .D(ach_n_49),
         .Q(slv_reg6[4]),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg6_reg[5] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_47),
+        .D(ach_n_48),
         .Q(slv_reg6[5]),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg6_reg[6] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_46),
+        .D(ach_n_47),
         .Q(slv_reg6[6]),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg6_reg[7] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_45),
+        .D(ach_n_46),
         .Q(slv_reg6[7]),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg6_reg[8] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_44),
+        .D(ach_n_45),
         .Q(slv_reg6[8]),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg6_reg[9] 
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .D(ach_n_43),
+        .D(ach_n_44),
         .Q(slv_reg6[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0000000020000000)) 
+    .INIT(64'h2000000000000000)) 
     \slv_reg7[15]_i_1 
        (.I0(s00_axi_wstrb[1]),
         .I1(p_0_in_0[3]),
-        .I2(p_0_in_0[2]),
-        .I3(p_0_in_0[1]),
-        .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+        .I2(p_0_in_0[0]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
+        .I4(p_0_in_0[2]),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg7[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000020000000)) 
+    .INIT(64'h2000000000000000)) 
     \slv_reg7[23]_i_1 
        (.I0(s00_axi_wstrb[2]),
         .I1(p_0_in_0[3]),
-        .I2(p_0_in_0[2]),
-        .I3(p_0_in_0[1]),
-        .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+        .I2(p_0_in_0[0]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
+        .I4(p_0_in_0[2]),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg7[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000020000000)) 
+    .INIT(64'h0080000000000000)) 
     \slv_reg7[31]_i_1 
-       (.I0(s00_axi_wstrb[3]),
-        .I1(p_0_in_0[3]),
-        .I2(p_0_in_0[2]),
-        .I3(p_0_in_0[1]),
-        .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+       (.I0(p_0_in_0[0]),
+        .I1(\slv_reg0[31]_i_2_n_0 ),
+        .I2(s00_axi_wstrb[3]),
+        .I3(p_0_in_0[3]),
+        .I4(p_0_in_0[2]),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg7[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000000020000000)) 
+    .INIT(64'h2000000000000000)) 
     \slv_reg7[7]_i_1 
        (.I0(s00_axi_wstrb[0]),
         .I1(p_0_in_0[3]),
-        .I2(p_0_in_0[2]),
-        .I3(p_0_in_0[1]),
-        .I4(p_0_in_0[0]),
-        .I5(\slv_reg0[30]_i_2_n_0 ),
+        .I2(p_0_in_0[0]),
+        .I3(\slv_reg0[31]_i_2_n_0 ),
+        .I4(p_0_in_0[2]),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg7[7]_i_1_n_0 ));
   FDRE \slv_reg7_reg[0] 
        (.C(s00_axi_aclk),
@@ -7010,44 +7010,44 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .Q(slv_reg7__0[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0001000000000000)) 
+    .INIT(64'h0000000010000000)) 
     \slv_reg8[15]_i_1 
-       (.I0(p_0_in_0[0]),
-        .I1(p_0_in_0[1]),
-        .I2(p_0_in_0[2]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(s00_axi_wstrb[1]),
-        .I5(p_0_in_0[3]),
+       (.I0(p_0_in_0[1]),
+        .I1(p_0_in_0[0]),
+        .I2(p_0_in_0[3]),
+        .I3(s00_axi_wstrb[1]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(p_0_in_0[2]),
         .O(\slv_reg8[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0001000000000000)) 
+    .INIT(64'h0000000010000000)) 
     \slv_reg8[23]_i_1 
-       (.I0(p_0_in_0[0]),
-        .I1(p_0_in_0[1]),
-        .I2(p_0_in_0[2]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(s00_axi_wstrb[2]),
-        .I5(p_0_in_0[3]),
+       (.I0(p_0_in_0[1]),
+        .I1(p_0_in_0[0]),
+        .I2(p_0_in_0[3]),
+        .I3(s00_axi_wstrb[2]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(p_0_in_0[2]),
         .O(\slv_reg8[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0001000000000000)) 
+    .INIT(64'h0000000010000000)) 
     \slv_reg8[31]_i_1 
-       (.I0(p_0_in_0[0]),
-        .I1(p_0_in_0[1]),
-        .I2(p_0_in_0[2]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(s00_axi_wstrb[3]),
-        .I5(p_0_in_0[3]),
+       (.I0(p_0_in_0[1]),
+        .I1(p_0_in_0[0]),
+        .I2(p_0_in_0[3]),
+        .I3(s00_axi_wstrb[3]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(p_0_in_0[2]),
         .O(\slv_reg8[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0001000000000000)) 
+    .INIT(64'h0000000010000000)) 
     \slv_reg8[7]_i_1 
-       (.I0(p_0_in_0[0]),
-        .I1(p_0_in_0[1]),
-        .I2(p_0_in_0[2]),
-        .I3(\slv_reg0[30]_i_2_n_0 ),
-        .I4(s00_axi_wstrb[0]),
-        .I5(p_0_in_0[3]),
+       (.I0(p_0_in_0[1]),
+        .I1(p_0_in_0[0]),
+        .I2(p_0_in_0[3]),
+        .I3(s00_axi_wstrb[0]),
+        .I4(\slv_reg0[31]_i_2_n_0 ),
+        .I5(p_0_in_0[2]),
         .O(\slv_reg8[7]_i_1_n_0 ));
   FDRE \slv_reg8_reg[0] 
        (.C(s00_axi_aclk),
@@ -7242,249 +7242,250 @@ module final_proj_analog_channel_fr_0_2_analog_channel_fr_v1_0_S00_AXI
         .Q(slv_reg8[9]),
         .R(val_valid_o_reg_0));
   LUT6 #(
-    .INIT(64'h0000100000000000)) 
+    .INIT(64'h0000000000800000)) 
     \slv_reg9[15]_i_1 
-       (.I0(p_0_in_0[2]),
-        .I1(p_0_in_0[1]),
-        .I2(p_0_in_0[3]),
-        .I3(s00_axi_wstrb[1]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+       (.I0(p_0_in_0[3]),
+        .I1(s00_axi_wstrb[1]),
+        .I2(\slv_reg0[31]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg9[15]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000100000000000)) 
+    .INIT(64'h0000000000800000)) 
     \slv_reg9[23]_i_1 
-       (.I0(p_0_in_0[2]),
-        .I1(p_0_in_0[1]),
-        .I2(p_0_in_0[3]),
-        .I3(s00_axi_wstrb[2]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+       (.I0(p_0_in_0[3]),
+        .I1(s00_axi_wstrb[2]),
+        .I2(\slv_reg0[31]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg9[23]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000100000000000)) 
+    .INIT(64'h0000000000800000)) 
     \slv_reg9[31]_i_1 
-       (.I0(p_0_in_0[2]),
-        .I1(p_0_in_0[1]),
-        .I2(p_0_in_0[3]),
-        .I3(s00_axi_wstrb[3]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+       (.I0(p_0_in_0[3]),
+        .I1(s00_axi_wstrb[3]),
+        .I2(\slv_reg0[31]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg9[31]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h0000100000000000)) 
+    .INIT(64'h0000000000800000)) 
     \slv_reg9[7]_i_1 
-       (.I0(p_0_in_0[2]),
-        .I1(p_0_in_0[1]),
-        .I2(p_0_in_0[3]),
-        .I3(s00_axi_wstrb[0]),
-        .I4(\slv_reg0[30]_i_2_n_0 ),
-        .I5(p_0_in_0[0]),
+       (.I0(p_0_in_0[3]),
+        .I1(s00_axi_wstrb[0]),
+        .I2(\slv_reg0[31]_i_2_n_0 ),
+        .I3(p_0_in_0[2]),
+        .I4(p_0_in_0[0]),
+        .I5(p_0_in_0[1]),
         .O(\slv_reg9[7]_i_1_n_0 ));
   FDRE \slv_reg9_reg[0] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[7]_i_1_n_0 ),
         .D(s00_axi_wdata[0]),
-        .Q(slv_reg9[0]),
+        .Q(\slv_reg9_reg_n_0_[0] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[10] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[15]_i_1_n_0 ),
         .D(s00_axi_wdata[10]),
-        .Q(slv_reg9[10]),
+        .Q(\slv_reg9_reg_n_0_[10] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[11] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[15]_i_1_n_0 ),
         .D(s00_axi_wdata[11]),
-        .Q(slv_reg9[11]),
+        .Q(\slv_reg9_reg_n_0_[11] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[12] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[15]_i_1_n_0 ),
         .D(s00_axi_wdata[12]),
-        .Q(slv_reg9[12]),
+        .Q(\slv_reg9_reg_n_0_[12] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[13] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[15]_i_1_n_0 ),
         .D(s00_axi_wdata[13]),
-        .Q(slv_reg9[13]),
+        .Q(\slv_reg9_reg_n_0_[13] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[14] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[15]_i_1_n_0 ),
         .D(s00_axi_wdata[14]),
-        .Q(slv_reg9[14]),
+        .Q(\slv_reg9_reg_n_0_[14] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[15] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[15]_i_1_n_0 ),
         .D(s00_axi_wdata[15]),
-        .Q(slv_reg9[15]),
+        .Q(\slv_reg9_reg_n_0_[15] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[16] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[23]_i_1_n_0 ),
         .D(s00_axi_wdata[16]),
-        .Q(slv_reg9[16]),
+        .Q(\slv_reg9_reg_n_0_[16] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[17] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[23]_i_1_n_0 ),
         .D(s00_axi_wdata[17]),
-        .Q(slv_reg9[17]),
+        .Q(\slv_reg9_reg_n_0_[17] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[18] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[23]_i_1_n_0 ),
         .D(s00_axi_wdata[18]),
-        .Q(slv_reg9[18]),
+        .Q(\slv_reg9_reg_n_0_[18] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[19] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[23]_i_1_n_0 ),
         .D(s00_axi_wdata[19]),
-        .Q(slv_reg9[19]),
+        .Q(\slv_reg9_reg_n_0_[19] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[1] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[7]_i_1_n_0 ),
         .D(s00_axi_wdata[1]),
-        .Q(slv_reg9[1]),
+        .Q(\slv_reg9_reg_n_0_[1] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[20] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[23]_i_1_n_0 ),
         .D(s00_axi_wdata[20]),
-        .Q(slv_reg9[20]),
+        .Q(\slv_reg9_reg_n_0_[20] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[21] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[23]_i_1_n_0 ),
         .D(s00_axi_wdata[21]),
-        .Q(slv_reg9[21]),
+        .Q(\slv_reg9_reg_n_0_[21] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[22] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[23]_i_1_n_0 ),
         .D(s00_axi_wdata[22]),
-        .Q(slv_reg9[22]),
+        .Q(\slv_reg9_reg_n_0_[22] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[23] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[23]_i_1_n_0 ),
         .D(s00_axi_wdata[23]),
-        .Q(slv_reg9[23]),
+        .Q(\slv_reg9_reg_n_0_[23] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[24] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[31]_i_1_n_0 ),
         .D(s00_axi_wdata[24]),
-        .Q(slv_reg9[24]),
+        .Q(\slv_reg9_reg_n_0_[24] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[25] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[31]_i_1_n_0 ),
         .D(s00_axi_wdata[25]),
-        .Q(slv_reg9[25]),
+        .Q(\slv_reg9_reg_n_0_[25] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[26] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[31]_i_1_n_0 ),
         .D(s00_axi_wdata[26]),
-        .Q(slv_reg9[26]),
+        .Q(\slv_reg9_reg_n_0_[26] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[27] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[31]_i_1_n_0 ),
         .D(s00_axi_wdata[27]),
-        .Q(slv_reg9[27]),
+        .Q(\slv_reg9_reg_n_0_[27] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[28] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[31]_i_1_n_0 ),
         .D(s00_axi_wdata[28]),
-        .Q(slv_reg9[28]),
+        .Q(\slv_reg9_reg_n_0_[28] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[29] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[31]_i_1_n_0 ),
         .D(s00_axi_wdata[29]),
-        .Q(slv_reg9[29]),
+        .Q(\slv_reg9_reg_n_0_[29] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[2] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[7]_i_1_n_0 ),
         .D(s00_axi_wdata[2]),
-        .Q(slv_reg9[2]),
+        .Q(\slv_reg9_reg_n_0_[2] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[30] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[31]_i_1_n_0 ),
         .D(s00_axi_wdata[30]),
-        .Q(slv_reg9[30]),
+        .Q(\slv_reg9_reg_n_0_[30] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[31] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[31]_i_1_n_0 ),
         .D(s00_axi_wdata[31]),
-        .Q(slv_reg9[31]),
+        .Q(slv_reg9),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[3] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[7]_i_1_n_0 ),
         .D(s00_axi_wdata[3]),
-        .Q(slv_reg9[3]),
+        .Q(\slv_reg9_reg_n_0_[3] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[4] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[7]_i_1_n_0 ),
         .D(s00_axi_wdata[4]),
-        .Q(slv_reg9[4]),
+        .Q(\slv_reg9_reg_n_0_[4] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[5] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[7]_i_1_n_0 ),
         .D(s00_axi_wdata[5]),
-        .Q(slv_reg9[5]),
+        .Q(\slv_reg9_reg_n_0_[5] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[6] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[7]_i_1_n_0 ),
         .D(s00_axi_wdata[6]),
-        .Q(slv_reg9[6]),
+        .Q(\slv_reg9_reg_n_0_[6] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[7] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[7]_i_1_n_0 ),
         .D(s00_axi_wdata[7]),
-        .Q(slv_reg9[7]),
+        .Q(\slv_reg9_reg_n_0_[7] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[8] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[15]_i_1_n_0 ),
         .D(s00_axi_wdata[8]),
-        .Q(slv_reg9[8]),
+        .Q(\slv_reg9_reg_n_0_[8] ),
         .R(val_valid_o_reg_0));
   FDRE \slv_reg9_reg[9] 
        (.C(s00_axi_aclk),
         .CE(\slv_reg9[15]_i_1_n_0 ),
         .D(s00_axi_wdata[9]),
-        .Q(slv_reg9[9]),
+        .Q(\slv_reg9_reg_n_0_[9] ),
         .R(val_valid_o_reg_0));
   LUT3 #(
-    .INIT(8'h20)) 
+    .INIT(8'h08)) 
     slv_reg_rden
-       (.I0(s00_axi_arvalid),
-        .I1(s00_axi_rvalid),
-        .I2(axi_arready_reg_0),
+       (.I0(axi_arready_reg_0),
+        .I1(s00_axi_arvalid),
+        .I2(s00_axi_rvalid),
         .O(slv_reg_rden__0));
 endmodule
 
 (* ORIG_REF_NAME = "analog_downsample" *) 
 module final_proj_analog_channel_fr_0_2_analog_downsample
    (val_valid_o_reg_0,
+    xadc_drdy_i_0,
     S,
     DI,
     \val_o_reg[6]_0 ,
@@ -7498,11 +7499,14 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
     s00_axi_aclk,
     val_valid_o_reg_1,
     xadc_drdy_i,
+    \counter_reg[31]_0 ,
+    xadc_channel_i,
     val_o0_carry__2_0,
     \trig_o2_inferred__1/i__carry__0 ,
     Q,
     xadc_do_i);
   output val_valid_o_reg_0;
+  output xadc_drdy_i_0;
   output [3:0]S;
   output [3:0]DI;
   output [3:0]\val_o_reg[6]_0 ;
@@ -7516,6 +7520,8 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
   input s00_axi_aclk;
   input val_valid_o_reg_1;
   input xadc_drdy_i;
+  input [5:0]\counter_reg[31]_0 ;
+  input [4:0]xadc_channel_i;
   input [31:0]val_o0_carry__2_0;
   input [11:0]\trig_o2_inferred__1/i__carry__0 ;
   input [0:0]Q;
@@ -7607,6 +7613,7 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
   wire \counter_reg[28]_i_1_n_5 ;
   wire \counter_reg[28]_i_1_n_6 ;
   wire \counter_reg[28]_i_1_n_7 ;
+  wire [5:0]\counter_reg[31]_0 ;
   wire \counter_reg[4]_i_1_n_0 ;
   wire \counter_reg[4]_i_1_n_1 ;
   wire \counter_reg[4]_i_1_n_2 ;
@@ -7684,19 +7691,22 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
   wire val_valid_o_i_1_n_0;
   wire val_valid_o_reg_0;
   wire val_valid_o_reg_1;
+  wire [4:0]xadc_channel_i;
   wire [11:0]xadc_do_i;
   wire xadc_drdy_i;
+  wire xadc_drdy_i_0;
+  wire xadc_drdy_o_INST_0_i_1_n_0;
+  wire xadc_drdy_o_INST_0_i_2_n_0;
   wire [3:3]\NLW_counter_reg[28]_i_1_CO_UNCONNECTED ;
   wire [3:0]NLW_val_o0_carry_O_UNCONNECTED;
   wire [3:0]NLW_val_o0_carry__0_O_UNCONNECTED;
   wire [3:0]NLW_val_o0_carry__1_O_UNCONNECTED;
   wire [3:0]NLW_val_o0_carry__2_O_UNCONNECTED;
 
-  LUT2 #(
-    .INIT(4'h2)) 
+  LUT1 #(
+    .INIT(2'h1)) 
     \counter[0]_i_2 
-       (.I0(counter_reg[0]),
-        .I1(val_o0_carry__2_n_0),
+       (.I0(val_o0_carry__2_n_0),
         .O(\counter[0]_i_2_n_0 ));
   LUT2 #(
     .INIT(4'h2)) 
@@ -7892,7 +7902,7 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
         .O(\counter[8]_i_5_n_0 ));
   FDCE \counter_reg[0] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[0]_i_1_n_7 ),
         .Q(counter_reg[0]));
@@ -7906,19 +7916,19 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
         .S({\counter[0]_i_3_n_0 ,\counter[0]_i_4_n_0 ,\counter[0]_i_5_n_0 ,\counter[0]_i_6_n_0 }));
   FDCE \counter_reg[10] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[8]_i_1_n_5 ),
         .Q(counter_reg[10]));
   FDCE \counter_reg[11] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[8]_i_1_n_4 ),
         .Q(counter_reg[11]));
   FDCE \counter_reg[12] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[12]_i_1_n_7 ),
         .Q(counter_reg[12]));
@@ -7932,25 +7942,25 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
         .S({\counter[12]_i_2_n_0 ,\counter[12]_i_3_n_0 ,\counter[12]_i_4_n_0 ,\counter[12]_i_5_n_0 }));
   FDCE \counter_reg[13] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[12]_i_1_n_6 ),
         .Q(counter_reg[13]));
   FDCE \counter_reg[14] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[12]_i_1_n_5 ),
         .Q(counter_reg[14]));
   FDCE \counter_reg[15] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[12]_i_1_n_4 ),
         .Q(counter_reg[15]));
   FDCE \counter_reg[16] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[16]_i_1_n_7 ),
         .Q(counter_reg[16]));
@@ -7964,31 +7974,31 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
         .S({\counter[16]_i_2_n_0 ,\counter[16]_i_3_n_0 ,\counter[16]_i_4_n_0 ,\counter[16]_i_5_n_0 }));
   FDCE \counter_reg[17] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[16]_i_1_n_6 ),
         .Q(counter_reg[17]));
   FDCE \counter_reg[18] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[16]_i_1_n_5 ),
         .Q(counter_reg[18]));
   FDCE \counter_reg[19] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[16]_i_1_n_4 ),
         .Q(counter_reg[19]));
   FDCE \counter_reg[1] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[0]_i_1_n_6 ),
         .Q(counter_reg[1]));
   FDCE \counter_reg[20] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[20]_i_1_n_7 ),
         .Q(counter_reg[20]));
@@ -8002,25 +8012,25 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
         .S({\counter[20]_i_2_n_0 ,\counter[20]_i_3_n_0 ,\counter[20]_i_4_n_0 ,\counter[20]_i_5_n_0 }));
   FDCE \counter_reg[21] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[20]_i_1_n_6 ),
         .Q(counter_reg[21]));
   FDCE \counter_reg[22] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[20]_i_1_n_5 ),
         .Q(counter_reg[22]));
   FDCE \counter_reg[23] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[20]_i_1_n_4 ),
         .Q(counter_reg[23]));
   FDCE \counter_reg[24] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[24]_i_1_n_7 ),
         .Q(counter_reg[24]));
@@ -8034,25 +8044,25 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
         .S({\counter[24]_i_2_n_0 ,\counter[24]_i_3_n_0 ,\counter[24]_i_4_n_0 ,\counter[24]_i_5_n_0 }));
   FDCE \counter_reg[25] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[24]_i_1_n_6 ),
         .Q(counter_reg[25]));
   FDCE \counter_reg[26] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[24]_i_1_n_5 ),
         .Q(counter_reg[26]));
   FDCE \counter_reg[27] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[24]_i_1_n_4 ),
         .Q(counter_reg[27]));
   FDCE \counter_reg[28] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[28]_i_1_n_7 ),
         .Q(counter_reg[28]));
@@ -8066,37 +8076,37 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
         .S({\counter[28]_i_2_n_0 ,\counter[28]_i_3_n_0 ,\counter[28]_i_4_n_0 ,\counter[28]_i_5_n_0 }));
   FDCE \counter_reg[29] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[28]_i_1_n_6 ),
         .Q(counter_reg[29]));
   FDCE \counter_reg[2] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[0]_i_1_n_5 ),
         .Q(counter_reg[2]));
   FDCE \counter_reg[30] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[28]_i_1_n_5 ),
         .Q(counter_reg[30]));
   FDCE \counter_reg[31] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[28]_i_1_n_4 ),
         .Q(counter_reg[31]));
   FDCE \counter_reg[3] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[0]_i_1_n_4 ),
         .Q(counter_reg[3]));
   FDCE \counter_reg[4] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[4]_i_1_n_7 ),
         .Q(counter_reg[4]));
@@ -8110,25 +8120,25 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
         .S({\counter[4]_i_2_n_0 ,\counter[4]_i_3_n_0 ,\counter[4]_i_4_n_0 ,\counter[4]_i_5_n_0 }));
   FDCE \counter_reg[5] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[4]_i_1_n_6 ),
         .Q(counter_reg[5]));
   FDCE \counter_reg[6] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[4]_i_1_n_5 ),
         .Q(counter_reg[6]));
   FDCE \counter_reg[7] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[4]_i_1_n_4 ),
         .Q(counter_reg[7]));
   FDCE \counter_reg[8] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[8]_i_1_n_7 ),
         .Q(counter_reg[8]));
@@ -8142,7 +8152,7 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
         .S({\counter[8]_i_2_n_0 ,\counter[8]_i_3_n_0 ,\counter[8]_i_4_n_0 ,\counter[8]_i_5_n_0 }));
   FDCE \counter_reg[9] 
        (.C(s00_axi_aclk),
-        .CE(xadc_drdy_i),
+        .CE(xadc_drdy_i_0),
         .CLR(val_valid_o_reg_1),
         .D(\counter_reg[8]_i_1_n_6 ),
         .Q(counter_reg[9]));
@@ -8248,77 +8258,77 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
        (.I0(Q),
         .I1(val_o[0]),
         .O(D[0]));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \last_val[10]_i_1 
        (.I0(Q),
         .I1(val_o[10]),
         .O(D[10]));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \last_val[11]_i_1 
        (.I0(Q),
         .I1(val_o[11]),
         .O(D[11]));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \last_val[1]_i_1 
        (.I0(Q),
         .I1(val_o[1]),
         .O(D[1]));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+  (* SOFT_HLUTNM = "soft_lutpair17" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \last_val[2]_i_1 
        (.I0(Q),
         .I1(val_o[2]),
         .O(D[2]));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \last_val[3]_i_1 
        (.I0(Q),
         .I1(val_o[3]),
         .O(D[3]));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+  (* SOFT_HLUTNM = "soft_lutpair16" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \last_val[4]_i_1 
        (.I0(Q),
         .I1(val_o[4]),
         .O(D[4]));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \last_val[5]_i_1 
        (.I0(Q),
         .I1(val_o[5]),
         .O(D[5]));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \last_val[6]_i_1 
        (.I0(Q),
         .I1(val_o[6]),
         .O(D[6]));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \last_val[7]_i_1 
        (.I0(Q),
         .I1(val_o[7]),
         .O(D[7]));
-  (* SOFT_HLUTNM = "soft_lutpair8" *) 
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \last_val[8]_i_1 
        (.I0(Q),
         .I1(val_o[8]),
         .O(D[8]));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
   LUT2 #(
     .INIT(4'h8)) 
     \last_val[9]_i_1 
@@ -8421,7 +8431,7 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
         .I2(\trig_o2_inferred__1/i__carry__0 [1]),
         .I3(val_o[1]),
         .O(\val_o_reg[6]_1 [0]));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT2 #(
     .INIT(4'hB)) 
     trig_o_i_1
@@ -8791,8 +8801,8 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
   LUT2 #(
     .INIT(4'h8)) 
     val_valid_o_i_1
-       (.I0(val_o0_carry__2_n_0),
-        .I1(xadc_drdy_i),
+       (.I0(xadc_drdy_i_0),
+        .I1(val_o0_carry__2_n_0),
         .O(val_valid_o_i_1_n_0));
   FDCE val_valid_o_reg
        (.C(s00_axi_aclk),
@@ -8800,6 +8810,32 @@ module final_proj_analog_channel_fr_0_2_analog_downsample
         .CLR(val_valid_o_reg_1),
         .D(val_valid_o_i_1_n_0),
         .Q(val_valid_o_reg_0));
+  LUT6 #(
+    .INIT(64'h00002002AAAAAAAA)) 
+    xadc_drdy_o_INST_0
+       (.I0(xadc_drdy_i),
+        .I1(xadc_drdy_o_INST_0_i_1_n_0),
+        .I2(\counter_reg[31]_0 [4]),
+        .I3(xadc_channel_i[4]),
+        .I4(xadc_drdy_o_INST_0_i_2_n_0),
+        .I5(\counter_reg[31]_0 [5]),
+        .O(xadc_drdy_i_0));
+  LUT6 #(
+    .INIT(64'h6FF6FFFFFFFF6FF6)) 
+    xadc_drdy_o_INST_0_i_1
+       (.I0(xadc_channel_i[0]),
+        .I1(\counter_reg[31]_0 [0]),
+        .I2(\counter_reg[31]_0 [2]),
+        .I3(xadc_channel_i[2]),
+        .I4(\counter_reg[31]_0 [1]),
+        .I5(xadc_channel_i[1]),
+        .O(xadc_drdy_o_INST_0_i_1_n_0));
+  LUT2 #(
+    .INIT(4'h6)) 
+    xadc_drdy_o_INST_0_i_2
+       (.I0(\counter_reg[31]_0 [3]),
+        .I1(xadc_channel_i[3]),
+        .O(xadc_drdy_o_INST_0_i_2_n_0));
 endmodule
 
 (* ORIG_REF_NAME = "analog_streamer" *) 
@@ -8807,35 +8843,38 @@ module final_proj_analog_channel_fr_0_2_analog_streamer
    (start_stream_reg_0,
     sample_done_o_reg_0,
     sample_done_o0_out,
-    \s00_axi_wdata[31] ,
+    sample_done_o_reg_1,
     buf_addr_o,
     start_stream_reg_1,
     s00_axi_aclk,
-    sample_done_o_reg_1,
     sample_done_o_reg_2,
+    sample_done_o_reg_3,
     trig_val_valid,
     \buf_addr_reg[10]_0 ,
     Q,
     s00_axi_wdata,
-    E,
+    \slv_reg0_reg[31] ,
+    s00_axi_wstrb,
+    \slv_reg0_reg[31]_0 ,
     RAM_reg);
   output start_stream_reg_0;
   output sample_done_o_reg_0;
   output sample_done_o0_out;
-  output [0:0]\s00_axi_wdata[31] ;
+  output [0:0]sample_done_o_reg_1;
   output [9:0]buf_addr_o;
   input start_stream_reg_1;
   input s00_axi_aclk;
-  input sample_done_o_reg_1;
   input sample_done_o_reg_2;
+  input sample_done_o_reg_3;
   input trig_val_valid;
   input \buf_addr_reg[10]_0 ;
   input [0:0]Q;
   input [0:0]s00_axi_wdata;
-  input [0:0]E;
+  input \slv_reg0_reg[31] ;
+  input [0:0]s00_axi_wstrb;
+  input \slv_reg0_reg[31]_0 ;
   input [9:0]RAM_reg;
 
-  wire [0:0]E;
   wire [0:0]Q;
   wire [9:0]RAM_reg;
   wire \buf_addr[10]_i_1_n_0 ;
@@ -8850,18 +8889,21 @@ module final_proj_analog_channel_fr_0_2_analog_streamer
   wire [9:0]p_0_in;
   wire s00_axi_aclk;
   wire [0:0]s00_axi_wdata;
-  wire [0:0]\s00_axi_wdata[31] ;
+  wire [0:0]s00_axi_wstrb;
   wire sample_done_o0_out;
   wire sample_done_o_i_3_n_0;
   wire sample_done_o_i_4_n_0;
   wire sample_done_o_reg_0;
-  wire sample_done_o_reg_1;
+  wire [0:0]sample_done_o_reg_1;
   wire sample_done_o_reg_2;
+  wire sample_done_o_reg_3;
+  wire \slv_reg0_reg[31] ;
+  wire \slv_reg0_reg[31]_0 ;
   wire start_stream_reg_0;
   wire start_stream_reg_1;
   wire trig_val_valid;
 
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \buf_addr[0]_i_1 
@@ -8878,7 +8920,7 @@ module final_proj_analog_channel_fr_0_2_analog_streamer
         .I4(Q),
         .I5(sample_done_o0_out),
         .O(\buf_addr[10]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT4 #(
     .INIT(16'h7800)) 
     \buf_addr[10]_i_2 
@@ -8887,7 +8929,7 @@ module final_proj_analog_channel_fr_0_2_analog_streamer
         .I2(buf_addr_reg[10]),
         .I3(Q),
         .O(\buf_addr[10]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT4 #(
     .INIT(16'h0800)) 
     \buf_addr[10]_i_3 
@@ -8896,7 +8938,6 @@ module final_proj_analog_channel_fr_0_2_analog_streamer
         .I2(\buf_addr[9]_i_2_n_0 ),
         .I3(buf_addr_reg[6]),
         .O(\buf_addr[10]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT3 #(
     .INIT(8'h60)) 
     \buf_addr[1]_i_1 
@@ -8941,6 +8982,7 @@ module final_proj_analog_channel_fr_0_2_analog_streamer
         .I1(\buf_addr[5]_i_2_n_0 ),
         .I2(buf_addr_reg[5]),
         .O(p_0_in[5]));
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT5 #(
     .INIT(32'h7FFFFFFF)) 
     \buf_addr[5]_i_2 
@@ -8950,6 +8992,7 @@ module final_proj_analog_channel_fr_0_2_analog_streamer
         .I3(buf_addr_reg[2]),
         .I4(buf_addr_reg[4]),
         .O(\buf_addr[5]_i_2_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT3 #(
     .INIT(8'h82)) 
     \buf_addr[6]_i_1 
@@ -9069,109 +9112,112 @@ module final_proj_analog_channel_fr_0_2_analog_streamer
   FDCE \buf_addr_reg[0] 
        (.C(s00_axi_aclk),
         .CE(\buf_addr[10]_i_1_n_0 ),
-        .CLR(sample_done_o_reg_2),
+        .CLR(sample_done_o_reg_3),
         .D(p_0_in[0]),
         .Q(buf_addr_reg[0]));
   FDCE \buf_addr_reg[10] 
        (.C(s00_axi_aclk),
         .CE(\buf_addr[10]_i_1_n_0 ),
-        .CLR(sample_done_o_reg_2),
+        .CLR(sample_done_o_reg_3),
         .D(\buf_addr[10]_i_2_n_0 ),
         .Q(buf_addr_reg[10]));
   FDCE \buf_addr_reg[1] 
        (.C(s00_axi_aclk),
         .CE(\buf_addr[10]_i_1_n_0 ),
-        .CLR(sample_done_o_reg_2),
+        .CLR(sample_done_o_reg_3),
         .D(\buf_addr[1]_i_1_n_0 ),
         .Q(buf_addr_reg[1]));
   FDCE \buf_addr_reg[2] 
        (.C(s00_axi_aclk),
         .CE(\buf_addr[10]_i_1_n_0 ),
-        .CLR(sample_done_o_reg_2),
+        .CLR(sample_done_o_reg_3),
         .D(p_0_in[2]),
         .Q(buf_addr_reg[2]));
   FDCE \buf_addr_reg[3] 
        (.C(s00_axi_aclk),
         .CE(\buf_addr[10]_i_1_n_0 ),
-        .CLR(sample_done_o_reg_2),
+        .CLR(sample_done_o_reg_3),
         .D(p_0_in[3]),
         .Q(buf_addr_reg[3]));
   FDCE \buf_addr_reg[4] 
        (.C(s00_axi_aclk),
         .CE(\buf_addr[10]_i_1_n_0 ),
-        .CLR(sample_done_o_reg_2),
+        .CLR(sample_done_o_reg_3),
         .D(p_0_in[4]),
         .Q(buf_addr_reg[4]));
   FDCE \buf_addr_reg[5] 
        (.C(s00_axi_aclk),
         .CE(\buf_addr[10]_i_1_n_0 ),
-        .CLR(sample_done_o_reg_2),
+        .CLR(sample_done_o_reg_3),
         .D(p_0_in[5]),
         .Q(buf_addr_reg[5]));
   FDCE \buf_addr_reg[6] 
        (.C(s00_axi_aclk),
         .CE(\buf_addr[10]_i_1_n_0 ),
-        .CLR(sample_done_o_reg_2),
+        .CLR(sample_done_o_reg_3),
         .D(p_0_in[6]),
         .Q(buf_addr_reg[6]));
   FDCE \buf_addr_reg[7] 
        (.C(s00_axi_aclk),
         .CE(\buf_addr[10]_i_1_n_0 ),
-        .CLR(sample_done_o_reg_2),
+        .CLR(sample_done_o_reg_3),
         .D(p_0_in[7]),
         .Q(buf_addr_reg[7]));
   FDCE \buf_addr_reg[8] 
        (.C(s00_axi_aclk),
         .CE(\buf_addr[10]_i_1_n_0 ),
-        .CLR(sample_done_o_reg_2),
+        .CLR(sample_done_o_reg_3),
         .D(p_0_in[8]),
         .Q(buf_addr_reg[8]));
   FDCE \buf_addr_reg[9] 
        (.C(s00_axi_aclk),
         .CE(\buf_addr[10]_i_1_n_0 ),
-        .CLR(sample_done_o_reg_2),
+        .CLR(sample_done_o_reg_3),
         .D(p_0_in[9]),
         .Q(buf_addr_reg[9]));
-  LUT5 #(
-    .INIT(32'h00000020)) 
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
     sample_done_o_i_2
-       (.I0(sample_done_o_i_3_n_0),
-        .I1(buf_addr_reg[5]),
-        .I2(Q),
-        .I3(buf_addr_reg[1]),
-        .I4(sample_done_o_i_4_n_0),
+       (.I0(buf_addr_reg[7]),
+        .I1(buf_addr_reg[8]),
+        .I2(buf_addr_reg[6]),
+        .I3(buf_addr_reg[9]),
+        .I4(sample_done_o_i_3_n_0),
+        .I5(sample_done_o_i_4_n_0),
         .O(sample_done_o0_out));
-  LUT5 #(
-    .INIT(32'h00000004)) 
-    sample_done_o_i_3
-       (.I0(buf_addr_reg[0]),
-        .I1(buf_addr_reg[10]),
-        .I2(buf_addr_reg[4]),
-        .I3(buf_addr_reg[3]),
-        .I4(buf_addr_reg[2]),
-        .O(sample_done_o_i_3_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
+    sample_done_o_i_3
+       (.I0(buf_addr_reg[3]),
+        .I1(buf_addr_reg[2]),
+        .I2(buf_addr_reg[1]),
+        .I3(buf_addr_reg[0]),
+        .O(sample_done_o_i_3_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  LUT4 #(
+    .INIT(16'hFFDF)) 
     sample_done_o_i_4
-       (.I0(buf_addr_reg[9]),
-        .I1(buf_addr_reg[6]),
-        .I2(buf_addr_reg[8]),
-        .I3(buf_addr_reg[7]),
+       (.I0(buf_addr_reg[10]),
+        .I1(buf_addr_reg[4]),
+        .I2(Q),
+        .I3(buf_addr_reg[5]),
         .O(sample_done_o_i_4_n_0));
   FDCE sample_done_o_reg
        (.C(s00_axi_aclk),
         .CE(1'b1),
-        .CLR(sample_done_o_reg_2),
-        .D(sample_done_o_reg_1),
+        .CLR(sample_done_o_reg_3),
+        .D(sample_done_o_reg_2),
         .Q(sample_done_o_reg_0));
-  LUT3 #(
-    .INIT(8'hB8)) 
+  LUT5 #(
+    .INIT(32'hCAAAAAAA)) 
     \slv_reg0[31]_i_1 
-       (.I0(s00_axi_wdata),
-        .I1(E),
-        .I2(sample_done_o_reg_0),
-        .O(\s00_axi_wdata[31] ));
+       (.I0(sample_done_o_reg_0),
+        .I1(s00_axi_wdata),
+        .I2(\slv_reg0_reg[31] ),
+        .I3(s00_axi_wstrb),
+        .I4(\slv_reg0_reg[31]_0 ),
+        .O(sample_done_o_reg_1));
   FDRE start_stream_reg
        (.C(s00_axi_aclk),
         .CE(1'b1),
@@ -9201,7 +9247,7 @@ module final_proj_analog_channel_fr_0_2_analog_trigger
     RAM_reg,
     RAM_reg_0,
     \trig_o2_inferred__2/i__carry__2_0 ,
-    trig_o_i_6_0,
+    trig_o_i_8_0,
     D);
   output trig_val_valid;
   output trig_o_reg_0;
@@ -9222,7 +9268,7 @@ module final_proj_analog_channel_fr_0_2_analog_trigger
   input RAM_reg;
   input [0:0]RAM_reg_0;
   input [31:0]\trig_o2_inferred__2/i__carry__2_0 ;
-  input [31:0]trig_o_i_6_0;
+  input [31:0]trig_o_i_8_0;
   input [11:0]D;
 
   wire [11:0]D;
@@ -9397,9 +9443,9 @@ module final_proj_analog_channel_fr_0_2_analog_trigger
   wire trig_o_i_3_n_0;
   wire trig_o_i_4_n_0;
   wire trig_o_i_5_n_0;
-  wire [31:0]trig_o_i_6_0;
   wire trig_o_i_6_n_0;
   wire trig_o_i_7_n_0;
+  wire [31:0]trig_o_i_8_0;
   wire trig_o_i_8_n_0;
   wire trig_o_i_9_n_0;
   wire trig_o_reg_0;
@@ -10197,26 +10243,26 @@ module final_proj_analog_channel_fr_0_2_analog_trigger
   LUT4 #(
     .INIT(16'h0001)) 
     trig_o_i_10
-       (.I0(trig_o_i_6_0[19]),
+       (.I0(trig_o_i_8_0[22]),
         .I1(trig_o_reg_0),
-        .I2(trig_o_i_6_0[23]),
-        .I3(trig_o_i_6_0[6]),
+        .I2(trig_o_i_8_0[21]),
+        .I3(trig_o_i_8_0[4]),
         .O(trig_o_i_10_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
     trig_o_i_11
-       (.I0(trig_o_i_6_0[16]),
-        .I1(trig_o_i_6_0[14]),
-        .I2(trig_o_i_6_0[17]),
-        .I3(trig_o_i_6_0[8]),
+       (.I0(trig_o_i_8_0[20]),
+        .I1(trig_o_i_8_0[15]),
+        .I2(trig_o_i_8_0[17]),
+        .I3(trig_o_i_8_0[9]),
         .O(trig_o_i_11_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
     trig_o_i_12
-       (.I0(trig_o_i_6_0[29]),
-        .I1(trig_o_i_6_0[22]),
-        .I2(trig_o_i_6_0[30]),
-        .I3(trig_o_i_6_0[21]),
+       (.I0(trig_o_i_8_0[31]),
+        .I1(trig_o_i_8_0[30]),
+        .I2(trig_o_i_8_0[25]),
+        .I3(trig_o_i_8_0[5]),
         .O(trig_o_i_12_n_0));
   LUT4 #(
     .INIT(16'hA8AA)) 
@@ -10240,19 +10286,19 @@ module final_proj_analog_channel_fr_0_2_analog_trigger
     trig_o_i_4
        (.I0(trig_o22_in),
         .I1(trig_o2),
-        .I2(trig_o_i_6_0[1]),
+        .I2(trig_o_i_8_0[1]),
         .I3(trig_o24_in),
         .I4(trig_o23_in),
-        .I5(trig_o_i_6_0[0]),
+        .I5(trig_o_i_8_0[0]),
         .O(trig_o_i_4_n_0));
   LUT6 #(
     .INIT(64'hFFFFFFFFFFFFFFFE)) 
     trig_o_i_5
        (.I0(trig_o_i_7_n_0),
-        .I1(trig_o_i_6_0[10]),
-        .I2(trig_o_i_6_0[7]),
-        .I3(trig_o_i_6_0[25]),
-        .I4(trig_o_i_6_0[5]),
+        .I1(trig_o_i_8_0[11]),
+        .I2(trig_o_i_8_0[8]),
+        .I3(trig_o_i_8_0[28]),
+        .I4(trig_o_i_8_0[6]),
         .I5(trig_o_i_8_n_0),
         .O(trig_o_i_5_n_0));
   LUT6 #(
@@ -10261,34 +10307,34 @@ module final_proj_analog_channel_fr_0_2_analog_trigger
        (.I0(trig_o_i_9_n_0),
         .I1(trig_o_i_10_n_0),
         .I2(trig_o_i_11_n_0),
-        .I3(trig_o_i_6_0[15]),
-        .I4(trig_o_i_6_0[24]),
-        .I5(trig_o_i_6_0[2]),
+        .I3(trig_o_i_8_0[16]),
+        .I4(trig_o_i_8_0[24]),
+        .I5(trig_o_i_8_0[2]),
         .O(trig_o_i_6_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
     trig_o_i_7
-       (.I0(trig_o_i_6_0[13]),
-        .I1(trig_o_i_6_0[3]),
-        .I2(trig_o_i_6_0[20]),
-        .I3(trig_o_i_6_0[4]),
+       (.I0(trig_o_i_8_0[14]),
+        .I1(trig_o_i_8_0[7]),
+        .I2(trig_o_i_8_0[23]),
+        .I3(trig_o_i_8_0[3]),
         .O(trig_o_i_7_n_0));
   LUT5 #(
     .INIT(32'hFFFFFFFE)) 
     trig_o_i_8
-       (.I0(trig_o_i_6_0[26]),
-        .I1(trig_o_i_6_0[28]),
-        .I2(trig_o_i_6_0[9]),
-        .I3(trig_o_i_6_0[12]),
+       (.I0(trig_o_i_8_0[10]),
+        .I1(trig_o_i_8_0[13]),
+        .I2(trig_o_i_8_0[26]),
+        .I3(trig_o_i_8_0[27]),
         .I4(trig_o_i_12_n_0),
         .O(trig_o_i_8_n_0));
   LUT4 #(
     .INIT(16'hFFFE)) 
     trig_o_i_9
-       (.I0(trig_o_i_6_0[27]),
-        .I1(trig_o_i_6_0[11]),
-        .I2(trig_o_i_6_0[31]),
-        .I3(trig_o_i_6_0[18]),
+       (.I0(trig_o_i_8_0[19]),
+        .I1(trig_o_i_8_0[18]),
+        .I2(trig_o_i_8_0[29]),
+        .I3(trig_o_i_8_0[12]),
         .O(trig_o_i_9_n_0));
   FDCE trig_o_reg
        (.C(s00_axi_aclk),
@@ -10302,14 +10348,14 @@ module final_proj_analog_channel_fr_0_2_analog_trigger
         .CLR(val_valid_o_reg_1),
         .D(val_valid_o_reg_0),
         .Q(trig_val_valid));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT2 #(
     .INIT(4'h2)) 
     \valid_counter[0]_i_1 
        (.I0(Q),
         .I1(\valid_counter_reg_n_0_[0] ),
         .O(\valid_counter[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+  (* SOFT_HLUTNM = "soft_lutpair19" *) 
   LUT3 #(
     .INIT(8'h60)) 
     \valid_counter[1]_i_1 
@@ -10317,7 +10363,7 @@ module final_proj_analog_channel_fr_0_2_analog_trigger
         .I1(\valid_counter_reg_n_0_[0] ),
         .I2(Q),
         .O(\valid_counter[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
   LUT4 #(
     .INIT(16'h2A80)) 
     \valid_counter[2]_i_1 
@@ -10326,7 +10372,7 @@ module final_proj_analog_channel_fr_0_2_analog_trigger
         .I2(\valid_counter_reg_n_0_[1] ),
         .I3(\valid_counter_reg_n_0_[2] ),
         .O(\valid_counter[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+  (* SOFT_HLUTNM = "soft_lutpair18" *) 
   LUT5 #(
     .INIT(32'h7F800000)) 
     \valid_counter[3]_i_1 

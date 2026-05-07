@@ -95,7 +95,7 @@ set_property ip_output_repo c:/Temp/sa2-final/SA2_final_project/SA2_final_projec
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_ip -quiet c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_analog_channel_fr_0_2/final_proj_analog_channel_fr_0_2.xci
+read_ip -quiet C:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_analog_channel_fr_0_2/final_proj_analog_channel_fr_0_2.xci
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being

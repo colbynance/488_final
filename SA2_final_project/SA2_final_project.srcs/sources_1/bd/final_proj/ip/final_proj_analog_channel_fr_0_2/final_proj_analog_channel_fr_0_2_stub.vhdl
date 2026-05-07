@@ -1,8 +1,8 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Sun May  3 16:06:50 2026
--- Host        : CO2041-13 running 64-bit major release  (build 9200)
+-- Date        : Thu May  7 16:47:59 2026
+-- Host        : CO2041-04 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
 --               c:/Temp/sa2-final/SA2_final_project/SA2_final_project.srcs/sources_1/bd/final_proj/ip/final_proj_analog_channel_fr_0_2/final_proj_analog_channel_fr_0_2_stub.vhdl
 -- Design      : final_proj_analog_channel_fr_0_2
@@ -14,14 +14,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity final_proj_analog_channel_fr_0_2 is
   Port ( 
-    xadc_di_o : out STD_LOGIC_VECTOR ( 15 downto 0 );
     xadc_do_i : in STD_LOGIC_VECTOR ( 15 downto 0 );
-    xadc_addr_o : out STD_LOGIC_VECTOR ( 6 downto 0 );
-    xadc_den_o : out STD_LOGIC;
-    xadc_dwe_o : out STD_LOGIC;
     downsampl_new_o : out STD_LOGIC;
     xadc_drdy_i : in STD_LOGIC;
     xadc_drdy_o : out STD_LOGIC;
+    xadc_channel_i : in STD_LOGIC_VECTOR ( 4 downto 0 );
     buf_do_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
     buf_di_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
     buf_addr_o : out STD_LOGIC_VECTOR ( 31 downto 0 );
@@ -57,7 +54,7 @@ architecture stub of final_proj_analog_channel_fr_0_2 is
 attribute syn_black_box : boolean;
 attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
-attribute black_box_pad_pin of stub : architecture is "xadc_di_o[15:0],xadc_do_i[15:0],xadc_addr_o[6:0],xadc_den_o,xadc_dwe_o,downsampl_new_o,xadc_drdy_i,xadc_drdy_o,buf_do_o[31:0],buf_di_o[31:0],buf_addr_o[31:0],buf_we_o[31:0],sample_done_o,trigd_o,s00_axi_aclk,s00_axi_aresetn,s00_axi_awaddr[5:0],s00_axi_awprot[2:0],s00_axi_awvalid,s00_axi_awready,s00_axi_wdata[31:0],s00_axi_wstrb[3:0],s00_axi_wvalid,s00_axi_wready,s00_axi_bresp[1:0],s00_axi_bvalid,s00_axi_bready,s00_axi_araddr[5:0],s00_axi_arprot[2:0],s00_axi_arvalid,s00_axi_arready,s00_axi_rdata[31:0],s00_axi_rresp[1:0],s00_axi_rvalid,s00_axi_rready";
+attribute black_box_pad_pin of stub : architecture is "xadc_do_i[15:0],downsampl_new_o,xadc_drdy_i,xadc_drdy_o,xadc_channel_i[4:0],buf_do_o[31:0],buf_di_o[31:0],buf_addr_o[31:0],buf_we_o[31:0],sample_done_o,trigd_o,s00_axi_aclk,s00_axi_aresetn,s00_axi_awaddr[5:0],s00_axi_awprot[2:0],s00_axi_awvalid,s00_axi_awready,s00_axi_wdata[31:0],s00_axi_wstrb[3:0],s00_axi_wvalid,s00_axi_wready,s00_axi_bresp[1:0],s00_axi_bvalid,s00_axi_bready,s00_axi_araddr[5:0],s00_axi_arprot[2:0],s00_axi_arvalid,s00_axi_arready,s00_axi_rdata[31:0],s00_axi_rresp[1:0],s00_axi_rvalid,s00_axi_rready";
 attribute X_CORE_INFO : string;
 attribute X_CORE_INFO of stub : architecture is "analog_channel_fr_v1_0,Vivado 2020.1";
 begin

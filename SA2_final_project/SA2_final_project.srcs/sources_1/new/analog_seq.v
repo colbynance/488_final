@@ -24,37 +24,38 @@ module analog_seq(
     input clk_i,
     input nrst_i,
     input xadc_drdy_i,
-    output reg drdy_a_o,
-    output reg drdy_b_o
+    input xadc_eos_i,
+    output reg [6:0] xadc_drp_addr_o
     );
     
     
-    reg state;
+    reg[2:0] delay;
     
     always @(posedge clk_i or negedge nrst_i) begin
         if(!nrst_i) begin
-            drdy_a_o <= 0;
-            drdy_b_o <= 0;
-            state <= 0;
+            xadc_drp_addr_o <= 0;
+            delay <= 0;
         end
         else if(clk_i) begin
-            if(xadc_drdy_i) begin
-                if(!state) begin
-                    drdy_a_o <= 1;
-                    drdy_b_o <= 0;
-                    state <= 1;
-                end
-                else begin
-                    drdy_a_o <= 0;
-                    drdy_b_o <= 1;
-                    state <= 0;
-                end
-            end
-            else begin
-                drdy_a_o <= 0;
-                drdy_b_o <= 0;
-            end
         
+            
+            if(xadc_drdy_i) begin
+                delay <= 0;
+            end
+            
+            if(delay == 6) begin
+                xadc_drp_addr_o <= xadc_drp_addr_o + 1;
+                delay <= delay + 1;
+            end
+            else if(delay != 7) begin
+                delay <= delay + 1;
+            end
+       
+            if(xadc_eos_i) begin
+                xadc_drp_addr_o <= 2;
+            end
+            
+            
         end
     
     end

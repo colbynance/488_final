@@ -48,20 +48,17 @@
 
 
 // IP VLNV: iastate.edu:user:analog_channel_fr:1.0
-// IP Revision: 4
+// IP Revision: 5
 
 (* X_CORE_INFO = "analog_channel_fr_v1_0,Vivado 2020.1" *)
 (* CHECK_LICENSE_TYPE = "final_proj_analog_channel_fr_0_2,analog_channel_fr_v1_0,{}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module final_proj_analog_channel_fr_0_2 (
-  xadc_di_o,
   xadc_do_i,
-  xadc_addr_o,
-  xadc_den_o,
-  xadc_dwe_o,
   downsampl_new_o,
   xadc_drdy_i,
   xadc_drdy_o,
+  xadc_channel_i,
   buf_do_o,
   buf_di_o,
   buf_addr_o,
@@ -91,14 +88,11 @@ module final_proj_analog_channel_fr_0_2 (
   s00_axi_rready
 );
 
-output wire [15 : 0] xadc_di_o;
 input wire [15 : 0] xadc_do_i;
-output wire [6 : 0] xadc_addr_o;
-output wire xadc_den_o;
-output wire xadc_dwe_o;
 output wire downsampl_new_o;
 input wire xadc_drdy_i;
 output wire xadc_drdy_o;
+input wire [4 : 0] xadc_channel_i;
 output wire [31 : 0] buf_do_o;
 output wire [31 : 0] buf_di_o;
 output wire [31 : 0] buf_addr_o;
@@ -156,14 +150,11 @@ input wire s00_axi_rready;
     .C_S00_AXI_DATA_WIDTH(32),  // Width of S_AXI data bus
     .C_S00_AXI_ADDR_WIDTH(6)  // Width of S_AXI address bus
   ) inst (
-    .xadc_di_o(xadc_di_o),
     .xadc_do_i(xadc_do_i),
-    .xadc_addr_o(xadc_addr_o),
-    .xadc_den_o(xadc_den_o),
-    .xadc_dwe_o(xadc_dwe_o),
     .downsampl_new_o(downsampl_new_o),
     .xadc_drdy_i(xadc_drdy_i),
     .xadc_drdy_o(xadc_drdy_o),
+    .xadc_channel_i(xadc_channel_i),
     .buf_do_o(buf_do_o),
     .buf_di_o(buf_di_o),
     .buf_addr_o(buf_addr_o),

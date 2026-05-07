@@ -1,8 +1,8 @@
 --Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
---Date        : Mon May  4 12:07:20 2026
---Host        : CO2041-13 running 64-bit major release  (build 9200)
+--Date        : Thu May  7 18:53:56 2026
+--Host        : CO2041-04 running 64-bit major release  (build 9200)
 --Command     : generate_target final_proj_wrapper.bd
 --Design      : final_proj_wrapper
 --Purpose     : IP block netlist
@@ -47,15 +47,15 @@ architecture STRUCTURE of final_proj_wrapper is
   port (
     sig : in STD_LOGIC;
     sig2 : in STD_LOGIC;
+    sws_8bits_tri_i : in STD_LOGIC_VECTOR ( 7 downto 0 );
+    leds_8bits_tri_o : out STD_LOGIC_VECTOR ( 7 downto 0 );
+    btns_5bits_tri_i : in STD_LOGIC_VECTOR ( 4 downto 0 );
     FIXED_IO_mio : inout STD_LOGIC_VECTOR ( 53 downto 0 );
     FIXED_IO_ddr_vrn : inout STD_LOGIC;
     FIXED_IO_ddr_vrp : inout STD_LOGIC;
     FIXED_IO_ps_srstb : inout STD_LOGIC;
     FIXED_IO_ps_clk : inout STD_LOGIC;
     FIXED_IO_ps_porb : inout STD_LOGIC;
-    leds_8bits_tri_o : out STD_LOGIC_VECTOR ( 7 downto 0 );
-    sws_8bits_tri_i : in STD_LOGIC_VECTOR ( 7 downto 0 );
-    btns_5bits_tri_i : in STD_LOGIC_VECTOR ( 4 downto 0 );
     DDR_cas_n : inout STD_LOGIC;
     DDR_cke : inout STD_LOGIC;
     DDR_ck_n : inout STD_LOGIC;

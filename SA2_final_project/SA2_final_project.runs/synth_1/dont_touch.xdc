@@ -42,8 +42,14 @@ set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_anal
 # IP: bd/final_proj/ip/final_proj_xadc_wiz_0_0/final_proj_xadc_wiz_0_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_xadc_wiz_0_0 || ORIG_REF_NAME==final_proj_xadc_wiz_0_0} -quiet] -quiet
 
-# IP: bd/final_proj/ip/final_proj_xlconstant_0_0/final_proj_xlconstant_0_0.xci
-set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_xlconstant_0_0 || ORIG_REF_NAME==final_proj_xlconstant_0_0} -quiet] -quiet
+# IP: bd/final_proj/ip/final_proj_analog_seq_0_0/final_proj_analog_seq_0_0.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_analog_seq_0_0 || ORIG_REF_NAME==final_proj_analog_seq_0_0} -quiet] -quiet
+
+# IP: bd/final_proj/ip/final_proj_analog_channel_fr_0_3/final_proj_analog_channel_fr_0_3.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_analog_channel_fr_0_3 || ORIG_REF_NAME==final_proj_analog_channel_fr_0_3} -quiet] -quiet
+
+# IP: bd/final_proj/ip/final_proj_util_vector_logic_0_0/final_proj_util_vector_logic_0_0.xci
+set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_util_vector_logic_0_0 || ORIG_REF_NAME==final_proj_util_vector_logic_0_0} -quiet] -quiet
 
 # IP: bd/final_proj/ip/final_proj_auto_pc_0/final_proj_auto_pc_0.xci
 set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==final_proj_auto_pc_0 || ORIG_REF_NAME==final_proj_auto_pc_0} -quiet] -quiet

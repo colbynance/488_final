@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="final_proj_xadc_wiz_0_0_synth_1" LaunchPart="xc7z020clg484-1" LaunchTime="1777914448">
+<GenRun Id="final_proj_xadc_wiz_0_0_synth_1" LaunchPart="xc7z020clg484-1" LaunchTime="1778196529">
   <File Type="PA-TCL" Name="final_proj_xadc_wiz_0_0.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="final_proj_xadc_wiz_0_0_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="final_proj_xadc_wiz_0_0_reports.tcl"/>

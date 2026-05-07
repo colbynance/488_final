@@ -61,10 +61,13 @@ ENTITY final_proj_system_ila_0_3 IS
     probe2 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe3 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe5 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe5 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
     probe6 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe7 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    probe7 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe8 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe9 : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
+    probe10 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe11 : IN STD_LOGIC_VECTOR(6 DOWNTO 0);
     SLOT_0_AXI_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
     SLOT_0_AXI_awprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
     SLOT_0_AXI_awvalid : IN STD_LOGIC;
@@ -99,10 +102,13 @@ ARCHITECTURE final_proj_system_ila_0_3_arch OF final_proj_system_ila_0_3 IS
       probe2 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       probe3 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       probe4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-      probe5 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      probe5 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
       probe6 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-      probe7 : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+      probe7 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       probe8 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      probe9 : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
+      probe10 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      probe11 : IN STD_LOGIC_VECTOR(6 DOWNTO 0);
       SLOT_0_AXI_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
       SLOT_0_AXI_awprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
       SLOT_0_AXI_awvalid : IN STD_LOGIC;
@@ -165,6 +171,9 @@ BEGIN
       probe6 => probe6,
       probe7 => probe7,
       probe8 => probe8,
+      probe9 => probe9,
+      probe10 => probe10,
+      probe11 => probe11,
       SLOT_0_AXI_awaddr => SLOT_0_AXI_awaddr,
       SLOT_0_AXI_awprot => SLOT_0_AXI_awprot,
       SLOT_0_AXI_awvalid => SLOT_0_AXI_awvalid,
