@@ -29,4 +29,13 @@ private:
     QList<QPointF> m_liveBuffer; 
     int m_xCounter = 0;
     QLineSeries* m_channel0Series;
+    QLineSeries* m_channel1Series;
+    QLineSeries* m_channel2Series;
+    QLineSeries* m_channel3Series;
+    QLineSeries* m_channel4Series;
+    QLineSeries* m_channel5Series;
+    QLineSeries* m_channel6Series;
+    QLineSeries* m_channel7Series;
+    QLineSeries* m_channel8Series;
+    
 };

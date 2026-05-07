@@ -110,6 +110,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         chart->setTitle(QString("Channel %1").arg(i));
         chart->addSeries(series);
         chart->createDefaultAxes();
+        chart->axes(Qt::Vertical).first()->setRange(-0.5, 1.5);
         //chart->setMargins(QMargins(0,0,0,0)); // Optional: tighten up spacing
 
 
@@ -144,24 +145,29 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     
     connect(m_serialManager.get(), &SerialManager::dataParsed, this, [this](int channel, double value) {
-        // For this simple test, we ONLY care about Channel 0
         if (channel != 0) return; 
 
-        // Add the new point to the back
         m_liveBuffer.append(QPointF(m_xCounter, value));
         m_xCounter++;
 
-        // Remove the oldest point from the front to keep the buffer at 1024 points
         if (m_liveBuffer.size() > 1024) {
             m_liveBuffer.removeFirst();
         }
-
-        // Push the updated buffer to the chart!
-        m_channel0Series->replace(m_liveBuffer);
-
-        // Optional: Scroll the X-axis so the new data stays on screen
-        m_charts[0]->chart()->axes(Qt::Horizontal).first()->setRange(m_xCounter - 1024, m_xCounter);
     });
+
+    QTimer *renderTimer = new QTimer(this);
+    connect(renderTimer, &QTimer::timeout, this, [this]() {
+        // Only redraw if the chart exists and we actually have data
+        if (m_channel0Series && !m_liveBuffer.isEmpty()) {
+            
+            // Push the batched buffer to the screen once
+            m_channel0Series->replace(m_liveBuffer);
+            
+            // Shift the camera to follow the newest data
+            m_charts[0]->chart()->axes(Qt::Horizontal).first()->setRange(m_xCounter - 1024, m_xCounter);
+        }
+    });
+    renderTimer->start(33);
 
 
 

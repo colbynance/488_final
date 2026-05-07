@@ -55,7 +55,7 @@ SerialManager::~SerialManager() {
 }
 
 void SerialManager::updateUi(const QStringList& ports) {
-    // Only call this on the UI thread!
+    //Only call this on the UI thread
     QString current = m_combo->currentText();
     m_combo->clear();
     m_combo->addItems(ports);
@@ -92,7 +92,7 @@ void SerialManager::openPort(const QString& rawPortName){
             std::fflush(stderr);
             }
 
-            m_readBuffer.append(m_serialPort.readAll());
+            m_readBuffer.append(newData);
             while (m_readBuffer.contains('\n')) {
                 int newlineIndex = m_readBuffer.indexOf('\n');
                 QByteArray rawLine = m_readBuffer.left(newlineIndex);
@@ -105,38 +105,62 @@ void SerialManager::openPort(const QString& rawPortName){
                         m_incomingId = line.mid(2).toInt();
                         m_parserState = ParserState::ExpectingBufferDump;
                         std::fprintf(stderr, "[CMD] Buffer Dump Incoming for ID: %d\n", m_incomingId);
+                        continue;
                     } 
-                    else if (line.startsWith("CD")) {//config dump
-                        m_incomingId = line.mid(2).toInt();
-                        m_parserState = ParserState::ExpectingConfigDump;
-                        std::fprintf(stderr, "[CMD] Config Dump Incoming for ID: %d\n", m_incomingId);
-                    }
-                    else if (line.startsWith("D")) {//config set
-                        std::fprintf(stderr, "[CMD] Config Set received: %s\n", line.toLocal8Bit().constData());
-                    }
+                    //else if (line.startsWith("CD")) {//config dump
+                       // m_incomingId = line.mid(2).toInt();
+                       // m_parserState = ParserState::ExpectingConfigDump;
+                     //   std::fprintf(stderr, "[CMD] Config Dump Incoming for ID: %d\n", m_incomingId);
+                   // }
+                    //else if (line.startsWith("D")) {//config set
+                    //    std::fprintf(stderr, "[CMD] Config Set received: %s\n", line.toLocal8Bit().constData());
+                   // }
                     else {
                         std::fprintf(stderr, "[WARN] Unknown Command: %s\n", line.toLocal8Bit().constData());
                     }
 
                 } 
                 else if (m_parserState == ParserState::ExpectingBufferDump) {
-                   std::fprintf(stderr, "[DATA] Buffer for ID %d received (%d bytes)\n", m_incomingId, rawLine.size());
-                
                     int targetChannel = m_incomingId; 
+                    
                     for (int i = 0; i < rawLine.size(); ++i) {
                         uint8_t currentByte = static_cast<uint8_t>(rawLine.at(i));
-                        for (int bitIndex = 0; bitIndex < 8; ++bitIndex) {
-                            
-                            bool bitValue = (currentByte >> bitIndex) & 1; 
-                            double graphValue = bitValue ? 1.0 : 0.0;
-                            emit dataParsed(targetChannel, graphValue); 
+                        
+                        if (currentByte == 0x31) { // Hex 31 is ASCII '1'
+                            emit dataParsed(targetChannel, 1.0);
+                        } 
+                        else if (currentByte == 0x30) { // Hex 30 is ASCII '0'
+                            emit dataParsed(targetChannel, 0.0);
                         }
                     }
                 
                     // Reset back to Idle to wait for the next command
                     m_parserState = ParserState::Idle;
-            }
+                }
         }
+        // int timeout_buffer = 0;
+        // while(m_parserState == ParserState::ExpectingBufferDump){
+        //     int targetChannel = m_incomingId;
+        //     if(timeout_buffer > 10){
+        //         m_parserState = ParserState::Idle;
+        //     }
+        //     if(newData.size() == 1 && newData.at(0) == 0x0A){
+        //         m_parserState = ParserState::Idle;
+        //     }
+        //     else{
+        //         if(newData.size() == 1 && newData.at(0) == 0x31){//value is high
+        //             emit dataParsed(targetChannel, 1.0);
+        //         }
+        //         else if(newData.size() == 1 && newData.at(0) == 0x30){
+        //             emit dataParsed(targetChannel, 0.0);
+        //         }
+        //         else{
+        //             timeout_buffer++;
+        //         }
+        //     }
+            
+                    
+        // }
 
 
 
