@@ -1,6 +1,7 @@
 // include/SerialManager.hpp
 #pragma once
 #include <QObject>
+#include <QFile>
 #include <QComboBox>
 #include <rpp/rpp.hpp>
 #include <QSerialPortInfo>
@@ -16,7 +17,7 @@ class SerialManager : public QObject {
 public:
     explicit SerialManager(QComboBox* combo, QObject* parent = nullptr);
     ~SerialManager();
-    void openPort(const QString& portName);
+    void openPort(const QString& rawPortName);
 
     void start();
 

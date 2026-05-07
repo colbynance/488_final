@@ -14,22 +14,17 @@ void SerialManager::start() {
     std::cerr << "--- [DEBUG] Launching Run-Loop Thread ---" << std::endl;
 
     std::thread([this]() {
-        // Create the execution engine for this specific worker thread
+        //Create the execution engine for this specific worker thread
         rpp::schedulers::run_loop rl{}; 
-        
 
         m_disposables.add(
             rpp::source::interval(std::chrono::seconds(1), rl)
             .subscribe_with_disposable([this](auto i) {
-                std::fprintf(stderr, ">>> RPP Heartbeat (RunLoop): %llu\n", (unsigned long long)i);
-                std::fflush(stderr);
                 QStringList portList;
                 const auto infos = QSerialPortInfo::availablePorts();
     
                 for (const QSerialPortInfo &info : infos) {
-                    // You can use info.systemLocation() if you want the full path (like /dev/ttyUSB0)
-                    // info.portName() just gives the short name (like ttyUSB0)
-                    portList.append(info.portName()); 
+                    portList.append(info.systemLocation()); 
                     //std::fprintf(stderr, "%s \n", info.portName().toLocal8Bit().constData());
                 }
 
@@ -68,23 +63,37 @@ void SerialManager::updateUi(const QStringList& ports) {
     if (index != -1) m_combo->setCurrentIndex(index);
 }
 
-void SerialManager::openPort(const QString& portName){
+void SerialManager::openPort(const QString& rawPortName){
+    QString portName = rawPortName.trimmed();
+        std::fprintf(stderr, "Attempting to open port: '%s'\n", portName.toLocal8Bit().constData());
+
+
     if(m_serialPort.isOpen()){
         m_serialPort.close();
         std::cerr << "Closed previous connection." << std::endl;
     }
+
+    m_serialPort.setPortName(portName);
     m_serialPort.setBaudRate(QSerialPort::Baud115200); 
     m_serialPort.setDataBits(QSerialPort::Data8);
     m_serialPort.setParity(QSerialPort::NoParity);
     m_serialPort.setStopBits(QSerialPort::OneStop);
     m_serialPort.setFlowControl(QSerialPort::NoFlowControl);
 
+
     if (m_serialPort.open(QIODevice::ReadWrite)) {
         std::fprintf(stderr, "Successfully opened port: %s\n", portName.toLocal8Bit().constData());
         //setup actual reading to buffers!!!
         connect(&m_serialPort, &QSerialPort::readyRead, this, [this]() {
-             m_readBuffer.append(m_serialPort.readAll());
-             while (m_readBuffer.contains('\n')) {
+            //raw dump
+            QByteArray newData = m_serialPort.readAll();
+            if (!newData.isEmpty()) {
+            std::fprintf(stderr, "[RAW RX] %s\n", newData.toHex(' ').constData());
+            std::fflush(stderr);
+            }
+
+            m_readBuffer.append(m_serialPort.readAll());
+            while (m_readBuffer.contains('\n')) {
                 int newlineIndex = m_readBuffer.indexOf('\n');
                 QByteArray rawLine = m_readBuffer.left(newlineIndex);
                 m_readBuffer.remove(0, newlineIndex + 1);
