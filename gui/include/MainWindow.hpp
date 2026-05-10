@@ -9,16 +9,24 @@
 #include <QListWidget>       
 #include <QListWidgetItem>   
 #include <QScrollArea>  
+#include <QStyleFactory>
+#include <QApplication>
 #include <QPushButton>
+#include <array>
 #include "SerialManager.hpp"
 #include "DecoderWindow.hpp"     
 
+#define NUM_CHANNELS 16
+#define BUFFER_SIZE 1024
+#define DIGITAL_MODE 0
+#define ANALOG_MODE 1
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
     MainWindow(QWidget *parent = nullptr);
 private:
+    bool sampling_mode = 0;
     QComboBox* m_portSelector;
     //SerialManager* m_serialManager;
     std::unique_ptr<SerialManager> m_serialManager;
@@ -26,16 +34,9 @@ private:
     //decoder window pointer
     DecoderWindow* m_decoderWindow = nullptr;
 
-    QList<QPointF> m_liveBuffer; 
-    int m_xCounter = 0;
-    QLineSeries* m_channel0Series;
-    QLineSeries* m_channel1Series;
-    QLineSeries* m_channel2Series;
-    QLineSeries* m_channel3Series;
-    QLineSeries* m_channel4Series;
-    QLineSeries* m_channel5Series;
-    QLineSeries* m_channel6Series;
-    QLineSeries* m_channel7Series;
-    QLineSeries* m_channel8Series;
+    std::array<QList<QPointF>, NUM_CHANNELS> m_live_buffers;
+    std::array<int, NUM_CHANNELS> m_xCounter;
+    std::array<QLineSeries*, NUM_CHANNELS> m_channel_series;   
+    void applyDarkMode();
     
 };

@@ -4,32 +4,23 @@
 #include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+    applyDarkMode();
     auto* centralWidget = new QWidget(this);
     auto* layout = new QVBoxLayout(centralWidget);
 
 
     QSplitter *mainSplitter = new QSplitter(Qt::Horizontal, this);
     setCentralWidget(mainSplitter);
-
-
-    //simulate data
-    std::vector<double> myBuffer;
-    int bufferSize = 1024;
-    for (int i = 0; i < bufferSize; ++i) {
-        myBuffer.push_back(std::sin(i * 0.1)); //Generate a sine wave
-    }
-    //give it points
-    QList<QPointF> points;
-    points.reserve(myBuffer.size());
-    for (size_t x = 0; x < myBuffer.size(); ++x) {
-        points.append(QPointF(x, myBuffer[x])); 
+    //initalize all channel buffers to 0
+    for (int ch = 0; ch < NUM_CHANNELS; ch++) {
+        m_xCounter[ch] = BUFFER_SIZE;
+        for (int i = 0; i < BUFFER_SIZE; i++) {
+            m_live_buffers[ch].append(QPointF(i, 0.0));
+        }
     }
 
-    for (int i = 0; i < 1024; ++i) {
-        m_liveBuffer.append(QPointF(i, 0.0));
-    }
-    m_xCounter = 1024;
 
+    //MAIN DISPLAY STUFF
     QWidget *sidebarWidget = new QWidget(mainSplitter);
     QVBoxLayout *sidebarLayout = new QVBoxLayout(sidebarWidget);
 
@@ -44,17 +35,26 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     portLayout->addWidget(connectBtn);
     sidebarLayout->addLayout(portLayout); // Add the sub-layout to the sidebar
 
-    sidebarLayout->addWidget(new QLabel("Active Channels:"));
-
-
 
 
     sidebarLayout->addWidget(new QLabel("Active Channels:"));
     QListWidget *channelList = new QListWidget(sidebarWidget);
     sidebarLayout->addWidget(channelList);
+
+
+
+    QPushButton *posEdgeTriggerBtn = new QPushButton("Set Positive Edge Trigger", sidebarWidget);
+    sidebarLayout->addWidget(posEdgeTriggerBtn);
+
+    QPushButton *negEdgeTriggerBtn = new QPushButton("Set Negative Edge Trigger", sidebarWidget);
+    sidebarLayout->addWidget(negEdgeTriggerBtn);
+
+
     //decoder window button
     QPushButton *decoderBtn = new QPushButton("Open Serial Decoder", sidebarWidget);
     sidebarLayout->addWidget(decoderBtn);
+
+    
     connect(decoderBtn, &QPushButton::clicked, this, [this]() {
         if (!m_decoderWindow) {
             m_decoderWindow = new DecoderWindow(nullptr);
@@ -85,7 +85,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     m_charts.resize(16); 
 
-    for (int i = 0; i < 16; ++i) {
+    for (int i = 0; i < 16; i++) {
         //Create the Checkboxes
         QListWidgetItem *item = new QListWidgetItem(QString("Channel %1").arg(i), channelList);
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
@@ -95,10 +95,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 
         QLineSeries *series = new QLineSeries();
-        series->replace(m_liveBuffer);
-        if (i == 0) {
-            m_channel0Series = series;
-        }
+        series->replace(m_live_buffers[i]);
+        m_channel_series[i] = series;
 
         //convert data to be plottable with qt
         // QLineSeries *series = new QLineSeries();
@@ -107,11 +105,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         //Create the Chart View
         QChart *chart = new QChart();
         chart->legend()->hide();
+        chart->setTheme(QChart::ChartThemeDark);
+        chart->setBackgroundVisible(true);
+        chart->setBackgroundBrush(QBrush(QColor(40, 40, 40)));
         chart->setTitle(QString("Channel %1").arg(i));
         chart->addSeries(series);
         chart->createDefaultAxes();
-        chart->axes(Qt::Vertical).first()->setRange(-0.5, 1.5);
-        //chart->setMargins(QMargins(0,0,0,0)); // Optional: tighten up spacing
+        chart->axes(Qt::Vertical).first()->setRange(0, 1);
+        //chart->setMargins(QMargins(0,0,0,0));
 
 
 
@@ -119,8 +120,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
         QChartView *view = new QChartView(chart);
         view->setRenderHint(QPainter::Antialiasing);
-        view->setMinimumHeight(150); // Force a readable height!
-        
+        view->setMinimumHeight(150);
         view->setVisible(i < 4); 
 
         chartLayout->addWidget(view);
@@ -138,36 +138,44 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     m_charts[index]->setVisible(isChecked);
     });
 
-    resize(1024, 768); // Give yourself plenty of room
+    resize(1024, 768);
     // Initialize the RPP Bridge
     m_serialManager = std::make_unique<SerialManager>(m_portSelector, this);
     m_serialManager->start();
 
     
     connect(m_serialManager.get(), &SerialManager::dataParsed, this, [this](int channel, double value) {
-        if (channel != 0) return; 
+        
 
-        m_liveBuffer.append(QPointF(m_xCounter, value));
-        m_xCounter++;
+        m_live_buffers[channel].append(QPointF(m_xCounter[channel], value));
+        m_xCounter[channel]++;
 
-        if (m_liveBuffer.size() > 1024) {
-            m_liveBuffer.removeFirst();
+        if (m_live_buffers[channel].size() > BUFFER_SIZE) {
+            m_live_buffers[channel].removeFirst();
         }
     });
 
     QTimer *renderTimer = new QTimer(this);
     connect(renderTimer, &QTimer::timeout, this, [this]() {
         // Only redraw if the chart exists and we actually have data
-        if (m_channel0Series && !m_liveBuffer.isEmpty()) {
-            
-            // Push the batched buffer to the screen once
-            m_channel0Series->replace(m_liveBuffer);
-            
-            // Shift the camera to follow the newest data
-            m_charts[0]->chart()->axes(Qt::Horizontal).first()->setRange(m_xCounter - 1024, m_xCounter);
+        for(int i = 0; i < NUM_CHANNELS; i++){
+            if (m_channel_series[i] && !m_live_buffers[i].isEmpty()) {
+                
+                // Push the batched buffer to the screen once
+                m_channel_series[i]->replace(m_live_buffers[i]);             
+                // Shift the camera to follow the newest data
+                m_charts[i]->chart()->axes(Qt::Horizontal).first()->setRange(m_xCounter[i] - BUFFER_SIZE, m_xCounter[i]);
+                if(sampling_mode == DIGITAL_MODE){
+                    m_charts[i]->chart()->axes(Qt::Vertical).first()->setRange(0, 1);
+                }
+                else if(sampling_mode == ANALOG_MODE){
+                    m_charts[i]->chart()->axes(Qt::Vertical).first()->setRange(-10, 10);
+                }
+                
+            }
         }
     });
-    renderTimer->start(33);
+    renderTimer->start(30);
 
 
 
@@ -177,4 +185,28 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
             m_serialManager->openPort(selectedPort);
         }
     });
+}
+
+
+
+
+void MainWindow::applyDarkMode() {
+    QApplication::setStyle(QStyleFactory::create("Fusion"));
+
+    QPalette darkPalette;
+    darkPalette.setColor(QPalette::Window, QColor(53, 53, 53));
+    darkPalette.setColor(QPalette::WindowText, Qt::white);
+    darkPalette.setColor(QPalette::Base, QColor(25, 25, 25));
+    darkPalette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
+    darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
+    darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+    darkPalette.setColor(QPalette::Text, Qt::white);
+    darkPalette.setColor(QPalette::Button, QColor(53, 53, 53));
+    darkPalette.setColor(QPalette::ButtonText, Qt::white);
+    darkPalette.setColor(QPalette::BrightText, Qt::red);
+    darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+    darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+    darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+
+    qApp->setPalette(darkPalette);
 }
