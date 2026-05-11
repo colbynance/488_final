@@ -18,6 +18,7 @@ public:
     explicit SerialManager(QComboBox* combo, QObject* parent = nullptr);
     ~SerialManager();
     void openPort(const QString& rawPortName);
+    void writeString(const QString& command);
 
     void start();
 
