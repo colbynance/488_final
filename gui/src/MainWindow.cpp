@@ -43,23 +43,36 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 
 
-    QPushButton *posEdgeTriggerBtn = new QPushButton("Set Positive Edge Trigger", sidebarWidget);
-    sidebarLayout->addWidget(posEdgeTriggerBtn);
+    QTabWidget *sidebarTabs = new QTabWidget(sidebarWidget);
 
-    QPushButton *negEdgeTriggerBtn = new QPushButton("Set Negative Edge Trigger", sidebarWidget);
-    sidebarLayout->addWidget(negEdgeTriggerBtn);
+//Tab 1 Triggers
+QWidget *triggerTab = new QWidget();
+QVBoxLayout *triggerTabLayout = new QVBoxLayout(triggerTab);
 
-    QPushButton *continuousBtn = new QPushButton("Set Continuous", sidebarWidget);
-    sidebarLayout->addWidget(continuousBtn);
+QPushButton *posEdgeTriggerBtn = new QPushButton("Set Positive Edge Trigger");
+QPushButton *negEdgeTriggerBtn = new QPushButton("Set Negative Edge Trigger");
+QPushButton *continuousBtn = new QPushButton("Set Continuous");
+QPushButton *externalTriggerBtn = new QPushButton("Set External Trigger");
 
-    QPushButton *externalTriggerBtn = new QPushButton("Set External Trigger", sidebarWidget);
-    sidebarLayout->addWidget(externalTriggerBtn);
+triggerTabLayout->addWidget(posEdgeTriggerBtn);
+triggerTabLayout->addWidget(negEdgeTriggerBtn);
+triggerTabLayout->addWidget(continuousBtn);
+triggerTabLayout->addWidget(externalTriggerBtn);
+triggerTabLayout->addStretch(); // Pushes buttons to the top
 
+//Tab 2 Serial Decoder
+QWidget *decoderTab = new QWidget();
+QVBoxLayout *decoderTabLayout = new QVBoxLayout(decoderTab);
 
+QPushButton *decoderBtn = new QPushButton("Open Serial Decoder Window");
+decoderTabLayout->addWidget(decoderBtn);
+decoderTabLayout->addStretch();
 
-    //decoder window button
-    QPushButton *decoderBtn = new QPushButton("Open Serial Decoder", sidebarWidget);
-    sidebarLayout->addWidget(decoderBtn);
+// Add tabs to the widget
+sidebarTabs->addTab(triggerTab, "Triggers");
+sidebarTabs->addTab(decoderTab, "Decoder");
+
+sidebarLayout->addWidget(sidebarTabs);
 
     
     connect(decoderBtn, &QPushButton::clicked, this, [this]() {
@@ -196,10 +209,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     connect(continuousBtn, &QPushButton::clicked, this, [this, channelList]() {
         //send continuous over serial
         //NEED TO APPEND THE PROPER REG DATA
+        std::vector<uint32_t> regValues = {0, 0xA, 0, 0, 0x10, 0, 0};
         for(int i = 0; i < channelList->count(); i++){
             QListWidgetItem* item = channelList->item(i);
             bool isChecked = (item->checkState() == Qt::Checked);
             if(isChecked){
+                QByteArray cmd = m_serialManager->constructCommand(0, i, regValues);
+                qDebug() << "Sending Packet (Hex):" << cmd.toHex();
+                m_serialManager->writeCommand(cmd);
                 std::fprintf(stderr, "%d\n", i);
             }
             // QString cmd = QString("D%1").arg(channelList[i]);
@@ -270,6 +287,12 @@ void MainWindow::applyDarkMode() {
     darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
     darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
     darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+
+    this->setStyleSheet(
+    "QTabBar::tab { background: #444; color: white; padding: 8px; border: 1px solid #333; }"
+    "QTabBar::tab:selected { background: #555; border-bottom-color: #2a82da; }"
+    "QTabWidget::pane { border: 1px solid #333; top: -1px; background: #353535; }"
+);
 
     qApp->setPalette(darkPalette);
 }

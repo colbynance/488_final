@@ -88,7 +88,7 @@ void SerialManager::openPort(const QString& rawPortName){
             //raw dump
             QByteArray newData = m_serialPort.readAll();
             if (!newData.isEmpty()) {
-            std::fprintf(stderr, "[RAW RX] %s\n", newData.toHex(' ').constData());
+            std::fprintf(stderr, "%s", newData.constData());
             std::fflush(stderr);
             }
 
@@ -116,7 +116,7 @@ void SerialManager::openPort(const QString& rawPortName){
                     //    std::fprintf(stderr, "[CMD] Config Set received: %s\n", line.toLocal8Bit().constData());
                    // }
                     else {
-                        std::fprintf(stderr, "[WARN] Unknown Command: %s\n", line.toLocal8Bit().constData());
+                        //std::fprintf(stderr, "[WARN] Unknown Command: %s\n", line.toLocal8Bit().constData());
                     }
 
                 } 
@@ -174,12 +174,32 @@ void SerialManager::openPort(const QString& rawPortName){
                      m_serialPort.errorString().toLocal8Bit().constData());
     }
 }
-void SerialManager::writeString(const QString& command){
+void SerialManager::writeCommand(const QByteArray &command){
     if (m_serialPort.isOpen()) {
-        m_serialPort.write(command.toUtf8());
-        m_serialPort.flush();//make sure it's sent immediately
+        qint64 bytesWritten = m_serialPort.write(command);
+        
+        if (bytesWritten == -1) {
+            std::fprintf(stderr, "Failed to write to port");
+        } else if (bytesWritten != command.size()) {
+            std::fprintf(stderr, "not all bytes sent");
+        }
     }
     else{
     std::fprintf(stderr, "Failed to write, connect to the device");
     }
+}
+QByteArray SerialManager::constructCommand(bool mode, int id, const std::vector<uint32_t>& values){
+    QByteArray packet;
+    {
+        QDataStream stream(&packet, QIODevice::WriteOnly);
+        stream.setByteOrder(QDataStream::BigEndian);
+        stream << static_cast<uint8_t>(mode == ANALOG_MODE ? 'A' : 'D');
+        stream << static_cast<uint8_t>(id);
+        for (int i = 0; i < 8; ++i) {
+            uint32_t val = (i < values.size()) ? values[i] : 0;
+            stream << val;
+        }
+    }
+    //packet.append('\n');
+    return packet;
 }

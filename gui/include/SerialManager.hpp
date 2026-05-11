@@ -8,9 +8,12 @@
 #include <QSerialPort>
 #include <iostream>
 #include <thread>
+//#include "MainWindow.hpp"
 
 
 #define MAX_CHANNELS 16
+#define DIGITAL_MODE 0
+#define ANALOG_MODE 1
 
 class SerialManager : public QObject {
     Q_OBJECT
@@ -18,7 +21,9 @@ public:
     explicit SerialManager(QComboBox* combo, QObject* parent = nullptr);
     ~SerialManager();
     void openPort(const QString& rawPortName);
-    void writeString(const QString& command);
+    void writeCommand(const QByteArray &command);
+    QByteArray constructCommand(bool mode, int id, const std::vector<uint32_t>& values);
+
 
     void start();
 

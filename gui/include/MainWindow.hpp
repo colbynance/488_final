@@ -18,8 +18,7 @@
 
 #define NUM_CHANNELS 16
 #define BUFFER_SIZE 1024
-#define DIGITAL_MODE 0
-#define ANALOG_MODE 1
+
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
