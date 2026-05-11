@@ -174,3 +174,12 @@ void SerialManager::openPort(const QString& rawPortName){
                      m_serialPort.errorString().toLocal8Bit().constData());
     }
 }
+void SerialManager::writeString(const QString& command){
+    if (m_serialPort.isOpen()) {
+        m_serialPort.write(command.toUtf8());
+        m_serialPort.flush();//make sure it's sent immediately
+    }
+    else{
+    std::fprintf(stderr, "Failed to write, connect to the device");
+    }
+}
