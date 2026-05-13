@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
             m_live_buffers[ch].append(QPointF(i, 0.0));
         }
     }
+    for(int i = 0; i < NUM_ANALOG_CHANNELS; i++){
+        analogChMaxVal[i] = 1.0;
+    }
 
 
     //MAIN DISPLAY STUFF
@@ -70,11 +73,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     triggerModeSelector->addItem("Continuous");
     triggerModeSelector->addItem("Positive Edge");
     triggerModeSelector->addItem("Negative Edge");
-    triggerModeSelector->addItem("External");
+    triggerModeSelector->addItem("Data");
     configTabLayout->addWidget(triggerModeSelector);
 
     //c onfiguration Text Boxes (8 boxes in a grid)
-    configTabLayout->addWidget(new QLabel("Configuration Registers:"));
+    configTabLayout->addWidget(new QLabel("Configuration Registers: (AB0D format please)"));
     QGridLayout *configGridLayout = new QGridLayout();
     
     // Use a vector to store pointers to the line edits so we can read them later
@@ -104,7 +107,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         QLineEdit *lineEdit = new QLineEdit();
         lineEdit->setPlaceholderText("0x00"); // Hint for hex inputs
         lineEdit->setMinimumWidth(40);
-        
+        QRegularExpression hexRegex("^[0-9A-Fa-f]*$");
+        QRegularExpressionValidator *validator = new QRegularExpressionValidator(hexRegex, this);
+        lineEdit->setValidator(validator);
         configLines.push_back(lineEdit);
         
         //Arrange in 2 columns (0,1)
@@ -185,6 +190,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         QLineSeries *series = new QLineSeries();
         series->replace(m_live_buffers[i]);
         m_channel_series[i] = series;
+        QPen pen;
+        pen.setColor(colors[i % colors.size()]); 
+        pen.setWidth(2);
+        series->setPen(pen);
 
         //convert data to be plottable with qt
         // QLineSeries *series = new QLineSeries();
@@ -200,7 +209,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         chart->addSeries(series);
         chart->createDefaultAxes();
         if(i >= NUM_DIGITAL_CHANNELS){//analog channels
-            chart->axes(Qt::Vertical).first()->setRange(0, 4095);
+            chart->axes(Qt::Vertical).first()->setRange(0, analogChMaxVal[i - (NUM_DIGITAL_CHANNELS - 1)] + ANALOG_Y_AXIS_BUFFER);
         }
         else{//digital channels
             chart->axes(Qt::Vertical).first()->setRange(0, 1);
@@ -242,6 +251,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
         m_live_buffers[channel].append(QPointF(m_xCounter[channel], value));
         m_xCounter[channel]++;
+        if(channel > NUM_DIGITAL_CHANNELS - 1){        
+            if(value > analogChMaxVal[channel - (NUM_DIGITAL_CHANNELS - 1)]){
+                analogChMaxVal[channel - (NUM_DIGITAL_CHANNELS - 1)] = value;
+            }
+        }
 
         if (m_live_buffers[channel].size() > BUFFER_SIZE) {
             m_live_buffers[channel].removeFirst();
@@ -259,7 +273,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
                 // Shift the camera to follow the newest data
                 m_charts[i]->chart()->axes(Qt::Horizontal).first()->setRange(m_xCounter[i] - BUFFER_SIZE, m_xCounter[i]);
                 if(i >= NUM_DIGITAL_CHANNELS){//analog channels
-                    m_charts[i]->chart()->axes(Qt::Vertical).first()->setRange(0, 4095);
+                    m_charts[i]->chart()->axes(Qt::Vertical).first()->setRange(0, analogChMaxVal[i - (NUM_DIGITAL_CHANNELS - 1)] + ANALOG_Y_AXIS_BUFFER);
                 }
                 else{//digital channels
                     m_charts[i]->chart()->axes(Qt::Vertical).first()->setRange(0, 1);
@@ -279,23 +293,49 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         }
     });
 
-    connect(configureBtn, &QPushButton::clicked, this, [this, channelList, triggerModeSelector, channelSelector, samplingModeSelector]() {
+    connect(configureBtn, &QPushButton::clicked, this, [this, channelList, channelSelector, samplingModeSelector, triggerModeSelector, configLines]() {
         //send continuous over serial
         //NEED TO APPEND THE PROPER REG DATA
-        std::vector<uint32_t> regValues = {0, 0xA, 0, 0, 0x10, 0, 0};
+        std::vector<uint32_t> regValues;
 
-        if(samplingModeSelector->currentText() == "Digital"){
+        if(samplingModeSelector->currentIndex() == DIGITAL_MODE){
             //trigger type part of control reg
-            uint32_t triggerTypeReg = 0x0;//default to continuous
+            uint32_t triggerType = 0x0;//default to continuous
             if(triggerModeSelector->currentText() == "Positive Edge"){
-                triggerTypeReg = 0x1;
+                triggerType = 0x1;
             }
             else if(triggerModeSelector->currentText() == "Negative Edge"){
-                triggerTypeReg = 0x2;
+                triggerType = 0x2;
             }
             else if(triggerModeSelector->currentText() == "Data"){
-                triggerTypeReg = 0x3;
+                triggerType = 0x3;
             }
+
+            //control reg setup
+            uint32_t controlReg = (0x0) | (triggerType << 1);
+            regValues.push_back(controlReg);
+
+
+            for (int i = 0; i < configLines.size(); ++i) {
+                if (configLines[i]) {
+                    bool valid = false;
+                    QString hexStr = configLines[i]->text();
+                    uint32_t val = hexStr.toUInt(&valid, 16);
+                    
+                    if (valid) {
+                        regValues.push_back(val);
+                    } else {
+                        regValues.push_back(0x0); 
+                    }
+                }
+            } 
+
+            QByteArray cmd = m_serialManager->constructCommand(DIGITAL_MODE, channelSelector->currentText().toInt(), regValues); 
+            qDebug() << "Sending Packet (Hex):" << cmd.toHex();
+            m_serialManager->writeCommand(cmd); 
+
+
+
 
 
 
@@ -303,17 +343,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         else if(samplingModeSelector->currentText() == "Analog"){
 
         }
-        // for(int i = 0; i < channelList->count(); i++){
-        //     QListWidgetItem* item = channelList->item(i);
-        //     bool isChecked = (item->checkState() == Qt::Checked);
-           
-                // QByteArray cmd = m_serialManager->constructCommand(0, i, regValues);
-                // qDebug() << "Sending Packet (Hex):" << cmd.toHex();
-                // m_serialManager->writeCommand(cmd);
-                // std::fprintf(stderr, "%d\n", i);
-            // QString cmd = QString("D%1").arg(channelList[i]);
-            //m_serialManager->writeString(cmd);
-       // }
+        
     });
 
     // connect(negEdgeTriggerBtn, &QPushButton::clicked, this, [this, channelList]() {

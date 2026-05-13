@@ -149,7 +149,7 @@ void SerialManager::openPort(const QString& rawPortName){
                     int targetChannel = m_incomingId + (NUM_DIGITAL_CHANNELS); 
                     for (int i = 0; i < rawLine.size(); ++i) {
                         uint16_t currentByte = static_cast<uint16_t>(rawLine.at(i));
-                        emit dataParsed(targetChannel, currentByte << 4);
+                        emit dataParsed(targetChannel, (currentByte << 4) / 4095.0);
                     }
                 
                     // Reset back to Idle to wait for the next command
