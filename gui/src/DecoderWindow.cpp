@@ -48,23 +48,25 @@ DecoderWindow::DecoderWindow(QWidget *parent) : QWidget(parent) {
     spiLayout->addWidget(new QLabel("CS:"));   spiLayout->addWidget(m_spiCs);
     spiLayout->addStretch();
     m_protocolTabs->addTab(spiWidget, "SPI");
-
+    m_protocolTabs->setMaximumHeight(110);
     topLayout->addWidget(m_protocolTabs);
 
     //Shared Run Button
     auto *runBtn = new QPushButton("Run Decoder");
-    runBtn->setMinimumHeight(60);
+    runBtn->setMinimumHeight(30);
     runBtn->setStyleSheet("background-color: #2a82da; color: white; font-weight: bold;");
     topLayout->addWidget(runBtn);
+    mainLayout->addLayout(topLayout, 0); 
 
-    mainLayout->addLayout(topLayout);
+    
 
     //Shared Data Table
     m_table = new QTableWidget(0, 4, this);
     m_table->setHorizontalHeaderLabels({"Time", "Protocol", "Data", "Status"});
     m_table->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     m_table->setAlternatingRowColors(true);
-    mainLayout->addWidget(m_table);
+    
+    mainLayout->addWidget(m_table, 1);
 
     connect(runBtn, &QPushButton::clicked, this, &DecoderWindow::runRequested);
 }
