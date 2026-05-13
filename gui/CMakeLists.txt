@@ -22,9 +22,12 @@ add_executable(eaelas
     src/SerialManager.cpp 
     src/MainWindow.cpp
     src/DecoderWindow.cpp
+    src/Decoder.cpp
     include/SerialManager.hpp
+    include/SerialScanner.hpp
     include/MainWindow.hpp   
-    include/DecoderWindow.hpp  
+    include/DecoderWindow.hpp
+    include/Decoder.hpp
 )
 
 # Tell CMake to look in /include for your .hpp files

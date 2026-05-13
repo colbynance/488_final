@@ -9,6 +9,8 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHeaderView>
+#include "Decoder.hpp"
+#include "SerialManager.hpp"
 
 enum ProtocolType { UART = 0, I2C = 1, SPI = 2 };
 

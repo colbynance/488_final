@@ -88,3 +88,7 @@ uint32_t DecoderWindow::getBaudRate() const { return m_baudSelector->currentText
 int DecoderWindow::getI2cSda() const { return m_i2cSda->currentData().toInt(); }
 int DecoderWindow::getI2cScl() const { return m_i2cScl->currentData().toInt(); }
 //Repeat similar getters for SPI MOSI/MISO/SCK/CS...
+int DecoderWindow::getSpiMosi() const { return m_spiMosi->currentData().toInt(); }
+int DecoderWindow::getSpiMiso() const { return m_spiMiso->currentData().toInt(); }
+int DecoderWindow::getSpiSck()  const { return m_spiSck->currentData().toInt(); }
+int DecoderWindow::getSpiCs()   const { return m_spiCs->currentData().toInt(); }

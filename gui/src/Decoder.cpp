@@ -23,7 +23,7 @@ uint32_t decode_uart(Frame_t ** f_buf, char * samples, uint32_t len_samples, uin
     uint8_t data;
     Frame_t * this_frame;
 
-    *f_buf = std::malloc(sizeof(Frame_t));
+    *f_buf = (Frame_t*)std::malloc(sizeof(Frame_t));
     if (!(*f_buf)) {
         return 0; // Out of memory
     }
@@ -42,10 +42,11 @@ uint32_t decode_uart(Frame_t ** f_buf, char * samples, uint32_t len_samples, uin
         last_bit_idx = i;
         next_bit_idx = i + samples_per_uart_bit;
         size++;
-        *f_buf = std::realloc(sizeof(Frame_t) * size); // Lazy array extension
-        this_frame = (*f_buf)[size - 1];
+        *f_buf = (Frame_t*)std::realloc(*f_buf, sizeof(Frame_t) * size); // Lazy array extension
+        
+        Frame_t* this_frame = &((*f_buf)[size - 1]);
 
-        this_frame = 
+        //this_frame = 
 
         // Decode frame
         for (; i < len_samples - 1; i++) {
@@ -58,7 +59,7 @@ uint32_t decode_uart(Frame_t ** f_buf, char * samples, uint32_t len_samples, uin
             if (samples[i] != samples[i + 1]) {
                 if (edge_found) {
                     // Invalid frame, multiple edges
-                    this_frame.flags = 0;
+                    this_frame->flags = 0;
                 }
                 edge_found = true;
                 edge_type = (samples[i + 1] == '1');

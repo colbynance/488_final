@@ -1,6 +1,10 @@
 #ifndef _DECODER_HPP
 #define _DECODER_HPP
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <cstdint>
 #include <cstdbool>
 #include <cstdlib>
@@ -18,6 +22,9 @@ typedef struct {
     uint8_t * samples;
     uint32_t samples_len;
 } Frame_t;
+#ifdef __cplusplus
+}
+#endif
 
 static inline bool frame_is_valid(Frame_t * f) {
     return f->flags & (1 << FLAGS_VALID_POS);
@@ -35,7 +42,7 @@ static inline bool frame_acked(Frame_t * f) {
 static inline void frame_free(Frame_t * f, int num_frames) {
     if (f) {
         for (int i = 0; i < num_frames; i++) {
-            std::free(f[i]->data);
+            std::free(f[i].samples);
         }
     }
     std::free(f);
@@ -50,5 +57,7 @@ void set_sample_rate(uint32_t sample_spacing);
 uint32_t decode_uart(Frame_t ** f_buf, char * samples, uint32_t len_samples, uint32_t baud); // Assumes 8N1
 uint32_t decode_spi(Frame_t ** f_buf, char * samples_mosi, char * samples_miso, char * samples_sck, char * samples_cs, uint32_t len_samples); // Assumes negative CS and (1,1) timings
 uint32_t decode_i2c(Frame_t ** f_buf, char * samples_sda, char * samples_scl, uint32_t len_samples);
+
+
 
 #endif
