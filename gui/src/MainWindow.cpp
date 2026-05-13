@@ -28,6 +28,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QWidget *sidebarWidget = new QWidget(mainSplitter);
     QVBoxLayout *sidebarLayout = new QVBoxLayout(sidebarWidget);
 
+    QPushButton *themeBtn = new QPushButton("Toggle Light Mode", sidebarWidget);
+    sidebarLayout->addWidget(themeBtn);
+
+
     sidebarLayout->addWidget(new QLabel("Select Device:"));
     
     //Create a horizontal layout for the dropdown + button
@@ -44,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     sidebarLayout->addWidget(new QLabel("Active Channels:"));
     QListWidget *channelList = new QListWidget(sidebarWidget);
     sidebarLayout->addWidget(channelList);
+
+    
 
 
 
@@ -308,6 +314,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         }
     });
 
+
+    connect(themeBtn, &QPushButton::clicked, this, [this, themeBtn]() {
+        m_isDarkMode = !m_isDarkMode;
+        
+        if (m_isDarkMode) {
+            applyDarkMode();
+            themeBtn->setText("Toggle Light Mode");
+        } else {
+            applyLightMode();
+            themeBtn->setText("Toggle Dark Mode");
+        }
+        
+        updateChartThemes();
+    });
+
     QTimer *renderTimer = new QTimer(this);
     connect(renderTimer, &QTimer::timeout, this, [this]() {
         // Only redraw if the chart exists and we actually have data
@@ -391,8 +412,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 }
 
 
-
-
 void MainWindow::applyDarkMode() {
     QApplication::setStyle(QStyleFactory::create("Fusion"));
 
@@ -411,11 +430,37 @@ void MainWindow::applyDarkMode() {
     darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
     darkPalette.setColor(QPalette::HighlightedText, Qt::black);
 
-    this->setStyleSheet(
-    "QTabBar::tab { background: #444; color: white; padding: 8px; border: 1px solid #333; }"
-    "QTabBar::tab:selected { background: #555; border-bottom-color: #2a82da; }"
-    "QTabWidget::pane { border: 1px solid #333; top: -1px; background: #353535; }"
-);
-
     qApp->setPalette(darkPalette);
+
+    this->setStyleSheet(
+        "QTabBar::tab { background: #444; color: white; padding: 8px; border: 1px solid #333; }"
+        "QTabBar::tab:selected { background: #555; border-bottom-color: #2a82da; }"
+        "QTabWidget::pane { border: 1px solid #333; top: -1px; background: #353535; }"
+    );
+}
+void MainWindow::applyLightMode() {
+    QApplication::setPalette(style()->standardPalette());
+    this->setStyleSheet("");
+    qApp->setStyleSheet("");
+}
+
+void MainWindow::updateChartThemes() {
+    for (int i = 0; i < NUM_CHANNELS; i++) {
+        if (m_charts[i] && m_charts[i]->chart()) {
+            QChart *chart = m_charts[i]->chart();
+            
+            if (m_isDarkMode) {
+                chart->setTheme(QChart::ChartThemeDark);
+                chart->setBackgroundBrush(QBrush(QColor(40, 40, 40)));
+            } else {
+                chart->setTheme(QChart::ChartThemeLight);
+                chart->setBackgroundBrush(QBrush(Qt::white));
+            }
+        }
+
+        QPen pen;
+        pen.setColor(colors[i % colors.size()]); 
+        pen.setWidth(2);
+        m_channel_series[i]->setPen(pen);
+    }
 }

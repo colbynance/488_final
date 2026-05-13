@@ -43,6 +43,7 @@ public:
 private:
     QList<QColor> colors = { Qt::red, Qt::yellow, Qt::magenta, Qt::cyan, Qt::green, Qt::white };
     QComboBox* m_portSelector;
+    bool m_isDarkMode = true;
     //SerialManager* m_serialManager;
     std::unique_ptr<SerialManager> m_serialManager;
     std::vector<QChartView*> m_charts;
@@ -53,6 +54,8 @@ private:
     std::array<int, NUM_CHANNELS> m_xCounter;
     std::array<QLineSeries*, NUM_CHANNELS> m_channel_series;   
     void applyDarkMode();
+    void applyLightMode();
+    void updateChartThemes();
     float analogChMaxVal[NUM_ANALOG_CHANNELS];
     std::array<std::vector<char>, NUM_CHANNELS> m_raw_samples;
     
