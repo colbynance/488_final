@@ -45,34 +45,93 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     QTabWidget *sidebarTabs = new QTabWidget(sidebarWidget);
 
-//Tab 1 Triggers
-QWidget *triggerTab = new QWidget();
-QVBoxLayout *triggerTabLayout = new QVBoxLayout(triggerTab);
+    QWidget *configTab = new QWidget();
+    QVBoxLayout *configTabLayout = new QVBoxLayout(configTab);
 
-QPushButton *posEdgeTriggerBtn = new QPushButton("Set Positive Edge Trigger");
-QPushButton *negEdgeTriggerBtn = new QPushButton("Set Negative Edge Trigger");
-QPushButton *continuousBtn = new QPushButton("Set Continuous");
-QPushButton *externalTriggerBtn = new QPushButton("Set External Trigger");
+     //Channel Selector
+    configTabLayout->addWidget(new QLabel("Channel:"));
+    QComboBox *channelSelector = new QComboBox();
+    for(int i = 0; i < NUM_CHANNELS; i++){
+        QString s = QString::number(i);
+        channelSelector->addItem(s);
+    }
 
-triggerTabLayout->addWidget(posEdgeTriggerBtn);
-triggerTabLayout->addWidget(negEdgeTriggerBtn);
-triggerTabLayout->addWidget(continuousBtn);
-triggerTabLayout->addWidget(externalTriggerBtn);
-triggerTabLayout->addStretch(); // Pushes buttons to the top
+    configTabLayout->addWidget(channelSelector);
+    //Digital/Analog Selector
+    configTabLayout->addWidget(new QLabel("Sampling Mode:"));
+    QComboBox *samplingModeSelector = new QComboBox();
+    samplingModeSelector->addItem("Digital");
+    samplingModeSelector->addItem("Analog");
+    configTabLayout->addWidget(samplingModeSelector);
 
-//Tab 2 Serial Decoder
-QWidget *decoderTab = new QWidget();
-QVBoxLayout *decoderTabLayout = new QVBoxLayout(decoderTab);
+    //Trigger Mode Selector
+    configTabLayout->addWidget(new QLabel("Trigger Mode:"));
+    QComboBox *triggerModeSelector = new QComboBox();
+    triggerModeSelector->addItem("Continuous");
+    triggerModeSelector->addItem("Positive Edge");
+    triggerModeSelector->addItem("Negative Edge");
+    triggerModeSelector->addItem("External");
+    configTabLayout->addWidget(triggerModeSelector);
 
-QPushButton *decoderBtn = new QPushButton("Open Serial Decoder Window");
-decoderTabLayout->addWidget(decoderBtn);
-decoderTabLayout->addStretch();
+    //c onfiguration Text Boxes (8 boxes in a grid)
+    configTabLayout->addWidget(new QLabel("Configuration Registers:"));
+    QGridLayout *configGridLayout = new QGridLayout();
+    
+    // Use a vector to store pointers to the line edits so we can read them later
+    std::vector<QLineEdit*> configLines;
+    
+    for (int i = 0; i < 6; ++i) {
+        QString s = "";
+        if(i == DOWNSAMPLE_REG){
+            s = "Downsample Rate Reg";
+        }
+        if(i == TRIGGER_DATA){
+            s = "Trigger Data";
+        }
+        if(i == TRIGGER_MASK){
+            s = "Trigger Mask";
+        }
+        if(i == BUFFER_ADDR){
+            s = "Buffer ADDR";
+        }
+        if(i == BUFFER_WRITE_DATA){
+            s = "Buffer Write Data";
+        }
+        if(i == WRITE_ENABLE){
+            s = "Write Enable";
+        }
+        QLabel *label = new QLabel(s);
+        QLineEdit *lineEdit = new QLineEdit();
+        lineEdit->setPlaceholderText("0x00"); // Hint for hex inputs
+        lineEdit->setMinimumWidth(40);
+        
+        configLines.push_back(lineEdit);
+        
+        //Arrange in 2 columns (0,1)
+        int row = i / 2;
+        int col = (i % 2) * 2; 
+        configGridLayout->addWidget(label, row, col);
+        configGridLayout->addWidget(lineEdit, row, col + 1);
+    }
+    configTabLayout->addLayout(configGridLayout);
 
-// Add tabs to the widget
-sidebarTabs->addTab(triggerTab, "Triggers");
-sidebarTabs->addTab(decoderTab, "Decoder");
+    //Configure Button
+    QPushButton *configureBtn = new QPushButton("Configure", configTab);
+    configTabLayout->addWidget(configureBtn);
+    configTabLayout->addStretch();
 
-sidebarLayout->addWidget(sidebarTabs);
+    // Tab 2 Serial Decoder
+    QWidget *decoderTab = new QWidget();
+    QVBoxLayout *decoderTabLayout = new QVBoxLayout(decoderTab);
+    QPushButton *decoderBtn = new QPushButton("Open Serial Decoder Window");
+    decoderTabLayout->addWidget(decoderBtn);
+    decoderTabLayout->addStretch();
+
+    
+    sidebarTabs->addTab(configTab, "Configs");
+    sidebarTabs->addTab(decoderTab, "Decoder");
+
+    sidebarLayout->addWidget(sidebarTabs);
 
     
     connect(decoderBtn, &QPushButton::clicked, this, [this]() {
@@ -103,15 +162,24 @@ sidebarLayout->addWidget(sidebarTabs);
     mainSplitter->setStretchFactor(0, 1); //Sidebar
     mainSplitter->setStretchFactor(1, 4); //Graphs
 
-    m_charts.resize(16); 
+    m_charts.resize(NUM_CHANNELS); 
 
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < NUM_CHANNELS; i++) {
+        //assume digital
+        QString s = QString("Digital Channel %1").arg(i);
+        if(i > NUM_DIGITAL_CHANNELS - 1){
         //Create the Checkboxes
-        QListWidgetItem *item = new QListWidgetItem(QString("Channel %1").arg(i), channelList);
+            s = QString("Analog Channel %1").arg(i - NUM_DIGITAL_CHANNELS);
+
+        }
+
+        QListWidgetItem *item = new QListWidgetItem(s, channelList);
+
+        
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         
-        //auto display first 4 on startup
-        item->setCheckState((i < 4) ? Qt::Checked : Qt::Unchecked); 
+        //auto display first 2 on startup
+        item->setCheckState((i < 2) ? Qt::Checked : Qt::Unchecked); 
 
 
         QLineSeries *series = new QLineSeries();
@@ -128,10 +196,15 @@ sidebarLayout->addWidget(sidebarTabs);
         chart->setTheme(QChart::ChartThemeDark);
         chart->setBackgroundVisible(true);
         chart->setBackgroundBrush(QBrush(QColor(40, 40, 40)));
-        chart->setTitle(QString("Channel %1").arg(i));
+        chart->setTitle(s);
         chart->addSeries(series);
         chart->createDefaultAxes();
-        chart->axes(Qt::Vertical).first()->setRange(0, 1);
+        if(i >= NUM_DIGITAL_CHANNELS){//analog channels
+            chart->axes(Qt::Vertical).first()->setRange(0, 4095);
+        }
+        else{//digital channels
+            chart->axes(Qt::Vertical).first()->setRange(0, 1);
+        }
         //chart->setMargins(QMargins(0,0,0,0));
 
 
@@ -141,7 +214,7 @@ sidebarLayout->addWidget(sidebarTabs);
         QChartView *view = new QChartView(chart);
         view->setRenderHint(QPainter::Antialiasing);
         view->setMinimumHeight(150);
-        view->setVisible(i < 4); 
+        view->setVisible(i < 2); 
 
         chartLayout->addWidget(view);
         m_charts[i] = view; 
@@ -185,11 +258,11 @@ sidebarLayout->addWidget(sidebarTabs);
                 m_channel_series[i]->replace(m_live_buffers[i]);             
                 // Shift the camera to follow the newest data
                 m_charts[i]->chart()->axes(Qt::Horizontal).first()->setRange(m_xCounter[i] - BUFFER_SIZE, m_xCounter[i]);
-                if(sampling_mode == DIGITAL_MODE){
-                    m_charts[i]->chart()->axes(Qt::Vertical).first()->setRange(0, 1);
+                if(i >= NUM_DIGITAL_CHANNELS){//analog channels
+                    m_charts[i]->chart()->axes(Qt::Vertical).first()->setRange(0, 4095);
                 }
-                else if(sampling_mode == ANALOG_MODE){
-                    m_charts[i]->chart()->axes(Qt::Vertical).first()->setRange(-10, 10);
+                else{//digital channels
+                    m_charts[i]->chart()->axes(Qt::Vertical).first()->setRange(0, 1);
                 }
                 
             }
@@ -206,65 +279,84 @@ sidebarLayout->addWidget(sidebarTabs);
         }
     });
 
-    connect(continuousBtn, &QPushButton::clicked, this, [this, channelList]() {
+    connect(configureBtn, &QPushButton::clicked, this, [this, channelList, triggerModeSelector, channelSelector, samplingModeSelector]() {
         //send continuous over serial
         //NEED TO APPEND THE PROPER REG DATA
         std::vector<uint32_t> regValues = {0, 0xA, 0, 0, 0x10, 0, 0};
-        for(int i = 0; i < channelList->count(); i++){
-            QListWidgetItem* item = channelList->item(i);
-            bool isChecked = (item->checkState() == Qt::Checked);
-            if(isChecked){
-                QByteArray cmd = m_serialManager->constructCommand(0, i, regValues);
-                qDebug() << "Sending Packet (Hex):" << cmd.toHex();
-                m_serialManager->writeCommand(cmd);
-                std::fprintf(stderr, "%d\n", i);
+
+        if(samplingModeSelector->currentText() == "Digital"){
+            //trigger type part of control reg
+            uint32_t triggerTypeReg = 0x0;//default to continuous
+            if(triggerModeSelector->currentText() == "Positive Edge"){
+                triggerTypeReg = 0x1;
             }
+            else if(triggerModeSelector->currentText() == "Negative Edge"){
+                triggerTypeReg = 0x2;
+            }
+            else if(triggerModeSelector->currentText() == "Data"){
+                triggerTypeReg = 0x3;
+            }
+
+
+
+        }
+        else if(samplingModeSelector->currentText() == "Analog"){
+
+        }
+        // for(int i = 0; i < channelList->count(); i++){
+        //     QListWidgetItem* item = channelList->item(i);
+        //     bool isChecked = (item->checkState() == Qt::Checked);
+           
+                // QByteArray cmd = m_serialManager->constructCommand(0, i, regValues);
+                // qDebug() << "Sending Packet (Hex):" << cmd.toHex();
+                // m_serialManager->writeCommand(cmd);
+                // std::fprintf(stderr, "%d\n", i);
             // QString cmd = QString("D%1").arg(channelList[i]);
             //m_serialManager->writeString(cmd);
-        }
+       // }
     });
 
-    connect(negEdgeTriggerBtn, &QPushButton::clicked, this, [this, channelList]() {
-        //send negative edge trigger over serial
-        //NEED TO APPEND THE PROPER REG DATA
-        for(int i = 0; i < channelList->count(); i++){
-            QListWidgetItem* item = channelList->item(i);
-            bool isChecked = (item->checkState() == Qt::Checked);
-            if(isChecked){
-                std::fprintf(stderr, "%d\n", i);
-            }
-            // QString cmd = QString("D%1").arg(channelList[i]);
-            //m_serialManager->writeString(cmd);
-        }
-    });
+    // connect(negEdgeTriggerBtn, &QPushButton::clicked, this, [this, channelList]() {
+    //     //send negative edge trigger over serial
+    //     //NEED TO APPEND THE PROPER REG DATA
+    //     for(int i = 0; i < channelList->count(); i++){
+    //         QListWidgetItem* item = channelList->item(i);
+    //         bool isChecked = (item->checkState() == Qt::Checked);
+    //         if(isChecked){
+    //             std::fprintf(stderr, "%d\n", i);
+    //         }
+    //         // QString cmd = QString("D%1").arg(channelList[i]);
+    //         //m_serialManager->writeString(cmd);
+    //     }
+    // });
 
-    connect(posEdgeTriggerBtn, &QPushButton::clicked, this, [this, channelList]() {
-        //send positive edge trigger over serial
-        //NEED TO APPEND THE PROPER REG DATA
-        for(int i = 0; i < channelList->count(); i++){
-            QListWidgetItem* item = channelList->item(i);
-            bool isChecked = (item->checkState() == Qt::Checked);
-            if(isChecked){
-                std::fprintf(stderr, "%d\n", i);
-            }
-            // QString cmd = QString("D%1").arg(channelList[i]);
-            //m_serialManager->writeString(cmd);
-        }
-    });
+    // connect(posEdgeTriggerBtn, &QPushButton::clicked, this, [this, channelList]() {
+    //     //send positive edge trigger over serial
+    //     //NEED TO APPEND THE PROPER REG DATA
+    //     for(int i = 0; i < channelList->count(); i++){
+    //         QListWidgetItem* item = channelList->item(i);
+    //         bool isChecked = (item->checkState() == Qt::Checked);
+    //         if(isChecked){
+    //             std::fprintf(stderr, "%d\n", i);
+    //         }
+    //         // QString cmd = QString("D%1").arg(channelList[i]);
+    //         //m_serialManager->writeString(cmd);
+    //     }
+    // });
 
-    connect(externalTriggerBtn, &QPushButton::clicked, this, [this, channelList]() {
-        //send positive edge trigger over serial
-        //NEED TO APPEND THE PROPER REG DATA
-        for(int i = 0; i < channelList->count(); i++){
-            QListWidgetItem* item = channelList->item(i);
-            bool isChecked = (item->checkState() == Qt::Checked);
-            if(isChecked){
-                std::fprintf(stderr, "%d\n", i);
-            }
-            // QString cmd = QString("D%1").arg(channelList[i]);
-            //m_serialManager->writeString(cmd);
-        }
-    });
+    // connect(externalTriggerBtn, &QPushButton::clicked, this, [this, channelList]() {
+    //     //send positive edge trigger over serial
+    //     //NEED TO APPEND THE PROPER REG DATA
+    //     for(int i = 0; i < channelList->count(); i++){
+    //         QListWidgetItem* item = channelList->item(i);
+    //         bool isChecked = (item->checkState() == Qt::Checked);
+    //         if(isChecked){
+    //             std::fprintf(stderr, "%d\n", i);
+    //         }
+    //         // QString cmd = QString("D%1").arg(channelList[i]);
+    //         //m_serialManager->writeString(cmd);
+    //     }
+    // });
 }
 
 

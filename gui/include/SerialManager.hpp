@@ -10,10 +10,12 @@
 #include <thread>
 //#include "MainWindow.hpp"
 
-
-#define MAX_CHANNELS 16
+#define NUM_DIGITAL_CHANNELS 16
+#define NUM_ANALOG_CHANNELS 2
+#define NUM_CHANNELS (NUM_ANALOG_CHANNELS + NUM_DIGITAL_CHANNELS)
 #define DIGITAL_MODE 0
 #define ANALOG_MODE 1
+
 
 class SerialManager : public QObject {
     Q_OBJECT
@@ -23,8 +25,6 @@ public:
     void openPort(const QString& rawPortName);
     void writeCommand(const QByteArray &command);
     QByteArray constructCommand(bool mode, int id, const std::vector<uint32_t>& values);
-
-
     void start();
 
 private:
@@ -36,7 +36,8 @@ private:
     QSerialPort m_serialPort;
     enum class ParserState {
         Idle,
-        ExpectingBufferDump,
+        ExpectingDigitalBufferDump,
+        ExpectingAnalogBufferDump,
         ExpectingConfigDump
     };
 

@@ -1,6 +1,9 @@
 #include "SerialManager.hpp"
 #include "SerialScanner.hpp"
 
+
+
+
 SerialManager::SerialManager(QComboBox* combo, QObject* parent) 
     : QObject(parent), m_combo(combo) 
 {
@@ -103,8 +106,14 @@ void SerialManager::openPort(const QString& rawPortName){
                 if (m_parserState == ParserState::Idle) {
                     if (line.startsWith("SD")) {//buffer dump
                         m_incomingId = line.mid(2).toInt();
-                        m_parserState = ParserState::ExpectingBufferDump;
-                        std::fprintf(stderr, "[CMD] Buffer Dump Incoming for ID: %d\n", m_incomingId);
+                        m_parserState = ParserState::ExpectingDigitalBufferDump;
+                        std::fprintf(stderr, "[CMD] Digital Buffer Dump Incoming for ID: %d\n", m_incomingId);
+                        continue;
+                    }
+                    else if(line.startsWith("SA")){
+                        m_incomingId = line.mid(2).toInt();
+                        m_parserState = ParserState::ExpectingAnalogBufferDump;
+                        std::fprintf(stderr, "[CMD] Analog Buffer Dump Incoming for ID: %d\n", m_incomingId);
                         continue;
                     } 
                     //else if (line.startsWith("CD")) {//config dump
@@ -120,9 +129,8 @@ void SerialManager::openPort(const QString& rawPortName){
                     }
 
                 } 
-                else if (m_parserState == ParserState::ExpectingBufferDump) {
-                    int targetChannel = m_incomingId; 
-                    
+                else if (m_parserState == ParserState::ExpectingDigitalBufferDump) {
+                    int targetChannel = m_incomingId;                    
                     for (int i = 0; i < rawLine.size(); ++i) {
                         uint8_t currentByte = static_cast<uint8_t>(rawLine.at(i));
                         
@@ -137,35 +145,17 @@ void SerialManager::openPort(const QString& rawPortName){
                     // Reset back to Idle to wait for the next command
                     m_parserState = ParserState::Idle;
                 }
+                else if (m_parserState == ParserState::ExpectingAnalogBufferDump) {
+                    int targetChannel = m_incomingId + (NUM_DIGITAL_CHANNELS); 
+                    for (int i = 0; i < rawLine.size(); ++i) {
+                        uint16_t currentByte = static_cast<uint16_t>(rawLine.at(i));
+                        emit dataParsed(targetChannel, currentByte << 4);
+                    }
+                
+                    // Reset back to Idle to wait for the next command
+                    m_parserState = ParserState::Idle;
+                }
         }
-        // int timeout_buffer = 0;
-        // while(m_parserState == ParserState::ExpectingBufferDump){
-        //     int targetChannel = m_incomingId;
-        //     if(timeout_buffer > 10){
-        //         m_parserState = ParserState::Idle;
-        //     }
-        //     if(newData.size() == 1 && newData.at(0) == 0x0A){
-        //         m_parserState = ParserState::Idle;
-        //     }
-        //     else{
-        //         if(newData.size() == 1 && newData.at(0) == 0x31){//value is high
-        //             emit dataParsed(targetChannel, 1.0);
-        //         }
-        //         else if(newData.size() == 1 && newData.at(0) == 0x30){
-        //             emit dataParsed(targetChannel, 0.0);
-        //         }
-        //         else{
-        //             timeout_buffer++;
-        //         }
-        //     }
-            
-                    
-        // }
-
-
-
-            // std::fprintf(stderr, "%s\n", data.constData());
-            // std::fflush(stderr);
          });
     
     } else {

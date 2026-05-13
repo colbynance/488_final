@@ -5,7 +5,8 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QValueAxis>
-#include <QSplitter>         
+#include <QSplitter>    
+#include <QLineEdit>     
 #include <QListWidget>       
 #include <QListWidgetItem>   
 #include <QScrollArea>  
@@ -13,10 +14,12 @@
 #include <QApplication>
 #include <QPushButton>
 #include <array>
+#include <QString>
 #include "SerialManager.hpp"
 #include "DecoderWindow.hpp"     
 
-#define NUM_CHANNELS 16
+
+
 #define BUFFER_SIZE 1024
 
 
@@ -24,8 +27,15 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
     MainWindow(QWidget *parent = nullptr);
+    enum{
+        DOWNSAMPLE_REG,
+        TRIGGER_DATA,
+        TRIGGER_MASK,
+        BUFFER_ADDR,
+        BUFFER_WRITE_DATA,
+        WRITE_ENABLE
+    };
 private:
-    bool sampling_mode = 0;
     QComboBox* m_portSelector;
     //SerialManager* m_serialManager;
     std::unique_ptr<SerialManager> m_serialManager;
