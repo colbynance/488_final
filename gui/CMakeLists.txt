@@ -21,6 +21,7 @@ add_executable(eaelas
     src/main.cpp 
     src/SerialManager.cpp 
     src/MainWindow.cpp
+    src/DecoderWindow.cpp
     include/SerialManager.hpp
     include/MainWindow.hpp   
     include/DecoderWindow.hpp  

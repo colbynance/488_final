@@ -54,5 +54,6 @@ private:
     std::array<QLineSeries*, NUM_CHANNELS> m_channel_series;   
     void applyDarkMode();
     float analogChMaxVal[NUM_ANALOG_CHANNELS];
+    std::array<std::vector<char>, NUM_CHANNELS> m_raw_samples;
     
 };

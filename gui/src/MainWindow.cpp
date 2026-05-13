@@ -29,14 +29,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     sidebarLayout->addWidget(new QLabel("Select Device:"));
     
-    // Create a horizontal layout for the dropdown + button
+    //Create a horizontal layout for the dropdown + button
     QHBoxLayout *portLayout = new QHBoxLayout();
     m_portSelector = new QComboBox(sidebarWidget);
     QPushButton *connectBtn = new QPushButton("Connect", sidebarWidget);
     
     portLayout->addWidget(m_portSelector);
     portLayout->addWidget(connectBtn);
-    sidebarLayout->addLayout(portLayout); // Add the sub-layout to the sidebar
+    sidebarLayout->addLayout(portLayout);
 
 
 
@@ -76,11 +76,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     triggerModeSelector->addItem("Data");
     configTabLayout->addWidget(triggerModeSelector);
 
-    //c onfiguration Text Boxes (8 boxes in a grid)
+    //configuration Text Boxes
     configTabLayout->addWidget(new QLabel("Configuration Registers: (AB0D format please)"));
     QGridLayout *configGridLayout = new QGridLayout();
     
-    // Use a vector to store pointers to the line edits so we can read them later
+    //store pointers to the line edits so we can read them later
     std::vector<QLineEdit*> configLines;
     
     for (int i = 0; i < 6; ++i) {
@@ -105,9 +105,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         }
         QLabel *label = new QLabel(s);
         QLineEdit *lineEdit = new QLineEdit();
-        lineEdit->setPlaceholderText("0x00"); // Hint for hex inputs
         lineEdit->setMinimumWidth(40);
-        QRegularExpression hexRegex("^[0-9A-Fa-f]*$");
+        QRegularExpression hexRegex("^[0-9A-Fa-f]*$");//make only hex values
         QRegularExpressionValidator *validator = new QRegularExpressionValidator(hexRegex, this);
         lineEdit->setValidator(validator);
         configLines.push_back(lineEdit);
@@ -125,7 +124,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     configTabLayout->addWidget(configureBtn);
     configTabLayout->addStretch();
 
-    // Tab 2 Serial Decoder
+    //tab 2 Serial Decoder
     QWidget *decoderTab = new QWidget();
     QVBoxLayout *decoderTabLayout = new QVBoxLayout(decoderTab);
     QPushButton *decoderBtn = new QPushButton("Open Serial Decoder Window");
@@ -147,6 +146,45 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
                 m_decoderWindow = nullptr; 
             });
         }
+        connect(m_decoderWindow, &DecoderWindow::runRequested, this, [this]() {
+            m_decoderWindow->clearTable();
+            ProtocolType type = m_decoderWindow->getActiveProtocol();
+            Frame_t *results = nullptr;
+            uint32_t num_frames = 0;
+
+            if (type == UART) {
+                int ch = m_decoderWindow->getUartChannel();
+                uint32_t baud = m_decoderWindow->getBaudRate();
+
+                num_frames = decode_uart(&results, 
+                                        m_raw_samples[ch].data(), 
+                                        m_raw_samples[ch].size(), 
+                                        baud);
+            } 
+            else if (type == I2C) {
+                int sda_ch = m_decoderWindow->getI2cSda();
+                int scl_ch = m_decoderWindow->getI2cScl();
+
+                num_frames = decode_i2c(&results, 
+                                    m_raw_samples[sda_ch].data(), 
+                                    m_raw_samples[scl_ch].data(), 
+                                    m_raw_samples[sda_ch].size());
+            }
+            else if (type == SPI) {
+                num_frames = decode_spi(&results,
+                                    m_raw_samples[m_decoderWindow->getSpiMosi()].data(),
+                                    m_raw_samples[m_decoderWindow->getSpiMiso()].data(),
+                                    m_raw_samples[m_decoderWindow->getSpiSck()].data(),
+                                    m_raw_samples[m_decoderWindow->getSpiCs()].data(),
+                                    m_raw_samples[0].size()); // Assume all same length
+            }
+
+            if (num_frames > 0) {
+                // m_decoderWindow->displayFrames(results, num_frames);
+                frame_free(results, num_frames);
+            }
+        });
+
         
         m_decoderWindow->show();
         m_decoderWindow->raise();
@@ -247,7 +285,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     
     connect(m_serialManager.get(), &SerialManager::dataParsed, this, [this](int channel, double value) {
+    
         
+        char sample = (value > 0.5) ? '1' : '0';//convert to 0 or 1 instead of double
+        m_raw_samples[channel].push_back(sample);
+
+        // if (m_raw_samples[channel].size() > BUFFER_SIZE) {
+        //     m_raw_samples[channel].erase(m_raw_samples[channel].begin());
+        // }
 
         m_live_buffers[channel].append(QPointF(m_xCounter[channel], value));
         m_xCounter[channel]++;
