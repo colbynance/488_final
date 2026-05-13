@@ -39,7 +39,7 @@ static inline bool frame_acked(Frame_t * f) {
 } 
 
 // Free an entire capture.
-static inline void frame_free(Frame_t * f, int num_frames) {
+static inline void capture_free(Frame_t * f, int num_frames) {
     if (f) {
         for (int i = 0; i < num_frames; i++) {
             std::free(f[i].samples);
@@ -54,9 +54,9 @@ void set_sample_rate(uint32_t sample_spacing);
 // a malloc()'d array of bytes. Each decoder allocates and fills an
 // array of frames, allocating the required number of bytes in each frame.
 // Each decoder returns the length of the array of frames.
-uint32_t decode_uart(Frame_t ** f_buf, char * samples, uint32_t len_samples, uint32_t baud); // Assumes 8N1
-uint32_t decode_spi(Frame_t ** f_buf, char * samples_mosi, char * samples_miso, char * samples_sck, char * samples_cs, uint32_t len_samples); // Assumes negative CS and (1,1) timings
-uint32_t decode_i2c(Frame_t ** f_buf, char * samples_sda, char * samples_scl, uint32_t len_samples);
+uint decode_uart(Frame_t ** f_buf, char * samples, uint32_t len_samples, uint32_t baud); // Assumes 8N1
+uint decode_spi(Frame_t ** f_buf, char * samples_mosi, char * samples_miso, char * samples_sck, char * samples_cs, uint32_t len_samples); // Assumes negative CS and (1,1) timings
+uint decode_i2c(Frame_t ** f_buf, char * samples_sda, char * samples_scl, uint32_t len_samples);
 
 
 
