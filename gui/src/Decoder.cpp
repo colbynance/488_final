@@ -108,7 +108,51 @@ uint decode_uart(Frame_t ** f_buf, char * samples, uint len_samples, uint baud) 
     return size;
 }
 
-uint decode_spi(Frame_t ** f_buf, char * samples_mosi, char * samples_miso, char * samples_sck, char * samples_cs, uint len_samples) {
+uint decode_spi(Frame_t ** f_buf_mosi, Frame_t ** f_buf_miso, char * samples_mosi, char * samples_miso, char * samples_sck, char * samples_cs, uint len_samples) {
+    int size_frames = 0;
+    Frame_t this_mosi, this_miso;
+    int bit_idx = 0;
+    int size_bytes = 0;
+
+    *f_buf_mosi = *f_buf_miso = NULL;
+
+    while (i != sample_idx) {
+        uint sample_idx = find_next_falling(samples_cs, i, len_samples);
+        if (sample_idx == len_samples) {
+            return size;
+        }
+
+        uint sample_end = find_next_rising(samples_cs, i, len_samples);
+        if (sample_end == len_samples) {
+            return size;
+        }
+
+        // Read the transaction
+        while (i < sample_end) {
+            uint sck_idx = find_next_rising(samples_sck, i, len_samples);
+
+            if (bit_idx == 0) {
+                size_bytes++;
+                this_mosi.samples_len = this_miso.samples_len = size_bytes;
+                this_mosi.samples = std::realloc(this_mosi.samples, size_bytes);
+                this_miso.samples = std::realloc(this_miso.samples, size_bytes);
+            }
+
+            uint8_t * mosi_data = &this_mosi.samples[size_bytes - 1];
+            uint8_t * miso_data = &this_miso.samples[size_bytes - 1];
+            *mosi_data = (*(mosi_data) << 1) | (samples_mosi[i] - '0');
+            *miso_data = (*(miso_data) << 1) | (samples_miso[i] - '0');
+
+            bit_idx = (bit_idx + 1) % 8;
+        }
+
+        size_frames++;
+        *f_buf_mosi = (Frame_t *) std::realloc(*f_buf_mosi, size_frames * sizeof(Frame_t));
+        *f_buf_miso = (Frame_t *) std::realloc(*f_buf_miso, size_frames * sizeof(Frame_t));
+        std::memcpy(&(*f_buf_mosi)[size_frames - 1], &this_mosi);
+        std::memcpy(&(*f_buf_miso)[size_frames - 1], &this_miso);
+    }
+    return size;
 }
 
 uint decode_i2c(Frame_t ** f_buf, char * samples_sda, char * samples_scl, uint len_samples) {
