@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         m_xCounter[ch] = BUFFER_SIZE;
         for (int i = 0; i < BUFFER_SIZE; i++) {
             m_live_buffers[ch].append(QPointF(i, 0.0));
+            m_raw_samples[ch].push_back('0');
         }
     }
     for(int i = 0; i < NUM_ANALOG_CHANNELS; i++){
@@ -343,7 +344,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         //NEED TO APPEND THE PROPER REG DATA
         std::vector<uint32_t> regValues;
 
-        if(samplingModeSelector->currentIndex() == DIGITAL_MODE){
             //trigger type part of control reg
             uint32_t triggerType = 0x0;//default to continuous
             if(triggerModeSelector->currentText() == "Positive Edge"){
@@ -374,64 +374,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
                     }
                 }
             } 
+        if(samplingModeSelector->currentIndex() == DIGITAL_MODE){
 
             QByteArray cmd = m_serialManager->constructCommand(DIGITAL_MODE, channelSelector->currentText().toInt(), regValues); 
-            qDebug() << "Sending Packet (Hex):" << cmd.toHex();
+            qDebug() << "Sending DIGITAL Packet (Hex):" << cmd.toHex();
             m_serialManager->writeCommand(cmd); 
-
-
-
-
-
-
+            
         }
         else if(samplingModeSelector->currentText() == "Analog"){
-
+            QByteArray cmd = m_serialManager->constructCommand(ANALOG_MODE, channelSelector->currentText().toInt(), regValues); 
+            qDebug() << "Sending ANALOG Packet (Hex):" << cmd.toHex();
+            m_serialManager->writeCommand(cmd); 
         }
         
     });
-
-    // connect(negEdgeTriggerBtn, &QPushButton::clicked, this, [this, channelList]() {
-    //     //send negative edge trigger over serial
-    //     //NEED TO APPEND THE PROPER REG DATA
-    //     for(int i = 0; i < channelList->count(); i++){
-    //         QListWidgetItem* item = channelList->item(i);
-    //         bool isChecked = (item->checkState() == Qt::Checked);
-    //         if(isChecked){
-    //             std::fprintf(stderr, "%d\n", i);
-    //         }
-    //         // QString cmd = QString("D%1").arg(channelList[i]);
-    //         //m_serialManager->writeString(cmd);
-    //     }
-    // });
-
-    // connect(posEdgeTriggerBtn, &QPushButton::clicked, this, [this, channelList]() {
-    //     //send positive edge trigger over serial
-    //     //NEED TO APPEND THE PROPER REG DATA
-    //     for(int i = 0; i < channelList->count(); i++){
-    //         QListWidgetItem* item = channelList->item(i);
-    //         bool isChecked = (item->checkState() == Qt::Checked);
-    //         if(isChecked){
-    //             std::fprintf(stderr, "%d\n", i);
-    //         }
-    //         // QString cmd = QString("D%1").arg(channelList[i]);
-    //         //m_serialManager->writeString(cmd);
-    //     }
-    // });
-
-    // connect(externalTriggerBtn, &QPushButton::clicked, this, [this, channelList]() {
-    //     //send positive edge trigger over serial
-    //     //NEED TO APPEND THE PROPER REG DATA
-    //     for(int i = 0; i < channelList->count(); i++){
-    //         QListWidgetItem* item = channelList->item(i);
-    //         bool isChecked = (item->checkState() == Qt::Checked);
-    //         if(isChecked){
-    //             std::fprintf(stderr, "%d\n", i);
-    //         }
-    //         // QString cmd = QString("D%1").arg(channelList[i]);
-    //         //m_serialManager->writeString(cmd);
-    //     }
-    // });
 }
 
 
