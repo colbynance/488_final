@@ -311,7 +311,7 @@ void set_config_from_uart(){
 		d_channels[id]->trigger_data = get_reg_val();
 		d_channels[id]->trigger_mask = get_reg_val();
 		d_channels[id]->buffer_addr = get_reg_val();
-		get_reg_val(); //don't need to read the read data
+		//get_reg_val(); //don't need to read the read data
 		d_channels[id]->buffer_write_data = get_reg_val();
 		d_channels[id]->write_enable = get_reg_val();
 		digital_set_from_config(d_channels[id]);
@@ -323,17 +323,17 @@ void set_config_from_uart(){
 		a_channels[id]->downsample_rate = get_reg_val();
 		a_channels[id]->trigger_data = get_reg_val();
 		a_channels[id]->trigger_type = get_reg_val();
-		get_reg_val(); //kinda just forgot about this reg
+		//get_reg_val(); //kinda just forgot about this reg
 		a_channels[id]->buffer_addr = get_reg_val();
-		get_reg_val(); //don't need to read the read data
+		//get_reg_val(); //don't need to read the read data
 		a_channels[id]->buffer_write_data = get_reg_val();
 		a_channels[id]->write_enable = get_reg_val();
-		get_reg_val();
-		get_reg_val();
-		get_reg_val();
-		get_reg_val();
-		get_reg_val();
-		get_reg_val();
+		//get_reg_val();
+		//get_reg_val();
+		//get_reg_val();
+		//get_reg_val();
+		//get_reg_val();
+		//get_reg_val();
 		analog_set_from_config(a_channels[id]);
 
 	}
@@ -387,7 +387,7 @@ int main()
 //
 	digital_set_from_config(d_channel2);
 
-	d_channel2->control.trig_type = 0x1;
+	d_channel2->control.trig_type = 0x0;
 
 	digital_set_from_config(d_channel2);
 
@@ -401,7 +401,7 @@ int main()
 	a_channel1->control.enable = 0;
 	a_channel1->downsample_rate = 1000;
 	a_channel1->trigger_data = 0xFFF >> 1;
-	a_channel1->trigger_type = 2;
+	a_channel1->trigger_type = 0;
 	a_channel1->buffer_addr = 0x0;
 	a_channel1->write_enable = 0x1;
 	a_channel1->channel_id = 0;
