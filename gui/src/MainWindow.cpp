@@ -33,12 +33,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 
     sidebarLayout->addWidget(new QLabel("Select Device:"));
-    
+
     //Create a horizontal layout for the dropdown + button
     QHBoxLayout *portLayout = new QHBoxLayout();
     m_portSelector = new QComboBox(sidebarWidget);
     QPushButton *connectBtn = new QPushButton("Connect", sidebarWidget);
-    
+
     portLayout->addWidget(m_portSelector);
     portLayout->addWidget(connectBtn);
     sidebarLayout->addLayout(portLayout);
@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QListWidget *channelList = new QListWidget(sidebarWidget);
     sidebarLayout->addWidget(channelList);
 
-    
+
 
 
 
@@ -86,10 +86,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     //configuration Text Boxes
     configTabLayout->addWidget(new QLabel("Configuration Registers: (AB0D format please)"));
     QGridLayout *configGridLayout = new QGridLayout();
-    
+
     //store pointers to the line edits so we can read them later
     std::vector<QLineEdit*> configLines;
-    
+
     for (int i = 0; i < 6; ++i) {
         QString s = "";
         if(i == DOWNSAMPLE_REG){
@@ -117,10 +117,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         QRegularExpressionValidator *validator = new QRegularExpressionValidator(hexRegex, this);
         lineEdit->setValidator(validator);
         configLines.push_back(lineEdit);
-        
+
         //Arrange in 2 columns (0,1)
         int row = i / 2;
-        int col = (i % 2) * 2; 
+        int col = (i % 2) * 2;
         configGridLayout->addWidget(label, row, col);
         configGridLayout->addWidget(lineEdit, row, col + 1);
     }
@@ -138,47 +138,48 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     decoderTabLayout->addWidget(decoderBtn);
     decoderTabLayout->addStretch();
 
-    
+
     sidebarTabs->addTab(configTab, "Configs");
     sidebarTabs->addTab(decoderTab, "Decoder");
 
     sidebarLayout->addWidget(sidebarTabs);
 
-    
+
     connect(decoderBtn, &QPushButton::clicked, this, [this]() {
         if (!m_decoderWindow) {
             m_decoderWindow = new DecoderWindow(nullptr);
             m_decoderWindow->setAttribute(Qt::WA_DeleteOnClose);
             connect(m_decoderWindow, &QObject::destroyed, this, [this]() {
-                m_decoderWindow = nullptr; 
+                m_decoderWindow = nullptr;
             });
         }
         connect(m_decoderWindow, &DecoderWindow::runRequested, this, [this]() {
             m_decoderWindow->clearTable();
             ProtocolType type = m_decoderWindow->getActiveProtocol();
             Frame_t *results = nullptr;
+            Frame_t *results_miso = nullptr;
             uint32_t num_frames = 0;
 
             if (type == UART) {
                 int ch = m_decoderWindow->getUartChannel();
                 uint32_t baud = m_decoderWindow->getBaudRate();
 
-                num_frames = decode_uart(&results, 
-                                        m_raw_samples[ch].data(), 
-                                        m_raw_samples[ch].size(), 
+                num_frames = decode_uart(&results,
+                                        m_raw_samples[ch].data(),
+                                        m_raw_samples[ch].size(),
                                         baud);
-            } 
+            }
             else if (type == I2C) {
                 int sda_ch = m_decoderWindow->getI2cSda();
                 int scl_ch = m_decoderWindow->getI2cScl();
 
-                num_frames = decode_i2c(&results, 
-                                    m_raw_samples[sda_ch].data(), 
-                                    m_raw_samples[scl_ch].data(), 
+                num_frames = decode_i2c(&results,
+                                    m_raw_samples[sda_ch].data(),
+                                    m_raw_samples[scl_ch].data(),
                                     m_raw_samples[sda_ch].size());
             }
             else if (type == SPI) {
-                num_frames = decode_spi(&results,
+                num_frames = decode_spi(&results, &results_miso,
                                     m_raw_samples[m_decoderWindow->getSpiMosi()].data(),
                                     m_raw_samples[m_decoderWindow->getSpiMiso()].data(),
                                     m_raw_samples[m_decoderWindow->getSpiSck()].data(),
@@ -188,11 +189,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
             if (num_frames > 0) {
                 // m_decoderWindow->displayFrames(results, num_frames);
-                frame_free(results, num_frames);
+                capture_free(results, num_frames);
             }
         });
 
-        
+
         m_decoderWindow->show();
         m_decoderWindow->raise();
         m_decoderWindow->activateWindow();
@@ -203,7 +204,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     QScrollArea *scrollArea = new QScrollArea(mainSplitter);
     scrollArea->setWidgetResizable(true); //Allows charts to expand
-    
+
     QWidget *scrollContent = new QWidget(scrollArea);
     QVBoxLayout *chartLayout = new QVBoxLayout(scrollContent);
     scrollArea->setWidget(scrollContent);
@@ -212,7 +213,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     mainSplitter->setStretchFactor(0, 1); //Sidebar
     mainSplitter->setStretchFactor(1, 4); //Graphs
 
-    m_charts.resize(NUM_CHANNELS); 
+    m_charts.resize(NUM_CHANNELS);
 
     for (int i = 0; i < NUM_CHANNELS; i++) {
         //assume digital
@@ -225,18 +226,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
         QListWidgetItem *item = new QListWidgetItem(s, channelList);
 
-        
+
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-        
+
         //auto display first 2 on startup
-        item->setCheckState((i < 2) ? Qt::Checked : Qt::Unchecked); 
+        item->setCheckState((i < 2) ? Qt::Checked : Qt::Unchecked);
 
 
         QLineSeries *series = new QLineSeries();
         series->replace(m_live_buffers[i]);
         m_channel_series[i] = series;
         QPen pen;
-        pen.setColor(colors[i % colors.size()]); 
+        pen.setColor(colors[i % colors.size()]);
         pen.setWidth(2);
         series->setPen(pen);
 
@@ -268,19 +269,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         QChartView *view = new QChartView(chart);
         view->setRenderHint(QPainter::Antialiasing);
         view->setMinimumHeight(150);
-        view->setVisible(i < 2); 
+        view->setVisible(i < 2);
 
         chartLayout->addWidget(view);
-        m_charts[i] = view; 
+        m_charts[i] = view;
     }
 
     //Push everything in the layout to the top so charts don't stretch weirdly
     connect(channelList, &QListWidget::itemChanged, this, [this, channelList](QListWidgetItem *item) {
-    
+
     //active channel check
     int index = channelList->row(item);
     bool isChecked = (item->checkState() == Qt::Checked);
-        
+
     //show/hide chart
     m_charts[index]->setVisible(isChecked);
     });
@@ -290,10 +291,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     m_serialManager = std::make_unique<SerialManager>(m_portSelector, this);
     m_serialManager->start();
 
-    
+
     connect(m_serialManager.get(), &SerialManager::dataParsed, this, [this](int channel, double value) {
-    
-        
+
+
         char sample = (value > 0.5) ? '1' : '0';//convert to 0 or 1 instead of double
         m_raw_samples[channel].push_back(sample);
 
@@ -303,7 +304,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
         m_live_buffers[channel].append(QPointF(m_xCounter[channel], value));
         m_xCounter[channel]++;
-        if(channel > NUM_DIGITAL_CHANNELS - 1){        
+        if(channel > NUM_DIGITAL_CHANNELS - 1){
             if(value > analogChMaxVal[channel - (NUM_DIGITAL_CHANNELS - 1)]){
                 analogChMaxVal[channel - (NUM_DIGITAL_CHANNELS - 1)] = value;
             }
@@ -317,7 +318,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     connect(themeBtn, &QPushButton::clicked, this, [this, themeBtn]() {
         m_isDarkMode = !m_isDarkMode;
-        
+
         if (m_isDarkMode) {
             applyDarkMode();
             themeBtn->setText("Toggle Light Mode");
@@ -325,7 +326,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
             applyLightMode();
             themeBtn->setText("Toggle Dark Mode");
         }
-        
+
         updateChartThemes();
     });
 
@@ -334,9 +335,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         // Only redraw if the chart exists and we actually have data
         for(int i = 0; i < NUM_CHANNELS; i++){
             if (m_channel_series[i] && !m_live_buffers[i].isEmpty()) {
-                
+
                 // Push the batched buffer to the screen once
-                m_channel_series[i]->replace(m_live_buffers[i]);             
+                m_channel_series[i]->replace(m_live_buffers[i]);
                 // Shift the camera to follow the newest data
                 m_charts[i]->chart()->axes(Qt::Horizontal).first()->setRange(m_xCounter[i] - BUFFER_SIZE, m_xCounter[i]);
                 if(i >= NUM_DIGITAL_CHANNELS){//analog channels
@@ -345,7 +346,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
                 else{//digital channels
                     m_charts[i]->chart()->axes(Qt::Vertical).first()->setRange(0, 1);
                 }
-                
+
             }
         }
     });
@@ -387,27 +388,27 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
                     bool valid = false;
                     QString hexStr = configLines[i]->text();
                     uint32_t val = hexStr.toUInt(&valid, 16);
-                    
+
                     if (valid) {
                         regValues.push_back(val);
                     } else {
-                        regValues.push_back(0x0); 
+                        regValues.push_back(0x0);
                     }
                 }
-            } 
+            }
         if(samplingModeSelector->currentIndex() == DIGITAL_MODE){
 
-            QByteArray cmd = m_serialManager->constructCommand(DIGITAL_MODE, channelSelector->currentText().toInt(), regValues); 
+            QByteArray cmd = m_serialManager->constructCommand(DIGITAL_MODE, channelSelector->currentText().toInt(), regValues);
             qDebug() << "Sending DIGITAL Packet (Hex):" << cmd.toHex();
-            m_serialManager->writeCommand(cmd); 
-            
+            m_serialManager->writeCommand(cmd);
+
         }
         else if(samplingModeSelector->currentText() == "Analog"){
-            QByteArray cmd = m_serialManager->constructCommand(ANALOG_MODE, channelSelector->currentText().toInt(), regValues); 
+            QByteArray cmd = m_serialManager->constructCommand(ANALOG_MODE, channelSelector->currentText().toInt(), regValues);
             qDebug() << "Sending ANALOG Packet (Hex):" << cmd.toHex();
-            m_serialManager->writeCommand(cmd); 
+            m_serialManager->writeCommand(cmd);
         }
-        
+
     });
 }
 
@@ -448,7 +449,7 @@ void MainWindow::updateChartThemes() {
     for (int i = 0; i < NUM_CHANNELS; i++) {
         if (m_charts[i] && m_charts[i]->chart()) {
             QChart *chart = m_charts[i]->chart();
-            
+
             if (m_isDarkMode) {
                 chart->setTheme(QChart::ChartThemeDark);
                 chart->setBackgroundBrush(QBrush(QColor(40, 40, 40)));
@@ -459,7 +460,7 @@ void MainWindow::updateChartThemes() {
         }
 
         QPen pen;
-        pen.setColor(colors[i % colors.size()]); 
+        pen.setColor(colors[i % colors.size()]);
         pen.setWidth(2);
         m_channel_series[i]->setPen(pen);
     }

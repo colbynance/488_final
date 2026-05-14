@@ -36,7 +36,7 @@ static inline bool frame_parity_good(Frame_t * f) {
 
 static inline bool frame_acked(Frame_t * f) {
     return f->flags & (1 << FLAGS_ACK_POS);
-} 
+}
 
 // Free an entire capture.
 static inline void capture_free(Frame_t * f, int num_frames) {
@@ -57,7 +57,5 @@ void set_sample_rate(uint32_t sample_spacing);
 uint decode_uart(Frame_t ** f_buf, char * samples, uint32_t len_samples, uint32_t baud); // Assumes 8N1
 uint decode_spi(Frame_t ** f_buf_mosi, Frame_t ** f_buf_miso, char * samples_mosi, char * samples_miso, char * samples_sck, char * samples_cs, uint32_t len_samples); // Assumes negative CS and (0,0) timings
 uint decode_i2c(Frame_t ** f_buf, char * samples_sda, char * samples_scl, uint32_t len_samples);
-
-
 
 #endif

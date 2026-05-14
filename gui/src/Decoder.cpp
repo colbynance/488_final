@@ -1,4 +1,5 @@
 #include "Decoder.hpp"
+#include <cstring>
 
 #define SYSCLK_FREQ (100000000) // 100 MHz
 
@@ -90,15 +91,15 @@ uint decode_uart(Frame_t ** f_buf, char * samples, uint len_samples, uint baud) 
                 i += samples_per_uart_bit;
                 continue;
             }
-            
+
             data = (data << 1) | (samples[i] - '0');
             i += samples_per_uart_bit;
         }
 
-        this_frame.samples = std::malloc(1);
+        this_frame.samples = (uint8_t *) std::malloc(1);
         *this_frame.samples = data;
 
-        std::memcpy(&(*f_buf)[size - 1], &this_frame);
+        std::memcpy(&(*f_buf)[size - 1], &this_frame, sizeof(Frame_t));
 
         size++;
         *f_buf = (Frame_t *)std::realloc(*f_buf, sizeof(Frame_t) * size); // Lazy array extension
@@ -111,10 +112,11 @@ uint decode_uart(Frame_t ** f_buf, char * samples, uint len_samples, uint baud) 
 
 uint decode_spi(Frame_t ** f_buf_mosi, Frame_t ** f_buf_miso, char * samples_mosi, char * samples_miso, char * samples_sck, char * samples_cs, uint len_samples) {
     int size_frames = 0;
-    Frame_t this_mosi = {0}
+    Frame_t this_mosi = {0};
     Frame_t this_miso = {0};
     int bit_idx = 0;
     int size_bytes = 0;
+    int i;
 
     *f_buf_mosi = *f_buf_miso = NULL;
 
@@ -141,8 +143,8 @@ uint decode_spi(Frame_t ** f_buf_mosi, Frame_t ** f_buf_miso, char * samples_mos
             if (bit_idx == 0) {
                 size_bytes++;
                 this_mosi.samples_len = this_miso.samples_len = size_bytes;
-                this_mosi.samples = std::realloc(this_mosi.samples, size_bytes);
-                this_miso.samples = std::realloc(this_miso.samples, size_bytes);
+                this_mosi.samples = (uint8_t *) std::realloc(this_mosi.samples, size_bytes);
+                this_miso.samples = (uint8_t *) std::realloc(this_miso.samples, size_bytes);
                 this_mosi.samples[size_bytes - 1] = 0;
                 this_miso.samples[size_bytes - 1] = 0;
             }
@@ -155,8 +157,8 @@ uint decode_spi(Frame_t ** f_buf_mosi, Frame_t ** f_buf_miso, char * samples_mos
             bit_idx = (bit_idx + 1) % 8;
         }
 
-        std::memcpy(&(*f_buf_mosi)[size_frames - 1], &this_mosi);
-        std::memcpy(&(*f_buf_miso)[size_frames - 1], &this_miso);
+        std::memcpy(&(*f_buf_mosi)[size_frames - 1], &this_mosi, sizeof(Frame_t));
+        std::memcpy(&(*f_buf_miso)[size_frames - 1], &this_miso, sizeof(Frame_t));
 
         size_frames++;
         *f_buf_mosi = (Frame_t *) std::realloc(*f_buf_mosi, size_frames * sizeof(Frame_t));
@@ -167,5 +169,5 @@ uint decode_spi(Frame_t ** f_buf_mosi, Frame_t ** f_buf_miso, char * samples_mos
 }
 
 uint decode_i2c(Frame_t ** f_buf, char * samples_sda, char * samples_scl, uint len_samples) {
-    
+  return 0;
 }
