@@ -83,6 +83,65 @@ void DecoderWindow::clearTable() {
     }
 }
 
+void DecoderWindow::displayFrames(Frame_t *results, uint32_t num_frames) {
+    if (!results || num_frames == 0) return;
+
+    m_table->setSortingEnabled(false);
+    m_table->setRowCount(num_frames);
+
+    QString protocolName = m_protocolTabs->tabText(m_protocolTabs->currentIndex());
+
+    for (uint32_t i = 0; i < num_frames; ++i) {
+        m_table->setItem(i, 0, new QTableWidgetItem(QString("Frame %1").arg(i)));
+
+        m_table->setItem(i, 1, new QTableWidgetItem(protocolName));
+
+        QString hexPart;
+        QString asciiPart;
+        for (uint32_t j = 0; j < results[i].samples_len; ++j) {
+            uint8_t byte = results[i].samples[j];
+
+            // Build Hex string
+            hexPart += QString("%1 ").arg(byte, 2, 16, QChar('0')).toUpper();
+
+            if (byte >= 32 && byte <= 126) {
+                asciiPart += QChar(byte);
+            } else {
+                asciiPart += '.'; //Placeholder for non-printable chars
+            }
+        }
+        QString combinedDisplay = hexPart.trimmed() + " (\"" + asciiPart + "\")";
+        m_table->setItem(i, 2, new QTableWidgetItem(combinedDisplay));
+
+        QStringList statusParts;
+        bool isValid = results[i].flags & (1 << FLAGS_VALID_POS);
+        
+        if (!isValid) {
+            statusParts << "INVALID";
+        } else {
+            statusParts << "Valid";
+            if (results[i].flags & (1 << FLAGS_PARITY_POS)) statusParts << "Parity_OK";
+            if (results[i].flags & (1 << FLAGS_ACK_POS))    statusParts << "ACK";
+        }
+
+        QString statusStr = statusParts.join(" | ");
+        auto *statusItem = new QTableWidgetItem(statusStr);
+        
+        //Color coding
+        if (!isValid) {
+            statusItem->setForeground(Qt::red);
+        } else {
+            statusItem->setForeground(QColor(0, 150, 0)); //Dark Green
+        }
+        
+        m_table->setItem(i, 3, statusItem);
+    }
+
+    m_table->setSortingEnabled(true);
+    m_table->scrollToBottom();
+}
+
+
 //Getters
 ProtocolType DecoderWindow::getActiveProtocol() const { return (ProtocolType)m_protocolTabs->currentIndex(); }
 int DecoderWindow::getUartChannel() const { return m_uartCh->currentData().toInt(); }

@@ -38,6 +38,8 @@ public:
 
     void addDecodedByte(double timestamp, const QString& channelName, const QString& data, const QString& status = "OK");
     void clearTable();
+    void displayFrames(Frame_t *results, uint32_t num_frames);
+
 
 signals:
     void runRequested();

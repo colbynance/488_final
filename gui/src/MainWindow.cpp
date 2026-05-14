@@ -164,10 +164,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
                 int ch = m_decoderWindow->getUartChannel();
                 uint32_t baud = m_decoderWindow->getBaudRate();
 
+                set_sample_rate(10);
                 num_frames = decode_uart(&results,
                                         m_raw_samples[ch].data(),
                                         m_raw_samples[ch].size(),
-                                        baud);
+                                        115200);
             }
             else if (type == I2C) {
                 int sda_ch = m_decoderWindow->getI2cSda();
@@ -188,8 +189,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
             }
 
             if (num_frames > 0) {
-                // m_decoderWindow->displayFrames(results, num_frames);
-                capture_free(results, num_frames);
+                 m_decoderWindow->displayFrames(results, num_frames);
+                //capture_free(results, num_frames);
             }
         });
 
@@ -298,9 +299,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         char sample = (value > 0.5) ? '1' : '0';//convert to 0 or 1 instead of double
         m_raw_samples[channel].push_back(sample);
 
-        // if (m_raw_samples[channel].size() > BUFFER_SIZE) {
-        //     m_raw_samples[channel].erase(m_raw_samples[channel].begin());
-        // }
+         if (m_raw_samples[channel].size() > BUFFER_SIZE) {
+             m_raw_samples[channel].erase(m_raw_samples[channel].begin());
+         }
 
         m_live_buffers[channel].append(QPointF(m_xCounter[channel], value));
         m_xCounter[channel]++;

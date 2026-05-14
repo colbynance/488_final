@@ -1,5 +1,6 @@
 #include "Decoder.hpp"
 #include <cstring>
+#include <cstdio>
 
 #define SYSCLK_FREQ (100000000) // 100 MHz
 
@@ -56,7 +57,7 @@ void set_sample_rate(uint sample_spacing) {
 uint decode_uart(Frame_t ** f_buf, char * samples, uint len_samples, uint baud) {
     int i = 0;
     int size = 0;
-    uint samples_per_uart_bit = sample_freq / baud;
+    uint samples_per_uart_bit = 51; // achieved through testing.... sample_freq / baud;
     uint8_t data;
     Frame_t this_frame;
 
@@ -71,19 +72,20 @@ uint decode_uart(Frame_t ** f_buf, char * samples, uint len_samples, uint baud) 
     for (i = 0; i < len_samples - 1; i++) {
         // Find start bit (falling edge)
         uint start_of_frame = find_next_falling(samples, i, len_samples);
-        if (i >= len_samples - bits_per_frame * samples_per_uart_bit) {
+        if (start_of_frame >= len_samples - bits_per_frame * samples_per_uart_bit) {
             return size;
         }
+        i = start_of_frame;
 
         data = 0;
         this_frame.flags = 1 << FLAGS_VALID_POS;
         for (int bit = 0; bit < bits_per_frame; bit++) {
-            if (edge_within_bit_time(samples, i, len_samples, samples_per_uart_bit)) {
-                // Invalid frame, the signal wasn't held high/low for long enough
-                i = start_of_frame + bits_per_frame * samples_per_uart_bit;
-                this_frame.flags = 0;
-                break;
-            }
+            // if (edge_within_bit_time(samples, i, len_samples, samples_per_uart_bit)) {
+            //     // Invalid frame, the signal wasn't held high/low for long enough
+            //     i = start_of_frame + bits_per_frame * samples_per_uart_bit;
+            //     this_frame.flags = 0;
+            //     break;
+            // }
 
             uint sample_point_idx = i + samples_per_uart_bit / 2;
             if (bit == 0 || bit == 9) {
@@ -92,17 +94,17 @@ uint decode_uart(Frame_t ** f_buf, char * samples, uint len_samples, uint baud) 
                 continue;
             }
 
-            data = (data << 1) | (samples[i] - '0');
+            data = (data >> 1) | ((samples[sample_point_idx] - '0') << 7);
             i += samples_per_uart_bit;
         }
 
         this_frame.samples = (uint8_t *) std::malloc(1);
         *this_frame.samples = data;
 
-        std::memcpy(&(*f_buf)[size - 1], &this_frame, sizeof(Frame_t));
-
         size++;
         *f_buf = (Frame_t *)std::realloc(*f_buf, sizeof(Frame_t) * size); // Lazy array extension
+
+        std::memcpy(&(*f_buf)[size - 1], &this_frame, sizeof(Frame_t));
 
         this_frame.samples_len = 1;
         this_frame.flags = 0;
